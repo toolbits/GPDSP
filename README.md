@@ -30,7 +30,7 @@ https://github.com/braitsch/ofxDatGui
 Compiled binary is here:  
 https://github.com/toolbits/GPDSP/tree/master/release
 
-Development environment:  
+Development environment:  
 o macOS High Sierra (10.13)  
 o Xcode 9.0 (Apple LLVM 9.0.0)  
 o openFrameworks 0.9.8  
