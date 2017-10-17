@@ -52,7 +52,7 @@
 
 namespace ir {
 
-class GPDSPPeekNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode, public GPDSPRefreshableNode {
+class GPDSPPeekNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
                 float                       _peek;
     

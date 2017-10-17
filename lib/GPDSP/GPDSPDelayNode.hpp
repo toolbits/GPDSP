@@ -52,7 +52,7 @@
 
 namespace ir {
 
-class GPDSPDelayNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode, public GPDSPRefreshableNode {
+class GPDSPDelayNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
                 float                       _queue;
     
