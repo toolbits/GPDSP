@@ -17,8 +17,8 @@ o GPDSPAmplifyNode: amplifies a value (such as Transistor)
 o GPDSPDelayNode: single sample delay  
 o GPDSPBufferNode: N samples delay  
 o GPDSPSumNode: adds all input values  
-o GPDSPMultiplyNode: multiplies all input values  
-
+o GPDSPMultiplyNode: multiplies all input values  
+  
 
 An example application for openFrameworks:  
 
@@ -27,11 +27,11 @@ An example application for openFrameworks:  
 The openFrameworks exmaple code needs ofxDatGui addon.  
 Please install ofxDatGui first:  
 https://github.com/braitsch/ofxDatGui
-
+  
 
 Compiled binary is here:  
 https://github.com/toolbits/GPDSP/tree/master/release
-
+  
 
 Development environment:  
 
