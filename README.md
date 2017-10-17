@@ -19,6 +19,8 @@ o GPDSPBufferNode: N samples delay
 o GPDSPSumNode: adds all input values  
 o GPDSPMultiplyNode: multiplies all input values  
 
+<img width="960" alt="screenshot" src="https://user-images.githubusercontent.com/1215065/31654098-dfcbfa94-b35f-11e7-82df-b0464a10f22a.png">
+
 The openFrameworks exmaple code needs ofxDatGui addon.  
 Please install ofxDatGui first.  
 https://github.com/braitsch/ofxDatGui
