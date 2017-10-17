@@ -29,16 +29,16 @@ https://github.com/braitsch/ofxDatGui
 
 When you compile the example, please locates the project under:  
 
-of_v0.9.8_osx_release/  
-apps/
-myApps/
-someCode/
-...
-GPDSP/  <<-- here
-openFrameworks/
-GPDSP/
-GPDSP.xcodeproj
-...
+of_v0.9.8_osx_release/  
+    apps/
+        myApps/
+            someCode/
+            ...
+    GPDSP/  <<-- here
+        openFrameworks/
+            GPDSP/
+                GPDSP.xcodeproj
+                ...
 
 Compiled binary is here:  
 https://github.com/toolbits/GPDSP/tree/master/release
