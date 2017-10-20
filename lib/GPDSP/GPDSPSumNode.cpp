@@ -63,6 +63,11 @@ void GPDSPSumNode::invalidate(void)
     return;
 }
 
+void GPDSPSumNode::prepare(void)
+{
+    return;
+}
+
 bool GPDSPSumNode::process(void)
 {
     float sigma;

@@ -69,7 +69,8 @@ class GPDSPNodeRenderer {
                 std::map<std::string, GPDSPRewindableNode*>
                                             _rewindable;
                 std::map<std::string, GPDSPRefreshableNode*>
-                                            _refresh;
+                                            _refreshable;
+                std::vector<GPDSPNode*>     _jit;
     
     public:
         explicit                            GPDSPNodeRenderer           (void);

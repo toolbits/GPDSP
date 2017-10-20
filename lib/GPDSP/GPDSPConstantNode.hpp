@@ -60,6 +60,7 @@ class GPDSPConstantNode : public GPDSPOutputtableNode {
         virtual                             ~GPDSPConstantNode          (void);
                 void                        setConstant                 (float constant);
                 float                       getConstant                 (void) const;
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
     private:
                                             GPDSPConstantNode           (GPDSPConstantNode const&);

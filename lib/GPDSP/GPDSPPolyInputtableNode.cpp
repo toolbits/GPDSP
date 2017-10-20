@@ -64,10 +64,14 @@ bool GPDSPPolyInputtableNode::setCountI(int count)
         count = 0;
     }
     if (count != _node.size()) {
-        _node.resize(count, NULL);
-        invalidate();
-        if (_node.size() != count) {
+        try {
+            _node.resize(count, NULL);
+        }
+        catch (std::bad_alloc const&) {
             result = false;
+        }
+        if (result) {
+            invalidate();
         }
     }
     return result;
@@ -130,29 +134,34 @@ bool GPDSPPolyInputtableNode::isValidI(int index) const
 
 bool GPDSPPolyInputtableNode::appendI(GPDSPOutputtableNode const* node)
 {
-    size_t size;
-    bool result(false);
+    bool result(true);
     
-    size = _node.size();
-    _node.push_back(node);
-    invalidate();
-    if (_node.size() == size + 1) {
-        result = true;
+    try {
+        _node.push_back(node);
+    }
+    catch (std::bad_alloc const&) {
+        result = false;
+    }
+    if (result) {
+        invalidate();
     }
     return result;
 }
 
 bool GPDSPPolyInputtableNode::insertI(int index, GPDSPOutputtableNode const* node)
 {
-    size_t size;
     bool result(false);
     
     if (0 <= index && index < _node.size()) {
-        size = _node.size();
-        _node.insert(_node.begin() + index, node);
-        invalidate();
-        if (_node.size() == size + 1) {
-            result = true;
+        result = true;
+        try {
+            _node.insert(_node.begin() + index, node);
+        }
+        catch (std::bad_alloc const&) {
+            result = false;
+        }
+        if (result) {
+            invalidate();
         }
     }
     return result;

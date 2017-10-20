@@ -63,6 +63,7 @@ class GPDSPBufferNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableN
                 bool                        setSize                     (int size);
                 int                         getSize                     (void) const;
         virtual void                        invalidate                  (void);
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
         virtual void                        refresh                     (void);
     private:

@@ -60,6 +60,7 @@ class GPDSPPeekNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNod
         explicit                            GPDSPPeekNode               (void);
         virtual                             ~GPDSPPeekNode              (void);
         virtual void                        invalidate                  (void);
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
         virtual void                        refresh                     (void);
     private:

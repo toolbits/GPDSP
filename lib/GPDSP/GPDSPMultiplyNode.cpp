@@ -63,6 +63,11 @@ void GPDSPMultiplyNode::invalidate(void)
     return;
 }
 
+void GPDSPMultiplyNode::prepare(void)
+{
+    return;
+}
+
 bool GPDSPMultiplyNode::process(void)
 {
     float sigma;

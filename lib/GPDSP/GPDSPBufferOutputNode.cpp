@@ -74,6 +74,11 @@ float* GPDSPBufferOutputNode::getBuffer(int* interleave) const
     return _buffer;
 }
 
+void GPDSPBufferOutputNode::prepare(void)
+{
+    return;
+}
+
 bool GPDSPBufferOutputNode::process(void)
 {
     float value;

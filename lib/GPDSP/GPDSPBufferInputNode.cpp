@@ -74,18 +74,21 @@ float const* GPDSPBufferInputNode::getBuffer(int* interleave) const
     return _buffer;
 }
 
+void GPDSPBufferInputNode::prepare(void)
+{
+    if (_buffer != NULL) {
+        setValueO(_buffer[_count * _interleave]);
+        ++_count;
+    }
+    else {
+        setValueO(0.0f);
+    }
+    return;
+}
+
 bool GPDSPBufferInputNode::process(void)
 {
-    if (!isValidO()) {
-        if (_buffer != NULL) {
-            setValueO(_buffer[_count * _interleave]);
-            ++_count;
-        }
-        else {
-            setValueO(0.0f);
-        }
-    }
-    return isValidO();
+    return true;
 }
 
 void GPDSPBufferInputNode::rewind(void)

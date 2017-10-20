@@ -60,6 +60,7 @@ class GPDSPDelayNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNo
         explicit                            GPDSPDelayNode              (void);
         virtual                             ~GPDSPDelayNode             (void);
         virtual void                        invalidate                  (void);
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
         virtual void                        refresh                     (void);
     private:

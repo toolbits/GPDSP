@@ -63,6 +63,7 @@ class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRe
         virtual                             ~GPDSPBufferInputNode       (void);
                 void                        setBuffer                   (float const* buffer, int interleave);
                 float const*                getBuffer                   (int* interleave) const;
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
         virtual void                        rewind                      (void);
     private:

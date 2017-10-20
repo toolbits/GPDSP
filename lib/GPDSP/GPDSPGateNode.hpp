@@ -64,6 +64,7 @@ class GPDSPGateNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNod
                 void                        setMaximum                  (float maximum);
                 float                       getMaximum                  (void) const;
         virtual void                        invalidate                  (void);
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
     private:
                                             GPDSPGateNode               (GPDSPGateNode const&);

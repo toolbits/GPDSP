@@ -65,12 +65,15 @@ void GPDSPConstantNode::setConstant(float constant)
     return;
 }
 
+void GPDSPConstantNode::prepare(void)
+{
+    setValueO(_constant);
+    return;
+}
+
 bool GPDSPConstantNode::process(void)
 {
-    if (!isValidO()) {
-        setValueO(_constant);
-    }
-    return isValidO();
+    return true;
 }
 
 }// end of namespace

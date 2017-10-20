@@ -35,6 +35,7 @@
 		C34F3D561F94C6CF00C3EF97 /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34F3D1B1F94C5D600C3EF97 /* ofxSmartFont.cpp */; };
 		C34F3D571F94C6D300C3EF97 /* ofxDatGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34F3D1D1F94C5D600C3EF97 /* ofxDatGui.cpp */; };
 		C3B51F261F9587C1001F2C14 /* GPDSPRefreshableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B51F241F9587C1001F2C14 /* GPDSPRefreshableNode.cpp */; };
+		C3EB8CEE1F98D5FC001067BF /* Menlo.ttc in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3EB8CED1F98D5FC001067BF /* Menlo.ttc */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
@@ -65,6 +66,7 @@
 			dstSubfolderSpec = 7;
 			files = (
 				C335E8EF1F95E33700319BE7 /* Verdana.ttf in CopyFiles */,
+				C3EB8CEE1F98D5FC001067BF /* Menlo.ttc in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +170,7 @@
 		C34F3D211F94C5D600C3EF97 /* ofxDatGuiThemes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGuiThemes.h; sourceTree = "<group>"; };
 		C3B51F241F9587C1001F2C14 /* GPDSPRefreshableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPRefreshableNode.cpp; sourceTree = "<group>"; };
 		C3B51F251F9587C1001F2C14 /* GPDSPRefreshableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPRefreshableNode.hpp; sourceTree = "<group>"; };
+		C3EB8CED1F98D5FC001067BF /* Menlo.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = Menlo.ttc; path = bin/data/ofxbraitsch/fonts/Menlo.ttc; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* GPDSPDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPDSPDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -376,6 +379,7 @@
 				C335E8F41F95E35900319BE7 /* icon-radio-on.png */,
 				C335E8F31F95E35800319BE7 /* picker-rainbow.png */,
 				C335E8EE1F95E33600319BE7 /* Verdana.ttf */,
+				C3EB8CED1F98D5FC001067BF /* Menlo.ttc */,
 				C335E8EB1F95E30800319BE7 /* graph.png */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,

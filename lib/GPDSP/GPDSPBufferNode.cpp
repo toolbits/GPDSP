@@ -64,10 +64,14 @@ bool GPDSPBufferNode::setSize(int size)
         size = 0;
     }
     if (size != _queue.size()) {
-        _queue.assign(size, 0.0f);
-        invalidate();
-        if (_queue.size() != size) {
+        try {
+            _queue.assign(size, 0.0f);
+        }
+        catch (std::bad_alloc const&) {
             result = false;
+        }
+        if (result) {
+            invalidate();
         }
     }
     return result;
@@ -80,6 +84,14 @@ void GPDSPBufferNode::invalidate(void)
     return;
 }
 
+void GPDSPBufferNode::prepare(void)
+{
+    if (_queue.size() > 0) {
+        setValueO(_queue.back());
+    }
+    return;
+}
+
 bool GPDSPBufferNode::process(void)
 {
     float value;
@@ -88,30 +100,24 @@ bool GPDSPBufferNode::process(void)
         if (getValueI(&value)) {
             setValueP(value);
             if (_queue.size() > 0) {
-                setValueO(_queue.back());
-                _queue.pop_back();
-                _queue.push_front(value);
+                try {
+                    _queue.push_front(value);
+                    _queue.pop_back();
+                }
+                catch (std::bad_alloc const&) {
+                }
             }
             else {
                 setValueO(value);
             }
         }
     }
-    if (!isValidO()) {
-        if (_queue.size() > 0) {
-            setValueO(_queue.back());
-        }
-    }
-    return isValidP() && isValidO();
+    return isValidP();
 }
 
 void GPDSPBufferNode::refresh(void)
 {
-    int i;
-    
-    for (i = 0; i < _queue.size(); ++i) {
-        _queue[i] = 0.0f;
-    }
+    std::fill(_queue.begin(), _queue.end(), 0.0f);
     return;
 }
 

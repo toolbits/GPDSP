@@ -69,6 +69,7 @@ class ofApp : public ofBaseApp {
         ofMutex _mutexParam;
         ofxDatGui* _gui;
         ofImage _image;
+        shared_ptr<ofxSmartFont> _font;
     
     public:
         void setup(void);
@@ -79,9 +80,11 @@ class ofApp : public ofBaseApp {
         void draw(void);
         void keyPressed(int key);
         void onButtonEvent(ofxDatGuiButtonEvent e);
+        void onToggleEvent(ofxDatGuiToggleEvent e);
         void onSliderEvent(ofxDatGuiSliderEvent e);
         void onDropdownEvent(ofxDatGuiDropdownEvent e);
     private:
         void scanDevice(string const& label, int in, int out, IORec* io);
         void startDevice(IORec* io, int index, int in, int out);
+        void drawValueO(string const& name, int x, int y, ofColor const& color) const;
 };

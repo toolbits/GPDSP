@@ -82,6 +82,11 @@ void GPDSPGateNode::invalidate(void)
     return;
 }
 
+void GPDSPGateNode::prepare(void)
+{
+    return;
+}
+
 bool GPDSPGateNode::process(void)
 {
     float value;

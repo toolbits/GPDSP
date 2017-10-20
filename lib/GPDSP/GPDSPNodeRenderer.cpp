@@ -70,7 +70,7 @@ bool GPDSPNodeRenderer::getCountI(std::string const& name, int* count) const
             if ((node = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
                 *count = node->getCountI();
             }
-            else if (std::dynamic_pointer_cast<GPDSPMonoInputtableNode>(it->second)) {
+            else if (std::dynamic_pointer_cast<GPDSPMonoInputtableNode>(it->second) != NULL) {
                 *count = 1;
             }
             else {
@@ -89,7 +89,7 @@ bool GPDSPNodeRenderer::getCountO(std::string const& name, int* count) const
     
     if ((it = _node.find(name)) != _node.end()) {
         if (count != NULL) {
-            if (std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) {
+            if (std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second) != NULL) {
                 *count = 1;
             }
             else {
@@ -378,7 +378,12 @@ bool GPDSPNodeRenderer::newNodeBufferInput(std::string const& name, float const*
     std::shared_ptr<GPDSPBufferInputNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPBufferInputNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPBufferInputNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         node->setBuffer(buffer, interleave);
         result = newNode(name, node);
     }
@@ -390,7 +395,12 @@ bool GPDSPNodeRenderer::newNodeBufferOutput(std::string const& name, float* buff
     std::shared_ptr<GPDSPBufferOutputNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPBufferOutputNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPBufferOutputNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         node->setBuffer(buffer, interleave);
         result = newNode(name, node);
     }
@@ -402,7 +412,12 @@ bool GPDSPNodeRenderer::newNodeConstant(std::string const& name, float constant)
     std::shared_ptr<GPDSPConstantNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPConstantNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPConstantNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         node->setConstant(constant);
         result = newNode(name, node);
     }
@@ -414,7 +429,12 @@ bool GPDSPNodeRenderer::newNodeGate(std::string const& name, float minimum, floa
     std::shared_ptr<GPDSPGateNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPGateNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPGateNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         node->setMinimum(minimum);
         node->setMaximum(maximum);
         result = newNode(name, node);
@@ -427,7 +447,12 @@ bool GPDSPNodeRenderer::newNodePeek(std::string const& name)
     std::shared_ptr<GPDSPPeekNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPPeekNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPPeekNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         result = newNode(name, node);
     }
     return result;
@@ -438,7 +463,12 @@ bool GPDSPNodeRenderer::newNodeAmplify(std::string const& name, float gain)
     std::shared_ptr<GPDSPAmplifyNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPAmplifyNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPAmplifyNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         node->setGain(gain);
         result = newNode(name, node);
     }
@@ -450,7 +480,12 @@ bool GPDSPNodeRenderer::newNodeDelay(std::string const& name)
     std::shared_ptr<GPDSPDelayNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPDelayNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPDelayNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         result = newNode(name, node);
     }
     return result;
@@ -461,7 +496,12 @@ bool GPDSPNodeRenderer::newNodeBuffer(std::string const& name, int size)
     std::shared_ptr<GPDSPBufferNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPBufferNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPBufferNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         if (node->setSize(size)) {
             result = newNode(name, node);
         }
@@ -474,7 +514,12 @@ bool GPDSPNodeRenderer::newNodeSum(std::string const& name, int count)
     std::shared_ptr<GPDSPSumNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPSumNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPSumNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         if (node->setCountI(count)) {
             result = newNode(name, node);
         }
@@ -487,7 +532,12 @@ bool GPDSPNodeRenderer::newNodeMultiply(std::string const& name, int count)
     std::shared_ptr<GPDSPMultiplyNode> node;
     bool result(false);
     
-    if ((node = std::make_shared<GPDSPMultiplyNode>()) != NULL) {
+    try {
+        node = std::make_shared<GPDSPMultiplyNode>();
+    }
+    catch (std::bad_alloc const&) {
+    }
+    if (node != NULL) {
         if (node->setCountI(count)) {
             result = newNode(name, node);
         }
@@ -498,19 +548,48 @@ bool GPDSPNodeRenderer::newNodeMultiply(std::string const& name, int count)
 bool GPDSPNodeRenderer::newNode(std::string const& name, std::shared_ptr<GPDSPNode> node)
 {
     std::shared_ptr<GPDSPRewindableNode> rewindable;
-    std::shared_ptr<GPDSPRefreshableNode> refresh;
+    std::shared_ptr<GPDSPRefreshableNode> refreshable;
     bool result(false);
     
     if (name != "" && node != NULL) {
         if (_node.find(name) == _node.end()) {
-            _node[name] = node;
-            if ((rewindable = std::dynamic_pointer_cast<GPDSPRewindableNode>(node)) != NULL) {
-                _rewindable[name] = rewindable.get();
-            }
-            if ((refresh = std::dynamic_pointer_cast<GPDSPRefreshableNode>(node)) != NULL) {
-                _refresh[name] = refresh.get();
-            }
             result = true;
+            try {
+                _node[name] = node;
+            }
+            catch (std::bad_alloc const&) {
+                result = false;
+            }
+            if (result) {
+                if ((rewindable = std::dynamic_pointer_cast<GPDSPRewindableNode>(node)) != NULL) {
+                    try {
+                        _rewindable[name] = rewindable.get();
+                    }
+                    catch (std::bad_alloc const&) {
+                        result = false;
+                    }
+                }
+                if (result) {
+                    if ((refreshable = std::dynamic_pointer_cast<GPDSPRefreshableNode>(node)) != NULL) {
+                        try {
+                            _refreshable[name] = refreshable.get();
+                        }
+                        catch (std::bad_alloc const&) {
+                            result = false;
+                        }
+                    }
+                    if (result) {
+                        _jit.clear();
+                    }
+                    else {
+                        _rewindable.erase(name);
+                        _node.erase(name);
+                    }
+                }
+                else {
+                    _node.erase(name);
+                }
+            }
         }
     }
     return result;
@@ -520,7 +599,8 @@ void GPDSPNodeRenderer::deleteNode(std::string const& name)
 {
     if (_node.find(name) != _node.end()) {
         setLinkO(name, "");
-        _refresh.erase(name);
+        _jit.clear();
+        _refreshable.erase(name);
         _rewindable.erase(name);
         _node.erase(name);
     }
@@ -529,7 +609,8 @@ void GPDSPNodeRenderer::deleteNode(std::string const& name)
 
 void GPDSPNodeRenderer::clearNode(void)
 {
-    _refresh.clear();
+    _jit.clear();
+    _refreshable.clear();
     _rewindable.clear();
     _node.clear();
     return;
@@ -539,27 +620,81 @@ bool GPDSPNodeRenderer::render(int count)
 {
     std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator nit;
     std::map<std::string, GPDSPRewindableNode*>::const_iterator rit;
+    std::vector<GPDSPNode*>::const_iterator jit;
+    std::map<std::string, std::shared_ptr<GPDSPNode> > node;
     int remain;
+    bool error;
     bool result(false);
     
     if (count >= 0) {
         for (rit = _rewindable.begin(); rit != _rewindable.end(); ++rit) {
             rit->second->rewind();
         }
+        result = true;
         while (--count >= 0) {
-            for (nit = _node.begin(); nit != _node.end(); ++nit) {
-                nit->second->invalidate();
+            if (_jit.size() > 0) {
+                for (jit = _jit.begin(); jit != _jit.end(); ++jit) {
+                    (*jit)->invalidate();
+                }
+                for (jit = _jit.begin(); jit != _jit.end(); ++jit) {
+                    (*jit)->prepare();
+                }
+                error = false;
+                do {
+                    remain = 0;
+                    for (jit = _jit.begin(); jit != _jit.end(); ++jit) {
+                        if (!(*jit)->process()) {
+                            error = true;
+                            ++remain;
+                        }
+                    }
+                } while (remain > 0);
+                if (error) {
+                    _jit.clear();
+                }
             }
-            do {
-                remain = 0;
-                for (nit = _node.begin(); nit != _node.end(); ++nit) {
-                    if (!nit->second->process()) {
-                        ++remain;
+            else {
+                try {
+                    node = _node;
+                }
+                catch (std::bad_alloc const&) {
+                    result = false;
+                }
+                if (result) {
+                    for (nit = node.begin(); nit != node.end(); ++nit) {
+                        nit->second->invalidate();
+                    }
+                    for (nit = node.begin(); nit != node.end(); ++nit) {
+                        nit->second->prepare();
+                    }
+                    while (node.size() > 0) {
+                        for (nit = node.begin(); nit != node.end(); ) {
+                            if (nit->second->process()) {
+                                if (result) {
+                                    try {
+                                        _jit.push_back(nit->second.get());
+                                    }
+                                    catch (std::bad_alloc const&) {
+                                        result = false;
+                                    }
+                                }
+                                nit = node.erase(nit);
+                            }
+                            else {
+                                ++nit;
+                            }
+                        }
+                    }
+                    if (!result) {
+                        _jit.clear();
+                        break;
                     }
                 }
-            } while (remain > 0);
+                else {
+                    break;
+                }
+            }
         }
-        result = true;
     }
     return result;
 }
@@ -568,7 +703,7 @@ void GPDSPNodeRenderer::refresh(void)
 {
     std::map<std::string, GPDSPRefreshableNode*>::const_iterator it;
     
-    for (it = _refresh.begin(); it != _refresh.end(); ++it) {
+    for (it = _refreshable.begin(); it != _refreshable.end(); ++it) {
         it->second->refresh();
     }
     return;
@@ -578,7 +713,7 @@ void GPDSPNodeRenderer::refresh(std::string const& name)
 {
     std::map<std::string, GPDSPRefreshableNode*>::const_iterator it;
     
-    if ((it = _refresh.find(name)) != _refresh.end()) {
+    if ((it = _refreshable.find(name)) != _refreshable.end()) {
         it->second->refresh();
     }
     return;

@@ -63,6 +63,11 @@ void GPDSPPeekNode::invalidate(void)
     return;
 }
 
+void GPDSPPeekNode::prepare(void)
+{
+    return;
+}
+
 bool GPDSPPeekNode::process(void)
 {
     float value;

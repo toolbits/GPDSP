@@ -58,11 +58,11 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.1.2        2017 iridium.jp");
+    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.2.0        2017 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
-    _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0);
-    _o.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0);
+    _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
+    _o.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
     _dsp.newNodeBufferInput("L-in", &_i.buffer[0], CHANNEL_SIZE);
     _dsp.newNodeBufferInput("R-in", &_i.buffer[1], CHANNEL_SIZE);
     _dsp.newNodeBufferOutput("L-out", &_o.buffer[0], CHANNEL_SIZE);
@@ -71,15 +71,15 @@ void ofApp::setup(void)
     _dsp.newNodeSum("L-sum", 3);
     _dsp.newNodeBuffer("L-bf1", 1);
     _dsp.newNodeBuffer("L-bf2", 1);
-    _dsp.newNodeAmplify("LL-amp", 0.0);
-    _dsp.newNodeAmplify("LR-amp", 0.0);
-    _dsp.newNodeGate("L-gat", -1.0, +1.0);
+    _dsp.newNodeAmplify("LL-amp", 0.0f);
+    _dsp.newNodeAmplify("LR-amp", 0.0f);
+    _dsp.newNodeGate("L-gat", -1.0f, +1.0f);
     _dsp.newNodeSum("R-sum", 3);
     _dsp.newNodeBuffer("R-bf1", 1);
     _dsp.newNodeBuffer("R-bf2", 1);
-    _dsp.newNodeAmplify("RR-amp", 0.0);
-    _dsp.newNodeAmplify("RL-amp", 0.0);
-    _dsp.newNodeGate("R-gat", -1.0, +1.0);
+    _dsp.newNodeAmplify("RR-amp", 0.0f);
+    _dsp.newNodeAmplify("RL-amp", 0.0f);
+    _dsp.newNodeGate("R-gat", -1.0f, +1.0f);
     
     _dsp.setLinkI("L-sum", 0, "L-in");
     _dsp.setLinkI("L-sum", 1, "LL-amp");
@@ -107,33 +107,35 @@ void ofApp::setup(void)
     scanDevice("input", CHANNEL_SIZE, -1, &_i);
     scanDevice("output", -1, CHANNEL_SIZE, &_o);
     _gui->addBreak();
-    _gui->addSlider("delay [L] 1", 1, 10000, 1);
-    _gui->getSlider("delay [L] 1")->setPrecision(0);
-    _gui->addSlider("delay [L] 2", 1, 10000, 1);
-    _gui->getSlider("delay [L] 2")->setPrecision(0);
-    _gui->addSlider("delay [R] 1", 1, 10000, 1);
-    _gui->getSlider("delay [R] 1")->setPrecision(0);
-    _gui->addSlider("delay [R] 2", 1, 10000, 1);
-    _gui->getSlider("delay [R] 2")->setPrecision(0);
+    folder = _gui->addFolder("delay size", ofColor(127, 127, 255));
+    folder->addSlider("* L [1]", 1, 100, 1)->setPrecision(0);
+    folder->addSlider("* L [2]", 1, 100, 1)->setPrecision(0);
+    folder->addSlider("* R [1]", 1, 100, 1)->setPrecision(0);
+    folder->addSlider("* R [2]", 1, 100, 1)->setPrecision(0);
+    folder->addToggle("* expand range x100");
+    folder->expand();
     _gui->addBreak();
     folder = _gui->addFolder("delay send", ofColor(127, 255, 127));
-    folder->addSlider("* L -> L", -1.0, 1.0, 0.0);
-    folder->addSlider("* L -> R", -1.0, 1.0, 0.0);
-    folder->addSlider("* R -> R", -1.0, 1.0, 0.0);
-    folder->addSlider("* R -> L", -1.0, 1.0, 0.0);
+    folder->addSlider("* L -> L", -1.0f, 1.0f, 0.0f);
+    folder->addSlider("* L -> R", -1.0f, 1.0f, 0.0f);
+    folder->addSlider("* R -> R", -1.0f, 1.0f, 0.0f);
+    folder->addSlider("* R -> L", -1.0f, 1.0f, 0.0f);
     folder->addButton("* reset gains...");
     folder->expand();
     _gui->addBreak();
-    _gui->addSlider("gate [L] max", 0.0, +1.0, +1.0);
-    _gui->addSlider("gate [L] min", -1.0, 0.0, -1.0);
-    _gui->addSlider("gate [R] max", 0.0, +1.0, +1.0);
-    _gui->addSlider("gate [R] min", -1.0, 0.0, -1.0);
+    _gui->addSlider("gate [L] max", 0.0f, +1.0f, +1.0f);
+    _gui->addSlider("gate [L] min", -1.0f, 0.0f, -1.0f);
+    _gui->addSlider("gate [R] max", 0.0f, +1.0f, +1.0f);
+    _gui->addSlider("gate [R] min", -1.0f, 0.0f, -1.0f);
     _gui->addBreak();
     _gui->addButton("refresh...");
     _gui->onButtonEvent(this, &ofApp::onButtonEvent);
+    _gui->onToggleEvent(this, &ofApp::onToggleEvent);
     _gui->onSliderEvent(this, &ofApp::onSliderEvent);
     _gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
     _image.load("graph.png");
+    ofxSmartFont::add("ofxbraitsch/fonts/Menlo.ttc", 6 * ((ofxDatGuiIsRetina()) ? (2) : (1)));
+    _font = ofxSmartFont::get("Menlo.ttc");
     return;
 }
 
@@ -175,13 +177,29 @@ void ofApp::update(void)
 
 void ofApp::draw(void)
 {
-    int i;
     bool valid;
+    int i;
     
     ofPushMatrix();
     ofTranslate(_gui->getWidth() + (ofGetWidth() - _gui->getWidth() - _image.getWidth()) / 2, ofGetHeight() / 2);
     ofSetColor(255, 255, 255, 63);
     _image.draw(0, -_image.getHeight() / 2);
+    _o.mutex.lock();
+    drawValueO("L-in", 191, -309, ofColor(63, 255, 127));
+    drawValueO("L-sum", 472, -309, ofColor(63, 255, 127));
+    drawValueO("L-gat", 864, -309, ofColor(63, 255, 127));
+    drawValueO("L-bf1", 695, -193, ofColor(63, 255, 127));
+    drawValueO("L-bf2", 587, -25, ofColor(63, 255, 127));
+    drawValueO("LR-amp", 233, 270, ofColor(63, 255, 127));
+    drawValueO("LL-amp", 412, -259, ofColor(63, 255, 127));
+    drawValueO("R-in", 191, 320, ofColor(255, 63, 127));
+    drawValueO("R-sum", 472, 320, ofColor(255, 63, 127));
+    drawValueO("R-gat", 864, 320, ofColor(255, 63, 127));
+    drawValueO("R-bf1", 695, 204, ofColor(255, 63, 127));
+    drawValueO("R-bf2", 587, 36, ofColor(255, 63, 127));
+    drawValueO("RL-amp", 233, -259, ofColor(255, 63, 127));
+    drawValueO("RR-amp", 412, 270, ofColor(255, 63, 127));
+    _o.mutex.unlock();
     ofPopMatrix();
     ofPushMatrix();
     ofTranslate(_gui->getWidth() + (ofGetWidth() - _gui->getWidth() - BUFFER_SIZE) / 2, ofGetHeight() / 2);
@@ -244,15 +262,15 @@ void ofApp::keyPressed(int key)
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
     if (e.target->is("* reset gains...")) {
-        _gui->getSlider("* L -> L")->setValue(0.0);
-        _gui->getSlider("* L -> R")->setValue(0.0);
-        _gui->getSlider("* R -> R")->setValue(0.0);
-        _gui->getSlider("* R -> L")->setValue(0.0);
+        _gui->getSlider("* L -> L")->setValue(0.0f);
+        _gui->getSlider("* L -> R")->setValue(0.0f);
+        _gui->getSlider("* R -> R")->setValue(0.0f);
+        _gui->getSlider("* R -> L")->setValue(0.0f);
         _mutexParam.lock();
-        _dsp.getNodeAmplify("LL-amp")->setGain(0.0);
-        _dsp.getNodeAmplify("LR-amp")->setGain(0.0);
-        _dsp.getNodeAmplify("RR-amp")->setGain(0.0);
-        _dsp.getNodeAmplify("RL-amp")->setGain(0.0);
+        _dsp.getNodeAmplify("LL-amp")->setGain(0.0f);
+        _dsp.getNodeAmplify("LR-amp")->setGain(0.0f);
+        _dsp.getNodeAmplify("RR-amp")->setGain(0.0f);
+        _dsp.getNodeAmplify("RL-amp")->setGain(0.0f);
         _mutexParam.unlock();
     }
     else if (e.target->is("refresh...")) {
@@ -263,26 +281,48 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     return;
 }
 
+void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)
+{
+    int gain;
+    
+    if (e.target->is("* expand range x100")) {
+        gain = (e.target->getChecked()) ? (100) : (1);
+        _mutexParam.lock();
+        _dsp.getNodeBuffer("L-bf1")->setSize(_gui->getSlider("* L [1]")->getValue() * gain);
+        _dsp.getNodeBuffer("L-bf2")->setSize(_gui->getSlider("* L [2]")->getValue() * gain);
+        _dsp.getNodeBuffer("R-bf1")->setSize(_gui->getSlider("* R [1]")->getValue() * gain);
+        _dsp.getNodeBuffer("R-bf2")->setSize(_gui->getSlider("* R [2]")->getValue() * gain);
+        _mutexParam.unlock();
+    }
+    return;
+}
+
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)
 {
-    if (e.target->is("delay [L] 1")) {
+    int gain;
+    
+    if (e.target->is("* L [1]")) {
+        gain = (_gui->getToggle("* expand range x100")->getChecked()) ? (100) : (1);
         _mutexParam.lock();
-        _dsp.getNodeBuffer("L-bf1")->setSize(e.target->getValue());
+        _dsp.getNodeBuffer("L-bf1")->setSize(e.target->getValue() * gain);
         _mutexParam.unlock();
     }
-    else if (e.target->is("delay [L] 2")) {
+    else if (e.target->is("* L [2]")) {
+        gain = (_gui->getToggle("* expand range x100")->getChecked()) ? (100) : (1);
         _mutexParam.lock();
-        _dsp.getNodeBuffer("L-bf2")->setSize(e.target->getValue());
+        _dsp.getNodeBuffer("L-bf2")->setSize(e.target->getValue() * gain);
         _mutexParam.unlock();
     }
-    else if (e.target->is("delay [R] 1")) {
+    else if (e.target->is("* R [1]")) {
+        gain = (_gui->getToggle("* expand range x100")->getChecked()) ? (100) : (1);
         _mutexParam.lock();
-        _dsp.getNodeBuffer("R-bf1")->setSize(e.target->getValue());
+        _dsp.getNodeBuffer("R-bf1")->setSize(e.target->getValue() * gain);
         _mutexParam.unlock();
     }
-    else if (e.target->is("delay [R] 2")) {
+    else if (e.target->is("* R [2]")) {
+        gain = (_gui->getToggle("* expand range x100")->getChecked()) ? (100) : (1);
         _mutexParam.lock();
-        _dsp.getNodeBuffer("R-bf2")->setSize(e.target->getValue());
+        _dsp.getNodeBuffer("R-bf2")->setSize(e.target->getValue() * gain);
         _mutexParam.unlock();
     }
     else if (e.target->is("* L -> L")) {
@@ -363,6 +403,37 @@ void ofApp::startDevice(IORec* io, int index, int in, int out)
         io->stream.close();
         io->stream.setDeviceID(io->device[index].deviceID);
         io->stream.setup(this, out, in, SAMPLING_RATE, BUFFER_SIZE, 4);
+    }
+    return;
+}
+
+void ofApp::drawValueO(string const& name, int x, int y, ofColor const& color) const
+{
+    float value;
+    char temp[16];
+    
+    if (!dynamic_pointer_cast<GPDSPOutputtableNode>(_dsp.getNode(name))->getValueO(&value)) {
+        ofSetColor(color);
+        _font->draw("-------", x, y);
+    }
+    else if (isinf(value)) {
+        ofSetColor(color);
+        if (value > 0) {
+            _font->draw(" +INF  ", x, y);
+        }
+        else {
+            _font->draw(" -INF  ", x, y);
+        }
+    }
+    else if (isnan(value)) {
+        ofSetColor(color);
+        _font->draw("  NAN  ", x, y);
+    }
+    else {
+        value = static_cast<int>(value * 10000) / 10000.0f;
+        snprintf(temp, sizeof(temp), "%+6.4f", value);
+        ofSetColor(color, ofMap(fabs(value), 0.0f, 0.01f, 63, 255, true));
+        _font->draw(temp, x, y);
     }
     return;
 }

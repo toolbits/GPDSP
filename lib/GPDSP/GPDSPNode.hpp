@@ -53,6 +53,7 @@ class GPDSPNode {
     public:
         virtual                             ~GPDSPNode                  (void) = 0;
         virtual void                        invalidate                  (void) = 0;
+        virtual void                        prepare                     (void) = 0;
         virtual bool                        process                     (void) = 0;
     protected:
         explicit                            GPDSPNode                   (void);

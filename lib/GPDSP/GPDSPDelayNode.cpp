@@ -63,6 +63,12 @@ void GPDSPDelayNode::invalidate(void)
     return;
 }
 
+void GPDSPDelayNode::prepare(void)
+{
+    setValueO(_queue);
+    return;
+}
+
 bool GPDSPDelayNode::process(void)
 {
     float value;
@@ -70,14 +76,10 @@ bool GPDSPDelayNode::process(void)
     if (!isValidP()) {
         if (getValueI(&value)) {
             setValueP(value);
-            setValueO(_queue);
             _queue = value;
         }
     }
-    if (!isValidO()) {
-        setValueO(_queue);
-    }
-    return isValidP() && isValidO();
+    return isValidP();
 }
 
 void GPDSPDelayNode::refresh(void)

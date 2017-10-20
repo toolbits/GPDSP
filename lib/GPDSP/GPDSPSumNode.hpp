@@ -56,6 +56,7 @@ class GPDSPSumNode : public GPDSPPolyInputtableNode, public GPDSPOutputtableNode
         explicit                            GPDSPSumNode                (void);
         virtual                             ~GPDSPSumNode               (void);
         virtual void                        invalidate                  (void);
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
     private:
                                             GPDSPSumNode                (GPDSPSumNode const&);

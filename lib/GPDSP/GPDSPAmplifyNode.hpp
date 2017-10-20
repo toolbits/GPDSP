@@ -61,6 +61,7 @@ class GPDSPAmplifyNode : public GPDSPMonoInputtableNode, public GPDSPOutputtable
                 void                        setGain                     (float gain);
                 float                       getGain                     (void) const;
         virtual void                        invalidate                  (void);
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
     private:
                                             GPDSPAmplifyNode            (GPDSPAmplifyNode const&);

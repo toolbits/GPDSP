@@ -72,6 +72,11 @@ void GPDSPAmplifyNode::invalidate(void)
     return;
 }
 
+void GPDSPAmplifyNode::prepare(void)
+{
+    return;
+}
+
 bool GPDSPAmplifyNode::process(void)
 {
     float value;

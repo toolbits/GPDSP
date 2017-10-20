@@ -56,6 +56,7 @@ class GPDSPMultiplyNode : public GPDSPPolyInputtableNode, public GPDSPOutputtabl
         explicit                            GPDSPMultiplyNode           (void);
         virtual                             ~GPDSPMultiplyNode          (void);
         virtual void                        invalidate                  (void);
+        virtual void                        prepare                     (void);
         virtual bool                        process                     (void);
     private:
                                             GPDSPMultiplyNode           (GPDSPMultiplyNode const&);
