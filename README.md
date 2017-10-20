@@ -21,7 +21,7 @@ o GPDSPMultiplyNode: multiplies all input values  
 
 An audio processing example application for openFrameworks:  
 
-<img width="960" alt="screenshot" src="https://user-images.githubusercontent.com/1215065/31654098-dfcbfa94-b35f-11e7-82df-b0464a10f22a.png">
+<img width="960" alt="screenshot" src="https://user-images.githubusercontent.com/1215065/31808021-5e539cc0-b5ac-11e7-91d8-9978653a452c.png">
 
 The openFrameworks exmaple code needs ofxDatGui addon.  
 Please install ofxDatGui first:  
