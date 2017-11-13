@@ -47,21 +47,23 @@
 #ifndef __GPDSPDELAYNODE_HPP
 #define __GPDSPDELAYNODE_HPP
 
-#include "GPDSPMonoInputtableNode.hpp"
+#include "GPDSPInputtableNode.hpp"
+#include "GPDSPOutputtableNode.hpp"
 #include "GPDSPRefreshableNode.hpp"
 
 namespace ir {
 
-class GPDSPDelayNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
+class GPDSPDelayNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
                 float                       _queue;
     
     public:
         explicit                            GPDSPDelayNode              (void);
         virtual                             ~GPDSPDelayNode             (void);
+        virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
         virtual void                        refresh                     (void);
     private:
                                             GPDSPDelayNode              (GPDSPDelayNode const&);

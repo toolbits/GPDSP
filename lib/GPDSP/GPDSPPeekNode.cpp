@@ -56,40 +56,51 @@ GPDSPPeekNode::~GPDSPPeekNode(void)
 {
 }
 
+GPDSPError GPDSPPeekNode::fixate(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = setCountI(1)) == GPDSPERROR_OK) {
+        if ((error = setCountO(1)) != GPDSPERROR_OK) {
+            clearI();
+        }
+    }
+    return error;
+}
+
 void GPDSPPeekNode::invalidate(void)
 {
-    GPDSPMonoInputtableNode::invalidate();
+    GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-void GPDSPPeekNode::prepare(void)
+GPDSPError GPDSPPeekNode::prepare(void)
 {
-    return;
+    return GPDSPERROR_OK;
 }
 
-bool GPDSPPeekNode::process(void)
+GPDSPError GPDSPPeekNode::process(void)
 {
     float value;
+    GPDSPError error(GPDSPERROR_OK);
     
-    if (!isValidP()) {
-        if (getValueI(&value)) {
-            if (value < -_peek) {
-                _peek = -value;
-            }
-            else if (value > +_peek) {
-                _peek = +value;
-            }
-            setValueP(_peek);
-            setValueO(_peek);
+    if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
+        if (value < -_peek) {
+            _peek = -value;
         }
+        else if (value > +_peek) {
+            _peek = +value;
+        }
+        error = setValueO(0, _peek);
     }
-    return isValidP();
+    return error;
 }
 
 void GPDSPPeekNode::refresh(void)
 {
     _peek = 0.0f;
+    invalidate();
     return;
 }
 

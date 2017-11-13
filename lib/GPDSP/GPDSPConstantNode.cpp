@@ -48,7 +48,7 @@
 
 namespace ir {
 
-GPDSPConstantNode::GPDSPConstantNode(void) : _constant(0.0f)
+GPDSPConstantNode::GPDSPConstantNode(void) : _constant(defaultConstant())
 {
 }
 
@@ -65,15 +65,19 @@ void GPDSPConstantNode::setConstant(float constant)
     return;
 }
 
-void GPDSPConstantNode::prepare(void)
+GPDSPError GPDSPConstantNode::fixate(void)
 {
-    setValueO(_constant);
-    return;
+    return setCountO(1);
 }
 
-bool GPDSPConstantNode::process(void)
+GPDSPError GPDSPConstantNode::prepare(void)
 {
-    return true;
+    return setValueO(0, _constant);
+}
+
+GPDSPError GPDSPConstantNode::process(void)
+{
+    return GPDSPERROR_OK;
 }
 
 }// end of namespace

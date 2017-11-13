@@ -47,14 +47,23 @@
 #ifndef __GPDSPNODE_HPP
 #define __GPDSPNODE_HPP
 
+#include "GPDSPType.hpp"
+// TEST:
+#include <string>
+
 namespace ir {
 
 class GPDSPNode {
+    // TEST:
+public:
+std::string __name;
+    
     public:
         virtual                             ~GPDSPNode                  (void) = 0;
+        virtual GPDSPError                  fixate                      (void) = 0;
         virtual void                        invalidate                  (void) = 0;
-        virtual void                        prepare                     (void) = 0;
-        virtual bool                        process                     (void) = 0;
+        virtual GPDSPError                  prepare                     (void) = 0;
+        virtual GPDSPError                  process                     (void) = 0;
     protected:
         explicit                            GPDSPNode                   (void);
     private:

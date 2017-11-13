@@ -58,14 +58,21 @@ class GPDSPConstantNode : public GPDSPOutputtableNode {
     public:
         explicit                            GPDSPConstantNode           (void);
         virtual                             ~GPDSPConstantNode          (void);
+        static  float                       defaultConstant             (void);
                 void                        setConstant                 (float constant);
                 float                       getConstant                 (void) const;
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPConstantNode           (GPDSPConstantNode const&);
                 GPDSPConstantNode&          operator=                   (GPDSPConstantNode const&);
 };
+
+inline float GPDSPConstantNode::defaultConstant(void)
+{
+    return 0.0f;
+}
 
 inline float GPDSPConstantNode::getConstant(void) const
 {

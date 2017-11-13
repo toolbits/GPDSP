@@ -47,29 +47,41 @@
 #ifndef __GPDSPBUFFEROUTPUTNODE_HPP
 #define __GPDSPBUFFEROUTPUTNODE_HPP
 
-#include "GPDSPMonoInputtableNode.hpp"
+#include "GPDSPInputtableNode.hpp"
 #include "GPDSPRewindableNode.hpp"
+#include "GPDSPRefreshableNode.hpp"
 
 namespace ir {
 
-class GPDSPBufferOutputNode : public GPDSPMonoInputtableNode, public virtual GPDSPRewindableNode {
+class GPDSPBufferOutputNode : public GPDSPInputtableNode, public virtual GPDSPRewindableNode, public virtual GPDSPRefreshableNode {
     private:
-                float*                      _buffer;
+                std::vector<float>          _buffer;
+                float*                      _delegate;
+                int                         _length;
                 int                         _interleave;
-                int                         _count;
+                int                         _position;
     
     public:
         explicit                            GPDSPBufferOutputNode       (void);
         virtual                             ~GPDSPBufferOutputNode      (void);
-                void                        setBuffer                   (float* buffer, int interleave);
-                float*                      getBuffer                   (int* interleave) const;
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+                GPDSPError                  setBuffer                   (float* buffer, int length, int interleave);
+                float const*                getReadonlyBuffer           (int* length, int* interleave) const;
+                GPDSPError                  setPosition                 (int position);
+                int                         getPosition                 (void) const;
+        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
         virtual void                        rewind                      (void);
+        virtual void                        refresh                     (void);
     private:
                                             GPDSPBufferOutputNode       (GPDSPBufferOutputNode const&);
                 GPDSPBufferOutputNode&      operator=                   (GPDSPBufferOutputNode const&);
 };
+
+inline int GPDSPBufferOutputNode::getPosition(void) const
+{
+    return _position;
+}
 
 }// end of namespace
 

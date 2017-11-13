@@ -56,46 +56,48 @@ GPDSPSumNode::~GPDSPSumNode(void)
 {
 }
 
+GPDSPError GPDSPSumNode::fixate(void)
+{
+    return setCountO(1);
+}
+
 void GPDSPSumNode::invalidate(void)
 {
-    GPDSPPolyInputtableNode::invalidate();
+    GPDSPFlexInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-void GPDSPSumNode::prepare(void)
+GPDSPError GPDSPSumNode::prepare(void)
 {
-    return;
+    return GPDSPERROR_OK;
 }
 
-bool GPDSPSumNode::process(void)
+GPDSPError GPDSPSumNode::process(void)
 {
     float sigma;
     float value;
     int i;
+    GPDSPError error(GPDSPERROR_OK);
     
-    if (!isValidP()) {
-        if (getCountI() > 0) {
-            sigma = 0.0f;
-            for (i = 0; i < getCountI(); ++i) {
-                if (getValueI(i, &value)) {
-                    sigma += value;
-                }
-                else {
-                    break;
-                }
+    if (getCountI() > 0) {
+        sigma = 0.0f;
+        for (i = 0; i < getCountI(); ++i) {
+            if ((error = getValueI(i, &value)) == GPDSPERROR_OK) {
+                sigma += value;
             }
-            if (i >= getCountI()) {
-                setValueP(sigma);
-                setValueO(sigma);
+            else {
+                break;
             }
         }
-        else {
-            setValueP(0.0f);
-            setValueO(0.0f);
+        if (error == GPDSPERROR_OK) {
+            error = setValueO(0, sigma);
         }
     }
-    return isValidP();
+    else {
+        error = setValueO(0, 0.0f);
+    }
+    return error;
 }
 
 }// end of namespace

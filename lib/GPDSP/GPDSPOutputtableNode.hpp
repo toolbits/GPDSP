@@ -48,48 +48,70 @@
 #define __GPDSPOUTPUTTABLENODE_HPP
 
 #include "GPDSPNode.hpp"
-#include <stddef.h>
+#include <vector>
 
 namespace ir {
 
 class GPDSPOutputtableNode : public virtual GPDSPNode {
     private:
-                bool                        _valid;
-                float                       _value;
+                std::vector<std::pair<bool, float> >
+                                            _socket;
     
     public:
-                bool                        getValueO                   (float* value) const;
-                bool                        isValidO                    (void) const;
+                int                         getCountO                   (void) const;
+                GPDSPError                  getValueO                   (int index, float* value) const;
         virtual void                        invalidate                  (void);
     protected:
         explicit                            GPDSPOutputtableNode        (void);
         virtual                             ~GPDSPOutputtableNode       (void);
-                void                        setValueO                   (float value);
+                GPDSPError                  setCountO                   (int count);
+                GPDSPError                  setValueO                   (int index, float value);
+                GPDSPError                  appendO                     (void);
+                GPDSPError                  insertO                     (int index);
+                GPDSPError                  removeO                     (int index);
+                void                        clearO                      (void);
     private:
                                             GPDSPOutputtableNode        (GPDSPOutputtableNode const&);
                 GPDSPOutputtableNode&       operator=                   (GPDSPOutputtableNode const&);
 };
 
-inline bool GPDSPOutputtableNode::getValueO(float* value) const
+inline int GPDSPOutputtableNode::getCountO(void) const
 {
-    if (_valid) {
-        if (value != NULL) {
-            *value = _value;
+    return static_cast<int>(_socket.size());
+}
+
+inline GPDSPError GPDSPOutputtableNode::getValueO(int index, float* value) const
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        if (_socket[index].first) {
+            if (value != NULL) {
+                *value = _socket[index].second;
+            }
+        }
+        else {
+            error = GPDSPERROR_WAIT;
         }
     }
-    return _valid;
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
 }
 
-inline bool GPDSPOutputtableNode::isValidO(void) const
+inline GPDSPError GPDSPOutputtableNode::setValueO(int index, float value)
 {
-    return _valid;
-}
-
-inline void GPDSPOutputtableNode::setValueO(float value)
-{
-    _valid = true;
-    _value = value;
-    return;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        _socket[index].first = true;
+        _socket[index].second = value;
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
 }
 
 }// end of namespace

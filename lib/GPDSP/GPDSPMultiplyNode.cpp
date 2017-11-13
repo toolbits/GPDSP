@@ -56,46 +56,48 @@ GPDSPMultiplyNode::~GPDSPMultiplyNode(void)
 {
 }
 
+GPDSPError GPDSPMultiplyNode::fixate(void)
+{
+    return setCountO(1);
+}
+
 void GPDSPMultiplyNode::invalidate(void)
 {
-    GPDSPPolyInputtableNode::invalidate();
+    GPDSPFlexInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-void GPDSPMultiplyNode::prepare(void)
+GPDSPError GPDSPMultiplyNode::prepare(void)
 {
-    return;
+    return GPDSPERROR_OK;
 }
 
-bool GPDSPMultiplyNode::process(void)
+GPDSPError GPDSPMultiplyNode::process(void)
 {
-    float sigma;
+    float pi;
     float value;
     int i;
+    GPDSPError error(GPDSPERROR_OK);
     
-    if (!isValidP()) {
-        if (getCountI() > 0) {
-            sigma = 1.0f;
-            for (i = 0; i < getCountI(); ++i) {
-                if (getValueI(i, &value)) {
-                    sigma *= value;
-                }
-                else {
-                    break;
-                }
+    if (getCountI() > 0) {
+        pi = 1.0f;
+        for (i = 0; i < getCountI(); ++i) {
+            if ((error = getValueI(i, &value)) == GPDSPERROR_OK) {
+                pi *= value;
             }
-            if (i >= getCountI()) {
-                setValueP(sigma);
-                setValueO(sigma);
+            else {
+                break;
             }
         }
-        else {
-            setValueP(0.0f);
-            setValueO(0.0f);
+        if (error == GPDSPERROR_OK) {
+            error = setValueO(0, pi);
         }
     }
-    return isValidP();
+    else {
+        error = setValueO(0, 0.0f);
+    }
+    return error;
 }
 
 }// end of namespace

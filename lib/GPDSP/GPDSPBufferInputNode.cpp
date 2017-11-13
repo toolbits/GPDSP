@@ -48,52 +48,142 @@
 
 namespace ir {
 
-GPDSPBufferInputNode::GPDSPBufferInputNode(void) : _buffer(NULL)
+GPDSPBufferInputNode::GPDSPBufferInputNode(void) : _delegate(NULL)
 {
 }
 
 GPDSPBufferInputNode::~GPDSPBufferInputNode(void)
 {
+    _buffer.clear();
 }
 
-void GPDSPBufferInputNode::setBuffer(float const* buffer, int interleave)
+GPDSPError GPDSPBufferInputNode::setBuffer(float const* buffer, int length, int interleave)
 {
-    _buffer = buffer;
-    _interleave = interleave;
-    rewind();
-    return;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (buffer != NULL) {
+        if (length > 0) {
+            if (interleave > 0) {
+                _buffer.clear();
+                _delegate = buffer;
+            }
+            else {
+                error = GPDSPERROR_INVALID_PARAM;
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_PARAM;
+        }
+    }
+    else if (length > 0) {
+        if (interleave > 0) {
+            try {
+                _buffer.assign(length * interleave, 0.0f);
+            }
+            catch (std::bad_alloc const&) {
+                error = GPDSPERROR_NO_MEMORY;
+            }
+            if (error == GPDSPERROR_OK) {
+                _delegate = _buffer.data();
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_PARAM;
+        }
+    }
+    else {
+        _buffer.clear();
+        _delegate = NULL;
+    }
+    if (error == GPDSPERROR_OK) {
+        _length = length;
+        _interleave = interleave;
+        _position = 0;
+        invalidate();
+    }
+    return error;
 }
 
-float const* GPDSPBufferInputNode::getBuffer(int* interleave) const
+float const* GPDSPBufferInputNode::getReadonlyBuffer(int* length, int* interleave) const
 {
-    if (_buffer != NULL) {
+    if (_delegate != NULL) {
+        if (length != NULL) {
+            *length = _length;
+        }
         if (interleave != NULL) {
             *interleave = _interleave;
         }
     }
-    return _buffer;
+    return _delegate;
 }
 
-void GPDSPBufferInputNode::prepare(void)
+float* GPDSPBufferInputNode::getWritableBuffer(int* length, int* interleave)
 {
-    if (_buffer != NULL) {
-        setValueO(_buffer[_count * _interleave]);
-        ++_count;
+    float* result(NULL);
+    
+    if (_buffer.size() > 0) {
+        if (length != NULL) {
+            *length = _length;
+        }
+        if (interleave != NULL) {
+            *interleave = _interleave;
+        }
+        result = _buffer.data();
+    }
+    return result;
+}
+
+GPDSPError GPDSPBufferInputNode::setPosition(int position)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= position && position < _length) {
+        _position = position;
+        invalidate();
     }
     else {
-        setValueO(0.0f);
+        error = GPDSPERROR_INVALID_RANGE;
     }
-    return;
+    return error;
 }
 
-bool GPDSPBufferInputNode::process(void)
+GPDSPError GPDSPBufferInputNode::fixate(void)
 {
-    return true;
+    return setCountO(1);
+}
+
+GPDSPError GPDSPBufferInputNode::prepare(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (_delegate != NULL) {
+        if ((error = setValueO(0, _delegate[_position * _interleave])) == GPDSPERROR_OK) {
+            if (++_position >= _length) {
+                _position = 0;
+            }
+        }
+    }
+    else {
+        error = setValueO(0, 0.0f);
+    }
+    return error;
+}
+
+GPDSPError GPDSPBufferInputNode::process(void)
+{
+    return GPDSPERROR_OK;
 }
 
 void GPDSPBufferInputNode::rewind(void)
 {
-    _count = 0;
+    _position = 0;
+    invalidate();
+    return;
+}
+
+void GPDSPBufferInputNode::refresh(void)
+{
+    std::fill_n(_buffer.begin(), _buffer.size(), 0.0f);
     invalidate();
     return;
 }

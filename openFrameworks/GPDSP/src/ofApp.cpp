@@ -49,6 +49,7 @@
 #define SAMPLING_RATE   (44100)
 #define CHANNEL_SIZE    (2)
 #define BUFFER_SIZE     (1024)
+#define DRAWING_OFFSET  (100)
 #define DRAWING_GAIN    (384)
 
 void ofApp::setup(void)
@@ -58,15 +59,15 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.2.0        2017 iridium.jp");
+    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.3.0        2017 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
     _o.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
-    _dsp.newNodeBufferInput("L-in", &_i.buffer[0], CHANNEL_SIZE);
-    _dsp.newNodeBufferInput("R-in", &_i.buffer[1], CHANNEL_SIZE);
-    _dsp.newNodeBufferOutput("L-out", &_o.buffer[0], CHANNEL_SIZE);
-    _dsp.newNodeBufferOutput("R-out", &_o.buffer[1], CHANNEL_SIZE);
+    _dsp.newNodeBufferInput("L-in", &_i.buffer[0], BUFFER_SIZE, CHANNEL_SIZE);
+    _dsp.newNodeBufferInput("R-in", &_i.buffer[1], BUFFER_SIZE, CHANNEL_SIZE);
+    _dsp.newNodeBufferOutput("L-out", &_o.buffer[0], BUFFER_SIZE, CHANNEL_SIZE);
+    _dsp.newNodeBufferOutput("R-out", &_o.buffer[1], BUFFER_SIZE, CHANNEL_SIZE);
     
     _dsp.newNodeSum("L-sum", 3);
     _dsp.newNodeBuffer("L-bf1", 1);
@@ -81,25 +82,25 @@ void ofApp::setup(void)
     _dsp.newNodeAmplify("RL-amp", 0.0f);
     _dsp.newNodeGate("R-gat", -1.0f, +1.0f);
     
-    _dsp.setLinkI("L-sum", 0, "L-in");
-    _dsp.setLinkI("L-sum", 1, "LL-amp");
-    _dsp.setLinkI("L-sum", 2, "RL-amp");
-    _dsp.setLinkI("L-bf1", "L-sum");
-    _dsp.setLinkI("LL-amp", "L-bf1");
-    _dsp.setLinkI("L-bf2", "L-bf1");
-    _dsp.setLinkI("LR-amp", "L-bf2");
-    _dsp.setLinkI("L-gat", "L-sum");
-    _dsp.setLinkI("L-out", "L-gat");
+    _dsp.setLinkI("L-sum", 0, "L-in", 0);
+    _dsp.setLinkI("L-sum", 1, "LL-amp", 0);
+    _dsp.setLinkI("L-sum", 2, "RL-amp", 0);
+    _dsp.setLinkI("L-bf1", 0, "L-sum", 0);
+    _dsp.setLinkI("LL-amp", 0, "L-bf1", 0);
+    _dsp.setLinkI("L-bf2", 0, "L-bf1", 0);
+    _dsp.setLinkI("LR-amp", 0, "L-bf2", 0);
+    _dsp.setLinkI("L-gat", 0, "L-sum", 0);
+    _dsp.setLinkI("L-out", 0, "L-gat", 0);
     
-    _dsp.setLinkI("R-sum", 0, "R-in");
-    _dsp.setLinkI("R-sum", 1, "RR-amp");
-    _dsp.setLinkI("R-sum", 2, "LR-amp");
-    _dsp.setLinkI("R-bf1", "R-sum");
-    _dsp.setLinkI("RR-amp", "R-bf1");
-    _dsp.setLinkI("R-bf2", "R-bf1");
-    _dsp.setLinkI("RL-amp", "R-bf2");
-    _dsp.setLinkI("R-gat", "R-sum");
-    _dsp.setLinkI("R-out", "R-gat");
+    _dsp.setLinkI("R-sum", 0, "R-in", 0);
+    _dsp.setLinkI("R-sum", 1, "RR-amp", 0);
+    _dsp.setLinkI("R-sum", 2, "LR-amp", 0);
+    _dsp.setLinkI("R-bf1", 0, "R-sum", 0);
+    _dsp.setLinkI("RR-amp", 0, "R-bf1", 0);
+    _dsp.setLinkI("R-bf2", 0, "R-bf1", 0);
+    _dsp.setLinkI("RL-amp", 0, "R-bf2", 0);
+    _dsp.setLinkI("R-gat", 0, "R-sum", 0);
+    _dsp.setLinkI("R-out", 0, "R-gat", 0);
     
     _gui = new ofxDatGui(2, 2);
     _gui->addFRM();
@@ -112,7 +113,7 @@ void ofApp::setup(void)
     folder->addSlider("* L [2]", 1, 100, 1)->setPrecision(0);
     folder->addSlider("* R [1]", 1, 100, 1)->setPrecision(0);
     folder->addSlider("* R [2]", 1, 100, 1)->setPrecision(0);
-    folder->addToggle("* expand range x100");
+    folder->addSlider("* expand range", 1, SAMPLING_RATE * 2 / 100, 1)->setPrecision(0);
     folder->expand();
     _gui->addBreak();
     folder = _gui->addFolder("delay send", ofColor(127, 255, 127));
@@ -123,14 +124,13 @@ void ofApp::setup(void)
     folder->addButton("* reset gains...");
     folder->expand();
     _gui->addBreak();
-    _gui->addSlider("gate [L] max", 0.0f, +1.0f, +1.0f);
-    _gui->addSlider("gate [L] min", -1.0f, 0.0f, -1.0f);
-    _gui->addSlider("gate [R] max", 0.0f, +1.0f, +1.0f);
-    _gui->addSlider("gate [R] min", -1.0f, 0.0f, -1.0f);
+    _gui->addSlider("gate [L] plus", 0.0f, 1.0f, 1.0f);
+    _gui->addSlider("gate [L] minus", 0.0f, 1.0f, 1.0f);
+    _gui->addSlider("gate [R] plus", 0.0f, 1.0f, 1.0f);
+    _gui->addSlider("gate [R] minus", 0.0f, 1.0f, 1.0f);
     _gui->addBreak();
     _gui->addButton("refresh...");
     _gui->onButtonEvent(this, &ofApp::onButtonEvent);
-    _gui->onToggleEvent(this, &ofApp::onToggleEvent);
     _gui->onSliderEvent(this, &ofApp::onSliderEvent);
     _gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
     _image.load("graph.png");
@@ -159,19 +159,24 @@ void ofApp::audioIn(float* buffer, int size, int channel)
 
 void ofApp::audioOut(float* buffer, int size, int channel)
 {
+    GPDSPError error;
+    
     _o.mutex.lock();
     _mutexParam.lock();
     _mutexIO.lock();
-    _dsp.render(size);
+    if ((error = _dsp.render(size, &size)) != GPDSPERROR_OK) {
+        cout << "position [L-in]: " << _dsp.getNodeBufferInput("L-in")->getPosition() << endl;
+        cout << "position [R-in]: " << _dsp.getNodeBufferInput("R-in")->getPosition() << endl;
+        cout << "position [L-out]: " << _dsp.getNodeBufferOutput("L-out")->getPosition() << endl;
+        cout << "position [R-out]: " << _dsp.getNodeBufferOutput("R-out")->getPosition() << endl;
+        cout << "DSP error: " << _dsp.stringize(error) << ", remain = " << size << endl;
+        _dsp.rewind();
+        _dsp.refresh();
+    }
     _mutexIO.unlock();
     _mutexParam.unlock();
     _o.mutex.unlock();
     memcpy(buffer, _o.buffer.data(), _o.buffer.size() * sizeof(float));
-    return;
-}
-
-void ofApp::update(void)
-{
     return;
 }
 
@@ -208,11 +213,11 @@ void ofApp::draw(void)
     _i.mutex.lock();
     ofSetColor(63, 255, 127, 63);
     for (i = 1; i < BUFFER_SIZE; ++i) {
-        ofDrawLine(i - 1, -_i.buffer[(i - 1) * 2 + 0] * DRAWING_GAIN - 125, i, -_i.buffer[i * 2 + 0] * DRAWING_GAIN - 125);
+        ofDrawLine(i - 1, -_i.buffer[(i - 1) * 2 + 0] * DRAWING_GAIN - DRAWING_OFFSET, i, -_i.buffer[i * 2 + 0] * DRAWING_GAIN - DRAWING_OFFSET);
     }
     ofSetColor(255, 63, 127, 63);
     for (i = 1; i < BUFFER_SIZE; ++i) {
-        ofDrawLine(i - 1, -_i.buffer[(i - 1) * 2 + 1] * DRAWING_GAIN + 100, i, -_i.buffer[i * 2 + 1] * DRAWING_GAIN + 100);
+        ofDrawLine(i - 1, -_i.buffer[(i - 1) * 2 + 1] * DRAWING_GAIN + DRAWING_OFFSET, i, -_i.buffer[i * 2 + 1] * DRAWING_GAIN + DRAWING_OFFSET);
     }
     _i.mutex.unlock();
     _o.mutex.lock();
@@ -225,12 +230,12 @@ void ofApp::draw(void)
     if (valid) {
         ofSetColor(63, 255, 127);
         for (i = 1; i < BUFFER_SIZE; ++i) {
-            ofDrawLine(i - 1, -_o.buffer[(i - 1) * 2 + 0] * DRAWING_GAIN - 100, i, -_o.buffer[i * 2 + 0] * DRAWING_GAIN - 100);
+            ofDrawLine(i - 1, -_o.buffer[(i - 1) * 2 + 0] * DRAWING_GAIN - DRAWING_OFFSET, i, -_o.buffer[i * 2 + 0] * DRAWING_GAIN - DRAWING_OFFSET);
         }
     }
     else {
         ofSetColor(255, 0, 0);
-        ofDrawLine(0, -100, BUFFER_SIZE, -100);
+        ofDrawLine(0, -DRAWING_OFFSET, BUFFER_SIZE, -DRAWING_OFFSET);
     }
     valid = true;
     for (i = 0; i < BUFFER_SIZE; ++i) {
@@ -241,21 +246,16 @@ void ofApp::draw(void)
     if (valid) {
         ofSetColor(255, 63, 127);
         for (i = 1; i < BUFFER_SIZE; ++i) {
-            ofDrawLine(i - 1, -_o.buffer[(i - 1) * 2 + 1] * DRAWING_GAIN + 125, i, -_o.buffer[i * 2 + 1] * DRAWING_GAIN + 125);
+            ofDrawLine(i - 1, -_o.buffer[(i - 1) * 2 + 1] * DRAWING_GAIN + DRAWING_OFFSET, i, -_o.buffer[i * 2 + 1] * DRAWING_GAIN + DRAWING_OFFSET);
         }
     }
     else {
         ofSetColor(255, 0, 0);
-        ofDrawLine(0, +125, BUFFER_SIZE, +125);
+        ofDrawLine(0, +DRAWING_OFFSET, BUFFER_SIZE, +DRAWING_OFFSET);
     }
     _o.mutex.unlock();
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     ofPopMatrix();
-    return;
-}
-
-void ofApp::keyPressed(int key)
-{
     return;
 }
 
@@ -281,48 +281,34 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     return;
 }
 
-void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)
-{
-    int gain;
-    
-    if (e.target->is("* expand range x100")) {
-        gain = (e.target->getChecked()) ? (100) : (1);
-        _mutexParam.lock();
-        _dsp.getNodeBuffer("L-bf1")->setSize(_gui->getSlider("* L [1]")->getValue() * gain);
-        _dsp.getNodeBuffer("L-bf2")->setSize(_gui->getSlider("* L [2]")->getValue() * gain);
-        _dsp.getNodeBuffer("R-bf1")->setSize(_gui->getSlider("* R [1]")->getValue() * gain);
-        _dsp.getNodeBuffer("R-bf2")->setSize(_gui->getSlider("* R [2]")->getValue() * gain);
-        _mutexParam.unlock();
-    }
-    return;
-}
-
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)
 {
-    int gain;
-    
     if (e.target->is("* L [1]")) {
-        gain = (_gui->getToggle("* expand range x100")->getChecked()) ? (100) : (1);
         _mutexParam.lock();
-        _dsp.getNodeBuffer("L-bf1")->setSize(e.target->getValue() * gain);
+        _dsp.getNodeBuffer("L-bf1")->setSize(e.target->getValue() * _gui->getSlider("* expand range")->getValue());
         _mutexParam.unlock();
     }
     else if (e.target->is("* L [2]")) {
-        gain = (_gui->getToggle("* expand range x100")->getChecked()) ? (100) : (1);
         _mutexParam.lock();
-        _dsp.getNodeBuffer("L-bf2")->setSize(e.target->getValue() * gain);
+        _dsp.getNodeBuffer("L-bf2")->setSize(e.target->getValue() * _gui->getSlider("* expand range")->getValue());
         _mutexParam.unlock();
     }
     else if (e.target->is("* R [1]")) {
-        gain = (_gui->getToggle("* expand range x100")->getChecked()) ? (100) : (1);
         _mutexParam.lock();
-        _dsp.getNodeBuffer("R-bf1")->setSize(e.target->getValue() * gain);
+        _dsp.getNodeBuffer("R-bf1")->setSize(e.target->getValue() * _gui->getSlider("* expand range")->getValue());
         _mutexParam.unlock();
     }
     else if (e.target->is("* R [2]")) {
-        gain = (_gui->getToggle("* expand range x100")->getChecked()) ? (100) : (1);
         _mutexParam.lock();
-        _dsp.getNodeBuffer("R-bf2")->setSize(e.target->getValue() * gain);
+        _dsp.getNodeBuffer("R-bf2")->setSize(e.target->getValue() * _gui->getSlider("* expand range")->getValue());
+        _mutexParam.unlock();
+    }
+    else if (e.target->is("* expand range")) {
+        _mutexParam.lock();
+        _dsp.getNodeBuffer("L-bf1")->setSize(_gui->getSlider("* L [1]")->getValue() * e.target->getValue());
+        _dsp.getNodeBuffer("L-bf2")->setSize(_gui->getSlider("* L [2]")->getValue() * e.target->getValue());
+        _dsp.getNodeBuffer("R-bf1")->setSize(_gui->getSlider("* R [1]")->getValue() * e.target->getValue());
+        _dsp.getNodeBuffer("R-bf2")->setSize(_gui->getSlider("* R [2]")->getValue() * e.target->getValue());
         _mutexParam.unlock();
     }
     else if (e.target->is("* L -> L")) {
@@ -345,24 +331,24 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)
         _dsp.getNodeAmplify("RL-amp")->setGain(e.target->getValue());
         _mutexParam.unlock();
     }
-    else if (e.target->is("gate [L] max")) {
+    else if (e.target->is("gate [L] plus")) {
         _mutexParam.lock();
-        _dsp.getNodeGate("L-gat")->setMaximum(e.target->getValue());
+        _dsp.getNodeGate("L-gat")->setMaximum(+e.target->getValue());
         _mutexParam.unlock();
     }
-    else if (e.target->is("gate [L] min")) {
+    else if (e.target->is("gate [L] minus")) {
         _mutexParam.lock();
-        _dsp.getNodeGate("L-gat")->setMinimum(e.target->getValue());
+        _dsp.getNodeGate("L-gat")->setMinimum(-e.target->getValue());
         _mutexParam.unlock();
     }
-    else if (e.target->is("gate [R] max")) {
+    else if (e.target->is("gate [R] plus")) {
         _mutexParam.lock();
-        _dsp.getNodeGate("R-gat")->setMaximum(e.target->getValue());
+        _dsp.getNodeGate("R-gat")->setMaximum(+e.target->getValue());
         _mutexParam.unlock();
     }
-    else if (e.target->is("gate [R] min")) {
+    else if (e.target->is("gate [R] minus")) {
         _mutexParam.lock();
-        _dsp.getNodeGate("R-gat")->setMinimum(e.target->getValue());
+        _dsp.getNodeGate("R-gat")->setMinimum(-e.target->getValue());
         _mutexParam.unlock();
     }
     return;
@@ -402,17 +388,22 @@ void ofApp::startDevice(IORec* io, int index, int in, int out)
     if (0 <= index && index < io->device.size()) {
         io->stream.close();
         io->stream.setDeviceID(io->device[index].deviceID);
-        io->stream.setup(this, out, in, SAMPLING_RATE, BUFFER_SIZE, 4);
+        io->stream.setup(this, out, in, SAMPLING_RATE, BUFFER_SIZE, 8);
     }
     return;
 }
 
 void ofApp::drawValueO(string const& name, int x, int y, ofColor const& color) const
 {
+    shared_ptr<GPDSPOutputtableNode> output;
     float value;
     char temp[16];
     
-    if (!dynamic_pointer_cast<GPDSPOutputtableNode>(_dsp.getNode(name))->getValueO(&value)) {
+    if ((output = dynamic_pointer_cast<GPDSPOutputtableNode>(_dsp.getNode(name))) == NULL) {
+        ofSetColor(color);
+        _font->draw(".......", x, y);
+    }
+    else if (output->getValueO(0, &value) != GPDSPERROR_OK) {
         ofSetColor(color);
         _font->draw("-------", x, y);
     }

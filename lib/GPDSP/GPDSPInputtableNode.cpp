@@ -48,17 +48,131 @@
 
 namespace ir {
 
-GPDSPInputtableNode::GPDSPInputtableNode(void) : _valid(false)
+GPDSPInputtableNode::GPDSPInputtableNode(void)
 {
 }
 
 GPDSPInputtableNode::~GPDSPInputtableNode(void)
 {
+    _socket.clear();
+}
+
+GPDSPError GPDSPInputtableNode::setLinkI(int index, GPDSPOutputtableNode const* node, int which)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        if (node != _socket[index].first || which != _socket[index].second) {
+            _socket[index].first = node;
+            _socket[index].second = which;
+            invalidate();
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const** node, int* which) const
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        if (node != NULL) {
+            *node = _socket[index].first;
+        }
+        if (which != NULL) {
+            *which = _socket[index].second;
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
 }
 
 void GPDSPInputtableNode::invalidate(void)
 {
-    _valid = false;
+    return;
+}
+
+GPDSPError GPDSPInputtableNode::setCountI(int count)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (count < 0) {
+        count = 0;
+    }
+    if (count != _socket.size()) {
+        try {
+            _socket.resize(count, std::make_pair(static_cast<GPDSPOutputtableNode const*>(NULL), 0));
+        }
+        catch (std::bad_alloc const&) {
+            error = GPDSPERROR_NO_MEMORY;
+        }
+        if (error == GPDSPERROR_OK) {
+            invalidate();
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::appendI(GPDSPOutputtableNode const* node, int which)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        _socket.push_back(std::make_pair(node, which));
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        invalidate();
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::insertI(int index, GPDSPOutputtableNode const* node, int which)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        try {
+            _socket.insert(_socket.begin() + index, std::make_pair(node, which));
+        }
+        catch (std::bad_alloc const&) {
+            error = GPDSPERROR_NO_MEMORY;
+        }
+        if (error == GPDSPERROR_OK) {
+            invalidate();
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::removeI(int index)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        _socket.erase(_socket.begin() + index);
+        invalidate();
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+void GPDSPInputtableNode::clearI(void)
+{
+    _socket.clear();
+    invalidate();
     return;
 }
 

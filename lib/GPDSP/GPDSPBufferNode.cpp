@@ -54,11 +54,12 @@ GPDSPBufferNode::GPDSPBufferNode(void)
 
 GPDSPBufferNode::~GPDSPBufferNode(void)
 {
+    _queue.clear();
 }
 
-bool GPDSPBufferNode::setSize(int size)
+GPDSPError GPDSPBufferNode::setSize(int size)
 {
-    bool result(true);
+    GPDSPError error(GPDSPERROR_OK);
     
     if (size < 0) {
         size = 0;
@@ -68,56 +69,72 @@ bool GPDSPBufferNode::setSize(int size)
             _queue.assign(size, 0.0f);
         }
         catch (std::bad_alloc const&) {
-            result = false;
+            error = GPDSPERROR_NO_MEMORY;
         }
-        if (result) {
+        if (error == GPDSPERROR_OK) {
             invalidate();
         }
     }
-    return result;
+    return error;
+}
+
+GPDSPError GPDSPBufferNode::fixate(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = setCountI(1)) == GPDSPERROR_OK) {
+        if ((error = setCountO(1)) != GPDSPERROR_OK) {
+            clearI();
+        }
+    }
+    return error;
 }
 
 void GPDSPBufferNode::invalidate(void)
 {
-    GPDSPMonoInputtableNode::invalidate();
+    GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-void GPDSPBufferNode::prepare(void)
+GPDSPError GPDSPBufferNode::prepare(void)
 {
+    GPDSPError error(GPDSPERROR_OK);
+    
     if (_queue.size() > 0) {
-        setValueO(_queue.back());
+        error = setValueO(0, _queue.back());
     }
-    return;
+    return error;
 }
 
-bool GPDSPBufferNode::process(void)
+GPDSPError GPDSPBufferNode::process(void)
 {
     float value;
+    GPDSPError error(GPDSPERROR_OK);
     
-    if (!isValidP()) {
-        if (getValueI(&value)) {
-            setValueP(value);
-            if (_queue.size() > 0) {
-                try {
-                    _queue.push_front(value);
-                    _queue.pop_back();
-                }
-                catch (std::bad_alloc const&) {
-                }
+    if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
+        if (_queue.size() > 0) {
+            try {
+                _queue.push_front(value);
             }
-            else {
-                setValueO(value);
+            catch (std::bad_alloc const&) {
+                error = GPDSPERROR_NO_MEMORY;
+            }
+            if (error == GPDSPERROR_OK) {
+                _queue.pop_back();
             }
         }
+        else {
+            error = setValueO(0, value);
+        }
     }
-    return isValidP();
+    return error;
 }
 
 void GPDSPBufferNode::refresh(void)
 {
-    std::fill(_queue.begin(), _queue.end(), 0.0f);
+    std::fill_n(_queue.begin(), _queue.size(), 0.0f);
+    invalidate();
     return;
 }
 

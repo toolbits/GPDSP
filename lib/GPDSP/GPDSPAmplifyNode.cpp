@@ -48,7 +48,7 @@
 
 namespace ir {
 
-GPDSPAmplifyNode::GPDSPAmplifyNode(void) : _gain(1.0f)
+GPDSPAmplifyNode::GPDSPAmplifyNode(void) : _gain(defaultGain())
 {
 }
 
@@ -65,30 +65,39 @@ void GPDSPAmplifyNode::setGain(float gain)
     return;
 }
 
+GPDSPError GPDSPAmplifyNode::fixate(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = setCountI(1)) == GPDSPERROR_OK) {
+        if ((error = setCountO(1)) != GPDSPERROR_OK) {
+            clearI();
+        }
+    }
+    return error;
+}
+
 void GPDSPAmplifyNode::invalidate(void)
 {
-    GPDSPMonoInputtableNode::invalidate();
+    GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-void GPDSPAmplifyNode::prepare(void)
+GPDSPError GPDSPAmplifyNode::prepare(void)
 {
-    return;
+    return GPDSPERROR_OK;
 }
 
-bool GPDSPAmplifyNode::process(void)
+GPDSPError GPDSPAmplifyNode::process(void)
 {
     float value;
+    GPDSPError error(GPDSPERROR_OK);
     
-    if (!isValidP()) {
-        if (getValueI(&value)) {
-            value *= _gain;
-            setValueP(value);
-            setValueO(value);
-        }
+    if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
+        error = setValueO(0, value * _gain);
     }
-    return isValidP();
+    return error;
 }
 
 }// end of namespace

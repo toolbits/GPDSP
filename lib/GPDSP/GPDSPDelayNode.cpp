@@ -56,35 +56,45 @@ GPDSPDelayNode::~GPDSPDelayNode(void)
 {
 }
 
+GPDSPError GPDSPDelayNode::fixate(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = setCountI(1)) == GPDSPERROR_OK) {
+        if ((error = setCountO(1)) != GPDSPERROR_OK) {
+            clearI();
+        }
+    }
+    return error;
+}
+
 void GPDSPDelayNode::invalidate(void)
 {
-    GPDSPMonoInputtableNode::invalidate();
+    GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-void GPDSPDelayNode::prepare(void)
+GPDSPError GPDSPDelayNode::prepare(void)
 {
-    setValueO(_queue);
-    return;
+    return setValueO(0, _queue);
 }
 
-bool GPDSPDelayNode::process(void)
+GPDSPError GPDSPDelayNode::process(void)
 {
     float value;
+    GPDSPError error(GPDSPERROR_OK);
     
-    if (!isValidP()) {
-        if (getValueI(&value)) {
-            setValueP(value);
-            _queue = value;
-        }
+    if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
+        _queue = value;
     }
-    return isValidP();
+    return error;
 }
 
 void GPDSPDelayNode::refresh(void)
 {
     _queue = 0.0f;
+    invalidate();
     return;
 }
 

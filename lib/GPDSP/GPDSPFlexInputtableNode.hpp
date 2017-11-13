@@ -14,7 +14,7 @@
 **      This source code is for Xcode.
 **      Xcode 9.0 (Apple LLVM 9.0.0)
 **
-**      GPDSPPolyInputtableNode.hpp
+**      GPDSPFlexInputtableNode.hpp
 **
 **      ------------------------------------------------------------------------
 **
@@ -44,42 +44,52 @@
 **      あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、その他の義務について何らの責任も負わないものとします。
 */
 
-#ifndef __GPDSPPOLYINPUTTABLENODE_HPP
-#define __GPDSPPOLYINPUTTABLENODE_HPP
+#ifndef __GPDSPFLEXINPUTTABLENODE_HPP
+#define __GPDSPFLEXINPUTTABLENODE_HPP
 
 #include "GPDSPInputtableNode.hpp"
-#include <vector>
-#include "GPDSPOutputtableNode.hpp"
 
 namespace ir {
 
-class GPDSPPolyInputtableNode : public GPDSPInputtableNode {
-    private:
-                std::vector<GPDSPOutputtableNode const*>
-                                            _node;
-    
+class GPDSPFlexInputtableNode : public GPDSPInputtableNode {
     public:
-                bool                        setCountI                   (int count);
-                int                         getCountI                   (void) const;
-                bool                        setLinkI                    (int index, GPDSPOutputtableNode const* node);
-                bool                        getLinkI                    (int index, GPDSPOutputtableNode const** node) const;
-                bool                        getValueI                   (int index, float* value) const;
-                bool                        isValidI                    (int index) const;
-                bool                        appendI                     (GPDSPOutputtableNode const* node);
-                bool                        insertI                     (int index, GPDSPOutputtableNode const* node);
-                void                        removeI                     (int index);
+                GPDSPError                  setCountI                   (int count);
+                GPDSPError                  appendI                     (GPDSPOutputtableNode const* node, int which);
+                GPDSPError                  insertI                     (int index, GPDSPOutputtableNode const* node, int which);
+                GPDSPError                  removeI                     (int index);
                 void                        clearI                      (void);
     protected:
-        explicit                            GPDSPPolyInputtableNode     (void);
-        virtual                             ~GPDSPPolyInputtableNode    (void);
+        explicit                            GPDSPFlexInputtableNode     (void);
+        virtual                             ~GPDSPFlexInputtableNode    (void);
     private:
-                                            GPDSPPolyInputtableNode     (GPDSPPolyInputtableNode const&);
-                GPDSPPolyInputtableNode&    operator=                   (GPDSPPolyInputtableNode const&);
+                                            GPDSPFlexInputtableNode     (GPDSPFlexInputtableNode const&);
+                GPDSPFlexInputtableNode&    operator=                   (GPDSPFlexInputtableNode const&);
 };
 
-inline int GPDSPPolyInputtableNode::getCountI(void) const
+inline GPDSPError GPDSPFlexInputtableNode::setCountI(int count)
 {
-    return static_cast<int>(_node.size());
+    return GPDSPInputtableNode::setCountI(count);
+}
+
+inline GPDSPError GPDSPFlexInputtableNode::appendI(GPDSPOutputtableNode const* node, int which)
+{
+    return GPDSPInputtableNode::appendI(node, which);
+}
+
+inline GPDSPError GPDSPFlexInputtableNode::insertI(int index, GPDSPOutputtableNode const* node, int which)
+{
+    return GPDSPInputtableNode::insertI(index, node, which);
+}
+
+inline GPDSPError GPDSPFlexInputtableNode::removeI(int index)
+{
+    return GPDSPInputtableNode::removeI(index);
+}
+
+inline void GPDSPFlexInputtableNode::clearI(void)
+{
+    GPDSPInputtableNode::clearI();
+    return;
 }
 
 }// end of namespace

@@ -47,24 +47,26 @@
 #ifndef __GPDSPBUFFERNODE_HPP
 #define __GPDSPBUFFERNODE_HPP
 
-#include "GPDSPMonoInputtableNode.hpp"
-#include <deque>
+#include "GPDSPInputtableNode.hpp"
+#include "GPDSPOutputtableNode.hpp"
 #include "GPDSPRefreshableNode.hpp"
+#include <deque>
 
 namespace ir {
 
-class GPDSPBufferNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
+class GPDSPBufferNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
                 std::deque<float>           _queue;
     
     public:
         explicit                            GPDSPBufferNode             (void);
         virtual                             ~GPDSPBufferNode            (void);
-                bool                        setSize                     (int size);
+                GPDSPError                  setSize                     (int size);
                 int                         getSize                     (void) const;
+        virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
         virtual void                        refresh                     (void);
     private:
                                             GPDSPBufferNode             (GPDSPBufferNode const&);

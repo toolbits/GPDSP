@@ -14,7 +14,7 @@
 **      This source code is for Xcode.
 **      Xcode 9.0 (Apple LLVM 9.0.0)
 **
-**      GPDSPPolyInputtableNode.cpp
+**      GPDSPGenericInputNode.hpp
 **
 **      ------------------------------------------------------------------------
 **
@@ -44,143 +44,31 @@
 **      あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、その他の義務について何らの責任も負わないものとします。
 */
 
-#include "GPDSPPolyInputtableNode.hpp"
+#ifndef __GPDSPGENERICINPUTNODE_HPP
+#define __GPDSPGENERICINPUTNODE_HPP
+
+#include "GPDSPOutputtableNode.hpp"
 
 namespace ir {
 
-GPDSPPolyInputtableNode::GPDSPPolyInputtableNode(void)
-{
-}
+class GPDSPGenericInputNode : public GPDSPOutputtableNode {
+    public:
+        explicit                            GPDSPGenericInputNode       (void);
+        virtual                             ~GPDSPGenericInputNode      (void);
+                GPDSPError                  setValueO                   (int index, float value);
+        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
+    private:
+                                            GPDSPGenericInputNode       (GPDSPGenericInputNode const&);
+                GPDSPGenericInputNode&      operator=                   (GPDSPGenericInputNode const&);
+};
 
-GPDSPPolyInputtableNode::~GPDSPPolyInputtableNode(void)
+inline GPDSPError GPDSPGenericInputNode::setValueO(int index, float value)
 {
-}
-
-bool GPDSPPolyInputtableNode::setCountI(int count)
-{
-    bool result(true);
-    
-    if (count < 0) {
-        count = 0;
-    }
-    if (count != _node.size()) {
-        try {
-            _node.resize(count, NULL);
-        }
-        catch (std::bad_alloc const&) {
-            result = false;
-        }
-        if (result) {
-            invalidate();
-        }
-    }
-    return result;
-}
-
-bool GPDSPPolyInputtableNode::setLinkI(int index, GPDSPOutputtableNode const* node)
-{
-    bool result(false);
-    
-    if (0 <= index && index < _node.size()) {
-        if (node != _node[index]) {
-            _node[index] = node;
-            invalidate();
-        }
-        result = true;
-    }
-    return result;
-}
-
-bool GPDSPPolyInputtableNode::getLinkI(int index, GPDSPOutputtableNode const** node) const
-{
-    bool result(false);
-    
-    if (0 <= index && index < _node.size()) {
-        if (node != NULL) {
-            *node = _node[index];
-        }
-        result = true;
-    }
-    return result;
-}
-
-bool GPDSPPolyInputtableNode::getValueI(int index, float* value) const
-{
-    bool result(false);
-    
-    if (0 <= index && index < _node.size()) {
-        if (_node[index] != NULL) {
-            result = _node[index]->getValueO(value);
-        }
-        else {
-            if (value != NULL) {
-                *value = 0.0f;
-            }
-            result = true;
-        }
-    }
-    return result;
-}
-
-bool GPDSPPolyInputtableNode::isValidI(int index) const
-{
-    bool result(false);
-    
-    if (0 <= index && index < _node.size()) {
-        result = (_node[index] != NULL) ? (_node[index]->isValidO()) : (true);
-    }
-    return result;
-}
-
-bool GPDSPPolyInputtableNode::appendI(GPDSPOutputtableNode const* node)
-{
-    bool result(true);
-    
-    try {
-        _node.push_back(node);
-    }
-    catch (std::bad_alloc const&) {
-        result = false;
-    }
-    if (result) {
-        invalidate();
-    }
-    return result;
-}
-
-bool GPDSPPolyInputtableNode::insertI(int index, GPDSPOutputtableNode const* node)
-{
-    bool result(false);
-    
-    if (0 <= index && index < _node.size()) {
-        result = true;
-        try {
-            _node.insert(_node.begin() + index, node);
-        }
-        catch (std::bad_alloc const&) {
-            result = false;
-        }
-        if (result) {
-            invalidate();
-        }
-    }
-    return result;
-}
-
-void GPDSPPolyInputtableNode::removeI(int index)
-{
-    if (0 <= index && index < _node.size()) {
-        _node.erase(_node.begin() + index);
-        invalidate();
-    }
-    return;
-}
-
-void GPDSPPolyInputtableNode::clearI(void)
-{
-    _node.clear();
-    invalidate();
-    return;
+    return GPDSPOutputtableNode::setValueO(index, value);
 }
 
 }// end of namespace
+
+#endif

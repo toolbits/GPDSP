@@ -47,17 +47,19 @@
 #ifndef __GPDSPMULTIPLYNODE_HPP
 #define __GPDSPMULTIPLYNODE_HPP
 
-#include "GPDSPPolyInputtableNode.hpp"
+#include "GPDSPFlexInputtableNode.hpp"
+#include "GPDSPOutputtableNode.hpp"
 
 namespace ir {
 
-class GPDSPMultiplyNode : public GPDSPPolyInputtableNode, public GPDSPOutputtableNode {
+class GPDSPMultiplyNode : public GPDSPFlexInputtableNode, public GPDSPOutputtableNode {
     public:
         explicit                            GPDSPMultiplyNode           (void);
         virtual                             ~GPDSPMultiplyNode          (void);
+        virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPMultiplyNode           (GPDSPMultiplyNode const&);
                 GPDSPMultiplyNode&          operator=                   (GPDSPMultiplyNode const&);

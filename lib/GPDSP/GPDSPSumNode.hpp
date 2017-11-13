@@ -47,17 +47,19 @@
 #ifndef __GPDSPSUMNODE_HPP
 #define __GPDSPSUMNODE_HPP
 
-#include "GPDSPPolyInputtableNode.hpp"
+#include "GPDSPFlexInputtableNode.hpp"
+#include "GPDSPOutputtableNode.hpp"
 
 namespace ir {
 
-class GPDSPSumNode : public GPDSPPolyInputtableNode, public GPDSPOutputtableNode {
+class GPDSPSumNode : public GPDSPFlexInputtableNode, public GPDSPOutputtableNode {
     public:
         explicit                            GPDSPSumNode                (void);
         virtual                             ~GPDSPSumNode               (void);
+        virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPSumNode                (GPDSPSumNode const&);
                 GPDSPSumNode&               operator=                   (GPDSPSumNode const&);

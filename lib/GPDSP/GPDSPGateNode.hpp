@@ -47,11 +47,13 @@
 #ifndef __GPDSPGATENODE_HPP
 #define __GPDSPGATENODE_HPP
 
-#include "GPDSPMonoInputtableNode.hpp"
+#include "GPDSPInputtableNode.hpp"
+#include "GPDSPOutputtableNode.hpp"
+#include <math.h>
 
 namespace ir {
 
-class GPDSPGateNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode {
+class GPDSPGateNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     private:
                 float                       _minimum;
                 float                       _maximum;
@@ -59,17 +61,30 @@ class GPDSPGateNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNod
     public:
         explicit                            GPDSPGateNode               (void);
         virtual                             ~GPDSPGateNode              (void);
+        static  float                       defaultMinimum              (void);
+        static  float                       defaultMaximum              (void);
                 void                        setMinimum                  (float minimum);
                 float                       getMinimum                  (void) const;
                 void                        setMaximum                  (float maximum);
                 float                       getMaximum                  (void) const;
+        virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPGateNode               (GPDSPGateNode const&);
                 GPDSPGateNode&              operator=                   (GPDSPGateNode const&);
 };
+
+inline float GPDSPGateNode::defaultMinimum(void)
+{
+    return -INFINITY;
+}
+
+inline float GPDSPGateNode::defaultMaximum(void)
+{
+    return +INFINITY;
+}
 
 inline float GPDSPGateNode::getMinimum(void) const
 {

@@ -47,21 +47,23 @@
 #ifndef __GPDSPPEEKNODE_HPP
 #define __GPDSPPEEKNODE_HPP
 
-#include "GPDSPMonoInputtableNode.hpp"
+#include "GPDSPInputtableNode.hpp"
+#include "GPDSPOutputtableNode.hpp"
 #include "GPDSPRefreshableNode.hpp"
 
 namespace ir {
 
-class GPDSPPeekNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
+class GPDSPPeekNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
                 float                       _peek;
     
     public:
         explicit                            GPDSPPeekNode               (void);
         virtual                             ~GPDSPPeekNode              (void);
+        virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
         virtual void                        refresh                     (void);
     private:
                                             GPDSPPeekNode               (GPDSPPeekNode const&);

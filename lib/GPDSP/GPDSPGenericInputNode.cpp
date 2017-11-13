@@ -14,7 +14,7 @@
 **      This source code is for Xcode.
 **      Xcode 9.0 (Apple LLVM 9.0.0)
 **
-**      GPDSPMonoInputtableNode.hpp
+**      GPDSPGenericInputNode.cpp
 **
 **      ------------------------------------------------------------------------
 **
@@ -44,31 +44,31 @@
 **      あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、その他の義務について何らの責任も負わないものとします。
 */
 
-#ifndef __GPDSPMONOINPUTTABLENODE_HPP
-#define __GPDSPMONOINPUTTABLENODE_HPP
-
-#include "GPDSPInputtableNode.hpp"
-#include "GPDSPOutputtableNode.hpp"
+#include "GPDSPGenericInputNode.hpp"
 
 namespace ir {
 
-class GPDSPMonoInputtableNode : public GPDSPInputtableNode {
-    private:
-                GPDSPOutputtableNode const* _node;
-    
-    public:
-                bool                        setLinkI                    (GPDSPOutputtableNode const* node);
-                bool                        getLinkI                    (GPDSPOutputtableNode const** node) const;
-                bool                        getValueI                   (float* value) const;
-                bool                        isValidI                    (void) const;
-    protected:
-        explicit                            GPDSPMonoInputtableNode     (void);
-        virtual                             ~GPDSPMonoInputtableNode    (void);
-    private:
-                                            GPDSPMonoInputtableNode     (GPDSPMonoInputtableNode const&);
-                GPDSPMonoInputtableNode&    operator=                   (GPDSPMonoInputtableNode const&);
-};
+GPDSPGenericInputNode::GPDSPGenericInputNode(void)
+{
+}
+
+GPDSPGenericInputNode::~GPDSPGenericInputNode(void)
+{
+}
+
+GPDSPError GPDSPGenericInputNode::fixate(void)
+{
+    return setCountO(1);
+}
+
+GPDSPError GPDSPGenericInputNode::prepare(void)
+{
+    return GPDSPERROR_OK;
+}
+
+GPDSPError GPDSPGenericInputNode::process(void)
+{
+    return GPDSPERROR_OK;
+}
 
 }// end of namespace
-
-#endif

@@ -15,15 +15,13 @@
 		C304B50F1F9471DE003600BC /* GPDSPDelayNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B4F21F9470E1003600BC /* GPDSPDelayNode.cpp */; };
 		C304B5101F9471E0003600BC /* GPDSPGateNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B4F41F9470E1003600BC /* GPDSPGateNode.cpp */; };
 		C304B5111F9471E2003600BC /* GPDSPInputtableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B4F61F9470E1003600BC /* GPDSPInputtableNode.cpp */; };
-		C304B5121F9471E5003600BC /* GPDSPMonoInputtableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B4F81F9470E1003600BC /* GPDSPMonoInputtableNode.cpp */; };
 		C304B5131F9471E8003600BC /* GPDSPMultiplyNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B4FA1F9470E1003600BC /* GPDSPMultiplyNode.cpp */; };
 		C304B5141F9471EB003600BC /* GPDSPNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B4FC1F9470E1003600BC /* GPDSPNode.cpp */; };
 		C304B5151F9471EF003600BC /* GPDSPNodeRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B4FE1F9470E1003600BC /* GPDSPNodeRenderer.cpp */; };
 		C304B5161F9471F1003600BC /* GPDSPOutputtableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B5001F9470E1003600BC /* GPDSPOutputtableNode.cpp */; };
 		C304B5171F9471F4003600BC /* GPDSPPeekNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B5021F9470E1003600BC /* GPDSPPeekNode.cpp */; };
-		C304B5181F9471F6003600BC /* GPDSPPolyInputtableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B5041F9470E1003600BC /* GPDSPPolyInputtableNode.cpp */; };
-		C304B5191F9471F8003600BC /* GPDSPRewindableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B5061F9470E1003600BC /* GPDSPRewindableNode.cpp */; };
 		C304B51A1F9471FB003600BC /* GPDSPSumNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C304B5081F9470E1003600BC /* GPDSPSumNode.cpp */; };
+		C31A24F31FAAC75200C31458 /* GPDSPFlexOutputtableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31A24F11FAAC75100C31458 /* GPDSPFlexOutputtableNode.cpp */; };
 		C335E8EC1F95E30800319BE7 /* graph.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8EB1F95E30800319BE7 /* graph.png */; };
 		C335E8EF1F95E33700319BE7 /* Verdana.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8EE1F95E33600319BE7 /* Verdana.ttf */; };
 		C335E8F61F95E35900319BE7 /* icon-group-open.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8F11F95E35800319BE7 /* icon-group-open.png */; };
@@ -31,9 +29,14 @@
 		C335E8F81F95E35900319BE7 /* picker-rainbow.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8F31F95E35800319BE7 /* picker-rainbow.png */; };
 		C335E8F91F95E35900319BE7 /* icon-radio-on.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8F41F95E35900319BE7 /* icon-radio-on.png */; };
 		C335E8FA1F95E35900319BE7 /* icon-radio-off.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8F51F95E35900319BE7 /* icon-radio-off.png */; };
+		C33641E21FB96F9D00BF9363 /* GPDSPRewindableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33641E01FB96F9D00BF9363 /* GPDSPRewindableNode.cpp */; };
+		C343BFFF1FA5EEF700BE9204 /* GPDSPFlexInputtableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343BFFD1FA5EEF600BE9204 /* GPDSPFlexInputtableNode.cpp */; };
 		C34F3D551F94C6C800C3EF97 /* ofxDatGuiComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34F3D141F94C5D600C3EF97 /* ofxDatGuiComponent.cpp */; };
 		C34F3D561F94C6CF00C3EF97 /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34F3D1B1F94C5D600C3EF97 /* ofxSmartFont.cpp */; };
 		C34F3D571F94C6D300C3EF97 /* ofxDatGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34F3D1D1F94C5D600C3EF97 /* ofxDatGui.cpp */; };
+		C36A7E0B1FB338AF002B5095 /* GPDSPGenericInputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C36A7E091FB338AE002B5095 /* GPDSPGenericInputNode.cpp */; };
+		C36A7E0E1FB338B7002B5095 /* GPDSPGenericOutputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C36A7E0C1FB338B6002B5095 /* GPDSPGenericOutputNode.cpp */; };
+		C3814E9A1FAA0CEE0059632C /* GPDSPGenericNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3814E991FAA0CEE0059632C /* GPDSPGenericNode.cpp */; };
 		C3B51F261F9587C1001F2C14 /* GPDSPRefreshableNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B51F241F9587C1001F2C14 /* GPDSPRefreshableNode.cpp */; };
 		C3EB8CEE1F98D5FC001067BF /* Menlo.ttc in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3EB8CED1F98D5FC001067BF /* Menlo.ttc */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -113,8 +116,6 @@
 		C304B4F51F9470E1003600BC /* GPDSPGateNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGateNode.hpp; sourceTree = "<group>"; };
 		C304B4F61F9470E1003600BC /* GPDSPInputtableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPInputtableNode.cpp; sourceTree = "<group>"; };
 		C304B4F71F9470E1003600BC /* GPDSPInputtableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPInputtableNode.hpp; sourceTree = "<group>"; };
-		C304B4F81F9470E1003600BC /* GPDSPMonoInputtableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPMonoInputtableNode.cpp; sourceTree = "<group>"; };
-		C304B4F91F9470E1003600BC /* GPDSPMonoInputtableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPMonoInputtableNode.hpp; sourceTree = "<group>"; };
 		C304B4FA1F9470E1003600BC /* GPDSPMultiplyNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPMultiplyNode.cpp; sourceTree = "<group>"; };
 		C304B4FB1F9470E1003600BC /* GPDSPMultiplyNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPMultiplyNode.hpp; sourceTree = "<group>"; };
 		C304B4FC1F9470E1003600BC /* GPDSPNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPNode.cpp; sourceTree = "<group>"; };
@@ -125,12 +126,10 @@
 		C304B5011F9470E1003600BC /* GPDSPOutputtableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPOutputtableNode.hpp; sourceTree = "<group>"; };
 		C304B5021F9470E1003600BC /* GPDSPPeekNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPPeekNode.cpp; sourceTree = "<group>"; };
 		C304B5031F9470E1003600BC /* GPDSPPeekNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPPeekNode.hpp; sourceTree = "<group>"; };
-		C304B5041F9470E1003600BC /* GPDSPPolyInputtableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPPolyInputtableNode.cpp; sourceTree = "<group>"; };
-		C304B5051F9470E1003600BC /* GPDSPPolyInputtableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPPolyInputtableNode.hpp; sourceTree = "<group>"; };
-		C304B5061F9470E1003600BC /* GPDSPRewindableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPRewindableNode.cpp; sourceTree = "<group>"; };
-		C304B5071F9470E1003600BC /* GPDSPRewindableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPRewindableNode.hpp; sourceTree = "<group>"; };
 		C304B5081F9470E1003600BC /* GPDSPSumNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSumNode.cpp; sourceTree = "<group>"; };
 		C304B5091F9470E1003600BC /* GPDSPSumNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSumNode.hpp; sourceTree = "<group>"; };
+		C31A24F11FAAC75100C31458 /* GPDSPFlexOutputtableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPFlexOutputtableNode.cpp; sourceTree = "<group>"; };
+		C31A24F21FAAC75200C31458 /* GPDSPFlexOutputtableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPFlexOutputtableNode.hpp; sourceTree = "<group>"; };
 		C335E8EB1F95E30800319BE7 /* graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph.png; path = bin/data/graph.png; sourceTree = "<group>"; };
 		C335E8EE1F95E33600319BE7 /* Verdana.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Verdana.ttf; path = bin/data/ofxbraitsch/fonts/Verdana.ttf; sourceTree = "<group>"; };
 		C335E8F11F95E35800319BE7 /* icon-group-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-group-open.png"; path = "bin/data/ofxbraitsch/ofxdatgui/icon-group-open.png"; sourceTree = "<group>"; };
@@ -138,12 +137,10 @@
 		C335E8F31F95E35800319BE7 /* picker-rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "picker-rainbow.png"; path = "bin/data/ofxbraitsch/ofxdatgui/picker-rainbow.png"; sourceTree = "<group>"; };
 		C335E8F41F95E35900319BE7 /* icon-radio-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-radio-on.png"; path = "bin/data/ofxbraitsch/ofxdatgui/icon-radio-on.png"; sourceTree = "<group>"; };
 		C335E8F51F95E35900319BE7 /* icon-radio-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-radio-off.png"; path = "bin/data/ofxbraitsch/ofxdatgui/icon-radio-off.png"; sourceTree = "<group>"; };
-		C34F3CFB1F94C5D600C3EF97 /* Verdana.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Verdana.ttf; sourceTree = "<group>"; };
-		C34F3CFD1F94C5D600C3EF97 /* icon-group-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-group-closed.png"; sourceTree = "<group>"; };
-		C34F3CFE1F94C5D600C3EF97 /* icon-group-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-group-open.png"; sourceTree = "<group>"; };
-		C34F3CFF1F94C5D600C3EF97 /* icon-radio-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-radio-off.png"; sourceTree = "<group>"; };
-		C34F3D001F94C5D600C3EF97 /* icon-radio-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-radio-on.png"; sourceTree = "<group>"; };
-		C34F3D011F94C5D600C3EF97 /* picker-rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picker-rainbow.png"; sourceTree = "<group>"; };
+		C33641E01FB96F9D00BF9363 /* GPDSPRewindableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPRewindableNode.cpp; sourceTree = "<group>"; };
+		C33641E11FB96F9D00BF9363 /* GPDSPRewindableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPRewindableNode.hpp; sourceTree = "<group>"; };
+		C343BFFD1FA5EEF600BE9204 /* GPDSPFlexInputtableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPFlexInputtableNode.cpp; sourceTree = "<group>"; };
+		C343BFFE1FA5EEF600BE9204 /* GPDSPFlexInputtableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPFlexInputtableNode.hpp; sourceTree = "<group>"; };
 		C34F3D061F94C5D600C3EF97 /* ofxDatGui2dPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGui2dPad.h; sourceTree = "<group>"; };
 		C34F3D071F94C5D600C3EF97 /* ofxDatGuiButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGuiButton.h; sourceTree = "<group>"; };
 		C34F3D081F94C5D600C3EF97 /* ofxDatGuiColorPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGuiColorPicker.h; sourceTree = "<group>"; };
@@ -168,6 +165,14 @@
 		C34F3D1E1F94C5D600C3EF97 /* ofxDatGui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGui.h; sourceTree = "<group>"; };
 		C34F3D201F94C5D600C3EF97 /* ofxDatGuiTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGuiTheme.h; sourceTree = "<group>"; };
 		C34F3D211F94C5D600C3EF97 /* ofxDatGuiThemes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGuiThemes.h; sourceTree = "<group>"; };
+		C36A7E091FB338AE002B5095 /* GPDSPGenericInputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericInputNode.cpp; sourceTree = "<group>"; };
+		C36A7E0A1FB338AF002B5095 /* GPDSPGenericInputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericInputNode.hpp; sourceTree = "<group>"; };
+		C36A7E0C1FB338B6002B5095 /* GPDSPGenericOutputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericOutputNode.cpp; sourceTree = "<group>"; };
+		C36A7E0D1FB338B7002B5095 /* GPDSPGenericOutputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericOutputNode.hpp; sourceTree = "<group>"; };
+		C3814E961FAA0CDA0059632C /* GPDSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSP.hpp; sourceTree = "<group>"; };
+		C3814E971FAA0CE20059632C /* GPDSPType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPType.hpp; sourceTree = "<group>"; };
+		C3814E981FAA0CEE0059632C /* GPDSPGenericNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericNode.hpp; sourceTree = "<group>"; };
+		C3814E991FAA0CEE0059632C /* GPDSPGenericNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericNode.cpp; sourceTree = "<group>"; };
 		C3B51F241F9587C1001F2C14 /* GPDSPRefreshableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPRefreshableNode.cpp; sourceTree = "<group>"; };
 		C3B51F251F9587C1001F2C14 /* GPDSPRefreshableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPRefreshableNode.hpp; sourceTree = "<group>"; };
 		C3EB8CED1F98D5FC001067BF /* Menlo.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = Menlo.ttc; path = bin/data/ofxbraitsch/fonts/Menlo.ttc; sourceTree = "<group>"; };
@@ -211,20 +216,22 @@
 		C304B4E71F9470E1003600BC /* GPDSP */ = {
 			isa = PBXGroup;
 			children = (
+				C3814E961FAA0CDA0059632C /* GPDSP.hpp */,
+				C3814E971FAA0CE20059632C /* GPDSPType.hpp */,
 				C304B4FF1F9470E1003600BC /* GPDSPNodeRenderer.hpp */,
 				C304B4FE1F9470E1003600BC /* GPDSPNodeRenderer.cpp */,
 				C304B4FD1F9470E1003600BC /* GPDSPNode.hpp */,
 				C304B4FC1F9470E1003600BC /* GPDSPNode.cpp */,
 				C304B4F71F9470E1003600BC /* GPDSPInputtableNode.hpp */,
 				C304B4F61F9470E1003600BC /* GPDSPInputtableNode.cpp */,
-				C304B4F91F9470E1003600BC /* GPDSPMonoInputtableNode.hpp */,
-				C304B4F81F9470E1003600BC /* GPDSPMonoInputtableNode.cpp */,
-				C304B5051F9470E1003600BC /* GPDSPPolyInputtableNode.hpp */,
-				C304B5041F9470E1003600BC /* GPDSPPolyInputtableNode.cpp */,
+				C343BFFE1FA5EEF600BE9204 /* GPDSPFlexInputtableNode.hpp */,
+				C343BFFD1FA5EEF600BE9204 /* GPDSPFlexInputtableNode.cpp */,
 				C304B5011F9470E1003600BC /* GPDSPOutputtableNode.hpp */,
 				C304B5001F9470E1003600BC /* GPDSPOutputtableNode.cpp */,
-				C304B5071F9470E1003600BC /* GPDSPRewindableNode.hpp */,
-				C304B5061F9470E1003600BC /* GPDSPRewindableNode.cpp */,
+				C31A24F21FAAC75200C31458 /* GPDSPFlexOutputtableNode.hpp */,
+				C31A24F11FAAC75100C31458 /* GPDSPFlexOutputtableNode.cpp */,
+				C33641E11FB96F9D00BF9363 /* GPDSPRewindableNode.hpp */,
+				C33641E01FB96F9D00BF9363 /* GPDSPRewindableNode.cpp */,
 				C3B51F251F9587C1001F2C14 /* GPDSPRefreshableNode.hpp */,
 				C3B51F241F9587C1001F2C14 /* GPDSPRefreshableNode.cpp */,
 				C304B4EB1F9470E1003600BC /* GPDSPBufferInputNode.hpp */,
@@ -247,6 +254,12 @@
 				C304B5081F9470E1003600BC /* GPDSPSumNode.cpp */,
 				C304B4FB1F9470E1003600BC /* GPDSPMultiplyNode.hpp */,
 				C304B4FA1F9470E1003600BC /* GPDSPMultiplyNode.cpp */,
+				C3814E981FAA0CEE0059632C /* GPDSPGenericNode.hpp */,
+				C3814E991FAA0CEE0059632C /* GPDSPGenericNode.cpp */,
+				C36A7E0A1FB338AF002B5095 /* GPDSPGenericInputNode.hpp */,
+				C36A7E091FB338AE002B5095 /* GPDSPGenericInputNode.cpp */,
+				C36A7E0D1FB338B7002B5095 /* GPDSPGenericOutputNode.hpp */,
+				C36A7E0C1FB338B6002B5095 /* GPDSPGenericOutputNode.cpp */,
 			);
 			name = GPDSP;
 			path = ../../../lib/GPDSP;
@@ -255,40 +268,10 @@
 		C34F3B371F94C5D500C3EF97 /* ofxDatGui */ = {
 			isa = PBXGroup;
 			children = (
-				C34F3CF91F94C5D600C3EF97 /* ofxbraitsch */,
 				C34F3D041F94C5D600C3EF97 /* src */,
 			);
 			name = ofxDatGui;
 			path = ../../../addons/ofxDatGui;
-			sourceTree = "<group>";
-		};
-		C34F3CF91F94C5D600C3EF97 /* ofxbraitsch */ = {
-			isa = PBXGroup;
-			children = (
-				C34F3CFA1F94C5D600C3EF97 /* fonts */,
-				C34F3CFC1F94C5D600C3EF97 /* ofxdatgui */,
-			);
-			path = ofxbraitsch;
-			sourceTree = "<group>";
-		};
-		C34F3CFA1F94C5D600C3EF97 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				C34F3CFB1F94C5D600C3EF97 /* Verdana.ttf */,
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
-		C34F3CFC1F94C5D600C3EF97 /* ofxdatgui */ = {
-			isa = PBXGroup;
-			children = (
-				C34F3CFD1F94C5D600C3EF97 /* icon-group-closed.png */,
-				C34F3CFE1F94C5D600C3EF97 /* icon-group-open.png */,
-				C34F3CFF1F94C5D600C3EF97 /* icon-radio-off.png */,
-				C34F3D001F94C5D600C3EF97 /* icon-radio-on.png */,
-				C34F3D011F94C5D600C3EF97 /* picker-rainbow.png */,
-			);
-			path = ofxdatgui;
 			sourceTree = "<group>";
 		};
 		C34F3D041F94C5D600C3EF97 /* src */ = {
@@ -504,20 +487,23 @@
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				C304B50A1F9471CF003600BC /* GPDSPAmplifyNode.cpp in Sources */,
 				C304B50B1F9471D2003600BC /* GPDSPBufferInputNode.cpp in Sources */,
+				C36A7E0E1FB338B7002B5095 /* GPDSPGenericOutputNode.cpp in Sources */,
 				C304B50C1F9471D4003600BC /* GPDSPBufferNode.cpp in Sources */,
 				C304B50D1F9471D8003600BC /* GPDSPBufferOutputNode.cpp in Sources */,
+				C31A24F31FAAC75200C31458 /* GPDSPFlexOutputtableNode.cpp in Sources */,
+				C3814E9A1FAA0CEE0059632C /* GPDSPGenericNode.cpp in Sources */,
 				C304B50E1F9471DB003600BC /* GPDSPConstantNode.cpp in Sources */,
 				C304B50F1F9471DE003600BC /* GPDSPDelayNode.cpp in Sources */,
+				C343BFFF1FA5EEF700BE9204 /* GPDSPFlexInputtableNode.cpp in Sources */,
+				C36A7E0B1FB338AF002B5095 /* GPDSPGenericInputNode.cpp in Sources */,
 				C304B5101F9471E0003600BC /* GPDSPGateNode.cpp in Sources */,
 				C304B5111F9471E2003600BC /* GPDSPInputtableNode.cpp in Sources */,
-				C304B5121F9471E5003600BC /* GPDSPMonoInputtableNode.cpp in Sources */,
+				C33641E21FB96F9D00BF9363 /* GPDSPRewindableNode.cpp in Sources */,
 				C304B5131F9471E8003600BC /* GPDSPMultiplyNode.cpp in Sources */,
 				C304B5141F9471EB003600BC /* GPDSPNode.cpp in Sources */,
 				C304B5151F9471EF003600BC /* GPDSPNodeRenderer.cpp in Sources */,
 				C304B5161F9471F1003600BC /* GPDSPOutputtableNode.cpp in Sources */,
 				C304B5171F9471F4003600BC /* GPDSPPeekNode.cpp in Sources */,
-				C304B5181F9471F6003600BC /* GPDSPPolyInputtableNode.cpp in Sources */,
-				C304B5191F9471F8003600BC /* GPDSPRewindableNode.cpp in Sources */,
 				C304B51A1F9471FB003600BC /* GPDSPSumNode.cpp in Sources */,
 				C3B51F261F9587C1001F2C14 /* GPDSPRefreshableNode.cpp in Sources */,
 				C34F3D551F94C6C800C3EF97 /* ofxDatGuiComponent.cpp in Sources */,

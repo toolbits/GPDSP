@@ -48,17 +48,101 @@
 
 namespace ir {
 
-GPDSPOutputtableNode::GPDSPOutputtableNode(void) : _valid(false)
+GPDSPOutputtableNode::GPDSPOutputtableNode(void)
 {
 }
 
 GPDSPOutputtableNode::~GPDSPOutputtableNode(void)
 {
+    _socket.clear();
 }
 
 void GPDSPOutputtableNode::invalidate(void)
 {
-    _valid = false;
+    int i;
+    
+    for (i = 0; i < _socket.size(); ++i) {
+        _socket[i].first = false;
+    }
+    return;
+}
+
+GPDSPError GPDSPOutputtableNode::setCountO(int count)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (count < 0) {
+        count = 0;
+    }
+    if (count != _socket.size()) {
+        try {
+            _socket.resize(count, std::make_pair(false, 0.0f));
+        }
+        catch (std::bad_alloc const&) {
+            error = GPDSPERROR_NO_MEMORY;
+        }
+        if (error == GPDSPERROR_OK) {
+            invalidate();
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPOutputtableNode::appendO(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        _socket.push_back(std::make_pair(false, 0.0f));
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        invalidate();
+    }
+    return error;
+}
+
+GPDSPError GPDSPOutputtableNode::insertO(int index)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        try {
+            _socket.insert(_socket.begin() + index, std::make_pair(false, 0.0f));
+        }
+        catch (std::bad_alloc const&) {
+            error = GPDSPERROR_NO_MEMORY;
+        }
+        if (error == GPDSPERROR_OK) {
+            invalidate();
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPOutputtableNode::removeO(int index)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        _socket.erase(_socket.begin() + index);
+        invalidate();
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+void GPDSPOutputtableNode::clearO(void)
+{
+    _socket.clear();
+    invalidate();
     return;
 }
 

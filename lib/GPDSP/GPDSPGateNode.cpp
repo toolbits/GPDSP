@@ -45,11 +45,10 @@
 */
 
 #include "GPDSPGateNode.hpp"
-#include <math.h>
 
 namespace ir {
 
-GPDSPGateNode::GPDSPGateNode(void) : _minimum(-INFINITY), _maximum(+INFINITY)
+GPDSPGateNode::GPDSPGateNode(void) : _minimum(defaultMinimum()), _maximum(defaultMaximum())
 {
 }
 
@@ -75,38 +74,48 @@ void GPDSPGateNode::setMaximum(float maximum)
     return;
 }
 
+GPDSPError GPDSPGateNode::fixate(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = setCountI(1)) == GPDSPERROR_OK) {
+        if ((error = setCountO(1)) != GPDSPERROR_OK) {
+            clearI();
+        }
+    }
+    return error;
+}
+
 void GPDSPGateNode::invalidate(void)
 {
-    GPDSPMonoInputtableNode::invalidate();
+    GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-void GPDSPGateNode::prepare(void)
+GPDSPError GPDSPGateNode::prepare(void)
 {
-    return;
+    return GPDSPERROR_OK;
 }
 
-bool GPDSPGateNode::process(void)
+GPDSPError GPDSPGateNode::process(void)
 {
     float value;
+    GPDSPError error(GPDSPERROR_OK);
     
-    if (!isValidP()) {
-        if (getValueI(&value)) {
-            if (_minimum > _maximum) {
-                value = 0.0f;
-            }
-            else if (value < _minimum) {
-                value = _minimum;
-            }
-            else if (value > _maximum) {
-                value = _maximum;
-            }
-            setValueP(value);
-            setValueO(value);
+    if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
+        if (_minimum > _maximum) {
+            value = 0.0f;
         }
+        else if (value < _minimum) {
+            value = _minimum;
+        }
+        else if (value > _maximum) {
+            value = _maximum;
+        }
+        error = setValueO(0, value);
     }
-    return isValidP();
+    return error;
 }
 
 }// end of namespace

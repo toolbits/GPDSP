@@ -47,26 +47,34 @@
 #ifndef __GPDSPAMPLIFYNODE_HPP
 #define __GPDSPAMPLIFYNODE_HPP
 
-#include "GPDSPMonoInputtableNode.hpp"
+#include "GPDSPInputtableNode.hpp"
+#include "GPDSPOutputtableNode.hpp"
 
 namespace ir {
 
-class GPDSPAmplifyNode : public GPDSPMonoInputtableNode, public GPDSPOutputtableNode {
+class GPDSPAmplifyNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     private:
                 float                       _gain;
     
     public:
         explicit                            GPDSPAmplifyNode            (void);
         virtual                             ~GPDSPAmplifyNode           (void);
+        static  float                       defaultGain                 (void);
                 void                        setGain                     (float gain);
                 float                       getGain                     (void) const;
+        virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
-        virtual void                        prepare                     (void);
-        virtual bool                        process                     (void);
+        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPAmplifyNode            (GPDSPAmplifyNode const&);
                 GPDSPAmplifyNode&           operator=                   (GPDSPAmplifyNode const&);
 };
+
+inline float GPDSPAmplifyNode::defaultGain(void)
+{
+    return 1.0f;
+}
 
 inline float GPDSPAmplifyNode::getGain(void) const
 {

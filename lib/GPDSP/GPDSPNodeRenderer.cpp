@@ -45,12 +45,78 @@
 */
 
 #include "GPDSPNodeRenderer.hpp"
+#include "GPDSPBufferInputNode.hpp"
+#include "GPDSPBufferOutputNode.hpp"
+#include "GPDSPConstantNode.hpp"
+#include "GPDSPGateNode.hpp"
+#include "GPDSPPeekNode.hpp"
+#include "GPDSPAmplifyNode.hpp"
+#include "GPDSPDelayNode.hpp"
+#include "GPDSPBufferNode.hpp"
+#include "GPDSPSumNode.hpp"
+#include "GPDSPMultiplyNode.hpp"
+#include "GPDSPGenericNode.hpp"
 
 namespace ir {
 
+std::shared_ptr<GPDSPBufferInputNode> GPDSPNodeRenderer::getNodeBufferInput(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPBufferInputNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPBufferOutputNode> GPDSPNodeRenderer::getNodeBufferOutput(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPBufferOutputNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPConstantNode> GPDSPNodeRenderer::getNodeConstant(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPConstantNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPGateNode> GPDSPNodeRenderer::getNodeGate(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPGateNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPPeekNode> GPDSPNodeRenderer::getNodePeek(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPPeekNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPAmplifyNode> GPDSPNodeRenderer::getNodeAmplify(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPAmplifyNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPDelayNode> GPDSPNodeRenderer::getNodeDelay(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPDelayNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPBufferNode> GPDSPNodeRenderer::getNodeBuffer(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPBufferNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPSumNode> GPDSPNodeRenderer::getNodeSum(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPSumNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPMultiplyNode> GPDSPNodeRenderer::getNodeMultiply(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPMultiplyNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPGenericNode> GPDSPNodeRenderer::getNodeGeneric(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPGenericNode>(getNode(name));
+}
+
 std::shared_ptr<GPDSPNode> GPDSPNodeRenderer::getNode(std::string const& name) const
 {
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPNode> result;
     
     if ((it = _node.find(name)) != _node.end()) {
@@ -59,664 +125,905 @@ std::shared_ptr<GPDSPNode> GPDSPNodeRenderer::getNode(std::string const& name) c
     return result;
 }
 
-bool GPDSPNodeRenderer::getCountI(std::string const& name, int* count) const
+GPDSPError GPDSPNodeRenderer::getCountI(std::string const& name, int* count) const
 {
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPPolyInputtableNode> node;
-    bool result(false);
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPInputtableNode> node;
+    GPDSPError error(GPDSPERROR_OK);
     
     if ((it = _node.find(name)) != _node.end()) {
         if (count != NULL) {
-            if ((node = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
+            if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
                 *count = node->getCountI();
             }
-            else if (std::dynamic_pointer_cast<GPDSPMonoInputtableNode>(it->second) != NULL) {
-                *count = 1;
-            }
             else {
                 *count = 0;
             }
         }
-        result = true;
     }
-    return result;
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
 }
 
-bool GPDSPNodeRenderer::getCountO(std::string const& name, int* count) const
+GPDSPError GPDSPNodeRenderer::getCountO(std::string const& name, int* count) const
 {
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    bool result(false);
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPOutputtableNode> node;
+    GPDSPError error(GPDSPERROR_OK);
     
     if ((it = _node.find(name)) != _node.end()) {
         if (count != NULL) {
-            if (std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second) != NULL) {
-                *count = 1;
+            if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
+                *count = node->getCountO();
             }
             else {
                 *count = 0;
             }
         }
-        result = true;
     }
-    return result;
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
 }
 
-bool GPDSPNodeRenderer::setLinkI(std::string const& name, std::string const& source)
+GPDSPError GPDSPNodeRenderer::setLinkI(std::string const& name, int index, std::string const& source, int which)
 {
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPMonoInputtableNode> mono;
-    std::shared_ptr<GPDSPPolyInputtableNode> poly;
-    std::shared_ptr<GPDSPOutputtableNode> node;
-    int i;
-    bool result(false);
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPInputtableNode> input;
+    std::shared_ptr<GPDSPOutputtableNode> output;
+    GPDSPError error(GPDSPERROR_OK);
     
     if ((it = _node.find(name)) != _node.end()) {
-        if ((mono = std::dynamic_pointer_cast<GPDSPMonoInputtableNode>(it->second)) != NULL ||
-            (poly = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
-            if (source != "") {
-                if ((it = _node.find(source)) != _node.end()) {
-                    if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-                        result = true;
-                    }
-                }
-            }
-            else {
-                result = true;
-            }
-            if (result) {
-                if (mono != NULL) {
-                    result = mono->setLinkI(node.get());
-                }
-                else if (poly->getCountI() > 0) {
-                    for (i = 0; i < poly->getCountI(); ++i) {
-                        if (!poly->setLinkI(i, node.get())) {
-                            result = false;
-                        }
-                    }
+        if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
+            if ((it = _node.find(source)) != _node.end()) {
+                if ((output = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
+                    error = input->setLinkI(index, output.get(), which);
                 }
                 else {
-                    result = false;
-                }
-            }
-        }
-    }
-    return result;
-}
-
-bool GPDSPNodeRenderer::setLinkI(std::string const& name, int index, std::string const& source)
-{
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPPolyInputtableNode> poly;
-    std::shared_ptr<GPDSPOutputtableNode> node;
-    bool result(false);
-    
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((poly = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
-            if (source != "") {
-                if ((it = _node.find(source)) != _node.end()) {
-                    if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-                        result = poly->setLinkI(index, node.get());
-                    }
+                    error = GPDSPERROR_INVALID_NODE;
                 }
             }
             else {
-                result = poly->setLinkI(index, node.get());
+                error = GPDSPERROR_NO_NODE;
             }
         }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
+        }
     }
-    return result;
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
 }
 
-bool GPDSPNodeRenderer::getLinkI(std::string const& name, std::string* source) const
+GPDSPError GPDSPNodeRenderer::getLinkI(std::string const& name, int index, std::string* source, int* which) const
 {
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPMonoInputtableNode> mono;
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPInputtableNode> input;
     GPDSPOutputtableNode const* node;
-    bool result(false);
+    int number;
+    GPDSPError error(GPDSPERROR_OK);
     
     if ((it = _node.find(name)) != _node.end()) {
-        if ((mono = std::dynamic_pointer_cast<GPDSPMonoInputtableNode>(it->second)) != NULL) {
-            if (mono->getLinkI(&node)) {
+        if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
+            if ((error = input->getLinkI(index, &node, &number)) == GPDSPERROR_OK) {
                 if (node != NULL) {
                     for (it = _node.begin(); it != _node.end(); ++it) {
                         if (it->second.get() == node) {
-                            if (source != NULL) {
-                                *source = it->first;
-                            }
-                            result = true;
                             break;
                         }
+                    }
+                    if (it != _node.end()) {
+                        if (source != NULL) {
+                            *source = it->first;
+                        }
+                        if (which != NULL) {
+                            *which = number;
+                        }
+                    }
+                    else {
+                        error = GPDSPERROR_NO_NODE;
                     }
                 }
                 else {
                     if (source != NULL) {
                         *source = "";
                     }
-                    result = true;
-                }
-            }
-        }
-    }
-    return result;
-}
-
-bool GPDSPNodeRenderer::getLinkI(std::string const& name, int index, std::string* source) const
-{
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPPolyInputtableNode> poly;
-    GPDSPOutputtableNode const* node;
-    bool result(false);
-    
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((poly = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
-            if (poly->getLinkI(index, &node)) {
-                if (node != NULL) {
-                    for (it = _node.begin(); it != _node.end(); ++it) {
-                        if (it->second.get() == node) {
-                            if (source != NULL) {
-                                *source = it->first;
-                            }
-                            result = true;
-                            break;
-                        }
-                    }
-                }
-                else {
-                    if (source != NULL) {
-                        *source = "";
-                    }
-                    result = true;
-                }
-            }
-        }
-    }
-    return result;
-}
-
-bool GPDSPNodeRenderer::setLinkO(std::string const& name, std::string const& sink)
-{
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPOutputtableNode> node;
-    std::shared_ptr<GPDSPMonoInputtableNode> mono;
-    std::shared_ptr<GPDSPPolyInputtableNode> poly;
-    GPDSPOutputtableNode const* temp;
-    int i;
-    bool result(false);
-    
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-            if (sink != "") {
-                if ((it = _node.find(sink)) != _node.end()) {
-                    if ((mono = std::dynamic_pointer_cast<GPDSPMonoInputtableNode>(it->second)) != NULL) {
-                        result = mono->setLinkI(node.get());
-                    }
-                    else if ((poly = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
-                        if (poly->getCountI() > 0) {
-                            result = true;
-                            for (i = 0; i < poly->getCountI(); ++i) {
-                                if (!poly->setLinkI(i, node.get())) {
-                                    result = false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                result = true;
-                for (it = _node.begin(); it != _node.end(); ++it) {
-                    if ((mono = std::dynamic_pointer_cast<GPDSPMonoInputtableNode>(it->second)) != NULL) {
-                        if (mono->getLinkI(&temp)) {
-                            if (temp == node.get()) {
-                                if (!mono->setLinkI(NULL)) {
-                                    result = false;
-                                }
-                            }
-                        }
-                        else {
-                            result = false;
-                        }
-                    }
-                    else if ((poly = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
-                        for (i = 0; i < poly->getCountI(); ++i) {
-                            if (poly->getLinkI(i, &temp)) {
-                                if (temp == node.get()) {
-                                    if (!poly->setLinkI(i, NULL)) {
-                                        result = false;
-                                    }
-                                }
-                            }
-                            else {
-                                result = false;
-                            }
-                        }
+                    if (which != NULL) {
+                        *which = 0;
                     }
                 }
             }
         }
-    }
-    return result;
-}
-
-bool GPDSPNodeRenderer::setLinkO(std::string const& name, std::string const& sink, int index)
-{
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPOutputtableNode> node;
-    std::shared_ptr<GPDSPPolyInputtableNode> poly;
-    bool result(false);
-    
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-            if ((it = _node.find(sink)) != _node.end()) {
-                if ((poly = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
-                    result = poly->setLinkI(index, node.get());
-                }
-            }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
         }
     }
-    return result;
-}
-
-bool GPDSPNodeRenderer::getValueI(std::string const& name, float* value) const
-{
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPMonoInputtableNode> node;
-    bool result(false);
-    
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPMonoInputtableNode>(it->second)) != NULL) {
-            result = node->getValueI(value);
-        }
+    else {
+        error = GPDSPERROR_NO_NODE;
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::getValueI(std::string const& name, int index, float* value) const
+GPDSPError GPDSPNodeRenderer::clearLinkI(std::string const& name, int index)
 {
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::shared_ptr<GPDSPPolyInputtableNode> node;
-    bool result(false);
-    
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPPolyInputtableNode>(it->second)) != NULL) {
-            result = node->getValueI(index, value);
-        }
-    }
-    return result;
-}
-
-bool GPDSPNodeRenderer::getValueP(std::string const& name, float* value) const
-{
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPInputtableNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     if ((it = _node.find(name)) != _node.end()) {
         if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-            result = node->getValueP(value);
+            error = node->setLinkI(index, NULL, 0);
+        }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
         }
     }
-    return result;
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
 }
 
-bool GPDSPNodeRenderer::getValueO(std::string const& name, float* value) const
+GPDSPError GPDSPNodeRenderer::clearLinkI(std::string const& name)
 {
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPInputtableNode> node;
+    int i;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
+            for (i = 0; i < node->getCountI(); ++i) {
+                node->setLinkI(i, NULL, 0);
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::clearLinkO(std::string const& name, int index)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPOutputtableNode> output;
+    std::shared_ptr<GPDSPInputtableNode> input;
+    GPDSPOutputtableNode const* node;
+    int number;
+    int i;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((output = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
+            for (it = _node.begin(); it != _node.end(); ++it) {
+                if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
+                    for (i = 0; i < input->getCountI(); ++i) {
+                        if (input->getLinkI(i, &node, &number) == GPDSPERROR_OK) {
+                            if (node == output.get() && number == index) {
+                                input->setLinkI(i, NULL, 0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::clearLinkO(std::string const& name)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPOutputtableNode> output;
+    std::shared_ptr<GPDSPInputtableNode> input;
+    GPDSPOutputtableNode const* node;
+    int i;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((output = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
+            for (it = _node.begin(); it != _node.end(); ++it) {
+                if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
+                    for (i = 0; i < input->getCountI(); ++i) {
+                        if (input->getLinkI(i, &node, NULL) == GPDSPERROR_OK) {
+                            if (node == output.get()) {
+                                input->setLinkI(i, NULL, 0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::getValueI(std::string const& name, int index, float* value) const
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPInputtableNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
+            error = node->getValueI(index, value);
+        }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::getValueO(std::string const& name, int index, float* value) const
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPOutputtableNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     if ((it = _node.find(name)) != _node.end()) {
         if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-            result = node->getValueO(value);
+            error = node->getValueO(index, value);
         }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+std::string GPDSPNodeRenderer::getNextNode(void) const
+{
+    std::string result;
+    
+    if (_nit != _node.end()) {
+        result = _nit->first;
+        ++_nit;
     }
     return result;
 }
 
-bool GPDSPNodeRenderer::newNodeBufferInput(std::string const& name, float const* buffer, int interleave)
+GPDSPError GPDSPNodeRenderer::newNodeBufferInput(std::string const& name, float const* buffer, int length, int interleave)
 {
     std::shared_ptr<GPDSPBufferInputNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPBufferInputNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
-        node->setBuffer(buffer, interleave);
-        result = newNode(name, node);
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setBuffer(buffer, length, interleave)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
+        }
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodeBufferOutput(std::string const& name, float* buffer, int interleave)
+GPDSPError GPDSPNodeRenderer::newNodeBufferOutput(std::string const& name, float* buffer, int length, int interleave)
 {
     std::shared_ptr<GPDSPBufferOutputNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPBufferOutputNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
-        node->setBuffer(buffer, interleave);
-        result = newNode(name, node);
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setBuffer(buffer, length, interleave)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
+        }
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodeConstant(std::string const& name, float constant)
+GPDSPError GPDSPNodeRenderer::newNodeConstant(std::string const& name, float constant)
 {
     std::shared_ptr<GPDSPConstantNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPConstantNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
+    if (error == GPDSPERROR_OK) {
         node->setConstant(constant);
-        result = newNode(name, node);
+        error = newNode(name, node);
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodeGate(std::string const& name, float minimum, float maximum)
+GPDSPError GPDSPNodeRenderer::newNodeGate(std::string const& name, float minimum, float maximum)
 {
     std::shared_ptr<GPDSPGateNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPGateNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
+    if (error == GPDSPERROR_OK) {
         node->setMinimum(minimum);
         node->setMaximum(maximum);
-        result = newNode(name, node);
+        error = newNode(name, node);
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodePeek(std::string const& name)
+GPDSPError GPDSPNodeRenderer::newNodePeek(std::string const& name)
 {
     std::shared_ptr<GPDSPPeekNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPPeekNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
-        result = newNode(name, node);
+    if (error == GPDSPERROR_OK) {
+        error = newNode(name, node);
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodeAmplify(std::string const& name, float gain)
+GPDSPError GPDSPNodeRenderer::newNodeAmplify(std::string const& name, float gain)
 {
     std::shared_ptr<GPDSPAmplifyNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPAmplifyNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
+    if (error == GPDSPERROR_OK) {
         node->setGain(gain);
-        result = newNode(name, node);
+        error = newNode(name, node);
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodeDelay(std::string const& name)
+GPDSPError GPDSPNodeRenderer::newNodeDelay(std::string const& name)
 {
     std::shared_ptr<GPDSPDelayNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPDelayNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
-        result = newNode(name, node);
+    if (error == GPDSPERROR_OK) {
+        error = newNode(name, node);
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodeBuffer(std::string const& name, int size)
+GPDSPError GPDSPNodeRenderer::newNodeBuffer(std::string const& name, int size)
 {
     std::shared_ptr<GPDSPBufferNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPBufferNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
-        if (node->setSize(size)) {
-            result = newNode(name, node);
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setSize(size)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
         }
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodeSum(std::string const& name, int count)
+GPDSPError GPDSPNodeRenderer::newNodeSum(std::string const& name, int count)
 {
     std::shared_ptr<GPDSPSumNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPSumNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
-        if (node->setCountI(count)) {
-            result = newNode(name, node);
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setCountI(count)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
         }
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNodeMultiply(std::string const& name, int count)
+GPDSPError GPDSPNodeRenderer::newNodeMultiply(std::string const& name, int count)
 {
     std::shared_ptr<GPDSPMultiplyNode> node;
-    bool result(false);
+    GPDSPError error(GPDSPERROR_OK);
     
     try {
         node = std::make_shared<GPDSPMultiplyNode>();
     }
     catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
     }
-    if (node != NULL) {
-        if (node->setCountI(count)) {
-            result = newNode(name, node);
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setCountI(count)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
         }
     }
-    return result;
+    return error;
 }
 
-bool GPDSPNodeRenderer::newNode(std::string const& name, std::shared_ptr<GPDSPNode> node)
+GPDSPError GPDSPNodeRenderer::newNodeGeneric(std::string const& name, std::string const& file)
 {
-    std::shared_ptr<GPDSPRewindableNode> rewindable;
-    std::shared_ptr<GPDSPRefreshableNode> refreshable;
-    bool result(false);
+    std::shared_ptr<GPDSPGenericNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        node = std::make_shared<GPDSPGenericNode>();
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->open(file)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::newNode(std::string const& name, std::shared_ptr<GPDSPNode> node)
+{
+    GPDSPError error(GPDSPERROR_OK);
     
     if (name != "" && node != NULL) {
         if (_node.find(name) == _node.end()) {
-            result = true;
-            try {
-                _node[name] = node;
-            }
-            catch (std::bad_alloc const&) {
-                result = false;
-            }
-            if (result) {
-                if ((rewindable = std::dynamic_pointer_cast<GPDSPRewindableNode>(node)) != NULL) {
-                    try {
-                        _rewindable[name] = rewindable.get();
-                    }
-                    catch (std::bad_alloc const&) {
-                        result = false;
-                    }
+            
+            // TEST:
+            node->__name = name;
+            
+            if ((error = node->fixate()) == GPDSPERROR_OK) {
+                try {
+                    _node[name] = node;
                 }
-                if (result) {
-                    if ((refreshable = std::dynamic_pointer_cast<GPDSPRefreshableNode>(node)) != NULL) {
-                        try {
-                            _refreshable[name] = refreshable.get();
-                        }
-                        catch (std::bad_alloc const&) {
-                            result = false;
-                        }
-                    }
-                    if (result) {
-                        _jit.clear();
-                    }
-                    else {
-                        _rewindable.erase(name);
-                        _node.erase(name);
-                    }
+                catch (std::bad_alloc const&) {
+                    error = GPDSPERROR_NO_MEMORY;
                 }
-                else {
-                    _node.erase(name);
+                if (error == GPDSPERROR_OK) {
+                    _sequence.clear();
+                    _wait.clear();
+                    _nit = _node.end();
                 }
             }
         }
+        else {
+            error = GPDSPERROR_ALREADY_EXIST;
+        }
     }
-    return result;
+    else {
+        error = GPDSPERROR_INVALID_PARAM;
+    }
+    return error;
 }
 
-void GPDSPNodeRenderer::deleteNode(std::string const& name)
+GPDSPError GPDSPNodeRenderer::deleteNode(std::string const& name)
 {
-    if (_node.find(name) != _node.end()) {
-        setLinkO(name, "");
-        _jit.clear();
-        _refreshable.erase(name);
-        _rewindable.erase(name);
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = clearLinkO(name)) == GPDSPERROR_OK) {
+        _sequence.clear();
+        _wait.clear();
         _node.erase(name);
+        _nit = _node.end();
     }
-    return;
+    return error;
 }
 
 void GPDSPNodeRenderer::clearNode(void)
 {
-    _jit.clear();
-    _refreshable.clear();
-    _rewindable.clear();
+    _sequence.clear();
+    _wait.clear();
     _node.clear();
+    _nit = _node.end();
     return;
 }
 
-bool GPDSPNodeRenderer::render(int count)
+void GPDSPNodeRenderer::invalidate(void)
 {
-    std::map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator nit;
-    std::map<std::string, GPDSPRewindableNode*>::const_iterator rit;
-    std::vector<GPDSPNode*>::const_iterator jit;
-    std::map<std::string, std::shared_ptr<GPDSPNode> > node;
-    int remain;
-    bool error;
-    bool result(false);
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     
-    if (count >= 0) {
-        for (rit = _rewindable.begin(); rit != _rewindable.end(); ++rit) {
-            rit->second->rewind();
+    for (it = _node.begin(); it != _node.end(); ++it) {
+        it->second->invalidate();
+    }
+    return;
+}
+
+GPDSPError GPDSPNodeRenderer::prepare(void)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    for (it = _node.begin(); it != _node.end(); ++it) {
+        if ((error = it->second->prepare()) != GPDSPERROR_OK) {
+            break;
         }
-        result = true;
-        while (--count >= 0) {
-            if (_jit.size() > 0) {
-                for (jit = _jit.begin(); jit != _jit.end(); ++jit) {
-                    (*jit)->invalidate();
-                }
-                for (jit = _jit.begin(); jit != _jit.end(); ++jit) {
-                    (*jit)->prepare();
-                }
-                error = false;
-                do {
-                    remain = 0;
-                    for (jit = _jit.begin(); jit != _jit.end(); ++jit) {
-                        if (!(*jit)->process()) {
-                            error = true;
-                            ++remain;
-                        }
-                    }
-                } while (remain > 0);
-                if (error) {
-                    _jit.clear();
-                }
-            }
-            else {
-                try {
-                    node = _node;
-                }
-                catch (std::bad_alloc const&) {
-                    result = false;
-                }
-                if (result) {
-                    for (nit = node.begin(); nit != node.end(); ++nit) {
-                        nit->second->invalidate();
-                    }
-                    for (nit = node.begin(); nit != node.end(); ++nit) {
-                        nit->second->prepare();
-                    }
-                    while (node.size() > 0) {
-                        for (nit = node.begin(); nit != node.end(); ) {
-                            if (nit->second->process()) {
-                                if (result) {
-                                    try {
-                                        _jit.push_back(nit->second.get());
-                                    }
-                                    catch (std::bad_alloc const&) {
-                                        result = false;
-                                    }
-                                }
-                                nit = node.erase(nit);
-                            }
-                            else {
-                                ++nit;
-                            }
-                        }
-                    }
-                    if (!result) {
-                        _jit.clear();
-                        break;
-                    }
-                }
-                else {
-                    break;
-                }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::process(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (_wait.size() > 0) {
+        error = makeSequence();
+    }
+    else if (_sequence.size() > 0) {
+        if ((error = optimizeSequence()) == GPDSPERROR_WAIT) {
+            if ((error = makeWait()) == GPDSPERROR_OK) {
+                error = makeSequence();
             }
         }
     }
-    return result;
+    else if (_node.size() > 0) {
+        if ((error = makeWait()) == GPDSPERROR_OK) {
+            error = makeSequence();
+        }
+    }
+    switch (error) {
+        case GPDSPERROR_OK:
+        case GPDSPERROR_FRAGMENT:
+        case GPDSPERROR_LOOP:
+            break;
+        default:
+            _sequence.clear();
+            _wait.clear();
+            break;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::render(int count, int* remain)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (count >= 0) {
+        while (--count >= 0) {
+            invalidate();
+            if ((error = prepare()) == GPDSPERROR_OK) {
+                do {
+                    error = process();
+                } while (error == GPDSPERROR_FRAGMENT);
+            }
+            if (error != GPDSPERROR_OK) {
+                break;
+            }
+        }
+        if (remain != NULL) {
+            *remain = count + 1;
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_PARAM;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::rewind(std::string const& name)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPRewindableNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((node = std::dynamic_pointer_cast<GPDSPRewindableNode>(it->second)) != NULL) {
+            node->rewind();
+        }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+void GPDSPNodeRenderer::rewind(void)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPRewindableNode> node;
+    
+    for (it = _node.begin(); it != _node.end(); ++it) {
+        if ((node = std::dynamic_pointer_cast<GPDSPRewindableNode>(it->second)) != NULL) {
+            node->rewind();
+        }
+    }
+    return;
+}
+
+GPDSPError GPDSPNodeRenderer::refresh(std::string const& name)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPRefreshableNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((node = std::dynamic_pointer_cast<GPDSPRefreshableNode>(it->second)) != NULL) {
+            node->refresh();
+        }
+        else {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
 }
 
 void GPDSPNodeRenderer::refresh(void)
 {
-    std::map<std::string, GPDSPRefreshableNode*>::const_iterator it;
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    std::shared_ptr<GPDSPRefreshableNode> node;
     
-    for (it = _refreshable.begin(); it != _refreshable.end(); ++it) {
-        it->second->refresh();
+    for (it = _node.begin(); it != _node.end(); ++it) {
+        if ((node = std::dynamic_pointer_cast<GPDSPRefreshableNode>(it->second)) != NULL) {
+            node->refresh();
+        }
     }
     return;
 }
 
-void GPDSPNodeRenderer::refresh(std::string const& name)
+GPDSPError GPDSPNodeRenderer::load(std::string const& file)
 {
-    std::map<std::string, GPDSPRefreshableNode*>::const_iterator it;
+    GPDSPError error(GPDSPERROR_LIMIT);
     
-    if ((it = _refreshable.find(name)) != _refreshable.end()) {
-        it->second->refresh();
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::save(std::string const& file) const
+{
+    GPDSPError error(GPDSPERROR_LIMIT);
+    
+    return error;
+}
+
+std::string GPDSPNodeRenderer::stringize(GPDSPError error)
+{
+    char result[64] = "\0";
+    
+    switch (error) {
+        case GPDSPERROR_OK:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_OK)", error);
+            break;
+        case GPDSPERROR_WAIT:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_WAIT)", error);
+            break;
+        case GPDSPERROR_FRAGMENT:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_FRAGMENT)", error);
+            break;
+        case GPDSPERROR_LOOP:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_LOOP)", error);
+            break;
+        case GPDSPERROR_NO_MEMORY:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_MEMORY)", error);
+            break;
+        case GPDSPERROR_NO_NODE:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_NODE)", error);
+            break;
+        case GPDSPERROR_ALREADY_EXIST:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_ALREADY_EXIST)", error);
+            break;
+        case GPDSPERROR_INVALID_PARAM:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_PARAM)", error);
+            break;
+        case GPDSPERROR_INVALID_RANGE:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_RANGE)", error);
+            break;
+        case GPDSPERROR_INVALID_FORMAT:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_FORMAT)", error);
+            break;
+        case GPDSPERROR_INVALID_NODE:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_NODE)", error);
+            break;
+        default:
+            snprintf(result, sizeof(result), "%d (unknown error)", error);
+            break;
     }
-    return;
+    return result;
+}
+
+GPDSPError GPDSPNodeRenderer::makeWait(void)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator nit;
+    std::vector<std::pair<GPDSPNode*, GPDSPError> >::const_iterator sit;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    for (nit = _node.begin(); nit != _node.end(); ++nit) {
+        for (sit = _sequence.begin(); sit != _sequence.end(); ++sit) {
+            if (nit->second.get() == sit->first) {
+                if (sit->second == GPDSPERROR_OK) {
+                    break;
+                }
+            }
+        }
+        if (sit == _sequence.end()) {
+            try {
+                _wait.push_back(nit->second.get());
+            }
+            catch (std::bad_alloc const&) {
+                error = GPDSPERROR_NO_MEMORY;
+            }
+        }
+        if (error != GPDSPERROR_OK) {
+            break;
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::makeSequence(void)
+{
+    std::vector<GPDSPNode*>::const_iterator it;
+    std::vector<GPDSPNode*>::size_type size;
+    std::vector<GPDSPNode*>::size_type pass;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    size = _sequence.size();
+    while (_wait.size() > 0) {
+        pass = _sequence.size();
+        for (it = _wait.begin(); it != _wait.end(); ) {
+            error = (*it)->process();
+            switch (error) {
+                case GPDSPERROR_OK:
+                case GPDSPERROR_FRAGMENT:
+                    try {
+                        _sequence.push_back(std::make_pair(*it, error));
+                    }
+                    catch (std::bad_alloc const&) {
+                        error = GPDSPERROR_NO_MEMORY;
+                    }
+                    if (error == GPDSPERROR_OK) {
+                        it = _wait.erase(it);
+                        break;
+                    }
+                    else if (error != GPDSPERROR_FRAGMENT) {
+                        break;
+                    }
+                case GPDSPERROR_WAIT:
+                    ++it;
+                    error = GPDSPERROR_OK;
+                    break;
+                default:
+                    break;
+            }
+            if (error != GPDSPERROR_OK) {
+                break;
+            }
+        }
+        if (error == GPDSPERROR_OK) {
+            if (_sequence.size() <= pass) {
+                if (_sequence.size() > size) {
+                    try {
+                        _sequence.push_back(std::make_pair(static_cast<GPDSPNode*>(NULL), GPDSPERROR_OK));
+                    }
+                    catch (std::bad_alloc const&) {
+                        error = GPDSPERROR_NO_MEMORY;
+                    }
+                    if (error == GPDSPERROR_OK) {
+                        error = GPDSPERROR_FRAGMENT;
+                    }
+                }
+                else {
+                    error = GPDSPERROR_LOOP;
+                }
+            }
+        }
+        if (error != GPDSPERROR_OK) {
+            break;
+        }
+    }
+    if (error == GPDSPERROR_OK) {
+        _jit = _sequence.begin();
+    }
+    
+    // TEST:
+    {
+        printf("JIT [");
+        for (int i = 0; i < _sequence.size(); ++i) {
+            printf("%s", (_sequence[i].first != NULL) ? (_sequence[i].first->__name.c_str()) : ("*"));
+            if (i < _sequence.size() - 1) {
+                printf(" > ");
+            }
+        }
+        printf("]\n");
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::optimizeSequence(void)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    while (_jit != _sequence.end()) {
+        if (_jit->first != NULL) {
+            error = _jit->first->process();
+            switch (error) {
+                case GPDSPERROR_OK:
+                case GPDSPERROR_FRAGMENT:
+                    if (error == _jit->second) {
+                        ++_jit;
+                        error = GPDSPERROR_OK;
+                        break;
+                    }
+                    else {
+                        _jit->second = error;
+                        ++_jit;
+                        error = GPDSPERROR_WAIT;
+                    }
+                case GPDSPERROR_WAIT:
+                    _jit = _sequence.erase(_jit, _sequence.end());
+                    break;
+                default:
+                    break;
+            }
+        }
+        else {
+            ++_jit;
+            error = GPDSPERROR_FRAGMENT;
+        }
+        if (error != GPDSPERROR_OK) {
+            break;
+        }
+    }
+    if (error == GPDSPERROR_OK) {
+        if (_jit == _sequence.end()) {
+            _jit = _sequence.begin();
+        }
+    }
+    return error;
 }
 
 }// end of namespace

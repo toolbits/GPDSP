@@ -14,7 +14,7 @@
 **      This source code is for Xcode.
 **      Xcode 9.0 (Apple LLVM 9.0.0)
 **
-**      GPDSPMonoInputtableNode.cpp
+**      GPDSPType.hpp
 **
 **      ------------------------------------------------------------------------
 **
@@ -44,54 +44,26 @@
 **      あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、その他の義務について何らの責任も負わないものとします。
 */
 
-#include "GPDSPMonoInputtableNode.hpp"
+#ifndef __GPDSPTYPE_HPP
+#define __GPDSPTYPE_HPP
 
 namespace ir {
 
-GPDSPMonoInputtableNode::GPDSPMonoInputtableNode(void) : _node(NULL)
-{
-}
-
-GPDSPMonoInputtableNode::~GPDSPMonoInputtableNode(void)
-{
-}
-
-bool GPDSPMonoInputtableNode::setLinkI(GPDSPOutputtableNode const* node)
-{
-    if (node != _node) {
-        _node = node;
-        invalidate();
-    }
-    return true;
-}
-
-bool GPDSPMonoInputtableNode::getLinkI(GPDSPOutputtableNode const** node) const
-{
-    if (node != NULL) {
-        *node = _node;
-    }
-    return true;
-}
-
-bool GPDSPMonoInputtableNode::getValueI(float* value) const
-{
-    bool result(false);
-    
-    if (_node != NULL) {
-        result = _node->getValueO(value);
-    }
-    else {
-        if (value != NULL) {
-            *value = 0.0f;
-        }
-        result = true;
-    }
-    return result;
-}
-
-bool GPDSPMonoInputtableNode::isValidI(void) const
-{
-    return (_node != NULL) ? (_node->isValidO()) : (true);
-}
+enum GPDSPError {
+    GPDSPERROR_OK,
+    GPDSPERROR_WAIT,
+    GPDSPERROR_FRAGMENT,
+    GPDSPERROR_LOOP,
+    GPDSPERROR_NO_MEMORY,
+    GPDSPERROR_NO_NODE,
+    GPDSPERROR_ALREADY_EXIST,
+    GPDSPERROR_INVALID_PARAM,
+    GPDSPERROR_INVALID_RANGE,
+    GPDSPERROR_INVALID_FORMAT,
+    GPDSPERROR_INVALID_NODE,
+    GPDSPERROR_LIMIT
+};
 
 }// end of namespace
+
+#endif

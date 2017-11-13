@@ -47,7 +47,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "GPDSPNodeRenderer.hpp"
+#include "GPDSP.hpp"
 #include "ofxDatGui.h"
 
 using namespace ir;
@@ -76,11 +76,8 @@ class ofApp : public ofBaseApp {
         void exit(void);
         void audioIn(float* buffer, int size, int channel);
         void audioOut(float* buffer, int size, int channel);
-        void update(void);
         void draw(void);
-        void keyPressed(int key);
         void onButtonEvent(ofxDatGuiButtonEvent e);
-        void onToggleEvent(ofxDatGuiToggleEvent e);
         void onSliderEvent(ofxDatGuiSliderEvent e);
         void onDropdownEvent(ofxDatGuiDropdownEvent e);
     private:

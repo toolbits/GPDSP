@@ -48,29 +48,35 @@
 #define __GPDSPNODERENDERER_HPP
 
 #include <string>
-#include <map>
-#include "GPDSPBufferInputNode.hpp"
-#include "GPDSPBufferOutputNode.hpp"
-#include "GPDSPConstantNode.hpp"
-#include "GPDSPGateNode.hpp"
-#include "GPDSPPeekNode.hpp"
-#include "GPDSPAmplifyNode.hpp"
-#include "GPDSPDelayNode.hpp"
-#include "GPDSPBufferNode.hpp"
-#include "GPDSPSumNode.hpp"
-#include "GPDSPMultiplyNode.hpp"
+#include <vector>
+#include <unordered_map>
+#include "GPDSPNode.hpp"
 
 namespace ir {
 
+class GPDSPBufferInputNode;
+class GPDSPBufferOutputNode;
+class GPDSPConstantNode;
+class GPDSPGateNode;
+class GPDSPPeekNode;
+class GPDSPAmplifyNode;
+class GPDSPDelayNode;
+class GPDSPBufferNode;
+class GPDSPSumNode;
+class GPDSPMultiplyNode;
+class GPDSPGenericNode;
+
 class GPDSPNodeRenderer {
     private:
-                std::map<std::string, std::shared_ptr<GPDSPNode> >
+                std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >
                                             _node;
-                std::map<std::string, GPDSPRewindableNode*>
-                                            _rewindable;
-                std::map<std::string, GPDSPRefreshableNode*>
-                                            _refreshable;
-                std::vector<GPDSPNode*>     _jit;
+                std::vector<GPDSPNode*>     _wait;
+                std::vector<std::pair<GPDSPNode*, GPDSPError> >
+                                            _sequence;
+                std::vector<std::pair<GPDSPNode*, GPDSPError> >::iterator
+                                            _jit;
+        mutable std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator
+                                            _nit;
     
     public:
         explicit                            GPDSPNodeRenderer           (void);
@@ -95,41 +101,57 @@ class GPDSPNodeRenderer {
                                             getNodeSum                  (std::string const& name) const;
                 std::shared_ptr<GPDSPMultiplyNode>
                                             getNodeMultiply             (std::string const& name) const;
+                std::shared_ptr<GPDSPGenericNode>
+                                            getNodeGeneric              (std::string const& name) const;
                 std::shared_ptr<GPDSPNode>  getNode                     (std::string const& name) const;
-                bool                        getCountI                   (std::string const& name, int* count) const;
-                bool                        getCountO                   (std::string const& name, int* count) const;
-                bool                        setLinkI                    (std::string const& name, std::string const& source);
-                bool                        setLinkI                    (std::string const& name, int index, std::string const& source);
-                bool                        getLinkI                    (std::string const& name, std::string* source) const;
-                bool                        getLinkI                    (std::string const& name, int index, std::string* source) const;
-                bool                        setLinkO                    (std::string const& name, std::string const& sink);
-                bool                        setLinkO                    (std::string const& name, std::string const& sink, int index);
-                bool                        getValueI                   (std::string const& name, float* value) const;
-                bool                        getValueI                   (std::string const& name, int index, float* value) const;
-                bool                        getValueP                   (std::string const& name, float* value) const;
-                bool                        getValueO                   (std::string const& name, float* value) const;
-                bool                        newNodeBufferInput          (std::string const& name, float const* buffer, int interleave);
-                bool                        newNodeBufferOutput         (std::string const& name, float* buffer, int interleave);
-                bool                        newNodeConstant             (std::string const& name, float constant);
-                bool                        newNodeGate                 (std::string const& name, float minimum, float maximum);
-                bool                        newNodePeek                 (std::string const& name);
-                bool                        newNodeAmplify              (std::string const& name, float gain);
-                bool                        newNodeDelay                (std::string const& name);
-                bool                        newNodeBuffer               (std::string const& name, int size);
-                bool                        newNodeSum                  (std::string const& name, int count);
-                bool                        newNodeMultiply             (std::string const& name, int count);
-                bool                        newNode                     (std::string const& name, std::shared_ptr<GPDSPNode> node);
-                void                        deleteNode                  (std::string const& name);
+                GPDSPError                  getCountI                   (std::string const& name, int* count) const;
+                GPDSPError                  getCountO                   (std::string const& name, int* count) const;
+                GPDSPError                  setLinkI                    (std::string const& name, int index, std::string const& source, int which);
+                GPDSPError                  getLinkI                    (std::string const& name, int index, std::string* source, int* which) const;
+                GPDSPError                  clearLinkI                  (std::string const& name, int index);
+                GPDSPError                  clearLinkI                  (std::string const& name);
+                GPDSPError                  clearLinkO                  (std::string const& name, int index);
+                GPDSPError                  clearLinkO                  (std::string const& name);
+                GPDSPError                  getValueI                   (std::string const& name, int index, float* value) const;
+                GPDSPError                  getValueO                   (std::string const& name, int index, float* value) const;
+                std::string                 getNextNode                 (void) const;
+                bool                        hasNextNode                 (void) const;
+                GPDSPError                  newNodeBufferInput          (std::string const& name, float const* buffer, int length, int interleave);
+                GPDSPError                  newNodeBufferOutput         (std::string const& name, float* buffer, int length, int interleave);
+                GPDSPError                  newNodeConstant             (std::string const& name, float constant);
+                GPDSPError                  newNodeGate                 (std::string const& name, float minimum, float maximum);
+                GPDSPError                  newNodePeek                 (std::string const& name);
+                GPDSPError                  newNodeAmplify              (std::string const& name, float gain);
+                GPDSPError                  newNodeDelay                (std::string const& name);
+                GPDSPError                  newNodeBuffer               (std::string const& name, int size);
+                GPDSPError                  newNodeSum                  (std::string const& name, int count);
+                GPDSPError                  newNodeMultiply             (std::string const& name, int count);
+                GPDSPError                  newNodeGeneric              (std::string const& name, std::string const& file);
+                GPDSPError                  newNode                     (std::string const& name, std::shared_ptr<GPDSPNode> node);
+                GPDSPError                  deleteNode                  (std::string const& name);
                 void                        clearNode                   (void);
-                bool                        render                      (int count);
+                void                        iterateNode                 (void) const;
+                void                        invalidate                  (void);
+                GPDSPError                  prepare                     (void);
+                GPDSPError                  process                     (void);
+                GPDSPError                  render                      (int count, int* remain);
+                GPDSPError                  rewind                      (std::string const& name);
+                void                        rewind                      (void);
+                GPDSPError                  refresh                     (std::string const& name);
                 void                        refresh                     (void);
-                void                        refresh                     (std::string const& name);
+                GPDSPError                  load                        (std::string const& file);
+                GPDSPError                  save                        (std::string const& file) const;
+        static  std::string                 stringize                   (GPDSPError error);
+    private:
+                GPDSPError                  makeWait                    (void);
+                GPDSPError                  makeSequence                (void);
+                GPDSPError                  optimizeSequence            (void);
     private:
                                             GPDSPNodeRenderer           (GPDSPNodeRenderer const&);
                 GPDSPNodeRenderer&          operator=                   (GPDSPNodeRenderer const&);
 };
 
-inline GPDSPNodeRenderer::GPDSPNodeRenderer(void)
+inline GPDSPNodeRenderer::GPDSPNodeRenderer(void) : _nit(_node.end())
 {
 }
 
@@ -138,54 +160,15 @@ inline GPDSPNodeRenderer::~GPDSPNodeRenderer(void)
     clearNode();
 }
 
-inline std::shared_ptr<GPDSPBufferInputNode> GPDSPNodeRenderer::getNodeBufferInput(std::string const& name) const
+inline bool GPDSPNodeRenderer::hasNextNode(void) const
 {
-    return std::dynamic_pointer_cast<GPDSPBufferInputNode>(getNode(name));
+    return (_nit != _node.end());
 }
 
-inline std::shared_ptr<GPDSPBufferOutputNode> GPDSPNodeRenderer::getNodeBufferOutput(std::string const& name) const
+inline void GPDSPNodeRenderer::iterateNode(void) const
 {
-    return std::dynamic_pointer_cast<GPDSPBufferOutputNode>(getNode(name));
-}
-
-inline std::shared_ptr<GPDSPConstantNode> GPDSPNodeRenderer::getNodeConstant(std::string const& name) const
-{
-    return std::dynamic_pointer_cast<GPDSPConstantNode>(getNode(name));
-}
-
-inline std::shared_ptr<GPDSPGateNode> GPDSPNodeRenderer::getNodeGate(std::string const& name) const
-{
-    return std::dynamic_pointer_cast<GPDSPGateNode>(getNode(name));
-}
-
-inline std::shared_ptr<GPDSPPeekNode> GPDSPNodeRenderer::getNodePeek(std::string const& name) const
-{
-    return std::dynamic_pointer_cast<GPDSPPeekNode>(getNode(name));
-}
-
-inline std::shared_ptr<GPDSPAmplifyNode> GPDSPNodeRenderer::getNodeAmplify(std::string const& name) const
-{
-    return std::dynamic_pointer_cast<GPDSPAmplifyNode>(getNode(name));
-}
-
-inline std::shared_ptr<GPDSPDelayNode> GPDSPNodeRenderer::getNodeDelay(std::string const& name) const
-{
-    return std::dynamic_pointer_cast<GPDSPDelayNode>(getNode(name));
-}
-
-inline std::shared_ptr<GPDSPBufferNode> GPDSPNodeRenderer::getNodeBuffer(std::string const& name) const
-{
-    return std::dynamic_pointer_cast<GPDSPBufferNode>(getNode(name));
-}
-
-inline std::shared_ptr<GPDSPSumNode> GPDSPNodeRenderer::getNodeSum(std::string const& name) const
-{
-    return std::dynamic_pointer_cast<GPDSPSumNode>(getNode(name));
-}
-
-inline std::shared_ptr<GPDSPMultiplyNode> GPDSPNodeRenderer::getNodeMultiply(std::string const& name) const
-{
-    return std::dynamic_pointer_cast<GPDSPMultiplyNode>(getNode(name));
+    _nit = _node.begin();
+    return;
 }
 
 }// end of namespace
