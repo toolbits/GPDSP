@@ -4,7 +4,8 @@ A General Purpose DSP Library, written in C++.
 This is a Digital Signal Processing Library for general purpose use (for example  
 audio stream, data sensing, etc...) in C++ application.  
 Very tiny implementation enables you to use this library under the small resource environment.  
-Very simple to use, normally you have to use only GPDSPNodeRenderer class.  
+It is simple to use, normally you have to use only GPDSPNodeRenderer class.  
+Now supports generatively constructed filters from external XML files (.gpdsp file).  
 
 GPDSP supports next operations:  
 
@@ -18,6 +19,7 @@ o GPDSPDelayNode: makes single sample delay
 o GPDSPBufferNode: makes N samples delay  
 o GPDSPSumNode: adds all input values  
 o GPDSPMultiplyNode: multiplies all input values  
+o GPDSPGenericNode: generatively constructed filter  
 
 An audio processing example application for openFrameworks:  
 
@@ -25,7 +27,7 @@ An audio processing example application for openFrameworks:  
 
 The openFrameworks exmaple code needs ofxDatGui addon.  
 Please install ofxDatGui first:  
-https://github.com/braitsch/ofxDatGui
+https://github.com/braitsch/ofxDatGui  
 
 When you compile the example, please locates the project under:  
 
@@ -41,10 +43,10 @@ of_v0.9.8_osx_release/
                 ...  
 
 Compiled binary is here:  
-https://github.com/toolbits/GPDSP/tree/master/release
+https://github.com/toolbits/GPDSP/tree/master/release  
 
 Development environment:  
 
-o macOS High Sierra (10.13)  
+o macOS High Sierra (10.13.1)  
 o Xcode 9.0 (Apple LLVM 9.0.0)  
 o openFrameworks 0.9.8  
