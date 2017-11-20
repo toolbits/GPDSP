@@ -18,7 +18,7 @@ o GPDSPAmplifyNode: amplifies a value (such as Transistor)
 o GPDSPDelayNode: makes single sample delay  
 o GPDSPBufferNode: makes N samples delay  
 o GPDSPSumNode: adds all input values  
-o GPDSPMultiplyNode: multiplies all input values  
+o GPDSPMultiplyNode: multiplies all input values  
 o GPDSPGenericNode: generatively constructed filter  
 
 An audio processing example application for openFrameworks:  
