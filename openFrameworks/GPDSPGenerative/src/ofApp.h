@@ -65,19 +65,30 @@ class ofApp : public ofBaseApp {
         IORec _i;
         IORec _o;
         GPDSPNodeRenderer _dsp;
+        GPDSPError _error;
+        GPDSPError _save;
         ofMutex _mutexIO;
         ofMutex _mutexParam;
         ofxDatGui* _gui;
+        map<string, int> _select;
     
     public:
         void setup(void);
         void exit(void);
         void audioIn(float* buffer, int size, int channel);
         void audioOut(float* buffer, int size, int channel);
+        void update(void);
         void draw(void);
+        void dragEvent(ofDragInfo dragInfo);
         void onButtonEvent(ofxDatGuiButtonEvent e);
         void onDropdownEvent(ofxDatGuiDropdownEvent e);
     private:
+        void makeIn(string const& in, int size, string const& out, ofColor const& color);
+        void makeOut(string const& out, int size, string const& in, ofColor const& color);
+        void syncIn(string const& label, int size);
+        void syncOut(string const& label, int size);
+        void selectIn(string const& in, int index, string const& out, string const& other);
+        void selectOut(string const& out, int index, string const& in, string const& other);
         void scanDevice(string const& label, int in, int out, IORec* io);
         void startDevice(IORec* io, int index, int in, int out);
 };

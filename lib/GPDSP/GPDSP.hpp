@@ -7,7 +7,7 @@
 **      Portions Copyright (C) <year> <author>
 **                                          <website>
 **                                          <e-mail>
-**      Version     openFrameworks
+**      Version     POSIX / C++11
 **      Website     http://iridium.jp/
 **      E-mail      zap00365@nifty.com
 **
@@ -47,16 +47,16 @@
 #ifndef __GPDSP_HPP
 #define __GPDSP_HPP
 
-#include "GPDSPBufferInputNode.hpp"
-#include "GPDSPBufferOutputNode.hpp"
-#include "GPDSPConstantNode.hpp"
-#include "GPDSPGateNode.hpp"
-#include "GPDSPPeekNode.hpp"
-#include "GPDSPAmplifyNode.hpp"
-#include "GPDSPDelayNode.hpp"
-#include "GPDSPBufferNode.hpp"
-#include "GPDSPSumNode.hpp"
-#include "GPDSPMultiplyNode.hpp"
-#include "GPDSPGenericNode.hpp"
+#include "algorithm/GPDSPBufferInputNode.hpp"
+#include "algorithm/GPDSPBufferOutputNode.hpp"
+#include "algorithm/GPDSPConstantNode.hpp"
+#include "algorithm/GPDSPGateNode.hpp"
+#include "algorithm/GPDSPPeekNode.hpp"
+#include "algorithm/GPDSPAmplifyNode.hpp"
+#include "algorithm/GPDSPDelayNode.hpp"
+#include "algorithm/GPDSPBufferNode.hpp"
+#include "algorithm/GPDSPSumNode.hpp"
+#include "algorithm/GPDSPMultiplyNode.hpp"
+#include "generic/GPDSPGenericNode.hpp"
 
 #endif

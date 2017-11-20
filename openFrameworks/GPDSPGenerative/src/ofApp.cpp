@@ -57,30 +57,43 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.3.0        2017 iridium.jp");
+    ofSetWindowTitle("GPDSPGenerative 0.3.5        2017 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
     _o.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
-    _dsp.newNodeBufferInput("L-in", &_i.buffer[0], BUFFER_SIZE, CHANNEL_SIZE);
-    _dsp.newNodeBufferInput("R-in", &_i.buffer[1], BUFFER_SIZE, CHANNEL_SIZE);
-    _dsp.newNodeBufferOutput("L-out", &_o.buffer[0], BUFFER_SIZE, CHANNEL_SIZE);
-    _dsp.newNodeBufferOutput("R-out", &_o.buffer[1], BUFFER_SIZE, CHANNEL_SIZE);
-    _dsp.newNodeGeneric("gen", "sample.gpdsp");
-    _dsp.setLinkI("gen", 0, "L-in", 0);
-    _dsp.setLinkI("gen", 1, "R-in", 0);
-    _dsp.setLinkI("L-out", 0, "gen", 0);
-    _dsp.setLinkI("R-out", 0, "gen", 1);
+    _dsp.setRate(SAMPLING_RATE);
+    _dsp.newNodeBufferInput("in[L]", &_i.buffer[0], BUFFER_SIZE, CHANNEL_SIZE);
+    _dsp.newNodeBufferInput("in[R]", &_i.buffer[1], BUFFER_SIZE, CHANNEL_SIZE);
+    _dsp.newNodeBufferOutput("out[L]", &_o.buffer[0], BUFFER_SIZE, CHANNEL_SIZE);
+    _dsp.newNodeBufferOutput("out[R]", &_o.buffer[1], BUFFER_SIZE, CHANNEL_SIZE);
+    _error = GPDSPERROR_OK;
+    _save = GPDSPERROR_LIMIT;
     
     _gui = new ofxDatGui(2, 2);
     _gui->addFRM();
     _gui->addBreak();
+    _gui->addLabel("Error: N/A")->setLabelColor(ofColor(63, 255, 127));
+    _gui->addBreak();
+    _gui->addLabel("File: N/A")->setLabelColor(ofColor(63, 255, 127));
+    _gui->addBreak();
     scanDevice("input", CHANNEL_SIZE, -1, &_i);
     scanDevice("output", -1, CHANNEL_SIZE, &_o);
+    _gui->addBreak();
+    makeIn("in[L]", 4, "out[L]", ofColor(63, 255, 127));
+    makeIn("in[R]", 4, "out[R]", ofColor(255, 63, 127));
+    makeOut("out[L]", 4, "in[L]", ofColor(63, 255, 127));
+    makeOut("out[R]", 4, "in[R]", ofColor(255, 63, 127));
     _gui->addBreak();
     _gui->addButton("refresh...");
     _gui->onButtonEvent(this, &ofApp::onButtonEvent);
     _gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
+    syncIn("in[L]", 0);
+    selectIn("in[L]", 1, "out[L]", "in[R]");
+    syncIn("in[R]", 0);
+    selectIn("in[R]", 1, "out[R]", "in[L]");
+    syncOut("out[L]", 0);
+    syncOut("out[R]", 0);
     return;
 }
 
@@ -104,17 +117,10 @@ void ofApp::audioIn(float* buffer, int size, int channel)
 
 void ofApp::audioOut(float* buffer, int size, int channel)
 {
-    GPDSPError error;
-    
     _o.mutex.lock();
     _mutexParam.lock();
     _mutexIO.lock();
-    if ((error = _dsp.render(size, &size)) != GPDSPERROR_OK) {
-        cout << "position [L-in]: " << _dsp.getNodeBufferInput("L-in")->getPosition() << endl;
-        cout << "position [R-in]: " << _dsp.getNodeBufferInput("R-in")->getPosition() << endl;
-        cout << "position [L-out]: " << _dsp.getNodeBufferOutput("L-out")->getPosition() << endl;
-        cout << "position [R-out]: " << _dsp.getNodeBufferOutput("R-out")->getPosition() << endl;
-        cout << "DSP error: " << _dsp.stringize(error) << ", remain = " << size << endl;
+    if ((_error = _dsp.render(size)) != GPDSPERROR_OK) {
         _dsp.rewind();
         _dsp.refresh();
     }
@@ -122,6 +128,18 @@ void ofApp::audioOut(float* buffer, int size, int channel)
     _mutexParam.unlock();
     _o.mutex.unlock();
     memcpy(buffer, _o.buffer.data(), _o.buffer.size() * sizeof(float));
+    return;
+}
+
+void ofApp::update(void)
+{
+    GPDSPError error;
+    
+    if ((error = _error) != _save) {
+        _gui->getLabel("Error: N/A")->setLabel("Error: " + _dsp.stringize(error));
+        _gui->getLabel("Error: N/A")->setLabelColor((error == GPDSPERROR_OK) ? (ofColor(63, 255, 127)) : (ofColor(255, 63, 127)));
+        _save = error;
+    }
     return;
 }
 
@@ -183,6 +201,66 @@ void ofApp::draw(void)
     return;
 }
 
+void ofApp::dragEvent(ofDragInfo dragInfo)
+{
+    int count;
+    GPDSPError error;
+    
+    if (dragInfo.files.size() > 0) {
+        if (ofFile::doesFileExist(dragInfo.files[0]) && !ofDirectory::doesDirectoryExist(dragInfo.files[0])) {
+            if (chdir(ofFilePath::getEnclosingDirectory(dragInfo.files[0]).c_str()) == 0) {
+                _mutexParam.lock();
+                _dsp.deleteNode("generic");
+                syncIn("in[L]", 0);
+                selectIn("in[L]", 0, "out[L]", "in[R]");
+                syncIn("in[R]", 0);
+                selectIn("in[R]", 0, "out[R]", "in[L]");
+                syncOut("out[L]", 0);
+                selectOut("out[L]", 0, "in[L]", "out[R]");
+                syncOut("out[R]", 0);
+                selectOut("out[R]", 0, "in[R]", "out[L]");
+                if ((error = _dsp.newNodeGeneric("generic", dragInfo.files[0])) == GPDSPERROR_OK) {
+                    if (_dsp.getCountI("generic", &count) == GPDSPERROR_OK) {
+                        syncIn("in[L]", count);
+                        if (count > 0) {
+                            selectIn("in[L]", 2, "out[L]", "in[R]");
+                        }
+                        syncIn("in[R]", count);
+                        if (count > 1) {
+                            selectIn("in[R]", 3, "out[R]", "in[L]");
+                        }
+                        if (count <= 0) {
+                            ofSystemAlertDialog("Generic file has no input.\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
+                        }
+                    }
+                    if (_dsp.getCountO("generic", &count) == GPDSPERROR_OK) {
+                        syncOut("out[L]", count);
+                        if (count > 0) {
+                            selectOut("out[L]", 2, "in[L]", "out[R]");
+                        }
+                        syncOut("out[R]", count);
+                        if (count > 1) {
+                            selectOut("out[R]", 3, "in[R]", "out[L]");
+                        }
+                        if (count <= 0) {
+                            ofSystemAlertDialog("Generic file has no output.\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
+                        }
+                    }
+                    _gui->getLabel("File: N/A")->setLabel("File: " + ofFilePath::getFileName(dragInfo.files[0]));
+                    _gui->getLabel("File: N/A")->setLabelColor(ofColor(63, 255, 127));
+                }
+                else {
+                    _gui->getLabel("File: N/A")->setLabel("File: " + _dsp.stringize(error));
+                    _gui->getLabel("File: N/A")->setLabelColor(ofColor(255, 63, 127));
+                    ofSystemAlertDialog("Generic file open failed : " + _dsp.stringize(error) + "\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
+                }
+                _mutexParam.unlock();
+            }
+        }
+    }
+    return;
+}
+
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
     if (e.target->is("refresh...")) {
@@ -201,6 +279,144 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
     else if (e.target->is("output")) {
         startDevice(&_o, e.target->getSelected()->getIndex(), 0, CHANNEL_SIZE);
     }
+    else if (e.target->is("in[L] -> N/A")) {
+        _mutexParam.lock();
+        selectIn("in[L]", e.target->getSelected()->getIndex(), "out[L]", "in[R]");
+        _mutexParam.unlock();
+    }
+    else if (e.target->is("in[R] -> N/A")) {
+        _mutexParam.lock();
+        selectIn("in[R]", e.target->getSelected()->getIndex(), "out[R]", "in[L]");
+        _mutexParam.unlock();
+    }
+    else if (e.target->is("out[L] <- N/A")) {
+        _mutexParam.lock();
+        selectOut("out[L]", e.target->getSelected()->getIndex(), "in[L]", "out[R]");
+        _mutexParam.unlock();
+    }
+    else if (e.target->is("out[R] <- N/A")) {
+        _mutexParam.lock();
+        selectOut("out[R]", e.target->getSelected()->getIndex(), "in[R]", "out[L]");
+        _mutexParam.unlock();
+    }
+    return;
+}
+
+void ofApp::makeIn(string const& in, int size, string const& out, ofColor const& color)
+{
+    vector<string> param;
+    int i;
+    
+    param.push_back(in + " -> N/A");
+    param.push_back(in + " -> out[L]");
+    for (i = 0; i < size; ++i) {
+        param.push_back("");
+    }
+    _gui->addDropdown(in + " -> N/A", param);
+    _gui->getDropdown(in + " -> N/A")->getChildAt(0)->setLabelColor(ofColor(127, 127, 127));
+    for (i = 0; i < size; ++i) {
+        _gui->getDropdown(in + " -> N/A")->getChildAt(i + 2)->setLabelColor(color);
+    }
+    return;
+}
+
+void ofApp::makeOut(string const& out, int size, string const& in, ofColor const& color)
+{
+    vector<string> param;
+    int i;
+    
+    param.push_back(out + " <- N/A");
+    param.push_back(out + " <- in[L]");
+    for (i = 0; i < size; ++i) {
+        param.push_back("");
+    }
+    _gui->addDropdown(out + " <- N/A", param);
+    _gui->getDropdown(out + " <- N/A")->getChildAt(0)->setLabelColor(ofColor(127, 127, 127));
+    for (i = 0; i < size; ++i) {
+        _gui->getDropdown(out + " <- N/A")->getChildAt(i + 2)->setLabelColor(color);
+    }
+    return;
+}
+
+void ofApp::syncIn(string const& label, int size)
+{
+    ofxDatGuiDropdown* dropdown;
+    string name;
+    int i;
+    
+    dropdown = _gui->getDropdown(label + " -> N/A");
+    for (i = 0; i < dropdown->size(); ++i) {
+        dropdown->getChildAt(i)->setVisible(i - 2 < size);
+        if (_dsp.getNameI("generic", i - 2, &name) == GPDSPERROR_OK) {
+            dropdown->getChildAt(i)->setLabel(label + " -> " + name);
+        }
+    }
+    return;
+}
+
+void ofApp::syncOut(string const& label, int size)
+{
+    ofxDatGuiDropdown* dropdown;
+    string name;
+    int i;
+    
+    dropdown = _gui->getDropdown(label + " <- N/A");
+    for (i = 0; i < dropdown->size(); ++i) {
+        dropdown->getChildAt(i)->setVisible(i - 2 < size);
+        if (_dsp.getNameO("generic", i - 2, &name) == GPDSPERROR_OK) {
+            dropdown->getChildAt(i)->setLabel(label + " <- " + name);
+        }
+    }
+    return;
+}
+
+void ofApp::selectIn(string const& in, int index, string const& out, string const& other)
+{
+    _dsp.clearLinkO(in);
+    if (_select[out + " <- N/A"] == 1) {
+        _gui->getDropdown(out + " <- N/A")->select(0);
+        _select[out + " <- N/A"] = 0;
+    }
+    if (index >= 2) {
+        _dsp.setLinkI("generic", index - 2, in, 0);
+        if (_select[other + " -> N/A"] == index) {
+            _gui->getDropdown(other + " -> N/A")->select(0);
+            _select[other + " -> N/A"] = 0;
+        }
+    }
+    else if (index >= 1) {
+        _dsp.setLinkI(out, 0, in, 0);
+        _gui->getDropdown(out + " <- N/A")->select(index);
+        _select[out + " <- N/A"] = index;
+    }
+    _gui->getDropdown(in + " -> N/A")->select(index);
+    _select[in + " -> N/A"] = index;
+    return;
+}
+
+void ofApp::selectOut(string const& out, int index, string const& in, string const& other)
+{
+    _dsp.clearLinkI(out);
+    if (_select[in + " -> N/A"] == 1) {
+        _gui->getDropdown(in + " -> N/A")->select(0);
+        _select[in + " -> N/A"] = 0;
+    }
+    if (index >= 2) {
+        _dsp.clearLinkO("generic", index - 2);
+        _dsp.setLinkI(out, 0, "generic", index - 2);
+        if (_select[other + " <- N/A"] == index) {
+            _gui->getDropdown(other + " <- N/A")->select(0);
+            _select[other + " <- N/A"] = 0;
+        }
+    }
+    else if (index >= 1) {
+        _dsp.clearLinkO(in);
+        _dsp.setLinkI(out, 0, in, 0);
+        _gui->getDropdown(in + " -> N/A")->select(index);
+        _select[in + " -> N/A"] = index;
+    }
+    _gui->getDropdown(out + " <- N/A")->select(index);
+    _select[out + " <- N/A"] = index;
     return;
 }
 
