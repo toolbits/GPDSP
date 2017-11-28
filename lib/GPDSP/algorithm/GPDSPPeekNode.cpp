@@ -45,6 +45,7 @@
 */
 
 #include "GPDSPPeekNode.hpp"
+#include <math.h>
 
 namespace ir {
 
@@ -60,10 +61,14 @@ GPDSPError GPDSPPeekNode::fixate(void)
 {
     GPDSPError error(GPDSPERROR_OK);
     
+    clearO();
+    clearI();
     if ((error = setCountI(1, "in")) == GPDSPERROR_OK) {
-        if ((error = setCountO(1, "out")) != GPDSPERROR_OK) {
-            clearI();
-        }
+        error = setCountO(1, "out");
+    }
+    if (error != GPDSPERROR_OK) {
+        clearO();
+        clearI();
     }
     return error;
 }
@@ -86,7 +91,10 @@ GPDSPError GPDSPPeekNode::process(void)
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
-        if (value < -_peek) {
+        if (isnan(value)) {
+            _peek = NAN;
+        }
+        else if (value < -_peek) {
             _peek = -value;
         }
         else if (value > +_peek) {
@@ -100,7 +108,6 @@ GPDSPError GPDSPPeekNode::process(void)
 void GPDSPPeekNode::refresh(void)
 {
     _peek = 0.0f;
-    invalidate();
     return;
 }
 

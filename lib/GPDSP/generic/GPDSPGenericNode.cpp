@@ -52,7 +52,6 @@ namespace ir {
 
 GPDSPGenericNode::GPDSPGenericNode(int rate) : _rate(rate)
 {
-    _renderer.setRate(0);
 }
 
 GPDSPGenericNode::~GPDSPGenericNode(void)
@@ -69,88 +68,97 @@ GPDSPError GPDSPGenericNode::open(std::string const& file)
     int index;
     GPDSPError error(GPDSPERROR_OK);
     
-    close();
-    if ((error = _renderer.setRate(_rate)) == GPDSPERROR_OK) {
-        if ((error = _renderer.load(file)) == GPDSPERROR_OK) {
-            _renderer.iterateNode();
-            while (_renderer.hasNextNode()) {
-                name = _renderer.getNextNode();
-                node = _renderer.getNode(name);
-                if ((input = std::dynamic_pointer_cast<GPDSPGenericInputNode>(node)) != NULL) {
-                    if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
-                        if (index + 1 > _input.size()) {
-                            try {
-                                _input.resize(index + 1, NULL);
-                            }
-                            catch (std::bad_alloc const&) {
-                                error = GPDSPERROR_NO_MEMORY;
-                            }
-                        }
-                        if (error == GPDSPERROR_OK) {
-                            if (_input[index] == NULL) {
-                                _input[index] = input.get();
-                            }
-                            else {
-                                error = GPDSPERROR_ALREADY_EXIST;
-                            }
-                        }
-                    }
-                }
-                else if ((output = std::dynamic_pointer_cast<GPDSPGenericOutputNode>(node)) != NULL) {
-                    if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
-                        if (index + 1 > _output.size()) {
-                            try {
-                                _output.resize(index + 1, NULL);
-                            }
-                            catch (std::bad_alloc const&) {
-                                error = GPDSPERROR_NO_MEMORY;
-                            }
-                        }
-                        if (error == GPDSPERROR_OK) {
-                            if (_output[index] == NULL) {
-                                _output[index] = output.get();
-                            }
-                            else {
-                                error = GPDSPERROR_ALREADY_EXIST;
-                            }
-                        }
-                    }
-                }
-                if (error != GPDSPERROR_OK) {
-                    break;
-                }
-            }
-            if (error == GPDSPERROR_OK) {
-                if ((error = setCountI(static_cast<int>(_input.size()), "")) == GPDSPERROR_OK) {
-                    if ((error = setCountO(static_cast<int>(_output.size()), "")) == GPDSPERROR_OK) {
-                        _renderer.iterateNode();
-                        while (_renderer.hasNextNode()) {
-                            name = _renderer.getNextNode();
-                            node = _renderer.getNode(name);
-                            if (std::dynamic_pointer_cast<GPDSPGenericInputNode>(node) != NULL) {
-                                if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
-                                    error = setNameI(index, name);
+    if (_file == "") {
+        if (file != "") {
+            if ((error = _renderer.setRate(_rate)) == GPDSPERROR_OK) {
+                if ((error = _renderer.load(file)) == GPDSPERROR_OK) {
+                    _renderer.iterateNode();
+                    while (_renderer.hasNextNode()) {
+                        name = _renderer.getNextNode();
+                        node = _renderer.getNode(name);
+                        if ((input = std::dynamic_pointer_cast<GPDSPGenericInputNode>(node)) != NULL) {
+                            if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
+                                if (index + 1 > _input.size()) {
+                                    try {
+                                        _input.resize(index + 1, NULL);
+                                    }
+                                    catch (std::bad_alloc const&) {
+                                        error = GPDSPERROR_NO_MEMORY;
+                                    }
+                                }
+                                if (error == GPDSPERROR_OK) {
+                                    if (_input[index] == NULL) {
+                                        _input[index] = input.get();
+                                    }
+                                    else {
+                                        error = GPDSPERROR_ALREADY_EXIST;
+                                    }
                                 }
                             }
-                            else if (std::dynamic_pointer_cast<GPDSPGenericOutputNode>(node) != NULL) {
-                                if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
-                                    error = setNameO(index, name);
+                        }
+                        else if ((output = std::dynamic_pointer_cast<GPDSPGenericOutputNode>(node)) != NULL) {
+                            if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
+                                if (index + 1 > _output.size()) {
+                                    try {
+                                        _output.resize(index + 1, NULL);
+                                    }
+                                    catch (std::bad_alloc const&) {
+                                        error = GPDSPERROR_NO_MEMORY;
+                                    }
+                                }
+                                if (error == GPDSPERROR_OK) {
+                                    if (_output[index] == NULL) {
+                                        _output[index] = output.get();
+                                    }
+                                    else {
+                                        error = GPDSPERROR_ALREADY_EXIST;
+                                    }
                                 }
                             }
-                            if (error != GPDSPERROR_OK) {
-                                break;
-                            }
                         }
-                        if (error == GPDSPERROR_OK) {
-                            _file = file;
+                        if (error != GPDSPERROR_OK) {
+                            break;
+                        }
+                    }
+                    if (error == GPDSPERROR_OK) {
+                        if ((error = setCountI(static_cast<int>(_input.size()), "")) == GPDSPERROR_OK) {
+                            if ((error = setCountO(static_cast<int>(_output.size()), "")) == GPDSPERROR_OK) {
+                                _renderer.iterateNode();
+                                while (_renderer.hasNextNode()) {
+                                    name = _renderer.getNextNode();
+                                    node = _renderer.getNode(name);
+                                    if (std::dynamic_pointer_cast<GPDSPGenericInputNode>(node) != NULL) {
+                                        if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
+                                            error = setNameI(index, name);
+                                        }
+                                    }
+                                    else if (std::dynamic_pointer_cast<GPDSPGenericOutputNode>(node) != NULL) {
+                                        if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
+                                            error = setNameO(index, name);
+                                        }
+                                    }
+                                    if (error != GPDSPERROR_OK) {
+                                        break;
+                                    }
+                                }
+                                if (error == GPDSPERROR_OK) {
+                                    _file = file;
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+        else {
+            error = GPDSPERROR_INVALID_PARAM;
+        }
+        if (error != GPDSPERROR_OK) {
+            close();
+        }
     }
-    if (error != GPDSPERROR_OK) {
-        close();
+    else {
+        error = GPDSPERROR_INVALID_STATE;
     }
     return error;
 }
@@ -218,14 +226,12 @@ GPDSPError GPDSPGenericNode::process(void)
 void GPDSPGenericNode::rewind(void)
 {
     _renderer.rewind();
-    invalidate();
     return;
 }
 
 void GPDSPGenericNode::refresh(void)
 {
     _renderer.refresh();
-    invalidate();
     return;
 }
 

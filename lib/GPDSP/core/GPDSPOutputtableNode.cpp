@@ -85,6 +85,20 @@ GPDSPError GPDSPOutputtableNode::getNameO(int index, std::string* name) const
     return error;
 }
 
+int GPDSPOutputtableNode::findNameO(std::string const& name) const
+{
+    int i;
+    int result(-1);
+    
+    for (i = 0; i < _socket.size(); ++i) {
+        if (_socket[i].name == name) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+}
+
 void GPDSPOutputtableNode::invalidate(void)
 {
     int i;

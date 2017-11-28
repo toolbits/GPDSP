@@ -121,14 +121,16 @@ float* GPDSPBufferInputNode::getWritableBuffer(int* length, int* interleave)
 {
     float* result(NULL);
     
-    if (_buffer.size() > 0) {
-        if (length != NULL) {
-            *length = _length;
+    if (_delegate != NULL) {
+        if (_buffer.size() > 0) {
+            if (length != NULL) {
+                *length = _length;
+            }
+            if (interleave != NULL) {
+                *interleave = _interleave;
+            }
+            result = _buffer.data();
         }
-        if (interleave != NULL) {
-            *interleave = _interleave;
-        }
-        result = _buffer.data();
     }
     return result;
 }
@@ -137,19 +139,32 @@ GPDSPError GPDSPBufferInputNode::setPosition(int position)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= position && position < _length) {
-        _position = position;
-        invalidate();
+    if (_delegate != NULL) {
+        if (0 <= position && position < _length) {
+            if (position != _position) {
+                _position = position;
+                invalidate();
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_RANGE;
+        }
     }
     else {
-        error = GPDSPERROR_INVALID_RANGE;
+        error = GPDSPERROR_INVALID_STATE;
     }
     return error;
 }
 
 GPDSPError GPDSPBufferInputNode::fixate(void)
 {
-    return setCountO(1, "out");
+    GPDSPError error(GPDSPERROR_OK);
+    
+    clearO();
+    if ((error = setCountO(1, "out")) != GPDSPERROR_OK) {
+        clearO();
+    }
+    return error;
 }
 
 GPDSPError GPDSPBufferInputNode::prepare(void)
@@ -176,15 +191,17 @@ GPDSPError GPDSPBufferInputNode::process(void)
 
 void GPDSPBufferInputNode::rewind(void)
 {
-    _position = 0;
-    invalidate();
+    if (_delegate != NULL) {
+        _position = 0;
+    }
     return;
 }
 
 void GPDSPBufferInputNode::refresh(void)
 {
-    std::fill_n(_buffer.begin(), _buffer.size(), 0.0f);
-    invalidate();
+    if (_delegate != NULL) {
+        std::fill_n(_buffer.begin(), _buffer.size(), 0.0f);
+    }
     return;
 }
 

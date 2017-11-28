@@ -120,6 +120,111 @@ GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const**
     return error;
 }
 
+GPDSPError GPDSPInputtableNode::clearLinkI(int index)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _socket.size()) {
+        if (_socket[index].node != NULL || _socket[index].index != 0) {
+            _socket[index].node = NULL;
+            _socket[index].index = 0;
+            invalidate();
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* node, int which)
+{
+    int i;
+    
+    for (i = 0; i < _socket.size(); ++i) {
+        if (_socket[i].node == node && _socket[i].index == which) {
+            if (_socket[i].node != NULL || _socket[i].index != 0) {
+                _socket[i].node = NULL;
+                _socket[i].index = 0;
+                invalidate();
+            }
+        }
+    }
+    return;
+}
+
+void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* node)
+{
+    int i;
+    
+    for (i = 0; i < _socket.size(); ++i) {
+        if (_socket[i].node == node) {
+            if (_socket[i].node != NULL || _socket[i].index != 0) {
+                _socket[i].node = NULL;
+                _socket[i].index = 0;
+                invalidate();
+            }
+        }
+    }
+    return;
+}
+
+void GPDSPInputtableNode::clearLinkI(void)
+{
+    int i;
+    
+    for (i = 0; i < _socket.size(); ++i) {
+        if (_socket[i].node != NULL || _socket[i].index != 0) {
+            _socket[i].node = NULL;
+            _socket[i].index = 0;
+            invalidate();
+        }
+    }
+    return;
+}
+
+int GPDSPInputtableNode::findNameI(std::string const& name) const
+{
+    int i;
+    int result(-1);
+    
+    for (i = 0; i < _socket.size(); ++i) {
+        if (_socket[i].name == name) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+}
+
+int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* node, int which) const
+{
+    int i;
+    int result(-1);
+    
+    for (i = 0; i < _socket.size(); ++i) {
+        if (_socket[i].node == node && _socket[i].index == which) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+}
+
+int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* node) const
+{
+    int i;
+    int result(-1);
+    
+    for (i = 0; i < _socket.size(); ++i) {
+        if (_socket[i].node == node) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+}
+
 void GPDSPInputtableNode::invalidate(void)
 {
     return;

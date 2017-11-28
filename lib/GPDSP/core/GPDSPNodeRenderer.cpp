@@ -45,6 +45,7 @@
 */
 
 #include "GPDSPNodeRenderer.hpp"
+#include "GPDSPSerializable.hpp"
 #include "../algorithm/GPDSPBufferInputNode.hpp"
 #include "../algorithm/GPDSPBufferOutputNode.hpp"
 #include "../algorithm/GPDSPConstantNode.hpp"
@@ -65,16 +66,16 @@ GPDSPError GPDSPNodeRenderer::setRate(int rate)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (rate >= 0) {
-        if (_node.size() <= 0) {
+    if (_node.size() <= 0) {
+        if (rate >= 0) {
             _rate = rate;
         }
         else {
-            error = GPDSPERROR_INVALID_STATE;
+            error = GPDSPERROR_INVALID_PARAM;
         }
     }
     else {
-        error = GPDSPERROR_INVALID_RANGE;
+        error = GPDSPERROR_INVALID_STATE;
     }
     return error;
 }
@@ -127,6 +128,26 @@ std::shared_ptr<GPDSPSumNode> GPDSPNodeRenderer::getNodeSum(std::string const& n
 std::shared_ptr<GPDSPMultiplyNode> GPDSPNodeRenderer::getNodeMultiply(std::string const& name) const
 {
     return std::dynamic_pointer_cast<GPDSPMultiplyNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPSinWaveNode> GPDSPNodeRenderer::getNodeSinWave(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPSinWaveNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPTriangleWaveNode> GPDSPNodeRenderer::getNodeTriangleWave(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPTriangleWaveNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPSawtoothWaveNode> GPDSPNodeRenderer::getNodeSawtoothWave(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPSawtoothWaveNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPSquareWaveNode> GPDSPNodeRenderer::getNodeSquareWave(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPSquareWaveNode>(getNode(name));
 }
 
 std::shared_ptr<GPDSPGenericNode> GPDSPNodeRenderer::getNodeGeneric(std::string const& name) const
@@ -191,111 +212,58 @@ GPDSPError GPDSPNodeRenderer::getCountO(std::string const& name, int* count) con
 
 GPDSPError GPDSPNodeRenderer::setNameI(std::string const& name, int index, std::string const& what)
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPInputtableNode> node;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-            error = node->setNameI(index, what);
-        }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
+    if ((error = getNodeInputtable(name, &node)) == GPDSPERROR_OK) {
+        error = node->setNameI(index, what);
     }
     return error;
 }
 
 GPDSPError GPDSPNodeRenderer::getNameI(std::string const& name, int index, std::string* what) const
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPInputtableNode const> node;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-            error = node->getNameI(index, what);
-        }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
+    if ((error = getNodeInputtable(name, &node)) == GPDSPERROR_OK) {
+        error = node->getNameI(index, what);
     }
     return error;
 }
 
 GPDSPError GPDSPNodeRenderer::setNameO(std::string const& name, int index, std::string const& what)
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPOutputtableNode> node;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-            error = node->setNameO(index, what);
-        }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
+    if ((error = getNodeOutputtable(name, &node)) == GPDSPERROR_OK) {
+        error = node->setNameO(index, what);
     }
     return error;
 }
 
 GPDSPError GPDSPNodeRenderer::getNameO(std::string const& name, int index, std::string* what) const
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPOutputtableNode const> node;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-            error = node->getNameO(index, what);
-        }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
+    if ((error = getNodeOutputtable(name, &node)) == GPDSPERROR_OK) {
+        error = node->getNameO(index, what);
     }
     return error;
 }
 
 GPDSPError GPDSPNodeRenderer::setLinkI(std::string const& name, int index, std::string const& source, int which)
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPInputtableNode> input;
     std::shared_ptr<GPDSPOutputtableNode const> output;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-            if ((it = _node.find(source)) != _node.end()) {
-                if ((output = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-                    error = input->setLinkI(index, output.get(), which);
-                }
-                else {
-                    error = GPDSPERROR_INVALID_NODE;
-                }
-            }
-            else {
-                error = GPDSPERROR_NO_NODE;
-            }
+    if ((error = getNodeInputtable(name, &input)) == GPDSPERROR_OK) {
+        if ((error = getNodeOutputtable(source, &output)) == GPDSPERROR_OK) {
+            error = input->setLinkI(index, output.get(), which);
         }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
     }
     return error;
 }
@@ -308,86 +276,85 @@ GPDSPError GPDSPNodeRenderer::getLinkI(std::string const& name, int index, std::
     int number;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-            if ((error = input->getLinkI(index, &node, &number)) == GPDSPERROR_OK) {
-                if (node != NULL) {
-                    for (it = _node.begin(); it != _node.end(); ++it) {
-                        if (it->second.get() == node) {
-                            break;
-                        }
+    if ((error = getNodeInputtable(name, &input)) == GPDSPERROR_OK) {
+        if ((error = input->getLinkI(index, &node, &number)) == GPDSPERROR_OK) {
+            if (node != NULL) {
+                for (it = _node.begin(); it != _node.end(); ++it) {
+                    if (it->second.get() == node) {
+                        break;
                     }
-                    if (it != _node.end()) {
-                        if (source != NULL) {
-                            *source = it->first;
-                        }
-                        if (which != NULL) {
-                            *which = number;
-                        }
+                }
+                if (it != _node.end()) {
+                    if (source != NULL) {
+                        *source = it->first;
                     }
-                    else {
-                        error = GPDSPERROR_NO_NODE;
+                    if (which != NULL) {
+                        *which = number;
                     }
                 }
                 else {
-                    if (source != NULL) {
-                        *source = "";
-                    }
-                    if (which != NULL) {
-                        *which = 0;
-                    }
+                    error = GPDSPERROR_NO_NODE;
+                }
+            }
+            else {
+                if (source != NULL) {
+                    *source = "";
+                }
+                if (which != NULL) {
+                    *which = 0;
                 }
             }
         }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
     }
     return error;
 }
 
 GPDSPError GPDSPNodeRenderer::clearLinkI(std::string const& name, int index)
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPInputtableNode> node;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-            error = node->setLinkI(index, NULL, 0);
-        }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
+    if ((error = getNodeInputtable(name, &node)) == GPDSPERROR_OK) {
+        error = node->clearLinkI(index);
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::clearLinkI(std::string const& name, std::string const& source, int which)
+{
+    std::shared_ptr<GPDSPInputtableNode> input;
+    std::shared_ptr<GPDSPOutputtableNode const> output;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = getNodeInputtable(name, &input)) == GPDSPERROR_OK) {
+        if ((error = getNodeOutputtable(source, &output)) == GPDSPERROR_OK) {
+            input->clearLinkI(output.get(), which);
         }
     }
-    else {
-        error = GPDSPERROR_NO_NODE;
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::clearLinkI(std::string const& name, std::string const& source)
+{
+    std::shared_ptr<GPDSPInputtableNode> input;
+    std::shared_ptr<GPDSPOutputtableNode const> output;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = getNodeInputtable(name, &input)) == GPDSPERROR_OK) {
+        if ((error = getNodeOutputtable(source, &output)) == GPDSPERROR_OK) {
+            input->clearLinkI(output.get());
+        }
     }
     return error;
 }
 
 GPDSPError GPDSPNodeRenderer::clearLinkI(std::string const& name)
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPInputtableNode> node;
-    int i;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-            for (i = 0; i < node->getCountI(); ++i) {
-                node->setLinkI(i, NULL, 0);
-            }
-        }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
+    if ((error = getNodeInputtable(name, &node)) == GPDSPERROR_OK) {
+        node->clearLinkI();
     }
     return error;
 }
@@ -397,31 +364,14 @@ GPDSPError GPDSPNodeRenderer::clearLinkO(std::string const& name, int index)
     std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPOutputtableNode const> output;
     std::shared_ptr<GPDSPInputtableNode> input;
-    GPDSPOutputtableNode const* node;
-    int number;
-    int i;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((output = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-            for (it = _node.begin(); it != _node.end(); ++it) {
-                if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-                    for (i = 0; i < input->getCountI(); ++i) {
-                        if (input->getLinkI(i, &node, &number) == GPDSPERROR_OK) {
-                            if (node == output.get() && number == index) {
-                                input->setLinkI(i, NULL, 0);
-                            }
-                        }
-                    }
-                }
+    if ((error = getNodeOutputtable(name, &output)) == GPDSPERROR_OK) {
+        for (it = _node.begin(); it != _node.end(); ++it) {
+            if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
+                input->clearLinkI(output.get(), index);
             }
         }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
     }
     return error;
 }
@@ -431,70 +381,36 @@ GPDSPError GPDSPNodeRenderer::clearLinkO(std::string const& name)
     std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPOutputtableNode const> output;
     std::shared_ptr<GPDSPInputtableNode> input;
-    GPDSPOutputtableNode const* node;
-    int i;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((output = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-            for (it = _node.begin(); it != _node.end(); ++it) {
-                if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-                    for (i = 0; i < input->getCountI(); ++i) {
-                        if (input->getLinkI(i, &node, NULL) == GPDSPERROR_OK) {
-                            if (node == output.get()) {
-                                input->setLinkI(i, NULL, 0);
-                            }
-                        }
-                    }
-                }
+    if ((error = getNodeOutputtable(name, &output)) == GPDSPERROR_OK) {
+        for (it = _node.begin(); it != _node.end(); ++it) {
+            if ((input = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
+                input->clearLinkI(output.get());
             }
         }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
     }
     return error;
 }
 
 GPDSPError GPDSPNodeRenderer::getValueI(std::string const& name, int index, float* value) const
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPInputtableNode const> node;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) != NULL) {
-            error = node->getValueI(index, value);
-        }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
+    if ((error = getNodeInputtable(name, &node)) == GPDSPERROR_OK) {
+        error = node->getValueI(index, value);
     }
     return error;
 }
 
 GPDSPError GPDSPNodeRenderer::getValueO(std::string const& name, int index, float* value) const
 {
-    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPOutputtableNode const> node;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((it = _node.find(name)) != _node.end()) {
-        if ((node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) != NULL) {
-            error = node->getValueO(index, value);
-        }
-        else {
-            error = GPDSPERROR_INVALID_NODE;
-        }
-    }
-    else {
-        error = GPDSPERROR_NO_NODE;
+    if ((error = getNodeOutputtable(name, &node)) == GPDSPERROR_OK) {
+        error = node->getValueO(index, value);
     }
     return error;
 }
@@ -522,6 +438,88 @@ std::string GPDSPNodeRenderer::findNode(std::shared_ptr<GPDSPNode const> const& 
         }
     }
     return result;
+}
+
+GPDSPError GPDSPNodeRenderer::findNameI(std::string const& name, std::string const& what, int* index) const
+{
+    std::shared_ptr<GPDSPInputtableNode const> node;
+    int number;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = getNodeInputtable(name, &node)) == GPDSPERROR_OK) {
+        if ((number = node->findNameI(what)) >= 0) {
+            if (index != NULL) {
+                *index = number;
+            }
+        }
+        else {
+            error = GPDSPERROR_NO_FOUND;
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::findNameO(std::string const& name, std::string const& what, int* index) const
+{
+    std::shared_ptr<GPDSPOutputtableNode const> node;
+    int number;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = getNodeOutputtable(name, &node)) == GPDSPERROR_OK) {
+        if ((number = node->findNameO(what)) >= 0) {
+            if (index != NULL) {
+                *index = number;
+            }
+        }
+        else {
+            error = GPDSPERROR_NO_FOUND;
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::findLinkI(std::string const& name, std::string const& source, int which, int* index) const
+{
+    std::shared_ptr<GPDSPInputtableNode const> input;
+    std::shared_ptr<GPDSPOutputtableNode const> output;
+    int number;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = getNodeInputtable(name, &input)) == GPDSPERROR_OK) {
+        if ((error = getNodeOutputtable(source, &output)) == GPDSPERROR_OK) {
+            if ((number = input->findLinkI(output.get(), which)) >= 0) {
+                if (index != NULL) {
+                    *index = number;
+                }
+            }
+            else {
+                error = GPDSPERROR_NO_FOUND;
+            }
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::findLinkI(std::string const& name, std::string const& source, int* index) const
+{
+    std::shared_ptr<GPDSPInputtableNode const> input;
+    std::shared_ptr<GPDSPOutputtableNode const> output;
+    int number;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = getNodeInputtable(name, &input)) == GPDSPERROR_OK) {
+        if ((error = getNodeOutputtable(source, &output)) == GPDSPERROR_OK) {
+            if ((number = input->findLinkI(output.get())) >= 0) {
+                if (index != NULL) {
+                    *index = number;
+                }
+            }
+            else {
+                error = GPDSPERROR_NO_FOUND;
+            }
+        }
+    }
+    return error;
 }
 
 GPDSPError GPDSPNodeRenderer::newNodeBufferInput(std::string const& name, float const* buffer, int length, int interleave)
@@ -708,6 +706,82 @@ GPDSPError GPDSPNodeRenderer::newNodeMultiply(std::string const& name, int count
     return error;
 }
 
+GPDSPError GPDSPNodeRenderer::newNodeSinWave(std::string const& name, float resolution)
+{
+    std::shared_ptr<GPDSPSinWaveNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        node = std::make_shared<GPDSPSinWaveNode>(_rate);
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setResolution(resolution)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::newNodeTriangleWave(std::string const& name, float resolution)
+{
+    std::shared_ptr<GPDSPTriangleWaveNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        node = std::make_shared<GPDSPTriangleWaveNode>(_rate);
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setResolution(resolution)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::newNodeSawtoothWave(std::string const& name, float resolution)
+{
+    std::shared_ptr<GPDSPSawtoothWaveNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        node = std::make_shared<GPDSPSawtoothWaveNode>(_rate);
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setResolution(resolution)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::newNodeSquareWave(std::string const& name, float resolution)
+{
+    std::shared_ptr<GPDSPSquareWaveNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        node = std::make_shared<GPDSPSquareWaveNode>(_rate);
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        if ((error = node->setResolution(resolution)) == GPDSPERROR_OK) {
+            error = newNode(name, node);
+        }
+    }
+    return error;
+}
+
 GPDSPError GPDSPNodeRenderer::newNodeGeneric(std::string const& name, std::string const& file)
 {
     std::shared_ptr<GPDSPGenericNode> node;
@@ -878,6 +952,7 @@ GPDSPError GPDSPNodeRenderer::rewind(std::string const& name)
     if ((it = _node.find(name)) != _node.end()) {
         if ((node = std::dynamic_pointer_cast<GPDSPRewindableNode>(it->second)) != NULL) {
             node->rewind();
+            it->second->invalidate();
         }
         else {
             error = GPDSPERROR_INVALID_NODE;
@@ -897,6 +972,7 @@ void GPDSPNodeRenderer::rewind(void)
     for (it = _node.begin(); it != _node.end(); ++it) {
         if ((node = std::dynamic_pointer_cast<GPDSPRewindableNode>(it->second)) != NULL) {
             node->rewind();
+            it->second->invalidate();
         }
     }
     return;
@@ -911,6 +987,7 @@ GPDSPError GPDSPNodeRenderer::refresh(std::string const& name)
     if ((it = _node.find(name)) != _node.end()) {
         if ((node = std::dynamic_pointer_cast<GPDSPRefreshableNode>(it->second)) != NULL) {
             node->refresh();
+            it->second->invalidate();
         }
         else {
             error = GPDSPERROR_INVALID_NODE;
@@ -930,12 +1007,13 @@ void GPDSPNodeRenderer::refresh(void)
     for (it = _node.begin(); it != _node.end(); ++it) {
         if ((node = std::dynamic_pointer_cast<GPDSPRefreshableNode>(it->second)) != NULL) {
             node->refresh();
+            it->second->invalidate();
         }
     }
     return;
 }
 
-GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPError (*callback)(GPDSPNodeRenderer& renderer, std::string const& type, std::string const& name, tinyxml2::XMLElement const* element, void* info), void* info)
+GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* serializable)
 {
     struct {
         tinyxml2::XMLDocument dom;
@@ -975,6 +1053,7 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPError (*callbac
         float gain;
         int size;
         int count;
+        float resolution;
     } param;
     int minimum;
     int maximum;
@@ -991,7 +1070,7 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPError (*callbac
                         if ((error = readTag(xml.meta, "rate", false, &minimum)) == GPDSPERROR_OK) {
                             if (minimum >= 0) {
                                 if (minimum > 0 && _rate > 0 && minimum != _rate) {
-                                    error = GPDSPERROR_NO_RATE;
+                                    error = GPDSPERROR_NO_FOUND;
                                 }
                             }
                             else {
@@ -1009,7 +1088,7 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPError (*callbac
                                                 maximum = INT_MAX;
                                             }
                                             if (_rate > 0 && (_rate < minimum || maximum < _rate)) {
-                                                error = GPDSPERROR_NO_RATE;
+                                                error = GPDSPERROR_NO_FOUND;
                                             }
                                         }
                                         else {
@@ -1119,6 +1198,42 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPError (*callbac
                                                     error = newNodeMultiply(name, param.count);
                                                 }
                                             }
+                                            else if (string == "GPDSPSinWaveNode") {
+                                                param.resolution = GPDSPSinWaveNode::defaultResolution();
+                                                if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                    error = readTag(xml.param, "resolution", true, &param.resolution);
+                                                }
+                                                if (error == GPDSPERROR_OK) {
+                                                    error = newNodeSinWave(name, param.resolution);
+                                                }
+                                            }
+                                            else if (string == "GPDSPTriangleWaveNode") {
+                                                param.resolution = GPDSPTriangleWaveNode::defaultResolution();
+                                                if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                    error = readTag(xml.param, "resolution", true, &param.resolution);
+                                                }
+                                                if (error == GPDSPERROR_OK) {
+                                                    error = newNodeTriangleWave(name, param.resolution);
+                                                }
+                                            }
+                                            else if (string == "GPDSPSawtoothWaveNode") {
+                                                param.resolution = GPDSPSawtoothWaveNode::defaultResolution();
+                                                if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                    error = readTag(xml.param, "resolution", true, &param.resolution);
+                                                }
+                                                if (error == GPDSPERROR_OK) {
+                                                    error = newNodeSawtoothWave(name, param.resolution);
+                                                }
+                                            }
+                                            else if (string == "GPDSPSquareWaveNode") {
+                                                param.resolution = GPDSPSquareWaveNode::defaultResolution();
+                                                if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                    error = readTag(xml.param, "resolution", true, &param.resolution);
+                                                }
+                                                if (error == GPDSPERROR_OK) {
+                                                    error = newNodeSquareWave(name, param.resolution);
+                                                }
+                                            }
                                             else if (string == "GPDSPGenericNode") {
                                                 string = "";
                                                 if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
@@ -1134,8 +1249,8 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPError (*callbac
                                             else if (string == "GPDSPGenericOutputNode") {
                                                 error = newNodeGenericOutput(name);
                                             }
-                                            else if (callback != NULL) {
-                                                error = (*callback)(*this, string, name, xml.instance, info);
+                                            else if (serializable != NULL) {
+                                                error = serializable->load(this, string, name, xml.instance);
                                             }
                                             else {
                                                 error = GPDSPERROR_NO_SUPPORT;
@@ -1184,7 +1299,7 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPError (*callbac
                     else {
                         error = GPDSPERROR_INVALID_FORMAT;
                     }
-                    if (error != GPDSPERROR_NO_RATE) {
+                    if (error != GPDSPERROR_NO_FOUND) {
                         break;
                     }
                 }
@@ -1203,7 +1318,7 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPError (*callbac
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPError (*callback)(GPDSPNodeRenderer const& renderer, std::shared_ptr<GPDSPNode const> const& node, std::string const& name, tinyxml2::XMLElement* element, void* info), void* info) const
+GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* serializable) const
 {
     std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
     std::shared_ptr<GPDSPInputtableNode const> input;
@@ -1217,6 +1332,10 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPError (*callbac
     std::shared_ptr<GPDSPBufferNode const> buffer;
     std::shared_ptr<GPDSPSumNode const> sum;
     std::shared_ptr<GPDSPMultiplyNode const> multiply;
+    std::shared_ptr<GPDSPSinWaveNode const> sinWave;
+    std::shared_ptr<GPDSPTriangleWaveNode const> triangleWave;
+    std::shared_ptr<GPDSPSawtoothWaveNode const> sawtoothWave;
+    std::shared_ptr<GPDSPSquareWaveNode const> squareWave;
     std::shared_ptr<GPDSPGenericNode const> generic;
     std::shared_ptr<GPDSPGenericInputNode const> genericInput;
     std::shared_ptr<GPDSPGenericOutputNode const> genericOutput;
@@ -1334,6 +1453,30 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPError (*callbac
                                                     error = writeTag(xml.param, "count", multiply->getCountI());
                                                 }
                                             }
+                                            else if ((sinWave = std::dynamic_pointer_cast<GPDSPSinWaveNode>(it->second)) != NULL) {
+                                                xml.instance->SetName("GPDSPSinWaveNode");
+                                                if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                    error = writeTag(xml.param, "resolution", sinWave->getResolution());
+                                                }
+                                            }
+                                            else if ((triangleWave = std::dynamic_pointer_cast<GPDSPTriangleWaveNode>(it->second)) != NULL) {
+                                                xml.instance->SetName("GPDSPTriangleWaveNode");
+                                                if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                    error = writeTag(xml.param, "resolution", triangleWave->getResolution());
+                                                }
+                                            }
+                                            else if ((sawtoothWave = std::dynamic_pointer_cast<GPDSPSawtoothWaveNode>(it->second)) != NULL) {
+                                                xml.instance->SetName("GPDSPSawtoothWaveNode");
+                                                if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                    error = writeTag(xml.param, "resolution", sawtoothWave->getResolution());
+                                                }
+                                            }
+                                            else if ((squareWave = std::dynamic_pointer_cast<GPDSPSquareWaveNode>(it->second)) != NULL) {
+                                                xml.instance->SetName("GPDSPSquareWaveNode");
+                                                if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                    error = writeTag(xml.param, "resolution", squareWave->getResolution());
+                                                }
+                                            }
                                             else if ((generic = std::dynamic_pointer_cast<GPDSPGenericNode>(it->second)) != NULL) {
                                                 xml.instance->SetName("GPDSPGenericNode");
                                                 if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
@@ -1346,8 +1489,8 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPError (*callbac
                                             else if ((genericOutput = std::dynamic_pointer_cast<GPDSPGenericOutputNode>(it->second)) != NULL) {
                                                 xml.instance->SetName("GPDSPGenericOutputNode");
                                             }
-                                            else if (callback != NULL) {
-                                                if ((error = (*callback)(*this, it->second, it->first, xml.instance, info)) == GPDSPERROR_OK) {
+                                            else if (serializable != NULL) {
+                                                if ((error = serializable->save(*this, it->second, it->first, xml.instance)) == GPDSPERROR_OK) {
                                                     if (xml.instance->Name() != NULL) {
                                                         if ((string = xml.instance->Name()) == "") {
                                                             error = GPDSPERROR_INVALID_FORMAT;
@@ -1611,8 +1754,8 @@ std::string GPDSPNodeRenderer::stringize(GPDSPError error)
         case GPDSPERROR_NO_MEMORY:
             snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_MEMORY)", error);
             break;
-        case GPDSPERROR_NO_RATE:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_RATE)", error);
+        case GPDSPERROR_NO_FOUND:
+            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_FOUND)", error);
             break;
         case GPDSPERROR_NO_NODE:
             snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_NODE)", error);
@@ -1643,6 +1786,70 @@ std::string GPDSPNodeRenderer::stringize(GPDSPError error)
             break;
     }
     return result;
+}
+
+GPDSPError GPDSPNodeRenderer::getNodeInputtable(std::string const& name, std::shared_ptr<GPDSPInputtableNode>* node)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((*node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) == NULL) {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::getNodeInputtable(std::string const& name, std::shared_ptr<GPDSPInputtableNode const>* node) const
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((*node = std::dynamic_pointer_cast<GPDSPInputtableNode>(it->second)) == NULL) {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::getNodeOutputtable(std::string const& name, std::shared_ptr<GPDSPOutputtableNode>* node)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((*node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) == NULL) {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::getNodeOutputtable(std::string const& name, std::shared_ptr<GPDSPOutputtableNode const>* node) const
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((it = _node.find(name)) != _node.end()) {
+        if ((*node = std::dynamic_pointer_cast<GPDSPOutputtableNode>(it->second)) == NULL) {
+            error = GPDSPERROR_INVALID_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_NO_NODE;
+    }
+    return error;
 }
 
 GPDSPError GPDSPNodeRenderer::newNodeGenericInput(std::string const& name)

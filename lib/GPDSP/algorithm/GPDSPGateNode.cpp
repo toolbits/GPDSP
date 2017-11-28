@@ -78,10 +78,14 @@ GPDSPError GPDSPGateNode::fixate(void)
 {
     GPDSPError error(GPDSPERROR_OK);
     
+    clearO();
+    clearI();
     if ((error = setCountI(1, "in")) == GPDSPERROR_OK) {
-        if ((error = setCountO(1, "out")) != GPDSPERROR_OK) {
-            clearI();
-        }
+        error = setCountO(1, "out");
+    }
+    if (error != GPDSPERROR_OK) {
+        clearO();
+        clearI();
     }
     return error;
 }
@@ -104,7 +108,10 @@ GPDSPError GPDSPGateNode::process(void)
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
-        if (_minimum > _maximum) {
+        if (isnan(value)) {
+            value = NAN;
+        }
+        else if (_minimum > _maximum) {
             value = 0.0f;
         }
         else if (value < _minimum) {

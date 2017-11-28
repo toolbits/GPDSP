@@ -69,10 +69,11 @@ class GPDSPOutputtableNode : public virtual GPDSPNode {
                 GPDSPError                  setNameO                    (int index, std::string const& name);
                 GPDSPError                  getNameO                    (int index, std::string* name) const;
                 GPDSPError                  getValueO                   (int index, float* value) const;
+                int                         findNameO                   (std::string const& name) const;
         virtual void                        invalidate                  (void);
     protected:
         explicit                            GPDSPOutputtableNode        (void);
-        virtual                             ~GPDSPOutputtableNode       (void);
+        virtual                             ~GPDSPOutputtableNode       (void) = 0;
                 GPDSPError                  setCountO                   (int count, std::string const& name);
                 GPDSPError                  setValueO                   (int index, float value);
                 GPDSPError                  appendO                     (std::string const& name);

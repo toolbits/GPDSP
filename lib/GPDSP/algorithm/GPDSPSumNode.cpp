@@ -58,7 +58,13 @@ GPDSPSumNode::~GPDSPSumNode(void)
 
 GPDSPError GPDSPSumNode::fixate(void)
 {
-    return setCountO(1, "out");
+    GPDSPError error(GPDSPERROR_OK);
+    
+    clearO();
+    if ((error = setCountO(1, "out")) != GPDSPERROR_OK) {
+        clearO();
+    }
+    return error;
 }
 
 void GPDSPSumNode::invalidate(void)

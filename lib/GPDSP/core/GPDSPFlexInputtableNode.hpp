@@ -60,7 +60,7 @@ class GPDSPFlexInputtableNode : public GPDSPInputtableNode {
                 void                        clearI                      (void);
     protected:
         explicit                            GPDSPFlexInputtableNode     (void);
-        virtual                             ~GPDSPFlexInputtableNode    (void);
+        virtual                             ~GPDSPFlexInputtableNode    (void) = 0;
     private:
                                             GPDSPFlexInputtableNode     (GPDSPFlexInputtableNode const&);
                 GPDSPFlexInputtableNode&    operator=                   (GPDSPFlexInputtableNode const&);

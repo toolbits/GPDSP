@@ -55,8 +55,8 @@ namespace ir {
 
 class GPDSPBufferOutputNode : public GPDSPInputtableNode, public virtual GPDSPRewindableNode, public virtual GPDSPRefreshableNode {
     private:
-                std::vector<float>          _buffer;
                 float*                      _delegate;
+                std::vector<float>          _buffer;
                 int                         _length;
                 int                         _interleave;
                 int                         _position;
@@ -81,12 +81,12 @@ class GPDSPBufferOutputNode : public GPDSPInputtableNode, public virtual GPDSPRe
 
 inline int GPDSPBufferOutputNode::getPosition(void) const
 {
-    return _position;
+    return (_delegate != NULL) ? (_position) : (0);
 }
 
 inline bool GPDSPBufferOutputNode::isDelegate(void) const
 {
-    return (_buffer.size() <= 0 && _delegate != NULL);
+    return (_delegate != NULL && _buffer.size() <= 0);
 }
 
 }// end of namespace

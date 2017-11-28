@@ -121,19 +121,32 @@ GPDSPError GPDSPBufferOutputNode::setPosition(int position)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= position && position < _length) {
-        _position = position;
-        invalidate();
+    if (_delegate != NULL) {
+        if (0 <= position && position < _length) {
+            if (position != _position) {
+                _position = position;
+                invalidate();
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_RANGE;
+        }
     }
     else {
-        error = GPDSPERROR_INVALID_RANGE;
+        error = GPDSPERROR_INVALID_STATE;
     }
     return error;
 }
 
 GPDSPError GPDSPBufferOutputNode::fixate(void)
 {
-    return setCountI(1, "in");
+    GPDSPError error(GPDSPERROR_OK);
+    
+    clearI();
+    if ((error = setCountI(1, "in")) != GPDSPERROR_OK) {
+        clearI();
+    }
+    return error;
 }
 
 GPDSPError GPDSPBufferOutputNode::prepare(void)
@@ -159,8 +172,9 @@ GPDSPError GPDSPBufferOutputNode::process(void)
 
 void GPDSPBufferOutputNode::rewind(void)
 {
-    _position = 0;
-    invalidate();
+    if (_delegate != NULL) {
+        _position = 0;
+    }
     return;
 }
 
@@ -169,7 +183,6 @@ void GPDSPBufferOutputNode::refresh(void)
     if (_delegate != NULL) {
         std::fill_n(_delegate, _length * _interleave, 0.0f);
     }
-    invalidate();
     return;
 }
 

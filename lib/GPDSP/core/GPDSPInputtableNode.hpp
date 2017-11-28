@@ -69,11 +69,18 @@ class GPDSPInputtableNode : public virtual GPDSPNode {
                 GPDSPError                  getNameI                    (int index, std::string* name) const;
                 GPDSPError                  setLinkI                    (int index, GPDSPOutputtableNode const* node, int which);
                 GPDSPError                  getLinkI                    (int index, GPDSPOutputtableNode const** node, int* which) const;
+                GPDSPError                  clearLinkI                  (int index);
+                void                        clearLinkI                  (GPDSPOutputtableNode const* node, int which);
+                void                        clearLinkI                  (GPDSPOutputtableNode const* node);
+                void                        clearLinkI                  (void);
                 GPDSPError                  getValueI                   (int index, float* value) const;
+                int                         findNameI                   (std::string const& name) const;
+                int                         findLinkI                   (GPDSPOutputtableNode const* node, int which) const;
+                int                         findLinkI                   (GPDSPOutputtableNode const* node) const;
         virtual void                        invalidate                  (void);
     protected:
         explicit                            GPDSPInputtableNode         (void);
-        virtual                             ~GPDSPInputtableNode        (void);
+        virtual                             ~GPDSPInputtableNode        (void) = 0;
                 GPDSPError                  setCountI                   (int count, std::string const& name);
                 GPDSPError                  appendI                     (std::string const& name, GPDSPOutputtableNode const* node, int which);
                 GPDSPError                  insertI                     (int index, std::string const& name, GPDSPOutputtableNode const* node, int which);

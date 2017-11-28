@@ -82,10 +82,14 @@ GPDSPError GPDSPBufferNode::fixate(void)
 {
     GPDSPError error(GPDSPERROR_OK);
     
+    clearO();
+    clearI();
     if ((error = setCountI(1, "in")) == GPDSPERROR_OK) {
-        if ((error = setCountO(1, "out")) != GPDSPERROR_OK) {
-            clearI();
-        }
+        error = setCountO(1, "out");
+    }
+    if (error != GPDSPERROR_OK) {
+        clearO();
+        clearI();
     }
     return error;
 }
@@ -134,7 +138,6 @@ GPDSPError GPDSPBufferNode::process(void)
 void GPDSPBufferNode::refresh(void)
 {
     std::fill_n(_queue.begin(), _queue.size(), 0.0f);
-    invalidate();
     return;
 }
 

@@ -58,7 +58,13 @@ GPDSPGenericOutputNode::~GPDSPGenericOutputNode(void)
 
 GPDSPError GPDSPGenericOutputNode::fixate(void)
 {
-    return setCountI(1, "in");
+    GPDSPError error(GPDSPERROR_OK);
+    
+    clearI();
+    if ((error = setCountI(1, "in")) != GPDSPERROR_OK) {
+        clearI();
+    }
+    return error;
 }
 
 GPDSPError GPDSPGenericOutputNode::prepare(void)

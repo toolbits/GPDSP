@@ -57,7 +57,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSPGenerative 0.3.5        2017 iridium.jp");
+    ofSetWindowTitle("GPDSPGenerative 0.4.0        2017 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
@@ -85,9 +85,12 @@ void ofApp::setup(void)
     makeOut("out[L]", 4, "in[L]", ofColor(63, 255, 127));
     makeOut("out[R]", 4, "in[R]", ofColor(255, 63, 127));
     _gui->addBreak();
+    _gui->addButton("rewind...");
     _gui->addButton("refresh...");
     _gui->onButtonEvent(this, &ofApp::onButtonEvent);
     _gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
+    _image.load("graph.png");
+    
     syncIn("in[L]", 0);
     selectIn("in[L]", 1, "out[L]", "in[R]");
     syncIn("in[R]", 0);
@@ -148,6 +151,11 @@ void ofApp::draw(void)
     bool valid;
     int i;
     
+    ofPushMatrix();
+    ofTranslate(_gui->getWidth() + (ofGetWidth() - _gui->getWidth() - _image.getWidth()) / 2, ofGetHeight() / 2);
+    ofSetColor(255, 255, 255, 63);
+    _image.draw(0, -_image.getHeight() / 2);
+    ofPopMatrix();
     ofPushMatrix();
     ofTranslate(_gui->getWidth() + (ofGetWidth() - _gui->getWidth() - BUFFER_SIZE) / 2, ofGetHeight() / 2);
     ofEnableBlendMode(OF_BLENDMODE_ADD);
@@ -263,7 +271,12 @@ void ofApp::dragEvent(ofDragInfo dragInfo)
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
-    if (e.target->is("refresh...")) {
+    if (e.target->is("rewind...")) {
+        _mutexParam.lock();
+        _dsp.rewind();
+        _mutexParam.unlock();
+    }
+    else if (e.target->is("refresh...")) {
         _mutexParam.lock();
         _dsp.refresh();
         _mutexParam.unlock();

@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		9CF4130A7E6DA19A3DC42B9A /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C954E0E8B7DB9D6983309883 /* ofxSmartFont.cpp */; };
+		C306411A1FCD785C00415FC3 /* graph.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C30641191FCD785C00415FC3 /* graph.png */; };
+		C33A519D1FC2E8C400E74B00 /* GPDSPSinWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33A519B1FC2E8A300E74B00 /* GPDSPSinWaveNode.cpp */; };
+		C33A51A21FC3B36E00E74B00 /* GPDSPWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33A51A11FC3B36E00E74B00 /* GPDSPWaveNode.cpp */; };
+		C33A51BD1FC3ECFC00E74B00 /* GPDSPSawtoothWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33A51BC1FC3ECFC00E74B00 /* GPDSPSawtoothWaveNode.cpp */; };
+		C33A51C21FC3ED0500E74B00 /* GPDSPSquareWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33A51BE1FC3ED0500E74B00 /* GPDSPSquareWaveNode.cpp */; };
+		C33A51C31FC3ED0500E74B00 /* GPDSPTriangleWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33A51BF1FC3ED0500E74B00 /* GPDSPTriangleWaveNode.cpp */; };
+		C36EAA8F1FCD2F70006856F8 /* GPDSPSerializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C36EAA8E1FCD2F70006856F8 /* GPDSPSerializable.cpp */; };
 		C3CE34E41FB9F9F000A3CDCA /* Verdana.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3CE34E31FB9F9EF00A3CDCA /* Verdana.ttf */; };
 		C3CE34EB1FB9FA1100A3CDCA /* icon-group-closed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3CE34E61FB9FA1000A3CDCA /* icon-group-closed.png */; };
 		C3CE34EC1FB9FA1100A3CDCA /* icon-group-open.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3CE34E71FB9FA1000A3CDCA /* icon-group-open.png */; };
@@ -61,6 +68,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		C30641181FCD784D00415FC3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				C306411A1FCD785C00415FC3 /* graph.png in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3CE34E51FB9F9FD00A3CDCA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -105,6 +122,20 @@
 		B498F0559F473CF855EF6062 /* ofxDatGuiTheme.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTheme.h; path = ../../../addons/ofxDatGui/src/themes/ofxDatGuiTheme.h; sourceTree = SOURCE_ROOT; };
 		BCC84C6EB3417706F4F762F0 /* ofxDatGuiComponent.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiComponent.h; path = ../../../addons/ofxDatGui/src/core/ofxDatGuiComponent.h; sourceTree = SOURCE_ROOT; };
 		C085A33340AB0C1DB647AC2F /* ofxDatGuiTextInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInput.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiTextInput.h; sourceTree = SOURCE_ROOT; };
+		C30641191FCD785C00415FC3 /* graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph.png; path = bin/data/graph.png; sourceTree = "<group>"; };
+		C31FF7801FC70A8A003682B7 /* fm.gpdsp */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fm.gpdsp; path = bin/data/fm.gpdsp; sourceTree = "<group>"; };
+		C33A519B1FC2E8A300E74B00 /* GPDSPSinWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSinWaveNode.cpp; sourceTree = "<group>"; };
+		C33A519C1FC2E8A300E74B00 /* GPDSPSinWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSinWaveNode.hpp; sourceTree = "<group>"; };
+		C33A51A01FC3B36D00E74B00 /* GPDSPWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPWaveNode.hpp; sourceTree = "<group>"; };
+		C33A51A11FC3B36E00E74B00 /* GPDSPWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPWaveNode.cpp; sourceTree = "<group>"; };
+		C33A51BB1FC3ECFC00E74B00 /* GPDSPSawtoothWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSawtoothWaveNode.hpp; sourceTree = "<group>"; };
+		C33A51BC1FC3ECFC00E74B00 /* GPDSPSawtoothWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSawtoothWaveNode.cpp; sourceTree = "<group>"; };
+		C33A51BE1FC3ED0500E74B00 /* GPDSPSquareWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSquareWaveNode.cpp; sourceTree = "<group>"; };
+		C33A51BF1FC3ED0500E74B00 /* GPDSPTriangleWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPTriangleWaveNode.cpp; sourceTree = "<group>"; };
+		C33A51C01FC3ED0500E74B00 /* GPDSPSquareWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSquareWaveNode.hpp; sourceTree = "<group>"; };
+		C33A51C11FC3ED0500E74B00 /* GPDSPTriangleWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPTriangleWaveNode.hpp; sourceTree = "<group>"; };
+		C36EAA8D1FCD2F6F006856F8 /* GPDSPSerializable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSerializable.hpp; sourceTree = "<group>"; };
+		C36EAA8E1FCD2F70006856F8 /* GPDSPSerializable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSerializable.cpp; sourceTree = "<group>"; };
 		C3CE349F1FB9F6EA00A3CDCA /* GPDSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSP.hpp; sourceTree = "<group>"; };
 		C3CE34E31FB9F9EF00A3CDCA /* Verdana.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Verdana.ttf; path = bin/data/ofxbraitsch/fonts/Verdana.ttf; sourceTree = "<group>"; };
 		C3CE34E61FB9FA1000A3CDCA /* icon-group-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-group-closed.png"; path = "bin/data/ofxbraitsch/ofxdatgui/icon-group-closed.png"; sourceTree = "<group>"; };
@@ -157,7 +188,6 @@
 		C3CF7E211FBA791400ACB607 /* GPDSPPeekNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPPeekNode.hpp; sourceTree = "<group>"; };
 		C3CF7E221FBA791400ACB607 /* GPDSPSumNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSumNode.cpp; sourceTree = "<group>"; };
 		C3CF7E231FBA791400ACB607 /* GPDSPSumNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSumNode.hpp; sourceTree = "<group>"; };
-		C3CF7E3E1FBA831A00ACB607 /* sample.gpdsp */ = {isa = PBXFileReference; lastKnownFileType = text; name = sample.gpdsp; path = bin/data/sample.gpdsp; sourceTree = "<group>"; };
 		C84ED7FCC017328C6F58283D /* ofxDatGuiColorPicker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiColorPicker.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiColorPicker.h; sourceTree = SOURCE_ROOT; };
 		C954E0E8B7DB9D6983309883 /* ofxSmartFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSmartFont.cpp; path = ../../../addons/ofxDatGui/src/libs/ofxSmartFont/ofxSmartFont.cpp; sourceTree = SOURCE_ROOT; };
 		CDF7278CB636137FE7BF91A5 /* ofxDatGuiMatrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiMatrix.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiMatrix.h; sourceTree = SOURCE_ROOT; };
@@ -260,12 +290,30 @@
 			name = addons;
 			sourceTree = "<group>";
 		};
+		C33A519A1FC2E8A300E74B00 /* synthesis */ = {
+			isa = PBXGroup;
+			children = (
+				C33A51A01FC3B36D00E74B00 /* GPDSPWaveNode.hpp */,
+				C33A51A11FC3B36E00E74B00 /* GPDSPWaveNode.cpp */,
+				C33A519C1FC2E8A300E74B00 /* GPDSPSinWaveNode.hpp */,
+				C33A519B1FC2E8A300E74B00 /* GPDSPSinWaveNode.cpp */,
+				C33A51C11FC3ED0500E74B00 /* GPDSPTriangleWaveNode.hpp */,
+				C33A51BF1FC3ED0500E74B00 /* GPDSPTriangleWaveNode.cpp */,
+				C33A51BB1FC3ECFC00E74B00 /* GPDSPSawtoothWaveNode.hpp */,
+				C33A51BC1FC3ECFC00E74B00 /* GPDSPSawtoothWaveNode.cpp */,
+				C33A51C01FC3ED0500E74B00 /* GPDSPSquareWaveNode.hpp */,
+				C33A51BE1FC3ED0500E74B00 /* GPDSPSquareWaveNode.cpp */,
+			);
+			path = synthesis;
+			sourceTree = "<group>";
+		};
 		C3CE349E1FB9F6EA00A3CDCA /* GPDSP */ = {
 			isa = PBXGroup;
 			children = (
 				C3CE349F1FB9F6EA00A3CDCA /* GPDSP.hpp */,
 				C3CF7DFA1FBA791400ACB607 /* core */,
 				C3CF7E0F1FBA791400ACB607 /* algorithm */,
+				C33A519A1FC2E8A300E74B00 /* synthesis */,
 				C3CF7DF31FBA791400ACB607 /* generic */,
 			);
 			name = GPDSP;
@@ -291,6 +339,8 @@
 				C3CF7E0B1FBA791400ACB607 /* GPDSPType.hpp */,
 				C3CF7E041FBA791400ACB607 /* GPDSPNodeRenderer.hpp */,
 				C3CF7E031FBA791400ACB607 /* GPDSPNodeRenderer.cpp */,
+				C36EAA8D1FCD2F6F006856F8 /* GPDSPSerializable.hpp */,
+				C36EAA8E1FCD2F70006856F8 /* GPDSPSerializable.cpp */,
 				C3CF7E021FBA791400ACB607 /* GPDSPNode.hpp */,
 				C3CF7E011FBA791400ACB607 /* GPDSPNode.cpp */,
 				C3CF7E001FBA791400ACB607 /* GPDSPInputtableNode.hpp */,
@@ -371,7 +421,8 @@
 				C3CE34E91FB9FA1000A3CDCA /* icon-radio-on.png */,
 				C3CE34E81FB9FA1000A3CDCA /* picker-rainbow.png */,
 				C3CE34E31FB9F9EF00A3CDCA /* Verdana.ttf */,
-				C3CF7E3E1FBA831A00ACB607 /* sample.gpdsp */,
+				C30641191FCD785C00415FC3 /* graph.png */,
+				C31FF7801FC70A8A003682B7 /* fm.gpdsp */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -425,6 +476,7 @@
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
 				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
+				C30641181FCD784D00415FC3 /* CopyFiles */,
 				E4C2427710CC5ABF004149E2 /* CopyFiles */,
 				C3CE34E51FB9F9FD00A3CDCA /* CopyFiles */,
 			);
@@ -527,6 +579,12 @@
 				C3CF7E361FBA7B5200ACB607 /* GPDSPBufferNode.cpp in Sources */,
 				C3CF7E371FBA7B5400ACB607 /* GPDSPSumNode.cpp in Sources */,
 				C3CF7E381FBA7B5600ACB607 /* GPDSPMultiplyNode.cpp in Sources */,
+				C33A51A21FC3B36E00E74B00 /* GPDSPWaveNode.cpp in Sources */,
+				C33A519D1FC2E8C400E74B00 /* GPDSPSinWaveNode.cpp in Sources */,
+				C33A51C31FC3ED0500E74B00 /* GPDSPTriangleWaveNode.cpp in Sources */,
+				C33A51BD1FC3ECFC00E74B00 /* GPDSPSawtoothWaveNode.cpp in Sources */,
+				C36EAA8F1FCD2F70006856F8 /* GPDSPSerializable.cpp in Sources */,
+				C33A51C21FC3ED0500E74B00 /* GPDSPSquareWaveNode.cpp in Sources */,
 				C3CF7E391FBA7B6700ACB607 /* GPDSPGenericNode.cpp in Sources */,
 				C3CF7E3A1FBA7B6900ACB607 /* GPDSPGenericInputNode.cpp in Sources */,
 				C3CF7E3B1FBA7B6C00ACB607 /* GPDSPGenericOutputNode.cpp in Sources */,

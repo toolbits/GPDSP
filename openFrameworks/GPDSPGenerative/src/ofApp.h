@@ -70,6 +70,7 @@ class ofApp : public ofBaseApp {
         ofMutex _mutexIO;
         ofMutex _mutexParam;
         ofxDatGui* _gui;
+        ofImage _image;
         map<string, int> _select;
     
     public:

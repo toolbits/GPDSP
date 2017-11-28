@@ -60,7 +60,7 @@ class GPDSPFlexOutputtableNode : public GPDSPOutputtableNode {
                 void                        clearO                      (void);
     protected:
         explicit                            GPDSPFlexOutputtableNode    (void);
-        virtual                             ~GPDSPFlexOutputtableNode   (void);
+        virtual                             ~GPDSPFlexOutputtableNode   (void) = 0;
     private:
                                             GPDSPFlexOutputtableNode    (GPDSPFlexOutputtableNode const&);
                 GPDSPFlexOutputtableNode&   operator=                   (GPDSPFlexOutputtableNode const&);

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C31FF7761FC5DF52003682B7 /* GPDSPWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31FF7721FC5DEE6003682B7 /* GPDSPWaveNode.cpp */; };
+		C31FF7771FC5DF55003682B7 /* GPDSPSinWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31FF76C1FC5DEE6003682B7 /* GPDSPSinWaveNode.cpp */; };
+		C31FF7781FC5DF58003682B7 /* GPDSPTriangleWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31FF7701FC5DEE6003682B7 /* GPDSPTriangleWaveNode.cpp */; };
+		C31FF7791FC5DF5B003682B7 /* GPDSPSawtoothWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31FF76A1FC5DEE6003682B7 /* GPDSPSawtoothWaveNode.cpp */; };
+		C31FF77A1FC5DF5E003682B7 /* GPDSPSquareWaveNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31FF76E1FC5DEE6003682B7 /* GPDSPSquareWaveNode.cpp */; };
 		C335E8EC1F95E30800319BE7 /* graph.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8EB1F95E30800319BE7 /* graph.png */; };
 		C335E8EF1F95E33700319BE7 /* Verdana.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8EE1F95E33600319BE7 /* Verdana.ttf */; };
 		C335E8F61F95E35900319BE7 /* icon-group-open.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C335E8F11F95E35800319BE7 /* icon-group-open.png */; };
@@ -40,6 +45,7 @@
 		C3CF7DEA1FBA713E00ACB607 /* GPDSPGenericInputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DCF1FBA6FB600ACB607 /* GPDSPGenericInputNode.cpp */; };
 		C3CF7DEB1FBA714000ACB607 /* GPDSPGenericOutputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DD31FBA6FB600ACB607 /* GPDSPGenericOutputNode.cpp */; };
 		C3EB8CEE1F98D5FC001067BF /* Menlo.ttc in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3EB8CED1F98D5FC001067BF /* Menlo.ttc */; };
+		C3EC46FA1FCD41B30028C606 /* GPDSPSerializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EC46F81FCD41B30028C606 /* GPDSPSerializable.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
@@ -101,6 +107,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C31FF76A1FC5DEE6003682B7 /* GPDSPSawtoothWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSawtoothWaveNode.cpp; sourceTree = "<group>"; };
+		C31FF76B1FC5DEE6003682B7 /* GPDSPSawtoothWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSawtoothWaveNode.hpp; sourceTree = "<group>"; };
+		C31FF76C1FC5DEE6003682B7 /* GPDSPSinWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSinWaveNode.cpp; sourceTree = "<group>"; };
+		C31FF76D1FC5DEE6003682B7 /* GPDSPSinWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSinWaveNode.hpp; sourceTree = "<group>"; };
+		C31FF76E1FC5DEE6003682B7 /* GPDSPSquareWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSquareWaveNode.cpp; sourceTree = "<group>"; };
+		C31FF76F1FC5DEE6003682B7 /* GPDSPSquareWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSquareWaveNode.hpp; sourceTree = "<group>"; };
+		C31FF7701FC5DEE6003682B7 /* GPDSPTriangleWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPTriangleWaveNode.cpp; sourceTree = "<group>"; };
+		C31FF7711FC5DEE6003682B7 /* GPDSPTriangleWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPTriangleWaveNode.hpp; sourceTree = "<group>"; };
+		C31FF7721FC5DEE6003682B7 /* GPDSPWaveNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPWaveNode.cpp; sourceTree = "<group>"; };
+		C31FF7731FC5DEE6003682B7 /* GPDSPWaveNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPWaveNode.hpp; sourceTree = "<group>"; };
 		C335E8EB1F95E30800319BE7 /* graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph.png; path = bin/data/graph.png; sourceTree = "<group>"; };
 		C335E8EE1F95E33600319BE7 /* Verdana.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Verdana.ttf; path = bin/data/ofxbraitsch/fonts/Verdana.ttf; sourceTree = "<group>"; };
 		C335E8F11F95E35800319BE7 /* icon-group-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-group-open.png"; path = "bin/data/ofxbraitsch/ofxdatgui/icon-group-open.png"; sourceTree = "<group>"; };
@@ -179,6 +195,8 @@
 		C3CF7DD31FBA6FB600ACB607 /* GPDSPGenericOutputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericOutputNode.cpp; sourceTree = "<group>"; };
 		C3CF7DD41FBA6FB600ACB607 /* GPDSPGenericOutputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericOutputNode.hpp; sourceTree = "<group>"; };
 		C3EB8CED1F98D5FC001067BF /* Menlo.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = Menlo.ttc; path = bin/data/ofxbraitsch/fonts/Menlo.ttc; sourceTree = "<group>"; };
+		C3EC46F81FCD41B30028C606 /* GPDSPSerializable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSerializable.cpp; sourceTree = "<group>"; };
+		C3EC46F91FCD41B30028C606 /* GPDSPSerializable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSerializable.hpp; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* GPDSPDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPDSPDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -222,10 +240,28 @@
 				C3814E961FAA0CDA0059632C /* GPDSP.hpp */,
 				C3CF7DA41FBA6FA000ACB607 /* core */,
 				C3CF7DB91FBA6FAD00ACB607 /* algorithm */,
+				C31FF7691FC5DEE6003682B7 /* synthesis */,
 				C3CF7DCE1FBA6FB600ACB607 /* generic */,
 			);
 			name = GPDSP;
 			path = ../../../lib/GPDSP;
+			sourceTree = "<group>";
+		};
+		C31FF7691FC5DEE6003682B7 /* synthesis */ = {
+			isa = PBXGroup;
+			children = (
+				C31FF7731FC5DEE6003682B7 /* GPDSPWaveNode.hpp */,
+				C31FF7721FC5DEE6003682B7 /* GPDSPWaveNode.cpp */,
+				C31FF76D1FC5DEE6003682B7 /* GPDSPSinWaveNode.hpp */,
+				C31FF76C1FC5DEE6003682B7 /* GPDSPSinWaveNode.cpp */,
+				C31FF7711FC5DEE6003682B7 /* GPDSPTriangleWaveNode.hpp */,
+				C31FF7701FC5DEE6003682B7 /* GPDSPTriangleWaveNode.cpp */,
+				C31FF76B1FC5DEE6003682B7 /* GPDSPSawtoothWaveNode.hpp */,
+				C31FF76A1FC5DEE6003682B7 /* GPDSPSawtoothWaveNode.cpp */,
+				C31FF76F1FC5DEE6003682B7 /* GPDSPSquareWaveNode.hpp */,
+				C31FF76E1FC5DEE6003682B7 /* GPDSPSquareWaveNode.cpp */,
+			);
+			path = synthesis;
 			sourceTree = "<group>";
 		};
 		C34F3B371F94C5D500C3EF97 /* ofxDatGui */ = {
@@ -314,6 +350,8 @@
 				C3CF7DB51FBA6FA000ACB607 /* GPDSPType.hpp */,
 				C3CF7DAE1FBA6FA000ACB607 /* GPDSPNodeRenderer.hpp */,
 				C3CF7DAD1FBA6FA000ACB607 /* GPDSPNodeRenderer.cpp */,
+				C3EC46F91FCD41B30028C606 /* GPDSPSerializable.hpp */,
+				C3EC46F81FCD41B30028C606 /* GPDSPSerializable.cpp */,
 				C3CF7DAC1FBA6FA000ACB607 /* GPDSPNode.hpp */,
 				C3CF7DAB1FBA6FA000ACB607 /* GPDSPNode.cpp */,
 				C3CF7DAA1FBA6FA000ACB607 /* GPDSPInputtableNode.hpp */,
@@ -538,12 +576,18 @@
 				C3CF7DE01FBA711700ACB607 /* GPDSPBufferOutputNode.cpp in Sources */,
 				C3CF7DE11FBA711900ACB607 /* GPDSPConstantNode.cpp in Sources */,
 				C3CF7DE21FBA711C00ACB607 /* GPDSPGateNode.cpp in Sources */,
+				C3EC46FA1FCD41B30028C606 /* GPDSPSerializable.cpp in Sources */,
 				C3CF7DE31FBA711E00ACB607 /* GPDSPPeekNode.cpp in Sources */,
 				C3CF7DE41FBA712000ACB607 /* GPDSPAmplifyNode.cpp in Sources */,
 				C3CF7DE51FBA712200ACB607 /* GPDSPDelayNode.cpp in Sources */,
 				C3CF7DE61FBA712400ACB607 /* GPDSPBufferNode.cpp in Sources */,
 				C3CF7DE71FBA712600ACB607 /* GPDSPSumNode.cpp in Sources */,
 				C3CF7DE81FBA712900ACB607 /* GPDSPMultiplyNode.cpp in Sources */,
+				C31FF7761FC5DF52003682B7 /* GPDSPWaveNode.cpp in Sources */,
+				C31FF7771FC5DF55003682B7 /* GPDSPSinWaveNode.cpp in Sources */,
+				C31FF7781FC5DF58003682B7 /* GPDSPTriangleWaveNode.cpp in Sources */,
+				C31FF7791FC5DF5B003682B7 /* GPDSPSawtoothWaveNode.cpp in Sources */,
+				C31FF77A1FC5DF5E003682B7 /* GPDSPSquareWaveNode.cpp in Sources */,
 				C3CF7DE91FBA713B00ACB607 /* GPDSPGenericNode.cpp in Sources */,
 				C3CF7DEA1FBA713E00ACB607 /* GPDSPGenericInputNode.cpp in Sources */,
 				C3CF7DEB1FBA714000ACB607 /* GPDSPGenericOutputNode.cpp in Sources */,

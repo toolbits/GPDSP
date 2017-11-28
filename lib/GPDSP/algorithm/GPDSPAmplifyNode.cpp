@@ -69,10 +69,14 @@ GPDSPError GPDSPAmplifyNode::fixate(void)
 {
     GPDSPError error(GPDSPERROR_OK);
     
+    clearO();
+    clearI();
     if ((error = setCountI(1, "in")) == GPDSPERROR_OK) {
-        if ((error = setCountO(1, "out")) != GPDSPERROR_OK) {
-            clearI();
-        }
+        error = setCountO(1, "out");
+    }
+    if (error != GPDSPERROR_OK) {
+        clearO();
+        clearI();
     }
     return error;
 }
