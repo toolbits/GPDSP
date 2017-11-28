@@ -20,6 +20,10 @@ o GPDSPBufferNode: makes N samples delay
 o GPDSPSumNode: adds all input values  
 o GPDSPMultiplyNode: multiplies all input values  
 o GPDSPGenericNode: generatively constructed filter  
+o GPDSPSinWaveNode: generate sin wave with customizable frequency and phase  
+o GPDSPTriangleWaveNode: generate triangle wave with customizable frequency and phase  
+o GPDSPSawtoothWaveNode: generate sawtooth wave with customizable frequency and phase  
+o GPDSPSquareWaveNode: generate square wave with customizable frequency and phase  
 
 An audio processing example application for openFrameworks:  
 
