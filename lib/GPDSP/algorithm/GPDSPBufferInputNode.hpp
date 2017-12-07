@@ -65,8 +65,8 @@ class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRe
         explicit                            GPDSPBufferInputNode        (void);
         virtual                             ~GPDSPBufferInputNode       (void);
                 GPDSPError                  setBuffer                   (float const* buffer, int length, int interleave);
-                float const*                getReadonlyBuffer           (int* length, int* interleave) const;
-                float*                      getWritableBuffer           (int* length, int* interleave);
+                float const*                getBufferReadonly           (int* length, int* interleave) const;
+                float*                      getBufferWritable           (int* length, int* interleave);
                 GPDSPError                  setPosition                 (int position);
                 int                         getPosition                 (void) const;
                 bool                        isDelegate                  (void) const;

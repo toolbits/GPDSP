@@ -104,7 +104,7 @@ GPDSPError GPDSPBufferInputNode::setBuffer(float const* buffer, int length, int 
     return error;
 }
 
-float const* GPDSPBufferInputNode::getReadonlyBuffer(int* length, int* interleave) const
+float const* GPDSPBufferInputNode::getBufferReadonly(int* length, int* interleave) const
 {
     if (_delegate != NULL) {
         if (length != NULL) {
@@ -117,7 +117,7 @@ float const* GPDSPBufferInputNode::getReadonlyBuffer(int* length, int* interleav
     return _delegate;
 }
 
-float* GPDSPBufferInputNode::getWritableBuffer(int* length, int* interleave)
+float* GPDSPBufferInputNode::getBufferWritable(int* length, int* interleave)
 {
     float* result(NULL);
     

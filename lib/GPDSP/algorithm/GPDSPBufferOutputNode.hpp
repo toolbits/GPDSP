@@ -65,7 +65,7 @@ class GPDSPBufferOutputNode : public GPDSPInputtableNode, public virtual GPDSPRe
         explicit                            GPDSPBufferOutputNode       (void);
         virtual                             ~GPDSPBufferOutputNode      (void);
                 GPDSPError                  setBuffer                   (float* buffer, int length, int interleave);
-                float const*                getReadonlyBuffer           (int* length, int* interleave) const;
+                float const*                getBufferReadonly           (int* length, int* interleave) const;
                 GPDSPError                  setPosition                 (int position);
                 int                         getPosition                 (void) const;
                 bool                        isDelegate                  (void) const;

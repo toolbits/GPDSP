@@ -14,17 +14,17 @@
         <GPDSPGenericOutputNode>
             <name>0.out[L]</name>
             <input>
-                <node>
-                    <name>att[L]</name>
-                </node>
+                <::0>
+                    <node>att[L]</node>
+                </::0>
             </input>
         </GPDSPGenericOutputNode>
         <GPDSPGenericOutputNode>
             <name>1.out[R]</name>
             <input>
-                <node>
-                    <name>att[R]</name>
-                </node>
+                <::0>
+                    <node>att[R]</node>
+                </::0>
             </input>
         </GPDSPGenericOutputNode>
         
@@ -34,9 +34,9 @@
                 <gain>2000</gain>
             </param>
             <input>
-                <node>
-                    <name>0.in[L]</name>
-                </node>
+                <::0>
+                    <node>0.in[L]</node>
+                </::0>
             </input>
         </GPDSPAmplifyNode>
         <GPDSPConstantNode>
@@ -47,24 +47,21 @@
         </GPDSPConstantNode>
         <GPDSPSumNode>
             <name>sum[L]</name>
-            <param>
-                <count>2</count>
-            </param>
             <input>
-                <node>
-                    <name>amp[L]</name>
-                </node>
-                <node>
-                    <name>frq[L]</name>
-                </node>
+                <::0>
+                    <node>amp[L]</node>
+                </::0>
+                <::1>
+                    <node>frq[L]</node>
+                </::1>
             </input>
         </GPDSPSumNode>
         <GPDSPSinWaveNode>
             <name>osc[L]</name>
             <input>
-                <node>
-                    <name>sum[L]</name>
-                </node>
+                <::0>
+                    <node>sum[L]</node>
+                </::0>
             </input>
         </GPDSPSinWaveNode>
         <GPDSPAmplifyNode>
@@ -73,9 +70,9 @@
                 <gain>0.1</gain>
             </param>
             <input>
-                <node>
-                    <name>osc[L]</name>
-                </node>
+                <::0>
+                    <node>osc[L]</node>
+                </::0>
             </input>
         </GPDSPAmplifyNode>
         <GPDSPAmplifyNode>
@@ -84,9 +81,9 @@
                 <gain>2000</gain>
             </param>
             <input>
-                <node>
-                    <name>1.in[R]</name>
-                </node>
+                <::0>
+                    <node>1.in[R]</node>
+                </::0>
             </input>
         </GPDSPAmplifyNode>
         <GPDSPConstantNode>
@@ -97,16 +94,13 @@
         </GPDSPConstantNode>
         <GPDSPSumNode>
             <name>sum[R]</name>
-            <param>
-                <count>2</count>
-            </param>
             <input>
-                <node>
-                    <name>amp[R]</name>
-                </node>
-                <node>
-                    <name>frq[R]</name>
-                </node>
+                <::0>
+                    <node>amp[R]</node>
+                </::0>
+                <::1>
+                    <node>frq[R]</node>
+                </::1>
             </input>
         </GPDSPSumNode>
         <GPDSPSinWaveNode>
@@ -115,9 +109,9 @@
                 <resolution>10.0</resolution>
             </param>
             <input>
-                <node>
-                    <name>sum[R]</name>
-                </node>
+                <::0>
+                    <node>sum[R]</node>
+                </::0>
             </input>
         </GPDSPSinWaveNode>
         <GPDSPAmplifyNode>
@@ -126,9 +120,9 @@
                 <gain>0.1</gain>
             </param>
             <input>
-                <node>
-                    <name>osc[R]</name>
-                </node>
+                <::0>
+                    <node>osc[R]</node>
+                </::0>
             </input>
         </GPDSPAmplifyNode>
     </formula>

@@ -53,9 +53,9 @@ namespace ir {
 
 class GPDSPFlexOutputtableNode : public GPDSPOutputtableNode {
     public:
-                GPDSPError                  setCountO                   (int count, std::string const& name);
-                GPDSPError                  appendO                     (std::string const& name);
-                GPDSPError                  insertO                     (int index, std::string const& name);
+                GPDSPError                  setCountO                   (int count, std::string const& what);
+                GPDSPError                  appendO                     (std::string const& what);
+                GPDSPError                  insertO                     (int index, std::string const& what);
                 GPDSPError                  removeO                     (int index);
                 void                        clearO                      (void);
     protected:
@@ -66,19 +66,19 @@ class GPDSPFlexOutputtableNode : public GPDSPOutputtableNode {
                 GPDSPFlexOutputtableNode&   operator=                   (GPDSPFlexOutputtableNode const&);
 };
 
-inline GPDSPError GPDSPFlexOutputtableNode::setCountO(int count, std::string const& name)
+inline GPDSPError GPDSPFlexOutputtableNode::setCountO(int count, std::string const& what)
 {
-    return GPDSPOutputtableNode::setCountO(count, name);
+    return GPDSPOutputtableNode::setCountO(count, what);
 }
 
-inline GPDSPError GPDSPFlexOutputtableNode::appendO(std::string const& name)
+inline GPDSPError GPDSPFlexOutputtableNode::appendO(std::string const& what)
 {
-    return GPDSPOutputtableNode::appendO(name);
+    return GPDSPOutputtableNode::appendO(what);
 }
 
-inline GPDSPError GPDSPFlexOutputtableNode::insertO(int index, std::string const& name)
+inline GPDSPError GPDSPFlexOutputtableNode::insertO(int index, std::string const& what)
 {
-    return GPDSPOutputtableNode::insertO(index, name);
+    return GPDSPOutputtableNode::insertO(index, what);
 }
 
 inline GPDSPError GPDSPFlexOutputtableNode::removeO(int index)

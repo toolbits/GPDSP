@@ -57,7 +57,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSPGenerative 0.4.0        2017 iridium.jp");
+    ofSetWindowTitle("GPDSPGenerative 0.5.0        2017 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
@@ -391,14 +391,14 @@ void ofApp::selectIn(string const& in, int index, string const& out, string cons
         _select[out + " <- N/A"] = 0;
     }
     if (index >= 2) {
-        _dsp.setLinkI("generic", index - 2, in, 0);
+        _dsp.setLinkPositiveI("generic", index - 2, in, 0);
         if (_select[other + " -> N/A"] == index) {
             _gui->getDropdown(other + " -> N/A")->select(0);
             _select[other + " -> N/A"] = 0;
         }
     }
     else if (index >= 1) {
-        _dsp.setLinkI(out, 0, in, 0);
+        _dsp.setLinkPositiveI(out, 0, in, 0);
         _gui->getDropdown(out + " <- N/A")->select(index);
         _select[out + " <- N/A"] = index;
     }
@@ -416,7 +416,7 @@ void ofApp::selectOut(string const& out, int index, string const& in, string con
     }
     if (index >= 2) {
         _dsp.clearLinkO("generic", index - 2);
-        _dsp.setLinkI(out, 0, "generic", index - 2);
+        _dsp.setLinkPositiveI(out, 0, "generic", index - 2);
         if (_select[other + " <- N/A"] == index) {
             _gui->getDropdown(other + " <- N/A")->select(0);
             _select[other + " <- N/A"] = 0;
@@ -424,7 +424,7 @@ void ofApp::selectOut(string const& out, int index, string const& in, string con
     }
     else if (index >= 1) {
         _dsp.clearLinkO(in);
-        _dsp.setLinkI(out, 0, in, 0);
+        _dsp.setLinkPositiveI(out, 0, in, 0);
         _gui->getDropdown(in + " -> N/A")->select(index);
         _select[in + " -> N/A"] = index;
     }

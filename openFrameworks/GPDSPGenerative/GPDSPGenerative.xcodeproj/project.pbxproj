@@ -188,6 +188,8 @@
 		C3CF7E211FBA791400ACB607 /* GPDSPPeekNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPPeekNode.hpp; sourceTree = "<group>"; };
 		C3CF7E221FBA791400ACB607 /* GPDSPSumNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSumNode.cpp; sourceTree = "<group>"; };
 		C3CF7E231FBA791400ACB607 /* GPDSPSumNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSumNode.hpp; sourceTree = "<group>"; };
+		C3E26AE51FCDA0BE00AA602E /* hilbert.gpdsp */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = hilbert.gpdsp; path = bin/data/hilbert.gpdsp; sourceTree = "<group>"; };
+		C3E26AE61FCDA65C00AA602E /* freqconv.gpdsp */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = freqconv.gpdsp; path = bin/data/freqconv.gpdsp; sourceTree = "<group>"; };
 		C84ED7FCC017328C6F58283D /* ofxDatGuiColorPicker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiColorPicker.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiColorPicker.h; sourceTree = SOURCE_ROOT; };
 		C954E0E8B7DB9D6983309883 /* ofxSmartFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSmartFont.cpp; path = ../../../addons/ofxDatGui/src/libs/ofxSmartFont/ofxSmartFont.cpp; sourceTree = SOURCE_ROOT; };
 		CDF7278CB636137FE7BF91A5 /* ofxDatGuiMatrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiMatrix.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiMatrix.h; sourceTree = SOURCE_ROOT; };
@@ -423,6 +425,8 @@
 				C3CE34E31FB9F9EF00A3CDCA /* Verdana.ttf */,
 				C30641191FCD785C00415FC3 /* graph.png */,
 				C31FF7801FC70A8A003682B7 /* fm.gpdsp */,
+				C3E26AE51FCDA0BE00AA602E /* hilbert.gpdsp */,
+				C3E26AE61FCDA65C00AA602E /* freqconv.gpdsp */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,

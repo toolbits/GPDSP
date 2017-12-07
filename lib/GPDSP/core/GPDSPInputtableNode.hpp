@@ -54,36 +54,51 @@ namespace ir {
 
 class GPDSPInputtableNode : public virtual GPDSPNode {
     private:
-        struct SocketRec {
+        struct TerminalRec {
             std::string                     name;
-            GPDSPOutputtableNode const*     node;
-            int                             index;
+            GPDSPMode                       mode;
+            union {
+                struct {
+                    GPDSPOutputtableNode const*
+                                            node;
+                    int                     index;
+                };
+                struct {
+                    float                   constant;
+                };
+            };
         };
     
     private:
-                std::vector<SocketRec>      _socket;
+                std::vector<TerminalRec>    _terminal;
     
     public:
                 int                         getCountI                   (void) const;
-                GPDSPError                  setNameI                    (int index, std::string const& name);
-                GPDSPError                  getNameI                    (int index, std::string* name) const;
-                GPDSPError                  setLinkI                    (int index, GPDSPOutputtableNode const* node, int which);
-                GPDSPError                  getLinkI                    (int index, GPDSPOutputtableNode const** node, int* which) const;
+                GPDSPError                  setNameI                    (int index, std::string const& what);
+                GPDSPError                  getNameI                    (int index, std::string* what) const;
+                GPDSPError                  getModeI                    (int index, GPDSPMode* mode) const;
+                GPDSPError                  setLinkPositiveI            (int index, GPDSPOutputtableNode const* from, int which);
+                GPDSPError                  setLinkNegativeI            (int index, GPDSPOutputtableNode const* from, int which);
+                GPDSPError                  setLinkConstantI            (int index, float constant);
+                GPDSPError                  getLinkI                    (int index, GPDSPOutputtableNode const** from, int* which) const;
+                GPDSPError                  getLinkI                    (int index, float* constant) const;
                 GPDSPError                  clearLinkI                  (int index);
-                void                        clearLinkI                  (GPDSPOutputtableNode const* node, int which);
-                void                        clearLinkI                  (GPDSPOutputtableNode const* node);
+                void                        clearLinkI                  (GPDSPMode mode);
+                void                        clearLinkI                  (GPDSPOutputtableNode const* from, int which);
+                void                        clearLinkI                  (GPDSPOutputtableNode const* from);
                 void                        clearLinkI                  (void);
                 GPDSPError                  getValueI                   (int index, float* value) const;
-                int                         findNameI                   (std::string const& name) const;
-                int                         findLinkI                   (GPDSPOutputtableNode const* node, int which) const;
-                int                         findLinkI                   (GPDSPOutputtableNode const* node) const;
+                int                         findNameI                   (std::string const& what) const;
+                int                         findLinkI                   (GPDSPMode mode) const;
+                int                         findLinkI                   (GPDSPOutputtableNode const* from, int which) const;
+                int                         findLinkI                   (GPDSPOutputtableNode const* from) const;
         virtual void                        invalidate                  (void);
     protected:
         explicit                            GPDSPInputtableNode         (void);
         virtual                             ~GPDSPInputtableNode        (void) = 0;
-                GPDSPError                  setCountI                   (int count, std::string const& name);
-                GPDSPError                  appendI                     (std::string const& name, GPDSPOutputtableNode const* node, int which);
-                GPDSPError                  insertI                     (int index, std::string const& name, GPDSPOutputtableNode const* node, int which);
+                GPDSPError                  setCountI                   (int count, std::string const& what);
+                GPDSPError                  appendI                     (std::string const& what);
+                GPDSPError                  insertI                     (int index, std::string const& what);
                 GPDSPError                  removeI                     (int index);
                 void                        clearI                      (void);
     private:
@@ -93,25 +108,7 @@ class GPDSPInputtableNode : public virtual GPDSPNode {
 
 inline int GPDSPInputtableNode::getCountI(void) const
 {
-    return static_cast<int>(_socket.size());
-}
-
-inline GPDSPError GPDSPInputtableNode::getValueI(int index, float* value) const
-{
-    GPDSPError error(GPDSPERROR_OK);
-    
-    if (0 <= index && index < _socket.size()) {
-        if (_socket[index].node != NULL) {
-            error = _socket[index].node->getValueO(_socket[index].index, value);
-        }
-        else if (value != NULL) {
-            *value = 0.0f;
-        }
-    }
-    else {
-        error = GPDSPERROR_INVALID_RANGE;
-    }
-    return error;
+    return static_cast<int>(_terminal.size());
 }
 
 }// end of namespace

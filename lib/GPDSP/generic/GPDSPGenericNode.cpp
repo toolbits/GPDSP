@@ -294,15 +294,15 @@ GPDSPError GPDSPGenericNode::copyOutput(void)
 
 GPDSPError GPDSPGenericNode::nameToIndex(std::string const& name, int* index)
 {
-    std::string param;
+    std::string string;
     std::string::size_type dot;
     int number;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((dot = name.find('.')) != std::string::npos) {
-        if ((param = name.substr(0, dot)) != "") {
-            if (param.find_first_not_of("0123456789") == std::string::npos) {
-                number = atoi(param.c_str());
+        if ((string = name.substr(0, dot)) != "") {
+            if (string.find_first_not_of("0123456789") == std::string::npos) {
+                number = atoi(string.c_str());
                 if (0 <= number && number < 256) {
                     *index = number;
                 }

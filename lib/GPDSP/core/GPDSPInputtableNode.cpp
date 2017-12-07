@@ -54,15 +54,15 @@ GPDSPInputtableNode::GPDSPInputtableNode(void)
 
 GPDSPInputtableNode::~GPDSPInputtableNode(void)
 {
-    _socket.clear();
+    _terminal.clear();
 }
 
-GPDSPError GPDSPInputtableNode::setNameI(int index, std::string const& name)
+GPDSPError GPDSPInputtableNode::setNameI(int index, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        _socket[index].name = name;
+    if (0 <= index && index < _terminal.size()) {
+        _terminal[index].name = what;
     }
     else {
         error = GPDSPERROR_INVALID_RANGE;
@@ -70,13 +70,13 @@ GPDSPError GPDSPInputtableNode::setNameI(int index, std::string const& name)
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::getNameI(int index, std::string* name) const
+GPDSPError GPDSPInputtableNode::getNameI(int index, std::string* what) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        if (name != NULL) {
-            *name = _socket[index].name;
+    if (0 <= index && index < _terminal.size()) {
+        if (what != NULL) {
+            *what = _terminal[index].name;
         }
     }
     else {
@@ -85,14 +85,30 @@ GPDSPError GPDSPInputtableNode::getNameI(int index, std::string* name) const
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::setLinkI(int index, GPDSPOutputtableNode const* node, int which)
+GPDSPError GPDSPInputtableNode::getModeI(int index, GPDSPMode* mode) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        if (node != _socket[index].node || which != _socket[index].index) {
-            _socket[index].node = node;
-            _socket[index].index = which;
+    if (0 <= index && index < _terminal.size()) {
+        if (mode != NULL) {
+            *mode = _terminal[index].mode;
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::setLinkPositiveI(int index, GPDSPOutputtableNode const* from, int which)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _terminal.size()) {
+        if (_terminal[index].mode != GPDSPMODE_POSITIVE || from != _terminal[index].node || which != _terminal[index].index) {
+            _terminal[index].mode = GPDSPMODE_POSITIVE;
+            _terminal[index].node = from;
+            _terminal[index].index = which;
             invalidate();
         }
     }
@@ -102,16 +118,76 @@ GPDSPError GPDSPInputtableNode::setLinkI(int index, GPDSPOutputtableNode const* 
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const** node, int* which) const
+GPDSPError GPDSPInputtableNode::setLinkNegativeI(int index, GPDSPOutputtableNode const* from, int which)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        if (node != NULL) {
-            *node = _socket[index].node;
+    if (0 <= index && index < _terminal.size()) {
+        if (_terminal[index].mode != GPDSPMODE_NEGATIVE || from != _terminal[index].node || which != _terminal[index].index) {
+            _terminal[index].mode = GPDSPMODE_NEGATIVE;
+            _terminal[index].node = from;
+            _terminal[index].index = which;
+            invalidate();
         }
-        if (which != NULL) {
-            *which = _socket[index].index;
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::setLinkConstantI(int index, float constant)
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _terminal.size()) {
+        if (_terminal[index].mode != GPDSPMODE_CONSTANT || constant != _terminal[index].constant) {
+            _terminal[index].mode = GPDSPMODE_CONSTANT;
+            _terminal[index].constant = constant;
+            invalidate();
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const** from, int* which) const
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _terminal.size()) {
+        if (_terminal[index].mode == GPDSPMODE_POSITIVE || _terminal[index].mode == GPDSPMODE_NEGATIVE) {
+            if (from != NULL) {
+                *from = _terminal[index].node;
+            }
+            if (which != NULL) {
+                *which = _terminal[index].index;
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_PARAM;
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::getLinkI(int index, float* constant) const
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _terminal.size()) {
+        if (_terminal[index].mode == GPDSPMODE_CONSTANT) {
+            if (constant != NULL) {
+                *constant = _terminal[index].constant;
+            }
+        }
+        else {
+            error = GPDSPERROR_INVALID_PARAM;
         }
     }
     else {
@@ -124,10 +200,9 @@ GPDSPError GPDSPInputtableNode::clearLinkI(int index)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        if (_socket[index].node != NULL || _socket[index].index != 0) {
-            _socket[index].node = NULL;
-            _socket[index].index = 0;
+    if (0 <= index && index < _terminal.size()) {
+        if (_terminal[index].mode != GPDSPMODE_NONE) {
+            _terminal[index].mode = GPDSPMODE_NONE;
             invalidate();
         }
     }
@@ -137,15 +212,14 @@ GPDSPError GPDSPInputtableNode::clearLinkI(int index)
     return error;
 }
 
-void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* node, int which)
+void GPDSPInputtableNode::clearLinkI(GPDSPMode mode)
 {
     int i;
     
-    for (i = 0; i < _socket.size(); ++i) {
-        if (_socket[i].node == node && _socket[i].index == which) {
-            if (_socket[i].node != NULL || _socket[i].index != 0) {
-                _socket[i].node = NULL;
-                _socket[i].index = 0;
+    for (i = 0; i < _terminal.size(); ++i) {
+        if (_terminal[i].mode == mode) {
+            if (_terminal[i].mode != GPDSPMODE_NONE) {
+                _terminal[i].mode = GPDSPMODE_NONE;
                 invalidate();
             }
         }
@@ -153,17 +227,27 @@ void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* node, int which
     return;
 }
 
-void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* node)
+void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from, int which)
 {
     int i;
     
-    for (i = 0; i < _socket.size(); ++i) {
-        if (_socket[i].node == node) {
-            if (_socket[i].node != NULL || _socket[i].index != 0) {
-                _socket[i].node = NULL;
-                _socket[i].index = 0;
-                invalidate();
-            }
+    for (i = 0; i < _terminal.size(); ++i) {
+        if ((_terminal[i].mode == GPDSPMODE_POSITIVE || _terminal[i].mode == GPDSPMODE_NEGATIVE) && _terminal[i].node == from && _terminal[i].index == which) {
+            _terminal[i].mode = GPDSPMODE_NONE;
+            invalidate();
+        }
+    }
+    return;
+}
+
+void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from)
+{
+    int i;
+    
+    for (i = 0; i < _terminal.size(); ++i) {
+        if ((_terminal[i].mode == GPDSPMODE_POSITIVE || _terminal[i].mode == GPDSPMODE_NEGATIVE) && _terminal[i].node == from) {
+            _terminal[i].mode = GPDSPMODE_NONE;
+            invalidate();
         }
     }
     return;
@@ -173,23 +257,66 @@ void GPDSPInputtableNode::clearLinkI(void)
 {
     int i;
     
-    for (i = 0; i < _socket.size(); ++i) {
-        if (_socket[i].node != NULL || _socket[i].index != 0) {
-            _socket[i].node = NULL;
-            _socket[i].index = 0;
+    for (i = 0; i < _terminal.size(); ++i) {
+        if (_terminal[i].mode != GPDSPMODE_NONE) {
+            _terminal[i].mode = GPDSPMODE_NONE;
             invalidate();
         }
     }
     return;
 }
 
-int GPDSPInputtableNode::findNameI(std::string const& name) const
+GPDSPError GPDSPInputtableNode::getValueI(int index, float* value) const
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < _terminal.size()) {
+        switch (_terminal[index].mode) {
+            case GPDSPMODE_POSITIVE:
+                if (_terminal[index].node != NULL) {
+                    error = _terminal[index].node->getValueO(_terminal[index].index, value);
+                }
+                else if (value != NULL) {
+                    *value = 0.0f;
+                }
+                break;
+            case GPDSPMODE_NEGATIVE:
+                if (_terminal[index].node != NULL) {
+                    if ((error = _terminal[index].node->getValueO(_terminal[index].index, value)) == GPDSPERROR_OK) {
+                        if (value != NULL) {
+                            *value = -*value;
+                        }
+                    }
+                }
+                else if (value != NULL) {
+                    *value = 0.0f;
+                }
+                break;
+            case GPDSPMODE_CONSTANT:
+                if (value != NULL) {
+                    *value = _terminal[index].constant;
+                }
+                break;
+            default:
+                if (value != NULL) {
+                    *value = 0.0f;
+                }
+                break;
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+int GPDSPInputtableNode::findNameI(std::string const& what) const
 {
     int i;
     int result(-1);
     
-    for (i = 0; i < _socket.size(); ++i) {
-        if (_socket[i].name == name) {
+    for (i = 0; i < _terminal.size(); ++i) {
+        if (_terminal[i].name == what) {
             result = i;
             break;
         }
@@ -197,13 +324,13 @@ int GPDSPInputtableNode::findNameI(std::string const& name) const
     return result;
 }
 
-int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* node, int which) const
+int GPDSPInputtableNode::findLinkI(GPDSPMode mode) const
 {
     int i;
     int result(-1);
     
-    for (i = 0; i < _socket.size(); ++i) {
-        if (_socket[i].node == node && _socket[i].index == which) {
+    for (i = 0; i < _terminal.size(); ++i) {
+        if (_terminal[i].mode == mode) {
             result = i;
             break;
         }
@@ -211,13 +338,27 @@ int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* node, int which) 
     return result;
 }
 
-int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* node) const
+int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from, int which) const
 {
     int i;
     int result(-1);
     
-    for (i = 0; i < _socket.size(); ++i) {
-        if (_socket[i].node == node) {
+    for (i = 0; i < _terminal.size(); ++i) {
+        if ((_terminal[i].mode == GPDSPMODE_POSITIVE || _terminal[i].mode == GPDSPMODE_NEGATIVE) && _terminal[i].node == from && _terminal[i].index == which) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+}
+
+int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from) const
+{
+    int i;
+    int result(-1);
+    
+    for (i = 0; i < _terminal.size(); ++i) {
+        if ((_terminal[i].mode == GPDSPMODE_POSITIVE || _terminal[i].mode == GPDSPMODE_NEGATIVE) && _terminal[i].node == from) {
             result = i;
             break;
         }
@@ -230,16 +371,16 @@ void GPDSPInputtableNode::invalidate(void)
     return;
 }
 
-GPDSPError GPDSPInputtableNode::setCountI(int count, std::string const& name)
+GPDSPError GPDSPInputtableNode::setCountI(int count, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
     if (count < 0) {
         count = 0;
     }
-    if (count != _socket.size()) {
+    if (count != _terminal.size()) {
         try {
-            _socket.resize(count, SocketRec{name, NULL, 0});
+            _terminal.resize(count, TerminalRec{what, GPDSPMODE_NONE});
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
@@ -251,12 +392,12 @@ GPDSPError GPDSPInputtableNode::setCountI(int count, std::string const& name)
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::appendI(std::string const& name, GPDSPOutputtableNode const* node, int which)
+GPDSPError GPDSPInputtableNode::appendI(std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
     try {
-        _socket.push_back(SocketRec{name, node, which});
+        _terminal.push_back(TerminalRec{what, GPDSPMODE_NONE});
     }
     catch (std::bad_alloc const&) {
         error = GPDSPERROR_NO_MEMORY;
@@ -267,13 +408,13 @@ GPDSPError GPDSPInputtableNode::appendI(std::string const& name, GPDSPOutputtabl
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::insertI(int index, std::string const& name, GPDSPOutputtableNode const* node, int which)
+GPDSPError GPDSPInputtableNode::insertI(int index, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
+    if (0 <= index && index < _terminal.size()) {
         try {
-            _socket.insert(_socket.begin() + index, SocketRec{name, node, which});
+            _terminal.insert(_terminal.begin() + index, TerminalRec{what, GPDSPMODE_NONE});
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
@@ -292,8 +433,8 @@ GPDSPError GPDSPInputtableNode::removeI(int index)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        _socket.erase(_socket.begin() + index);
+    if (0 <= index && index < _terminal.size()) {
+        _terminal.erase(_terminal.begin() + index);
         invalidate();
     }
     else {
@@ -304,7 +445,7 @@ GPDSPError GPDSPInputtableNode::removeI(int index)
 
 void GPDSPInputtableNode::clearI(void)
 {
-    _socket.clear();
+    _terminal.clear();
     invalidate();
     return;
 }

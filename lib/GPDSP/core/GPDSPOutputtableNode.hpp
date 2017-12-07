@@ -55,29 +55,29 @@ namespace ir {
 
 class GPDSPOutputtableNode : public virtual GPDSPNode {
     private:
-        struct SocketRec {
+        struct TerminalRec {
             std::string                     name;
             bool                            valid;
             float                           value;
         };
     
     private:
-                std::vector<SocketRec>      _socket;
+                std::vector<TerminalRec>    _terminal;
     
     public:
                 int                         getCountO                   (void) const;
-                GPDSPError                  setNameO                    (int index, std::string const& name);
-                GPDSPError                  getNameO                    (int index, std::string* name) const;
+                GPDSPError                  setNameO                    (int index, std::string const& what);
+                GPDSPError                  getNameO                    (int index, std::string* what) const;
                 GPDSPError                  getValueO                   (int index, float* value) const;
-                int                         findNameO                   (std::string const& name) const;
+                int                         findNameO                   (std::string const& what) const;
         virtual void                        invalidate                  (void);
     protected:
         explicit                            GPDSPOutputtableNode        (void);
         virtual                             ~GPDSPOutputtableNode       (void) = 0;
-                GPDSPError                  setCountO                   (int count, std::string const& name);
+                GPDSPError                  setCountO                   (int count, std::string const& what);
                 GPDSPError                  setValueO                   (int index, float value);
-                GPDSPError                  appendO                     (std::string const& name);
-                GPDSPError                  insertO                     (int index, std::string const& name);
+                GPDSPError                  appendO                     (std::string const& what);
+                GPDSPError                  insertO                     (int index, std::string const& what);
                 GPDSPError                  removeO                     (int index);
                 void                        clearO                      (void);
     private:
@@ -87,17 +87,17 @@ class GPDSPOutputtableNode : public virtual GPDSPNode {
 
 inline int GPDSPOutputtableNode::getCountO(void) const
 {
-    return static_cast<int>(_socket.size());
+    return static_cast<int>(_terminal.size());
 }
 
 inline GPDSPError GPDSPOutputtableNode::getValueO(int index, float* value) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        if (_socket[index].valid) {
+    if (0 <= index && index < _terminal.size()) {
+        if (_terminal[index].valid) {
             if (value != NULL) {
-                *value = _socket[index].value;
+                *value = _terminal[index].value;
             }
         }
         else {
@@ -114,9 +114,9 @@ inline GPDSPError GPDSPOutputtableNode::setValueO(int index, float value)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        _socket[index].valid = true;
-        _socket[index].value = value;
+    if (0 <= index && index < _terminal.size()) {
+        _terminal[index].valid = true;
+        _terminal[index].value = value;
     }
     else {
         error = GPDSPERROR_INVALID_RANGE;

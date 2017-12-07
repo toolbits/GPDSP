@@ -54,15 +54,15 @@ GPDSPOutputtableNode::GPDSPOutputtableNode(void)
 
 GPDSPOutputtableNode::~GPDSPOutputtableNode(void)
 {
-    _socket.clear();
+    _terminal.clear();
 }
 
-GPDSPError GPDSPOutputtableNode::setNameO(int index, std::string const& name)
+GPDSPError GPDSPOutputtableNode::setNameO(int index, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        _socket[index].name = name;
+    if (0 <= index && index < _terminal.size()) {
+        _terminal[index].name = what;
     }
     else {
         error = GPDSPERROR_INVALID_RANGE;
@@ -70,13 +70,13 @@ GPDSPError GPDSPOutputtableNode::setNameO(int index, std::string const& name)
     return error;
 }
 
-GPDSPError GPDSPOutputtableNode::getNameO(int index, std::string* name) const
+GPDSPError GPDSPOutputtableNode::getNameO(int index, std::string* what) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        if (name != NULL) {
-            *name = _socket[index].name;
+    if (0 <= index && index < _terminal.size()) {
+        if (what != NULL) {
+            *what = _terminal[index].name;
         }
     }
     else {
@@ -85,13 +85,13 @@ GPDSPError GPDSPOutputtableNode::getNameO(int index, std::string* name) const
     return error;
 }
 
-int GPDSPOutputtableNode::findNameO(std::string const& name) const
+int GPDSPOutputtableNode::findNameO(std::string const& what) const
 {
     int i;
     int result(-1);
     
-    for (i = 0; i < _socket.size(); ++i) {
-        if (_socket[i].name == name) {
+    for (i = 0; i < _terminal.size(); ++i) {
+        if (_terminal[i].name == what) {
             result = i;
             break;
         }
@@ -103,22 +103,22 @@ void GPDSPOutputtableNode::invalidate(void)
 {
     int i;
     
-    for (i = 0; i < _socket.size(); ++i) {
-        _socket[i].valid = false;
+    for (i = 0; i < _terminal.size(); ++i) {
+        _terminal[i].valid = false;
     }
     return;
 }
 
-GPDSPError GPDSPOutputtableNode::setCountO(int count, std::string const& name)
+GPDSPError GPDSPOutputtableNode::setCountO(int count, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
     if (count < 0) {
         count = 0;
     }
-    if (count != _socket.size()) {
+    if (count != _terminal.size()) {
         try {
-            _socket.resize(count, SocketRec{name, false, 0.0f});
+            _terminal.resize(count, TerminalRec{what, false, 0.0f});
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
@@ -130,12 +130,12 @@ GPDSPError GPDSPOutputtableNode::setCountO(int count, std::string const& name)
     return error;
 }
 
-GPDSPError GPDSPOutputtableNode::appendO(std::string const& name)
+GPDSPError GPDSPOutputtableNode::appendO(std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
     try {
-        _socket.push_back(SocketRec{name, false, 0.0f});
+        _terminal.push_back(TerminalRec{what, false, 0.0f});
     }
     catch (std::bad_alloc const&) {
         error = GPDSPERROR_NO_MEMORY;
@@ -146,13 +146,13 @@ GPDSPError GPDSPOutputtableNode::appendO(std::string const& name)
     return error;
 }
 
-GPDSPError GPDSPOutputtableNode::insertO(int index, std::string const& name)
+GPDSPError GPDSPOutputtableNode::insertO(int index, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
+    if (0 <= index && index < _terminal.size()) {
         try {
-            _socket.insert(_socket.begin() + index, SocketRec{name, false, 0.0f});
+            _terminal.insert(_terminal.begin() + index, TerminalRec{what, false, 0.0f});
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
@@ -171,8 +171,8 @@ GPDSPError GPDSPOutputtableNode::removeO(int index)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _socket.size()) {
-        _socket.erase(_socket.begin() + index);
+    if (0 <= index && index < _terminal.size()) {
+        _terminal.erase(_terminal.begin() + index);
         invalidate();
     }
     else {
@@ -183,7 +183,7 @@ GPDSPError GPDSPOutputtableNode::removeO(int index)
 
 void GPDSPOutputtableNode::clearO(void)
 {
-    _socket.clear();
+    _terminal.clear();
     invalidate();
     return;
 }

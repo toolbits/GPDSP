@@ -47,8 +47,16 @@
 #ifndef __GPDSP_HPP
 #define __GPDSP_HPP
 
+#include "core/GPDSPType.hpp"
 #include "core/GPDSPNodeRenderer.hpp"
 #include "core/GPDSPSerializable.hpp"
+#include "core/GPDSPNode.hpp"
+#include "core/GPDSPInputtableNode.hpp"
+#include "core/GPDSPFlexInputtableNode.hpp"
+#include "core/GPDSPOutputtableNode.hpp"
+#include "core/GPDSPFlexOutputtableNode.hpp"
+#include "core/GPDSPRewindableNode.hpp"
+#include "core/GPDSPRefreshableNode.hpp"
 #include "algorithm/GPDSPBufferInputNode.hpp"
 #include "algorithm/GPDSPBufferOutputNode.hpp"
 #include "algorithm/GPDSPConstantNode.hpp"
@@ -59,6 +67,7 @@
 #include "algorithm/GPDSPBufferNode.hpp"
 #include "algorithm/GPDSPSumNode.hpp"
 #include "algorithm/GPDSPMultiplyNode.hpp"
+#include "synthesis/GPDSPWaveNode.hpp"
 #include "synthesis/GPDSPSinWaveNode.hpp"
 #include "synthesis/GPDSPTriangleWaveNode.hpp"
 #include "synthesis/GPDSPSawtoothWaveNode.hpp"

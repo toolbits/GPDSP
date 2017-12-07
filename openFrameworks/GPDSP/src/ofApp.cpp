@@ -59,7 +59,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.4.0        2017 iridium.jp");
+    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.5.0        2017 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
@@ -82,25 +82,25 @@ void ofApp::setup(void)
     _dsp.newNodeAmplify("RL-amp", 0.0f);
     _dsp.newNodeGate("R-gat", -1.0f, +1.0f);
     
-    _dsp.setLinkI("L-sum", 0, "L-in", 0);
-    _dsp.setLinkI("L-sum", 1, "LL-amp", 0);
-    _dsp.setLinkI("L-sum", 2, "RL-amp", 0);
-    _dsp.setLinkI("L-bf1", 0, "L-sum", 0);
-    _dsp.setLinkI("LL-amp", 0, "L-bf1", 0);
-    _dsp.setLinkI("L-bf2", 0, "L-bf1", 0);
-    _dsp.setLinkI("LR-amp", 0, "L-bf2", 0);
-    _dsp.setLinkI("L-gat", 0, "L-sum", 0);
-    _dsp.setLinkI("L-out", 0, "L-gat", 0);
+    _dsp.setLinkPositiveI("L-sum", 0, "L-in", 0);
+    _dsp.setLinkPositiveI("L-sum", 1, "LL-amp", 0);
+    _dsp.setLinkPositiveI("L-sum", 2, "RL-amp", 0);
+    _dsp.setLinkPositiveI("L-bf1", 0, "L-sum", 0);
+    _dsp.setLinkPositiveI("LL-amp", 0, "L-bf1", 0);
+    _dsp.setLinkPositiveI("L-bf2", 0, "L-bf1", 0);
+    _dsp.setLinkPositiveI("LR-amp", 0, "L-bf2", 0);
+    _dsp.setLinkPositiveI("L-gat", 0, "L-sum", 0);
+    _dsp.setLinkPositiveI("L-out", 0, "L-gat", 0);
     
-    _dsp.setLinkI("R-sum", 0, "R-in", 0);
-    _dsp.setLinkI("R-sum", 1, "RR-amp", 0);
-    _dsp.setLinkI("R-sum", 2, "LR-amp", 0);
-    _dsp.setLinkI("R-bf1", 0, "R-sum", 0);
-    _dsp.setLinkI("RR-amp", 0, "R-bf1", 0);
-    _dsp.setLinkI("R-bf2", 0, "R-bf1", 0);
-    _dsp.setLinkI("RL-amp", 0, "R-bf2", 0);
-    _dsp.setLinkI("R-gat", 0, "R-sum", 0);
-    _dsp.setLinkI("R-out", 0, "R-gat", 0);
+    _dsp.setLinkPositiveI("R-sum", 0, "R-in", 0);
+    _dsp.setLinkPositiveI("R-sum", 1, "RR-amp", 0);
+    _dsp.setLinkPositiveI("R-sum", 2, "LR-amp", 0);
+    _dsp.setLinkPositiveI("R-bf1", 0, "R-sum", 0);
+    _dsp.setLinkPositiveI("RR-amp", 0, "R-bf1", 0);
+    _dsp.setLinkPositiveI("R-bf2", 0, "R-bf1", 0);
+    _dsp.setLinkPositiveI("RL-amp", 0, "R-bf2", 0);
+    _dsp.setLinkPositiveI("R-gat", 0, "R-sum", 0);
+    _dsp.setLinkPositiveI("R-out", 0, "R-gat", 0);
     
     _gui = new ofxDatGui(2, 2);
     _gui->addFRM();

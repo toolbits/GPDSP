@@ -53,9 +53,9 @@ namespace ir {
 
 class GPDSPFlexInputtableNode : public GPDSPInputtableNode {
     public:
-                GPDSPError                  setCountI                   (int count, std::string const& name);
-                GPDSPError                  appendI                     (std::string const& name, GPDSPOutputtableNode const* node, int which);
-                GPDSPError                  insertI                     (int index, std::string const& name, GPDSPOutputtableNode const* node, int which);
+                GPDSPError                  setCountI                   (int count, std::string const& what);
+                GPDSPError                  appendI                     (std::string const& what);
+                GPDSPError                  insertI                     (int index, std::string const& what);
                 GPDSPError                  removeI                     (int index);
                 void                        clearI                      (void);
     protected:
@@ -66,19 +66,19 @@ class GPDSPFlexInputtableNode : public GPDSPInputtableNode {
                 GPDSPFlexInputtableNode&    operator=                   (GPDSPFlexInputtableNode const&);
 };
 
-inline GPDSPError GPDSPFlexInputtableNode::setCountI(int count, std::string const& name)
+inline GPDSPError GPDSPFlexInputtableNode::setCountI(int count, std::string const& what)
 {
-    return GPDSPInputtableNode::setCountI(count, name);
+    return GPDSPInputtableNode::setCountI(count, what);
 }
 
-inline GPDSPError GPDSPFlexInputtableNode::appendI(std::string const& name, GPDSPOutputtableNode const* node, int which)
+inline GPDSPError GPDSPFlexInputtableNode::appendI(std::string const& what)
 {
-    return GPDSPInputtableNode::appendI(name, node, which);
+    return GPDSPInputtableNode::appendI(what);
 }
 
-inline GPDSPError GPDSPFlexInputtableNode::insertI(int index, std::string const& name, GPDSPOutputtableNode const* node, int which)
+inline GPDSPError GPDSPFlexInputtableNode::insertI(int index, std::string const& what)
 {
-    return GPDSPInputtableNode::insertI(index, name, node, which);
+    return GPDSPInputtableNode::insertI(index, what);
 }
 
 inline GPDSPError GPDSPFlexInputtableNode::removeI(int index)
