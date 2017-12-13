@@ -55,7 +55,7 @@ namespace ir {
 
 class GPDSPDelayNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
-                float                       _queue;
+                GPDSPFloat                  _queue;
     
     public:
         explicit                            GPDSPDelayNode              (void);

@@ -64,7 +64,7 @@ class GPDSPInputtableNode : public virtual GPDSPNode {
                     int                     index;
                 };
                 struct {
-                    float                   constant;
+                    GPDSPFloat              constant;
                 };
             };
         };
@@ -79,15 +79,15 @@ class GPDSPInputtableNode : public virtual GPDSPNode {
                 GPDSPError                  getModeI                    (int index, GPDSPMode* mode) const;
                 GPDSPError                  setLinkPositiveI            (int index, GPDSPOutputtableNode const* from, int which);
                 GPDSPError                  setLinkNegativeI            (int index, GPDSPOutputtableNode const* from, int which);
-                GPDSPError                  setLinkConstantI            (int index, float constant);
+                GPDSPError                  setLinkConstantI            (int index, GPDSPFloat constant);
                 GPDSPError                  getLinkI                    (int index, GPDSPOutputtableNode const** from, int* which) const;
-                GPDSPError                  getLinkI                    (int index, float* constant) const;
+                GPDSPError                  getLinkI                    (int index, GPDSPFloat* constant) const;
                 GPDSPError                  clearLinkI                  (int index);
                 void                        clearLinkI                  (GPDSPMode mode);
                 void                        clearLinkI                  (GPDSPOutputtableNode const* from, int which);
                 void                        clearLinkI                  (GPDSPOutputtableNode const* from);
                 void                        clearLinkI                  (void);
-                GPDSPError                  getValueI                   (int index, float* value) const;
+                GPDSPError                  getValueI                   (int index, GPDSPFloat* value) const;
                 int                         findNameI                   (std::string const& what) const;
                 int                         findLinkI                   (GPDSPMode mode) const;
                 int                         findLinkI                   (GPDSPOutputtableNode const* from, int which) const;

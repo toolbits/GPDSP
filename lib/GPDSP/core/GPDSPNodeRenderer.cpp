@@ -51,6 +51,7 @@
 #include "../algorithm/GPDSPBufferInputNode.hpp"
 #include "../algorithm/GPDSPBufferOutputNode.hpp"
 #include "../algorithm/GPDSPConstantNode.hpp"
+#include "../algorithm/GPDSPSignNode.hpp"
 #include "../algorithm/GPDSPGateNode.hpp"
 #include "../algorithm/GPDSPPeekNode.hpp"
 #include "../algorithm/GPDSPAmplifyNode.hpp"
@@ -58,6 +59,7 @@
 #include "../algorithm/GPDSPBufferNode.hpp"
 #include "../algorithm/GPDSPSumNode.hpp"
 #include "../algorithm/GPDSPMultiplyNode.hpp"
+#include "../algorithm/GPDSPSquareRootNode.hpp"
 #include "../generic/GPDSPGenericNode.hpp"
 #include "../generic/GPDSPGenericInputNode.hpp"
 #include "../generic/GPDSPGenericOutputNode.hpp"
@@ -97,6 +99,11 @@ std::shared_ptr<GPDSPConstantNode> GPDSPNodeRenderer::getNodeConstant(std::strin
     return std::dynamic_pointer_cast<GPDSPConstantNode>(getNode(name));
 }
 
+std::shared_ptr<GPDSPSignNode> GPDSPNodeRenderer::getNodeSign(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPSignNode>(getNode(name));
+}
+
 std::shared_ptr<GPDSPGateNode> GPDSPNodeRenderer::getNodeGate(std::string const& name) const
 {
     return std::dynamic_pointer_cast<GPDSPGateNode>(getNode(name));
@@ -130,6 +137,11 @@ std::shared_ptr<GPDSPSumNode> GPDSPNodeRenderer::getNodeSum(std::string const& n
 std::shared_ptr<GPDSPMultiplyNode> GPDSPNodeRenderer::getNodeMultiply(std::string const& name) const
 {
     return std::dynamic_pointer_cast<GPDSPMultiplyNode>(getNode(name));
+}
+
+std::shared_ptr<GPDSPSquareRootNode> GPDSPNodeRenderer::getNodeSquareRoot(std::string const& name) const
+{
+    return std::dynamic_pointer_cast<GPDSPSquareRootNode>(getNode(name));
 }
 
 std::shared_ptr<GPDSPSinWaveNode> GPDSPNodeRenderer::getNodeSinWave(std::string const& name) const
@@ -317,7 +329,7 @@ GPDSPError GPDSPNodeRenderer::setLinkNegativeI(std::string const& name, int inde
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::setLinkConstantI(std::string const& name, int index, float constant)
+GPDSPError GPDSPNodeRenderer::setLinkConstantI(std::string const& name, int index, GPDSPFloat constant)
 {
     std::shared_ptr<GPDSPInputtableNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -369,7 +381,7 @@ GPDSPError GPDSPNodeRenderer::getLinkI(std::string const& name, int index, std::
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::getLinkI(std::string const& name, int index, float* constant) const
+GPDSPError GPDSPNodeRenderer::getLinkI(std::string const& name, int index, GPDSPFloat* constant) const
 {
     std::shared_ptr<GPDSPInputtableNode const> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -475,7 +487,7 @@ GPDSPError GPDSPNodeRenderer::clearLinkO(std::string const& name)
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::getValueI(std::string const& name, int index, float* value) const
+GPDSPError GPDSPNodeRenderer::getValueI(std::string const& name, int index, GPDSPFloat* value) const
 {
     std::shared_ptr<GPDSPInputtableNode const> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -486,7 +498,7 @@ GPDSPError GPDSPNodeRenderer::getValueI(std::string const& name, int index, floa
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::getValueO(std::string const& name, int index, float* value) const
+GPDSPError GPDSPNodeRenderer::getValueO(std::string const& name, int index, GPDSPFloat* value) const
 {
     std::shared_ptr<GPDSPOutputtableNode const> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -623,7 +635,7 @@ GPDSPError GPDSPNodeRenderer::findLinkI(std::string const& name, std::string con
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeBufferInput(std::string const& name, float const* buffer, int length, int interleave)
+GPDSPError GPDSPNodeRenderer::newNodeBufferInput(std::string const& name, GPDSPFloat const* buffer, int length, int interleave)
 {
     std::shared_ptr<GPDSPBufferInputNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -642,7 +654,7 @@ GPDSPError GPDSPNodeRenderer::newNodeBufferInput(std::string const& name, float 
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeBufferOutput(std::string const& name, float* buffer, int length, int interleave)
+GPDSPError GPDSPNodeRenderer::newNodeBufferOutput(std::string const& name, GPDSPFloat* buffer, int length, int interleave)
 {
     std::shared_ptr<GPDSPBufferOutputNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -661,7 +673,7 @@ GPDSPError GPDSPNodeRenderer::newNodeBufferOutput(std::string const& name, float
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeConstant(std::string const& name, float constant)
+GPDSPError GPDSPNodeRenderer::newNodeConstant(std::string const& name, GPDSPFloat constant)
 {
     std::shared_ptr<GPDSPConstantNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -679,7 +691,24 @@ GPDSPError GPDSPNodeRenderer::newNodeConstant(std::string const& name, float con
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeGate(std::string const& name, float minimum, float maximum)
+GPDSPError GPDSPNodeRenderer::newNodeSign(std::string const& name)
+{
+    std::shared_ptr<GPDSPSignNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        node = std::make_shared<GPDSPSignNode>();
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        error = newNode(name, node);
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::newNodeGate(std::string const& name, GPDSPFloat minimum, GPDSPFloat maximum)
 {
     std::shared_ptr<GPDSPGateNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -715,7 +744,7 @@ GPDSPError GPDSPNodeRenderer::newNodePeek(std::string const& name)
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeAmplify(std::string const& name, float gain)
+GPDSPError GPDSPNodeRenderer::newNodeAmplify(std::string const& name, GPDSPFloat gain)
 {
     std::shared_ptr<GPDSPAmplifyNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -807,7 +836,24 @@ GPDSPError GPDSPNodeRenderer::newNodeMultiply(std::string const& name, int count
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeSinWave(std::string const& name, float resolution)
+GPDSPError GPDSPNodeRenderer::newNodeSquareRoot(std::string const& name)
+{
+    std::shared_ptr<GPDSPSquareRootNode> node;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    try {
+        node = std::make_shared<GPDSPSquareRootNode>();
+    }
+    catch (std::bad_alloc const&) {
+        error = GPDSPERROR_NO_MEMORY;
+    }
+    if (error == GPDSPERROR_OK) {
+        error = newNode(name, node);
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::newNodeSinWave(std::string const& name, GPDSPFloat resolution)
 {
     std::shared_ptr<GPDSPSinWaveNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -826,7 +872,7 @@ GPDSPError GPDSPNodeRenderer::newNodeSinWave(std::string const& name, float reso
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeTriangleWave(std::string const& name, float resolution)
+GPDSPError GPDSPNodeRenderer::newNodeTriangleWave(std::string const& name, GPDSPFloat resolution)
 {
     std::shared_ptr<GPDSPTriangleWaveNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -845,7 +891,7 @@ GPDSPError GPDSPNodeRenderer::newNodeTriangleWave(std::string const& name, float
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeSawtoothWave(std::string const& name, float resolution)
+GPDSPError GPDSPNodeRenderer::newNodeSawtoothWave(std::string const& name, GPDSPFloat resolution)
 {
     std::shared_ptr<GPDSPSawtoothWaveNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -864,7 +910,7 @@ GPDSPError GPDSPNodeRenderer::newNodeSawtoothWave(std::string const& name, float
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeSquareWave(std::string const& name, float resolution)
+GPDSPError GPDSPNodeRenderer::newNodeSquareWave(std::string const& name, GPDSPFloat resolution)
 {
     std::shared_ptr<GPDSPSquareWaveNode> node;
     GPDSPError error(GPDSPERROR_OK);
@@ -1225,16 +1271,17 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* s
             int length;
             int interval;
         };
-        float constant;
+        GPDSPFloat constant;
         struct {
-            float minimum;
-            float maximum;
+            GPDSPFloat minimum;
+            GPDSPFloat maximum;
         };
-        float gain;
+        GPDSPFloat gain;
         int size;
         int count;
-        float resolution;
+        GPDSPFloat resolution;
     } param;
+    int format;
     GPDSPError error(GPDSPERROR_OK);
     
     if (_node.size() <= 0) {
@@ -1244,175 +1291,183 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* s
                     for (; xml.gpdsp != NULL; xml.gpdsp = xml.gpdsp->NextSiblingElement("gpdsp")) {
                         if ((xml.meta = xml.gpdsp->FirstChildElement("meta")) != NULL) {
                             if ((error = readRateTag(xml.meta, _rate)) == GPDSPERROR_OK) {
-                                if ((xml.formula = xml.gpdsp->FirstChildElement("formula")) != NULL) {
-                                    for (xml.instance = xml.formula->FirstChildElement(); xml.instance != NULL; xml.instance = xml.instance->NextSiblingElement()) {
-                                        name = "";
-                                        if ((error = readTag(xml.instance, "name", false, &name)) == GPDSPERROR_OK) {
-                                            if (xml.instance->Name() != NULL) {
-                                                string = xml.instance->Name();
-                                                if (string == "GPDSPBufferInputNode") {
-                                                    param.length = 0;
-                                                    param.interval = 0;
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        if ((error = readTag(xml.param, "length", true, &param.length)) == GPDSPERROR_OK) {
-                                                            error = readTag(xml.param, "interval", true, &param.interval);
-                                                        }
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeBufferInput(name, NULL, param.length, param.interval);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPBufferOutputNode") {
-                                                    param.length = 0;
-                                                    param.interval = 0;
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        if ((error = readTag(xml.param, "length", true, &param.length)) == GPDSPERROR_OK) {
-                                                            error = readTag(xml.param, "interval", true, &param.interval);
-                                                        }
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeBufferOutput(name, NULL, param.length, param.interval);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPConstantNode") {
-                                                    param.constant = GPDSPConstantNode::defaultConstant();
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        error = readTag(xml.param, "constant", true, &param.constant);
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeConstant(name, param.constant);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPGateNode") {
-                                                    param.minimum = GPDSPGateNode::defaultMinimum();
-                                                    param.maximum = GPDSPGateNode::defaultMaximum();
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        if ((error = readTag(xml.param, "minimum", true, &param.minimum)) == GPDSPERROR_OK) {
-                                                            error = readTag(xml.param, "maximum", true, &param.maximum);
-                                                        }
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeGate(name, param.minimum, param.maximum);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPPeekNode") {
-                                                    error = newNodePeek(name);
-                                                }
-                                                else if (string == "GPDSPAmplifyNode") {
-                                                    param.gain = GPDSPAmplifyNode::defaultGain();
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        error = readTag(xml.param, "gain", true, &param.gain);
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeAmplify(name, param.gain);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPDelayNode") {
-                                                    error = newNodeDelay(name);
-                                                }
-                                                else if (string == "GPDSPBufferNode") {
-                                                    param.size = 0;
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        error = readTag(xml.param, "size", true, &param.size);
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeBuffer(name, param.size);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPSumNode") {
-                                                    if ((error = countInputTag(xml.instance, &param.count)) == GPDSPERROR_OK) {
-                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                            error = readTag(xml.param, "count", true, &param.count);
-                                                        }
-                                                        if (error == GPDSPERROR_OK) {
-                                                            error = newNodeSum(name, param.count);
-                                                        }
-                                                    }
-                                                }
-                                                else if (string == "GPDSPMultiplyNode") {
-                                                    if ((error = countInputTag(xml.instance, &param.count)) == GPDSPERROR_OK) {
-                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                            error = readTag(xml.param, "count", true, &param.count);
-                                                        }
-                                                        if (error == GPDSPERROR_OK) {
-                                                            error = newNodeMultiply(name, param.count);
-                                                        }
-                                                    }
-                                                }
-                                                else if (string == "GPDSPSinWaveNode") {
-                                                    param.resolution = GPDSPSinWaveNode::defaultResolution();
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        error = readTag(xml.param, "resolution", true, &param.resolution);
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeSinWave(name, param.resolution);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPTriangleWaveNode") {
-                                                    param.resolution = GPDSPTriangleWaveNode::defaultResolution();
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        error = readTag(xml.param, "resolution", true, &param.resolution);
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeTriangleWave(name, param.resolution);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPSawtoothWaveNode") {
-                                                    param.resolution = GPDSPSawtoothWaveNode::defaultResolution();
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        error = readTag(xml.param, "resolution", true, &param.resolution);
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeSawtoothWave(name, param.resolution);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPSquareWaveNode") {
-                                                    param.resolution = GPDSPSquareWaveNode::defaultResolution();
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        error = readTag(xml.param, "resolution", true, &param.resolution);
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeSquareWave(name, param.resolution);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPGenericNode") {
-                                                    string = "";
-                                                    if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
-                                                        error = readTag(xml.param, "file", true, &string);
-                                                    }
-                                                    if (error == GPDSPERROR_OK) {
-                                                        error = newNodeGeneric(name, string);
-                                                    }
-                                                }
-                                                else if (string == "GPDSPGenericInputNode") {
-                                                    error = newNodeGenericInput(name);
-                                                }
-                                                else if (string == "GPDSPGenericOutputNode") {
-                                                    error = newNodeGenericOutput(name);
-                                                }
-                                                else if (serializable != NULL) {
-                                                    error = serializable->load(this, string, name, xml.instance);
-                                                }
-                                                else {
-                                                    error = GPDSPERROR_NO_SUPPORT;
-                                                }
-                                            }
-                                            else {
-                                                error = GPDSPERROR_FAILED;
-                                            }
-                                        }
-                                        if (error != GPDSPERROR_OK) {
-                                            break;
-                                        }
-                                    }
-                                    if (error == GPDSPERROR_OK) {
+                                if ((error = readFormatTag(xml.meta, &format)) == GPDSPERROR_OK) {
+                                    if ((xml.formula = xml.gpdsp->FirstChildElement("formula")) != NULL) {
                                         for (xml.instance = xml.formula->FirstChildElement(); xml.instance != NULL; xml.instance = xml.instance->NextSiblingElement()) {
                                             name = "";
                                             if ((error = readTag(xml.instance, "name", false, &name)) == GPDSPERROR_OK) {
-                                                error = readInputTag(xml.instance, name);
+                                                if (xml.instance->Name() != NULL) {
+                                                    string = xml.instance->Name();
+                                                    if (string == "GPDSPBufferInputNode") {
+                                                        param.length = 0;
+                                                        param.interval = 0;
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            if ((error = readTag(xml.param, "length", true, &param.length)) == GPDSPERROR_OK) {
+                                                                error = readTag(xml.param, "interval", true, &param.interval);
+                                                            }
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeBufferInput(name, NULL, param.length, param.interval);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPBufferOutputNode") {
+                                                        param.length = 0;
+                                                        param.interval = 0;
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            if ((error = readTag(xml.param, "length", true, &param.length)) == GPDSPERROR_OK) {
+                                                                error = readTag(xml.param, "interval", true, &param.interval);
+                                                            }
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeBufferOutput(name, NULL, param.length, param.interval);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPConstantNode") {
+                                                        param.constant = GPDSPConstantNode::defaultConstant();
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "constant", true, format, &param.constant);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeConstant(name, param.constant);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPSignNode") {
+                                                        error = newNodeSign(name);
+                                                    }
+                                                    else if (string == "GPDSPGateNode") {
+                                                        param.minimum = GPDSPGateNode::defaultMinimum();
+                                                        param.maximum = GPDSPGateNode::defaultMaximum();
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            if ((error = readTag(xml.param, "minimum", true, format, &param.minimum)) == GPDSPERROR_OK) {
+                                                                error = readTag(xml.param, "maximum", true, format, &param.maximum);
+                                                            }
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeGate(name, param.minimum, param.maximum);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPPeekNode") {
+                                                        error = newNodePeek(name);
+                                                    }
+                                                    else if (string == "GPDSPAmplifyNode") {
+                                                        param.gain = GPDSPAmplifyNode::defaultGain();
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "gain", true, format, &param.gain);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeAmplify(name, param.gain);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPDelayNode") {
+                                                        error = newNodeDelay(name);
+                                                    }
+                                                    else if (string == "GPDSPBufferNode") {
+                                                        param.size = 0;
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "size", true, &param.size);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeBuffer(name, param.size);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPSumNode") {
+                                                        if ((error = countInputTag(xml.instance, &param.count)) == GPDSPERROR_OK) {
+                                                            if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                                error = readTag(xml.param, "count", true, &param.count);
+                                                            }
+                                                            if (error == GPDSPERROR_OK) {
+                                                                error = newNodeSum(name, param.count);
+                                                            }
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPMultiplyNode") {
+                                                        if ((error = countInputTag(xml.instance, &param.count)) == GPDSPERROR_OK) {
+                                                            if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                                error = readTag(xml.param, "count", true, &param.count);
+                                                            }
+                                                            if (error == GPDSPERROR_OK) {
+                                                                error = newNodeMultiply(name, param.count);
+                                                            }
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPSquareRootNode") {
+                                                        error = newNodeSquareRoot(name);
+                                                    }
+                                                    else if (string == "GPDSPSinWaveNode") {
+                                                        param.resolution = GPDSPSinWaveNode::defaultResolution();
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "resolution", true, format, &param.resolution);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeSinWave(name, param.resolution);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPTriangleWaveNode") {
+                                                        param.resolution = GPDSPTriangleWaveNode::defaultResolution();
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "resolution", true, format, &param.resolution);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeTriangleWave(name, param.resolution);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPSawtoothWaveNode") {
+                                                        param.resolution = GPDSPSawtoothWaveNode::defaultResolution();
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "resolution", true, format, &param.resolution);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeSawtoothWave(name, param.resolution);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPSquareWaveNode") {
+                                                        param.resolution = GPDSPSquareWaveNode::defaultResolution();
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "resolution", true, format, &param.resolution);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeSquareWave(name, param.resolution);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPGenericNode") {
+                                                        string = "";
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "file", true, &string);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeGeneric(name, string);
+                                                        }
+                                                    }
+                                                    else if (string == "GPDSPGenericInputNode") {
+                                                        error = newNodeGenericInput(name);
+                                                    }
+                                                    else if (string == "GPDSPGenericOutputNode") {
+                                                        error = newNodeGenericOutput(name);
+                                                    }
+                                                    else if (serializable != NULL) {
+                                                        error = serializable->load(this, string, name, xml.instance);
+                                                    }
+                                                    else {
+                                                        error = GPDSPERROR_NO_SUPPORT;
+                                                    }
+                                                }
+                                                else {
+                                                    error = GPDSPERROR_FAILED;
+                                                }
                                             }
                                             if (error != GPDSPERROR_OK) {
                                                 break;
+                                            }
+                                        }
+                                        if (error == GPDSPERROR_OK) {
+                                            for (xml.instance = xml.formula->FirstChildElement(); xml.instance != NULL; xml.instance = xml.instance->NextSiblingElement()) {
+                                                name = "";
+                                                if ((error = readTag(xml.instance, "name", false, &name)) == GPDSPERROR_OK) {
+                                                    error = readInputTag(xml.instance, name, format);
+                                                }
+                                                if (error != GPDSPERROR_OK) {
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
@@ -1471,6 +1526,7 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
     std::shared_ptr<GPDSPBufferInputNode const> bufferInput;
     std::shared_ptr<GPDSPBufferOutputNode const> bufferOutput;
     std::shared_ptr<GPDSPConstantNode const> constant;
+    std::shared_ptr<GPDSPSignNode const> sign;
     std::shared_ptr<GPDSPGateNode const> gate;
     std::shared_ptr<GPDSPPeekNode const> peek;
     std::shared_ptr<GPDSPAmplifyNode const> amplify;
@@ -1478,6 +1534,7 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
     std::shared_ptr<GPDSPBufferNode const> buffer;
     std::shared_ptr<GPDSPSumNode const> sum;
     std::shared_ptr<GPDSPMultiplyNode const> multiply;
+    std::shared_ptr<GPDSPSquareRootNode const> squareRoot;
     std::shared_ptr<GPDSPSinWaveNode const> sinWave;
     std::shared_ptr<GPDSPTriangleWaveNode const> triangleWave;
     std::shared_ptr<GPDSPSawtoothWaveNode const> sawtoothWave;
@@ -1508,146 +1565,154 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
                     if (xml.dom.InsertEndChild(xml.gpdsp) != NULL) {
                         if ((error = addTag(xml.gpdsp, "meta", &xml.meta)) == GPDSPERROR_OK) {
                             if ((error = writeRateTag(xml.meta, _rate)) == GPDSPERROR_OK) {
-                                if ((error = addTag(xml.gpdsp, "formula", &xml.formula)) == GPDSPERROR_OK) {
-                                    for (mit = map.begin(); mit != map.end(); ++mit) {
-                                        if ((error = addTag(xml.formula, "", &xml.instance)) == GPDSPERROR_OK) {
-                                            if ((error = writeTag(xml.instance, "name", mit->first)) == GPDSPERROR_OK) {
-                                                if ((bufferInput = std::dynamic_pointer_cast<GPDSPBufferInputNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPBufferInputNode");
-                                                    if (!bufferInput->isDelegate()) {
+                                if ((error = writeFormatTag(xml.meta)) == GPDSPERROR_OK) {
+                                    if ((error = addTag(xml.gpdsp, "formula", &xml.formula)) == GPDSPERROR_OK) {
+                                        for (mit = map.begin(); mit != map.end(); ++mit) {
+                                            if ((error = addTag(xml.formula, "", &xml.instance)) == GPDSPERROR_OK) {
+                                                if ((error = writeTag(xml.instance, "name", mit->first)) == GPDSPERROR_OK) {
+                                                    if ((bufferInput = std::dynamic_pointer_cast<GPDSPBufferInputNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPBufferInputNode");
+                                                        if (!bufferInput->isDelegate()) {
+                                                            if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                                param.length = 0;
+                                                                param.interval = 0;
+                                                                bufferInput->getBufferReadonly(&param.length, &param.interval);
+                                                                if ((error = writeTag(xml.param, "length", param.length)) == GPDSPERROR_OK) {
+                                                                    error = writeTag(xml.param, "interval", param.interval);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else if ((bufferOutput = std::dynamic_pointer_cast<GPDSPBufferOutputNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPBufferOutputNode");
+                                                        if (!bufferOutput->isDelegate()) {
+                                                            if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                                param.length = 0;
+                                                                param.interval = 0;
+                                                                bufferOutput->getBufferReadonly(&param.length, &param.interval);
+                                                                if ((error = writeTag(xml.param, "length", param.length)) == GPDSPERROR_OK) {
+                                                                    error = writeTag(xml.param, "interval", param.interval);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else if ((constant = std::dynamic_pointer_cast<GPDSPConstantNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPConstantNode");
                                                         if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                            param.length = 0;
-                                                            param.interval = 0;
-                                                            bufferInput->getBufferReadonly(&param.length, &param.interval);
-                                                            if ((error = writeTag(xml.param, "length", param.length)) == GPDSPERROR_OK) {
-                                                                error = writeTag(xml.param, "interval", param.interval);
-                                                            }
+                                                            error = writeTag(xml.param, "constant", constant->getConstant());
                                                         }
                                                     }
-                                                }
-                                                else if ((bufferOutput = std::dynamic_pointer_cast<GPDSPBufferOutputNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPBufferOutputNode");
-                                                    if (!bufferOutput->isDelegate()) {
+                                                    else if ((sign = std::dynamic_pointer_cast<GPDSPSignNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPSignNode");
+                                                    }
+                                                    else if ((gate = std::dynamic_pointer_cast<GPDSPGateNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPGateNode");
                                                         if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                            param.length = 0;
-                                                            param.interval = 0;
-                                                            bufferOutput->getBufferReadonly(&param.length, &param.interval);
-                                                            if ((error = writeTag(xml.param, "length", param.length)) == GPDSPERROR_OK) {
-                                                                error = writeTag(xml.param, "interval", param.interval);
+                                                            if ((error = writeTag(xml.param, "minimum", gate->getMinimum())) == GPDSPERROR_OK) {
+                                                                error = writeTag(xml.param, "maximum", gate->getMaximum());
                                                             }
                                                         }
                                                     }
-                                                }
-                                                else if ((constant = std::dynamic_pointer_cast<GPDSPConstantNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPConstantNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "constant", constant->getConstant());
+                                                    else if ((peek = std::dynamic_pointer_cast<GPDSPPeekNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPPeekNode");
                                                     }
-                                                }
-                                                else if ((gate = std::dynamic_pointer_cast<GPDSPGateNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPGateNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        if ((error = writeTag(xml.param, "minimum", gate->getMinimum())) == GPDSPERROR_OK) {
-                                                            error = writeTag(xml.param, "maximum", gate->getMaximum());
+                                                    else if ((amplify = std::dynamic_pointer_cast<GPDSPAmplifyNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPAmplifyNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "gain", amplify->getGain());
                                                         }
                                                     }
-                                                }
-                                                else if ((peek = std::dynamic_pointer_cast<GPDSPPeekNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPPeekNode");
-                                                }
-                                                else if ((amplify = std::dynamic_pointer_cast<GPDSPAmplifyNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPAmplifyNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "gain", amplify->getGain());
+                                                    else if ((delay = std::dynamic_pointer_cast<GPDSPDelayNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPDelayNode");
                                                     }
-                                                }
-                                                else if ((delay = std::dynamic_pointer_cast<GPDSPDelayNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPDelayNode");
-                                                }
-                                                else if ((buffer = std::dynamic_pointer_cast<GPDSPBufferNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPBufferNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "size", buffer->getSize());
+                                                    else if ((buffer = std::dynamic_pointer_cast<GPDSPBufferNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPBufferNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "size", buffer->getSize());
+                                                        }
                                                     }
-                                                }
-                                                else if ((sum = std::dynamic_pointer_cast<GPDSPSumNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPSumNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "count", sum->getCountI());
+                                                    else if ((sum = std::dynamic_pointer_cast<GPDSPSumNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPSumNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "count", sum->getCountI());
+                                                        }
                                                     }
-                                                }
-                                                else if ((multiply = std::dynamic_pointer_cast<GPDSPMultiplyNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPMultiplyNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "count", multiply->getCountI());
+                                                    else if ((multiply = std::dynamic_pointer_cast<GPDSPMultiplyNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPMultiplyNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "count", multiply->getCountI());
+                                                        }
                                                     }
-                                                }
-                                                else if ((sinWave = std::dynamic_pointer_cast<GPDSPSinWaveNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPSinWaveNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "resolution", sinWave->getResolution());
+                                                    else if ((squareRoot = std::dynamic_pointer_cast<GPDSPSquareRootNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPSquareRootNode");
                                                     }
-                                                }
-                                                else if ((triangleWave = std::dynamic_pointer_cast<GPDSPTriangleWaveNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPTriangleWaveNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "resolution", triangleWave->getResolution());
+                                                    else if ((sinWave = std::dynamic_pointer_cast<GPDSPSinWaveNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPSinWaveNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "resolution", sinWave->getResolution());
+                                                        }
                                                     }
-                                                }
-                                                else if ((sawtoothWave = std::dynamic_pointer_cast<GPDSPSawtoothWaveNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPSawtoothWaveNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "resolution", sawtoothWave->getResolution());
+                                                    else if ((triangleWave = std::dynamic_pointer_cast<GPDSPTriangleWaveNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPTriangleWaveNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "resolution", triangleWave->getResolution());
+                                                        }
                                                     }
-                                                }
-                                                else if ((squareWave = std::dynamic_pointer_cast<GPDSPSquareWaveNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPSquareWaveNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "resolution", squareWave->getResolution());
+                                                    else if ((sawtoothWave = std::dynamic_pointer_cast<GPDSPSawtoothWaveNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPSawtoothWaveNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "resolution", sawtoothWave->getResolution());
+                                                        }
                                                     }
-                                                }
-                                                else if ((generic = std::dynamic_pointer_cast<GPDSPGenericNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPGenericNode");
-                                                    if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                        error = writeTag(xml.param, "file", generic->getFile());
+                                                    else if ((squareWave = std::dynamic_pointer_cast<GPDSPSquareWaveNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPSquareWaveNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "resolution", squareWave->getResolution());
+                                                        }
                                                     }
-                                                }
-                                                else if ((genericInput = std::dynamic_pointer_cast<GPDSPGenericInputNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPGenericInputNode");
-                                                }
-                                                else if ((genericOutput = std::dynamic_pointer_cast<GPDSPGenericOutputNode const>(mit->second)) != NULL) {
-                                                    xml.instance->SetName("GPDSPGenericOutputNode");
-                                                }
-                                                else if (serializable != NULL) {
-                                                    if ((error = serializable->save(*this, mit->second, mit->first, xml.instance)) == GPDSPERROR_OK) {
-                                                        if (xml.instance->Name() != NULL) {
-                                                            if (strlen(xml.instance->Name()) <= 0) {
-                                                                error = GPDSPERROR_INVALID_FORMAT;
+                                                    else if ((generic = std::dynamic_pointer_cast<GPDSPGenericNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPGenericNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "file", generic->getFile());
+                                                        }
+                                                    }
+                                                    else if ((genericInput = std::dynamic_pointer_cast<GPDSPGenericInputNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPGenericInputNode");
+                                                    }
+                                                    else if ((genericOutput = std::dynamic_pointer_cast<GPDSPGenericOutputNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPGenericOutputNode");
+                                                    }
+                                                    else if (serializable != NULL) {
+                                                        if ((error = serializable->save(*this, mit->second, mit->first, xml.instance)) == GPDSPERROR_OK) {
+                                                            if (xml.instance->Name() != NULL) {
+                                                                if (strlen(xml.instance->Name()) <= 0) {
+                                                                    error = GPDSPERROR_INVALID_FORMAT;
+                                                                }
+                                                            }
+                                                            else {
+                                                                error = GPDSPERROR_FAILED;
                                                             }
                                                         }
-                                                        else {
-                                                            error = GPDSPERROR_FAILED;
-                                                        }
                                                     }
-                                                }
-                                                else {
-                                                    error = GPDSPERROR_NO_SUPPORT;
-                                                }
-                                                if (error == GPDSPERROR_OK) {
-                                                    error = writeInputTag(xml.instance, mit->second, mit->first);
+                                                    else {
+                                                        error = GPDSPERROR_NO_SUPPORT;
+                                                    }
+                                                    if (error == GPDSPERROR_OK) {
+                                                        error = writeInputTag(xml.instance, mit->second, mit->first);
+                                                    }
                                                 }
                                             }
+                                            if (error != GPDSPERROR_OK) {
+                                                break;
+                                            }
                                         }
-                                        if (error != GPDSPERROR_OK) {
-                                            break;
-                                        }
-                                    }
-                                    if (error == GPDSPERROR_OK) {
-                                        if (xml.formula->NoChildren()) {
-                                            xml.gpdsp->DeleteChild(xml.formula);
-                                        }
-                                        if (xml.dom.SaveFile(file.c_str()) != tinyxml2::XML_SUCCESS) {
-                                            error = GPDSPERROR_FAILED;
+                                        if (error == GPDSPERROR_OK) {
+                                            if (xml.formula->NoChildren()) {
+                                                xml.gpdsp->DeleteChild(xml.formula);
+                                            }
+                                            if (xml.dom.SaveFile(file.c_str()) != tinyxml2::XML_SUCCESS) {
+                                                error = GPDSPERROR_FAILED;
+                                            }
                                         }
                                     }
                                 }
@@ -1714,7 +1779,7 @@ GPDSPError GPDSPNodeRenderer::writeTag(tinyxml2::XMLElement* parent, std::string
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::writeTag(tinyxml2::XMLElement* parent, std::string const& tag, float value)
+GPDSPError GPDSPNodeRenderer::writeTag(tinyxml2::XMLElement* parent, std::string const& tag, GPDSPFloat value)
 {
     std::string string;
     GPDSPError error(GPDSPERROR_OK);
@@ -1766,12 +1831,16 @@ GPDSPError GPDSPNodeRenderer::writeTag(tinyxml2::XMLElement* parent, std::string
 GPDSPError GPDSPNodeRenderer::readTag(tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int* value)
 {
     tinyxml2::XMLElement const* element;
+    int value32;
     GPDSPError error(GPDSPERROR_OK);
     
     if (parent != NULL && value != NULL) {
         if ((element = parent->FirstChildElement(tag.c_str())) != NULL) {
             if (!element->NoChildren()) {
-                if (element->QueryIntText(value) != tinyxml2::XML_SUCCESS) {
+                if (element->QueryIntText(&value32) == tinyxml2::XML_SUCCESS) {
+                    *value = value32;
+                }
+                else {
                     error = GPDSPERROR_INVALID_FORMAT;
                 }
             }
@@ -1786,16 +1855,38 @@ GPDSPError GPDSPNodeRenderer::readTag(tinyxml2::XMLElement const* parent, std::s
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::readTag(tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, float* value)
+GPDSPError GPDSPNodeRenderer::readTag(tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int format, GPDSPFloat* value)
 {
     tinyxml2::XMLElement const* element;
+    union {
+        float value32;
+        double value64;
+    };
     GPDSPError error(GPDSPERROR_OK);
     
     if (parent != NULL && value != NULL) {
         if ((element = parent->FirstChildElement(tag.c_str())) != NULL) {
             if (!element->NoChildren()) {
-                if (element->QueryFloatText(value) != tinyxml2::XML_SUCCESS) {
-                    error = GPDSPERROR_INVALID_FORMAT;
+                switch (format) {
+                    case sizeof(float) * 8:
+                        if (element->QueryFloatText(&value32) == tinyxml2::XML_SUCCESS) {
+                            *value = value32;
+                        }
+                        else {
+                            error = GPDSPERROR_INVALID_FORMAT;
+                        }
+                        break;
+                    case sizeof(double) * 8:
+                        if (element->QueryDoubleText(&value64) == tinyxml2::XML_SUCCESS) {
+                            *value = value64;
+                        }
+                        else {
+                            error = GPDSPERROR_INVALID_FORMAT;
+                        }
+                        break;
+                    default:
+                        error = GPDSPERROR_INVALID_FORMAT;
+                        break;
                 }
             }
         }
@@ -2202,7 +2293,7 @@ GPDSPError GPDSPNodeRenderer::writeInputTag(tinyxml2::XMLElement* parent, std::s
     std::shared_ptr<GPDSPInputtableNode const> input;
     std::string string;
     GPDSPMode mode;
-    float value;
+    GPDSPFloat value;
     int index;
     int i;
     GPDSPError error(GPDSPERROR_OK);
@@ -2257,12 +2348,12 @@ GPDSPError GPDSPNodeRenderer::writeInputTag(tinyxml2::XMLElement* parent, std::s
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::readInputTag(tinyxml2::XMLElement const* parent, std::string const& name)
+GPDSPError GPDSPNodeRenderer::readInputTag(tinyxml2::XMLElement const* parent, std::string const& name, int format)
 {
     tinyxml2::XMLElement const* element;
     tinyxml2::XMLElement const* terminal;
     std::string string;
-    float value;
+    GPDSPFloat value;
     int number;
     int index;
     GPDSPError error(GPDSPERROR_OK);
@@ -2298,7 +2389,7 @@ GPDSPError GPDSPNodeRenderer::readInputTag(tinyxml2::XMLElement const* parent, s
                                     }
                                 }
                                 else if (string == "constant") {
-                                    if ((error = readLinkTag(terminal, &value)) == GPDSPERROR_OK) {
+                                    if ((error = readLinkTag(terminal, format, &value)) == GPDSPERROR_OK) {
                                         error = setLinkConstantI(name, number, value);
                                     }
                                 }
@@ -2411,6 +2502,23 @@ GPDSPError GPDSPNodeRenderer::readRateTag(tinyxml2::XMLElement const* parent, in
     return error;
 }
 
+GPDSPError GPDSPNodeRenderer::writeFormatTag(tinyxml2::XMLElement* parent)
+{
+    return writeTag(parent, "format", static_cast<int>(sizeof(GPDSPFloat) * 8));
+}
+
+GPDSPError GPDSPNodeRenderer::readFormatTag(tinyxml2::XMLElement const* parent, int* format)
+{
+    int value;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    value = sizeof(GPDSPFloat) * 8;
+    if ((error = readTag(parent, "format", true, &value)) == GPDSPERROR_OK) {
+        *format = value;
+    }
+    return error;
+}
+
 GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, std::string const& node, int index, bool positive)
 {
     GPDSPError error(GPDSPERROR_OK);
@@ -2423,7 +2531,7 @@ GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, std::st
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, float constant)
+GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, GPDSPFloat constant)
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -2450,13 +2558,13 @@ GPDSPError GPDSPNodeRenderer::readLinkTag(tinyxml2::XMLElement const* parent, st
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::readLinkTag(tinyxml2::XMLElement const* parent, float* constant)
+GPDSPError GPDSPNodeRenderer::readLinkTag(tinyxml2::XMLElement const* parent, int format, GPDSPFloat* constant)
 {
-    float value;
+    GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
     
-    value = 0.0f;
-    if ((error = readTag(parent, "constant", false, &value)) == GPDSPERROR_OK) {
+    value = GPDSPFV(0.0);
+    if ((error = readTag(parent, "constant", false, format, &value)) == GPDSPERROR_OK) {
         *constant = value;
     }
     return error;
@@ -2476,12 +2584,12 @@ GPDSPError GPDSPNodeRenderer::stringize(std::string const& prefix, int param, st
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::stringize(std::string const& prefix, float param, std::string* result)
+GPDSPError GPDSPNodeRenderer::stringize(std::string const& prefix, GPDSPFloat param, std::string* result)
 {
     char string[256];
     GPDSPError error(GPDSPERROR_OK);
     
-    if (snprintf(string, sizeof(string), "%f", param) >= 0) {
+    if (snprintf(string, sizeof(string), GPDSPFP, param) >= 0) {
         *result = prefix + string;
     }
     else {
@@ -2504,12 +2612,12 @@ GPDSPError GPDSPNodeRenderer::numberize(std::string const& prefix, std::string c
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::numberize(std::string const& prefix, std::string const& param, float* result)
+GPDSPError GPDSPNodeRenderer::numberize(std::string const& prefix, std::string const& param, GPDSPFloat* result)
 {
-    float value;
+    GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
     
-    if (sscanf(param.c_str(), (prefix + "%f").c_str(), &value) == 1) {
+    if (sscanf(param.c_str(), (prefix + GPDSPFS).c_str(), &value) == 1) {
         *result = value;
     }
     else {

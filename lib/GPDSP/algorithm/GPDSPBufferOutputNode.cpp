@@ -57,7 +57,7 @@ GPDSPBufferOutputNode::~GPDSPBufferOutputNode(void)
     _buffer.clear();
 }
 
-GPDSPError GPDSPBufferOutputNode::setBuffer(float* buffer, int length, int interleave)
+GPDSPError GPDSPBufferOutputNode::setBuffer(GPDSPFloat* buffer, int length, int interleave)
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -78,7 +78,7 @@ GPDSPError GPDSPBufferOutputNode::setBuffer(float* buffer, int length, int inter
     else if (length > 0) {
         if (interleave > 0) {
             try {
-                _buffer.assign(length * interleave, 0.0f);
+                _buffer.assign(length * interleave, GPDSPFV(0.0));
             }
             catch (std::bad_alloc const&) {
                 error = GPDSPERROR_NO_MEMORY;
@@ -104,7 +104,7 @@ GPDSPError GPDSPBufferOutputNode::setBuffer(float* buffer, int length, int inter
     return error;
 }
 
-float const* GPDSPBufferOutputNode::getBufferReadonly(int* length, int* interleave) const
+GPDSPFloat const* GPDSPBufferOutputNode::getBufferReadonly(int* length, int* interleave) const
 {
     if (_delegate != NULL) {
         if (length != NULL) {
@@ -156,7 +156,7 @@ GPDSPError GPDSPBufferOutputNode::prepare(void)
 
 GPDSPError GPDSPBufferOutputNode::process(void)
 {
-    float value;
+    GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
@@ -181,7 +181,7 @@ void GPDSPBufferOutputNode::rewind(void)
 void GPDSPBufferOutputNode::refresh(void)
 {
     if (_delegate != NULL) {
-        std::fill_n(_delegate, _length * _interleave, 0.0f);
+        std::fill_n(_delegate, _length * _interleave, GPDSPFV(0.0));
     }
     return;
 }

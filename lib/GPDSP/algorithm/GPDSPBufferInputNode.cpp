@@ -57,7 +57,7 @@ GPDSPBufferInputNode::~GPDSPBufferInputNode(void)
     _buffer.clear();
 }
 
-GPDSPError GPDSPBufferInputNode::setBuffer(float const* buffer, int length, int interleave)
+GPDSPError GPDSPBufferInputNode::setBuffer(GPDSPFloat const* buffer, int length, int interleave)
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -78,7 +78,7 @@ GPDSPError GPDSPBufferInputNode::setBuffer(float const* buffer, int length, int 
     else if (length > 0) {
         if (interleave > 0) {
             try {
-                _buffer.assign(length * interleave, 0.0f);
+                _buffer.assign(length * interleave, GPDSPFV(0.0));
             }
             catch (std::bad_alloc const&) {
                 error = GPDSPERROR_NO_MEMORY;
@@ -104,7 +104,7 @@ GPDSPError GPDSPBufferInputNode::setBuffer(float const* buffer, int length, int 
     return error;
 }
 
-float const* GPDSPBufferInputNode::getBufferReadonly(int* length, int* interleave) const
+GPDSPFloat const* GPDSPBufferInputNode::getBufferReadonly(int* length, int* interleave) const
 {
     if (_delegate != NULL) {
         if (length != NULL) {
@@ -117,9 +117,9 @@ float const* GPDSPBufferInputNode::getBufferReadonly(int* length, int* interleav
     return _delegate;
 }
 
-float* GPDSPBufferInputNode::getBufferWritable(int* length, int* interleave)
+GPDSPFloat* GPDSPBufferInputNode::getBufferWritable(int* length, int* interleave)
 {
-    float* result(NULL);
+    GPDSPFloat* result(NULL);
     
     if (_delegate != NULL) {
         if (_buffer.size() > 0) {
@@ -179,7 +179,7 @@ GPDSPError GPDSPBufferInputNode::prepare(void)
         }
     }
     else {
-        error = setValueO(0, 0.0f);
+        error = setValueO(0, GPDSPFV(0.0));
     }
     return error;
 }
@@ -200,7 +200,7 @@ void GPDSPBufferInputNode::rewind(void)
 void GPDSPBufferInputNode::refresh(void)
 {
     if (_delegate != NULL) {
-        std::fill_n(_buffer.begin(), _buffer.size(), 0.0f);
+        std::fill_n(_buffer.begin(), _buffer.size(), GPDSPFV(0.0));
     }
     return;
 }

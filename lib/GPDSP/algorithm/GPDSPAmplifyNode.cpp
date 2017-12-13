@@ -56,7 +56,7 @@ GPDSPAmplifyNode::~GPDSPAmplifyNode(void)
 {
 }
 
-void GPDSPAmplifyNode::setGain(float gain)
+void GPDSPAmplifyNode::setGain(GPDSPFloat gain)
 {
     if (gain != _gain) {
         _gain = gain;
@@ -95,7 +95,7 @@ GPDSPError GPDSPAmplifyNode::prepare(void)
 
 GPDSPError GPDSPAmplifyNode::process(void)
 {
-    float value;
+    GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {

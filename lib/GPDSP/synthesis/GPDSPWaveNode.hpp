@@ -57,15 +57,15 @@ namespace ir {
 class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRewindableNode {
     private:
                 int                         _rate;
-                float                       _resolution;
-                std::vector<std::pair<float, float> > const*
+                GPDSPFloat                  _resolution;
+                std::vector<std::pair<GPDSPFloat, GPDSPFloat> > const*
                                             _wave;
-                float                       _position;
+                GPDSPFloat                  _position;
     
     public:
-        static  float                       defaultResolution           (void);
-                GPDSPError                  setResolution               (float resolution);
-                float                       getResolution               (void) const;
+        static  GPDSPFloat                  defaultResolution           (void);
+                GPDSPError                  setResolution               (GPDSPFloat resolution);
+                GPDSPFloat                  getResolution               (void) const;
         virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
         virtual GPDSPError                  prepare                     (void);
@@ -75,21 +75,21 @@ class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
         explicit                            GPDSPWaveNode               (int rate);
         virtual                             ~GPDSPWaveNode              (void) = 0;
     private:
-                GPDSPError                  makeWave                    (float resolution, std::vector<std::pair<float, float> > const** wave) const;
+                GPDSPError                  makeWave                    (GPDSPFloat resolution, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > const** wave) const;
         virtual std::string                 getName                     (void) const = 0;
-        virtual float                       getWave                     (float phase) const = 0;
-        virtual void                        fillWave                    (std::vector<std::pair<float, float> >* wave) const = 0;
+        virtual GPDSPFloat                  getWave                     (GPDSPFloat phase) const = 0;
+        virtual void                        fillWave                    (std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const = 0;
     private:
                                             GPDSPWaveNode               (GPDSPWaveNode const&);
                 GPDSPWaveNode&              operator=                   (GPDSPWaveNode const&);
 };
 
-inline float GPDSPWaveNode::defaultResolution(void)
+inline GPDSPFloat GPDSPWaveNode::defaultResolution(void)
 {
     return +INFINITY;
 }
 
-inline float GPDSPWaveNode::getResolution(void) const
+inline GPDSPFloat GPDSPWaveNode::getResolution(void) const
 {
     return _resolution;
 }

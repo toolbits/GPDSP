@@ -47,7 +47,21 @@
 #ifndef __GPDSPTYPE_HPP
 #define __GPDSPTYPE_HPP
 
+#include "../GPDSPConfig.hpp"
+
 namespace ir {
+
+#ifdef __GPDSP64
+#define GPDSPFV(param)  (param)
+#define GPDSPFP         "%+.14e"
+#define GPDSPFS         "%lf"
+typedef double          GPDSPFloat;
+#else
+#define GPDSPFV(param)  (param##f)
+#define GPDSPFP         "%+.6e"
+#define GPDSPFS         "%f"
+typedef float           GPDSPFloat;
+#endif
 
 enum GPDSPError {
     GPDSPERROR_OK,

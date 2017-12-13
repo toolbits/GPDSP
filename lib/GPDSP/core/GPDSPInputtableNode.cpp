@@ -136,7 +136,7 @@ GPDSPError GPDSPInputtableNode::setLinkNegativeI(int index, GPDSPOutputtableNode
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::setLinkConstantI(int index, float constant)
+GPDSPError GPDSPInputtableNode::setLinkConstantI(int index, GPDSPFloat constant)
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -176,7 +176,7 @@ GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const**
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::getLinkI(int index, float* constant) const
+GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPFloat* constant) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -266,7 +266,7 @@ void GPDSPInputtableNode::clearLinkI(void)
     return;
 }
 
-GPDSPError GPDSPInputtableNode::getValueI(int index, float* value) const
+GPDSPError GPDSPInputtableNode::getValueI(int index, GPDSPFloat* value) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -277,7 +277,7 @@ GPDSPError GPDSPInputtableNode::getValueI(int index, float* value) const
                     error = _terminal[index].node->getValueO(_terminal[index].index, value);
                 }
                 else if (value != NULL) {
-                    *value = 0.0f;
+                    *value = GPDSPFV(0.0);
                 }
                 break;
             case GPDSPMODE_NEGATIVE:
@@ -289,7 +289,7 @@ GPDSPError GPDSPInputtableNode::getValueI(int index, float* value) const
                     }
                 }
                 else if (value != NULL) {
-                    *value = 0.0f;
+                    *value = GPDSPFV(0.0);
                 }
                 break;
             case GPDSPMODE_CONSTANT:
@@ -299,7 +299,7 @@ GPDSPError GPDSPInputtableNode::getValueI(int index, float* value) const
                 break;
             default:
                 if (value != NULL) {
-                    *value = 0.0f;
+                    *value = GPDSPFV(0.0);
                 }
                 break;
         }

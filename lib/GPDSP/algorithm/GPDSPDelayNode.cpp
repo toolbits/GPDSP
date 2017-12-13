@@ -48,7 +48,7 @@
 
 namespace ir {
 
-GPDSPDelayNode::GPDSPDelayNode(void) : _queue(0.0f)
+GPDSPDelayNode::GPDSPDelayNode(void) : _queue(GPDSPFV(0.0))
 {
 }
 
@@ -86,7 +86,7 @@ GPDSPError GPDSPDelayNode::prepare(void)
 
 GPDSPError GPDSPDelayNode::process(void)
 {
-    float value;
+    GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
@@ -97,7 +97,7 @@ GPDSPError GPDSPDelayNode::process(void)
 
 void GPDSPDelayNode::refresh(void)
 {
-    _queue = 0.0f;
+    _queue = GPDSPFV(0.0);
     return;
 }
 

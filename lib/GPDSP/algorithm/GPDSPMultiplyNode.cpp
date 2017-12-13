@@ -81,13 +81,13 @@ GPDSPError GPDSPMultiplyNode::prepare(void)
 
 GPDSPError GPDSPMultiplyNode::process(void)
 {
-    float pi;
-    float value;
+    GPDSPFloat pi;
+    GPDSPFloat value;
     int i;
     GPDSPError error(GPDSPERROR_OK);
     
     if (getCountI() > 0) {
-        pi = 1.0f;
+        pi = GPDSPFV(1.0);
         for (i = 0; i < getCountI(); ++i) {
             if ((error = getValueI(i, &value)) == GPDSPERROR_OK) {
                 pi *= value;
@@ -101,7 +101,7 @@ GPDSPError GPDSPMultiplyNode::process(void)
         }
     }
     else {
-        error = setValueO(0, 0.0f);
+        error = setValueO(0, GPDSPFV(0.0));
     }
     return error;
 }

@@ -55,8 +55,8 @@ namespace ir {
 
 class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRewindableNode, public virtual GPDSPRefreshableNode {
     private:
-                float const*                _delegate;
-                std::vector<float>          _buffer;
+                GPDSPFloat const*           _delegate;
+                std::vector<GPDSPFloat>     _buffer;
                 int                         _length;
                 int                         _interleave;
                 int                         _position;
@@ -64,9 +64,9 @@ class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRe
     public:
         explicit                            GPDSPBufferInputNode        (void);
         virtual                             ~GPDSPBufferInputNode       (void);
-                GPDSPError                  setBuffer                   (float const* buffer, int length, int interleave);
-                float const*                getBufferReadonly           (int* length, int* interleave) const;
-                float*                      getBufferWritable           (int* length, int* interleave);
+                GPDSPError                  setBuffer                   (GPDSPFloat const* buffer, int length, int interleave);
+                GPDSPFloat const*           getBufferReadonly           (int* length, int* interleave) const;
+                GPDSPFloat*                 getBufferWritable           (int* length, int* interleave);
                 GPDSPError                  setPosition                 (int position);
                 int                         getPosition                 (void) const;
                 bool                        isDelegate                  (void) const;

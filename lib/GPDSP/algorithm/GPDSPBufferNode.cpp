@@ -66,7 +66,7 @@ GPDSPError GPDSPBufferNode::setSize(int size)
     }
     if (size != _queue.size()) {
         try {
-            _queue.assign(size, 0.0f);
+            _queue.assign(size, GPDSPFV(0.0));
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
@@ -113,7 +113,7 @@ GPDSPError GPDSPBufferNode::prepare(void)
 
 GPDSPError GPDSPBufferNode::process(void)
 {
-    float value;
+    GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
@@ -137,7 +137,7 @@ GPDSPError GPDSPBufferNode::process(void)
 
 void GPDSPBufferNode::refresh(void)
 {
-    std::fill_n(_queue.begin(), _queue.size(), 0.0f);
+    std::fill_n(_queue.begin(), _queue.size(), GPDSPFV(0.0));
     return;
 }
 

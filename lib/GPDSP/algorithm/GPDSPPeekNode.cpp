@@ -49,7 +49,7 @@
 
 namespace ir {
 
-GPDSPPeekNode::GPDSPPeekNode(void) : _peek(0.0f)
+GPDSPPeekNode::GPDSPPeekNode(void) : _peek(GPDSPFV(0.0))
 {
 }
 
@@ -87,7 +87,7 @@ GPDSPError GPDSPPeekNode::prepare(void)
 
 GPDSPError GPDSPPeekNode::process(void)
 {
-    float value;
+    GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
@@ -107,7 +107,7 @@ GPDSPError GPDSPPeekNode::process(void)
 
 void GPDSPPeekNode::refresh(void)
 {
-    _peek = 0.0f;
+    _peek = GPDSPFV(0.0);
     return;
 }
 

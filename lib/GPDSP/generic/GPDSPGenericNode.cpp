@@ -237,7 +237,7 @@ void GPDSPGenericNode::refresh(void)
 
 GPDSPError GPDSPGenericNode::copyInput(void)
 {
-    float value;
+    GPDSPFloat value;
     int i;
     GPDSPError error(GPDSPERROR_OK);
     
@@ -264,7 +264,7 @@ GPDSPError GPDSPGenericNode::copyInput(void)
 
 GPDSPError GPDSPGenericNode::copyOutput(void)
 {
-    float value;
+    GPDSPFloat value;
     int i;
     GPDSPError error(GPDSPERROR_OK);
     
@@ -283,7 +283,7 @@ GPDSPError GPDSPGenericNode::copyOutput(void)
             }
         }
         else {
-            error = setValueO(i, 0.0f);
+            error = setValueO(i, GPDSPFV(0.0));
         }
         if (error != GPDSPERROR_OK) {
             break;

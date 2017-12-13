@@ -55,7 +55,7 @@ namespace ir {
 
 class GPDSPPeekNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
-                float                       _peek;
+                GPDSPFloat                  _peek;
     
     public:
         explicit                            GPDSPPeekNode               (void);

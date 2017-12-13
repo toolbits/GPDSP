@@ -55,7 +55,7 @@ class GPDSPGenericInputNode : public GPDSPOutputtableNode {
     public:
         explicit                            GPDSPGenericInputNode       (void);
         virtual                             ~GPDSPGenericInputNode      (void);
-                GPDSPError                  setValueO                   (int index, float value);
+                GPDSPError                  setValueO                   (int index, GPDSPFloat value);
         virtual GPDSPError                  fixate                      (void);
         virtual GPDSPError                  prepare                     (void);
         virtual GPDSPError                  process                     (void);
@@ -64,7 +64,7 @@ class GPDSPGenericInputNode : public GPDSPOutputtableNode {
                 GPDSPGenericInputNode&      operator=                   (GPDSPGenericInputNode const&);
 };
 
-inline GPDSPError GPDSPGenericInputNode::setValueO(int index, float value)
+inline GPDSPError GPDSPGenericInputNode::setValueO(int index, GPDSPFloat value)
 {
     return GPDSPOutputtableNode::setValueO(index, value);
 }

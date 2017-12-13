@@ -57,8 +57,8 @@ class GPDSPTriangleWaveNode : public GPDSPWaveNode {
         virtual                             ~GPDSPTriangleWaveNode      (void);
     private:
         virtual std::string                 getName                     (void) const;
-        virtual float                       getWave                     (float phase) const;
-        virtual void                        fillWave                    (std::vector<std::pair<float, float> >* wave) const;
+        virtual GPDSPFloat                  getWave                     (GPDSPFloat phase) const;
+        virtual void                        fillWave                    (std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const;
     private:
                                             GPDSPTriangleWaveNode       (GPDSPTriangleWaveNode const&);
                 GPDSPTriangleWaveNode&      operator=                   (GPDSPTriangleWaveNode const&);

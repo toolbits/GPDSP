@@ -1,17 +1,19 @@
 # GPDSP
-A General Purpose DSP Library, written in C++.  
+A real time / non-real time General Purpose DSP library, written in C++.  
 
 This is a Digital Signal Processing Library for general purpose use (for example  
 audio stream, data sensing, etc...) in C++ application.  
 Very tiny implementation enables you to use this library under the small resource environment.  
 It is simple to use, normally you have to use only GPDSPNodeRenderer class.  
-Now supports generatively constructed filters from external XML files (.gpdsp file).  
+GPDSP supports generatively constructed filters from external XML files (.gpdsp file).  
+Both 32bits and 64bits floating point operations are supported.  
 
 GPDSP supports next operations:  
 
 o GPDSPBufferInputNode: inputs data from some data stream  
 o GPDSPBufferOutputNode: outputs data to some data stream  
 o GPDSPConstantNode: makes a constant value (such as DC bias)  
+o GPDSPSignNode: compare value with zero  
 o GPDSPGateNode: rectifies or clips a value (such as Diode)  
 o GPDSPPeekNode: keeps the maximum amplitude  
 o GPDSPAmplifyNode: amplifies a value (such as Transistor)  
@@ -19,6 +21,7 @@ o GPDSPDelayNode: makes single sample delay
 o GPDSPBufferNode: makes N samples delay  
 o GPDSPSumNode: adds all input values  
 o GPDSPMultiplyNode: multiplies all input values  
+o GPDSPSquareRootNode: gets square rooted value  
 o GPDSPGenericNode: generatively constructed filter  
 o GPDSPSinWaveNode: generate sin wave with customizable frequency and phase  
 o GPDSPTriangleWaveNode: generate triangle wave with customizable frequency and phase  
@@ -51,6 +54,6 @@ https://github.com/toolbits/GPDSP/tree/master/release
 
 Development environment:  
 
-o macOS High Sierra (10.13.1)  
+o macOS High Sierra (10.13.2)  
 o Xcode 9.0 (Apple LLVM 9.0.0)  
 o openFrameworks 0.9.8  

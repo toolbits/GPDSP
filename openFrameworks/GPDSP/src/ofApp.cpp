@@ -59,7 +59,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.5.0        2017 iridium.jp");
+    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.6.0        2017 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
@@ -151,7 +151,14 @@ void ofApp::audioIn(float* buffer, int size, int channel)
 {
     _i.mutex.lock();
     _mutexIO.lock();
+#ifdef __GPDSP64
+    size *= channel;
+    for (int i = 0; i < size; ++i) {
+        _i.buffer[i] = buffer[i];
+    }
+#else
     memcpy(_i.buffer.data(), buffer, _i.buffer.size() * sizeof(float));
+#endif
     _mutexIO.unlock();
     _i.mutex.unlock();
     return;
@@ -159,24 +166,32 @@ void ofApp::audioIn(float* buffer, int size, int channel)
 
 void ofApp::audioOut(float* buffer, int size, int channel)
 {
+    int remain;
     GPDSPError error;
     
     _o.mutex.lock();
     _mutexParam.lock();
     _mutexIO.lock();
-    if ((error = _dsp.render(size, &size)) != GPDSPERROR_OK) {
+    if ((error = _dsp.render(size, &remain)) != GPDSPERROR_OK) {
         cout << "position [L-in]: " << _dsp.getNodeBufferInput("L-in")->getPosition() << endl;
         cout << "position [R-in]: " << _dsp.getNodeBufferInput("R-in")->getPosition() << endl;
         cout << "position [L-out]: " << _dsp.getNodeBufferOutput("L-out")->getPosition() << endl;
         cout << "position [R-out]: " << _dsp.getNodeBufferOutput("R-out")->getPosition() << endl;
-        cout << "DSP error: " << _dsp.stringize(error) << ", remain = " << size << endl;
+        cout << "DSP error: " << _dsp.stringize(error) << ", remain = " << remain << endl;
         _dsp.rewind();
         _dsp.refresh();
     }
     _mutexIO.unlock();
     _mutexParam.unlock();
     _o.mutex.unlock();
+#ifdef __GPDSP64
+    size *= channel;
+    for (int i = 0; i < size; ++i) {
+        buffer[i] = _o.buffer[i];
+    }
+#else
     memcpy(buffer, _o.buffer.data(), _o.buffer.size() * sizeof(float));
+#endif
     return;
 }
 
@@ -396,7 +411,7 @@ void ofApp::startDevice(IORec* io, int index, int in, int out)
 void ofApp::drawValueO(string const& name, int x, int y, ofColor const& color) const
 {
     shared_ptr<GPDSPOutputtableNode> output;
-    float value;
+    GPDSPFloat value;
     char temp[16];
     
     if ((output = dynamic_pointer_cast<GPDSPOutputtableNode>(_dsp.getNode(name))) == NULL) {
@@ -422,7 +437,7 @@ void ofApp::drawValueO(string const& name, int x, int y, ofColor const& color) c
     }
     else {
         value = static_cast<int>(value * 10000) / 10000.0f;
-        snprintf(temp, sizeof(temp), "%+6.4f", value);
+        snprintf(temp, sizeof(temp), "%+6.4f", static_cast<float>(value));
         ofSetColor(color, ofMap(fabs(value), 0.0f, 0.01f, 63, 255, true));
         _font->draw(temp, x, y);
     }

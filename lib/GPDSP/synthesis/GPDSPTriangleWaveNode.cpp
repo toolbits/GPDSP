@@ -61,23 +61,23 @@ std::string GPDSPTriangleWaveNode::getName(void) const
     return "GPDSPTriangleWaveNode";
 }
 
-float GPDSPTriangleWaveNode::getWave(float phase) const
+GPDSPFloat GPDSPTriangleWaveNode::getWave(GPDSPFloat phase) const
 {
-    float result(0.0f);
+    GPDSPFloat result(GPDSPFV(0.0));
     
-    if (phase < 0.25f) {
-        result = phase / 0.25f;
+    if (phase < GPDSPFV(0.25)) {
+        result = phase / GPDSPFV(0.25);
     }
-    else if (phase < 0.75f) {
-        result = 2.0f - phase / 0.25f;
+    else if (phase < GPDSPFV(0.75)) {
+        result = GPDSPFV(2.0) - phase / GPDSPFV(0.25);
     }
     else {
-        result = phase / 0.25f - 4.0f;
+        result = phase / GPDSPFV(0.25) - GPDSPFV(4.0);
     }
     return result;
 }
 
-void GPDSPTriangleWaveNode::fillWave(std::vector<std::pair<float, float> >* wave) const
+void GPDSPTriangleWaveNode::fillWave(std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const
 {
     int size;
     int temp;
@@ -85,14 +85,14 @@ void GPDSPTriangleWaveNode::fillWave(std::vector<std::pair<float, float> >* wave
     
     size = static_cast<int>(wave->size());
     for (i = 0; i < size; ++i) {
-        (*wave)[i].first = 4.0f * i / size;
+        (*wave)[i].first = GPDSPFV(4.0) * i / size;
     }
-    temp = ceil(size * 3.0f / 4.0f);
+    temp = ceil(size * GPDSPFV(3.0) / GPDSPFV(4.0));
     for (i = size / 4; i < temp; ++i) {
-        (*wave)[i].first = 2.0f - (*wave)[i].first;
+        (*wave)[i].first = GPDSPFV(2.0) - (*wave)[i].first;
     }
     for (i = temp; i < size; ++i) {
-        (*wave)[i].first -= 4.0f;
+        (*wave)[i].first -= GPDSPFV(4.0);
     }
     return;
 }

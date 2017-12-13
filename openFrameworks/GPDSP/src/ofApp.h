@@ -57,7 +57,7 @@ class ofApp : public ofBaseApp {
         struct IORec {
             vector<ofSoundDevice> device;
             ofSoundStream stream;
-            vector<float> buffer;
+            vector<GPDSPFloat> buffer;
             ofMutex mutex;
         };
     

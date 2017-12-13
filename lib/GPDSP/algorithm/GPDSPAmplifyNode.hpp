@@ -54,14 +54,14 @@ namespace ir {
 
 class GPDSPAmplifyNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     private:
-                float                       _gain;
+                GPDSPFloat                  _gain;
     
     public:
         explicit                            GPDSPAmplifyNode            (void);
         virtual                             ~GPDSPAmplifyNode           (void);
-        static  float                       defaultGain                 (void);
-                void                        setGain                     (float gain);
-                float                       getGain                     (void) const;
+        static  GPDSPFloat                  defaultGain                 (void);
+                void                        setGain                     (GPDSPFloat gain);
+                GPDSPFloat                  getGain                     (void) const;
         virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
         virtual GPDSPError                  prepare                     (void);
@@ -71,12 +71,12 @@ class GPDSPAmplifyNode : public GPDSPInputtableNode, public GPDSPOutputtableNode
                 GPDSPAmplifyNode&           operator=                   (GPDSPAmplifyNode const&);
 };
 
-inline float GPDSPAmplifyNode::defaultGain(void)
+inline GPDSPFloat GPDSPAmplifyNode::defaultGain(void)
 {
-    return 1.0f;
+    return GPDSPFV(1.0);
 }
 
-inline float GPDSPAmplifyNode::getGain(void) const
+inline GPDSPFloat GPDSPAmplifyNode::getGain(void) const
 {
     return _gain;
 }

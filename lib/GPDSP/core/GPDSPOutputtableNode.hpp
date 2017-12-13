@@ -58,7 +58,7 @@ class GPDSPOutputtableNode : public virtual GPDSPNode {
         struct TerminalRec {
             std::string                     name;
             bool                            valid;
-            float                           value;
+            GPDSPFloat                      value;
         };
     
     private:
@@ -68,14 +68,14 @@ class GPDSPOutputtableNode : public virtual GPDSPNode {
                 int                         getCountO                   (void) const;
                 GPDSPError                  setNameO                    (int index, std::string const& what);
                 GPDSPError                  getNameO                    (int index, std::string* what) const;
-                GPDSPError                  getValueO                   (int index, float* value) const;
+                GPDSPError                  getValueO                   (int index, GPDSPFloat* value) const;
                 int                         findNameO                   (std::string const& what) const;
         virtual void                        invalidate                  (void);
     protected:
         explicit                            GPDSPOutputtableNode        (void);
         virtual                             ~GPDSPOutputtableNode       (void) = 0;
                 GPDSPError                  setCountO                   (int count, std::string const& what);
-                GPDSPError                  setValueO                   (int index, float value);
+                GPDSPError                  setValueO                   (int index, GPDSPFloat value);
                 GPDSPError                  appendO                     (std::string const& what);
                 GPDSPError                  insertO                     (int index, std::string const& what);
                 GPDSPError                  removeO                     (int index);
@@ -90,7 +90,7 @@ inline int GPDSPOutputtableNode::getCountO(void) const
     return static_cast<int>(_terminal.size());
 }
 
-inline GPDSPError GPDSPOutputtableNode::getValueO(int index, float* value) const
+inline GPDSPError GPDSPOutputtableNode::getValueO(int index, GPDSPFloat* value) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -110,7 +110,7 @@ inline GPDSPError GPDSPOutputtableNode::getValueO(int index, float* value) const
     return error;
 }
 
-inline GPDSPError GPDSPOutputtableNode::setValueO(int index, float value)
+inline GPDSPError GPDSPOutputtableNode::setValueO(int index, GPDSPFloat value)
 {
     GPDSPError error(GPDSPERROR_OK);
     

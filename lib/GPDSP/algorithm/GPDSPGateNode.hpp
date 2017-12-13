@@ -55,18 +55,18 @@ namespace ir {
 
 class GPDSPGateNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     private:
-                float                       _minimum;
-                float                       _maximum;
+                GPDSPFloat                  _minimum;
+                GPDSPFloat                  _maximum;
     
     public:
         explicit                            GPDSPGateNode               (void);
         virtual                             ~GPDSPGateNode              (void);
-        static  float                       defaultMinimum              (void);
-        static  float                       defaultMaximum              (void);
-                void                        setMinimum                  (float minimum);
-                float                       getMinimum                  (void) const;
-                void                        setMaximum                  (float maximum);
-                float                       getMaximum                  (void) const;
+        static  GPDSPFloat                  defaultMinimum              (void);
+        static  GPDSPFloat                  defaultMaximum              (void);
+                void                        setMinimum                  (GPDSPFloat minimum);
+                GPDSPFloat                  getMinimum                  (void) const;
+                void                        setMaximum                  (GPDSPFloat maximum);
+                GPDSPFloat                  getMaximum                  (void) const;
         virtual GPDSPError                  fixate                      (void);
         virtual void                        invalidate                  (void);
         virtual GPDSPError                  prepare                     (void);
@@ -76,22 +76,22 @@ class GPDSPGateNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
                 GPDSPGateNode&              operator=                   (GPDSPGateNode const&);
 };
 
-inline float GPDSPGateNode::defaultMinimum(void)
+inline GPDSPFloat GPDSPGateNode::defaultMinimum(void)
 {
     return -INFINITY;
 }
 
-inline float GPDSPGateNode::defaultMaximum(void)
+inline GPDSPFloat GPDSPGateNode::defaultMaximum(void)
 {
     return +INFINITY;
 }
 
-inline float GPDSPGateNode::getMinimum(void) const
+inline GPDSPFloat GPDSPGateNode::getMinimum(void) const
 {
     return _minimum;
 }
 
-inline float GPDSPGateNode::getMaximum(void) const
+inline GPDSPFloat GPDSPGateNode::getMaximum(void) const
 {
     return _maximum;
 }

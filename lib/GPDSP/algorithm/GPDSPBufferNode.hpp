@@ -56,7 +56,7 @@ namespace ir {
 
 class GPDSPBufferNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
-                std::deque<float>           _queue;
+                std::deque<GPDSPFloat>      _queue;
     
     public:
         explicit                            GPDSPBufferNode             (void);

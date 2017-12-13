@@ -56,7 +56,7 @@ GPDSPConstantNode::~GPDSPConstantNode(void)
 {
 }
 
-void GPDSPConstantNode::setConstant(float constant)
+void GPDSPConstantNode::setConstant(GPDSPFloat constant)
 {
     if (constant != _constant) {
         _constant = constant;

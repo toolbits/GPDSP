@@ -56,7 +56,7 @@ GPDSPGateNode::~GPDSPGateNode(void)
 {
 }
 
-void GPDSPGateNode::setMinimum(float minimum)
+void GPDSPGateNode::setMinimum(GPDSPFloat minimum)
 {
     if (minimum != _minimum) {
         _minimum = minimum;
@@ -65,7 +65,7 @@ void GPDSPGateNode::setMinimum(float minimum)
     return;
 }
 
-void GPDSPGateNode::setMaximum(float maximum)
+void GPDSPGateNode::setMaximum(GPDSPFloat maximum)
 {
     if (maximum != _maximum) {
         _maximum = maximum;
@@ -104,21 +104,20 @@ GPDSPError GPDSPGateNode::prepare(void)
 
 GPDSPError GPDSPGateNode::process(void)
 {
-    float value;
+    GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
-        if (isnan(value)) {
-            value = NAN;
-        }
-        else if (_minimum > _maximum) {
-            value = 0.0f;
-        }
-        else if (value < _minimum) {
-            value = _minimum;
-        }
-        else if (value > _maximum) {
-            value = _maximum;
+        if (!isnan(value)) {
+            if (_minimum > _maximum) {
+                value = GPDSPFV(0.0);
+            }
+            else if (value < _minimum) {
+                value = _minimum;
+            }
+            else if (value > _maximum) {
+                value = _maximum;
+            }
         }
         error = setValueO(0, value);
     }

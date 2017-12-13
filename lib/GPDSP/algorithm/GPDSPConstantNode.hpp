@@ -53,14 +53,14 @@ namespace ir {
 
 class GPDSPConstantNode : public GPDSPOutputtableNode {
     private:
-                float                       _constant;
+                GPDSPFloat                  _constant;
     
     public:
         explicit                            GPDSPConstantNode           (void);
         virtual                             ~GPDSPConstantNode          (void);
-        static  float                       defaultConstant             (void);
-                void                        setConstant                 (float constant);
-                float                       getConstant                 (void) const;
+        static  GPDSPFloat                  defaultConstant             (void);
+                void                        setConstant                 (GPDSPFloat constant);
+                GPDSPFloat                  getConstant                 (void) const;
         virtual GPDSPError                  fixate                      (void);
         virtual GPDSPError                  prepare                     (void);
         virtual GPDSPError                  process                     (void);
@@ -69,12 +69,12 @@ class GPDSPConstantNode : public GPDSPOutputtableNode {
                 GPDSPConstantNode&          operator=                   (GPDSPConstantNode const&);
 };
 
-inline float GPDSPConstantNode::defaultConstant(void)
+inline GPDSPFloat GPDSPConstantNode::defaultConstant(void)
 {
-    return 0.0f;
+    return GPDSPFV(0.0);
 }
 
-inline float GPDSPConstantNode::getConstant(void) const
+inline GPDSPFloat GPDSPConstantNode::getConstant(void) const
 {
     return _constant;
 }

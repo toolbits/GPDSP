@@ -2,6 +2,7 @@
 <gpdsp>
     <meta>
         <rate>44100</rate>
+        <format>64</format>
     </meta>
     <formula>
         <GPDSPGenericInputNode>

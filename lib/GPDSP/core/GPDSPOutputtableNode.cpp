@@ -118,7 +118,7 @@ GPDSPError GPDSPOutputtableNode::setCountO(int count, std::string const& what)
     }
     if (count != _terminal.size()) {
         try {
-            _terminal.resize(count, TerminalRec{what, false, 0.0f});
+            _terminal.resize(count, TerminalRec{what, false, GPDSPFV(0.0)});
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
@@ -135,7 +135,7 @@ GPDSPError GPDSPOutputtableNode::appendO(std::string const& what)
     GPDSPError error(GPDSPERROR_OK);
     
     try {
-        _terminal.push_back(TerminalRec{what, false, 0.0f});
+        _terminal.push_back(TerminalRec{what, false, GPDSPFV(0.0)});
     }
     catch (std::bad_alloc const&) {
         error = GPDSPERROR_NO_MEMORY;
@@ -152,7 +152,7 @@ GPDSPError GPDSPOutputtableNode::insertO(int index, std::string const& what)
     
     if (0 <= index && index < _terminal.size()) {
         try {
-            _terminal.insert(_terminal.begin() + index, TerminalRec{what, false, 0.0f});
+            _terminal.insert(_terminal.begin() + index, TerminalRec{what, false, GPDSPFV(0.0)});
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;

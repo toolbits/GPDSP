@@ -57,7 +57,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSPGenerative 0.5.0        2017 iridium.jp");
+    ofSetWindowTitle("GPDSPGenerative 0.6.0        2017 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
@@ -112,7 +112,14 @@ void ofApp::audioIn(float* buffer, int size, int channel)
 {
     _i.mutex.lock();
     _mutexIO.lock();
+#ifdef __GPDSP64
+    size *= channel;
+    for (int i = 0; i < size; ++i) {
+        _i.buffer[i] = buffer[i];
+    }
+#else
     memcpy(_i.buffer.data(), buffer, _i.buffer.size() * sizeof(float));
+#endif
     _mutexIO.unlock();
     _i.mutex.unlock();
     return;
@@ -130,7 +137,14 @@ void ofApp::audioOut(float* buffer, int size, int channel)
     _mutexIO.unlock();
     _mutexParam.unlock();
     _o.mutex.unlock();
+#ifdef __GPDSP64
+    size *= channel;
+    for (int i = 0; i < size; ++i) {
+        buffer[i] = _o.buffer[i];
+    }
+#else
     memcpy(buffer, _o.buffer.data(), _o.buffer.size() * sizeof(float));
+#endif
     return;
 }
 

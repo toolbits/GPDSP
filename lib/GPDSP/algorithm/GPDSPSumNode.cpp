@@ -81,13 +81,13 @@ GPDSPError GPDSPSumNode::prepare(void)
 
 GPDSPError GPDSPSumNode::process(void)
 {
-    float sigma;
-    float value;
+    GPDSPFloat sigma;
+    GPDSPFloat value;
     int i;
     GPDSPError error(GPDSPERROR_OK);
     
     if (getCountI() > 0) {
-        sigma = 0.0f;
+        sigma = GPDSPFV(0.0);
         for (i = 0; i < getCountI(); ++i) {
             if ((error = getValueI(i, &value)) == GPDSPERROR_OK) {
                 sigma += value;
@@ -101,7 +101,7 @@ GPDSPError GPDSPSumNode::process(void)
         }
     }
     else {
-        error = setValueO(0, 0.0f);
+        error = setValueO(0, GPDSPFV(0.0));
     }
     return error;
 }

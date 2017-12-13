@@ -49,7 +49,7 @@
 
 namespace ir {
 
-GPDSPWaveNode::GPDSPWaveNode(int rate) : _rate(rate), _resolution(defaultResolution()), _wave(NULL), _position(0.0f)
+GPDSPWaveNode::GPDSPWaveNode(int rate) : _rate(rate), _resolution(defaultResolution()), _wave(NULL), _position(GPDSPFV(0.0))
 {
 }
 
@@ -57,11 +57,11 @@ GPDSPWaveNode::~GPDSPWaveNode(void)
 {
 }
 
-GPDSPError GPDSPWaveNode::setResolution(float resolution)
+GPDSPError GPDSPWaveNode::setResolution(GPDSPFloat resolution)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (resolution > 0.0f) {
+    if (resolution > GPDSPFV(0.0)) {
         if (resolution != _resolution) {
             if ((error = makeWave(resolution, &_wave)) == GPDSPERROR_OK) {
                 _resolution = resolution;
@@ -109,14 +109,14 @@ GPDSPError GPDSPWaveNode::prepare(void)
 
 GPDSPError GPDSPWaveNode::process(void)
 {
-    float frequency;
-    float phase;
+    GPDSPFloat frequency;
+    GPDSPFloat phase;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = getValueI(0, &frequency)) == GPDSPERROR_OK) {
         if ((error = getValueI(1, &phase)) == GPDSPERROR_OK) {
             if (!isnan(frequency) && !isinf(frequency) && !isnan(phase) && !isinf(phase)) {
-                if ((phase = fmod(_position + phase * _rate, _rate)) < 0.0f) {
+                if ((phase = fmod(_position + phase * _rate, _rate)) < GPDSPFV(0.0)) {
                     phase += _rate;
                 }
                 if (_wave != NULL) {
@@ -127,7 +127,7 @@ GPDSPError GPDSPWaveNode::process(void)
                     error = setValueO(0, getWave(phase / _rate));
                 }
                 if (error == GPDSPERROR_OK) {
-                    if ((_position = fmod(_position + frequency, _rate)) < 0.0f) {
+                    if ((_position = fmod(_position + frequency, _rate)) < GPDSPFV(0.0)) {
                         _position += _rate;
                     }
                 }
@@ -142,14 +142,14 @@ GPDSPError GPDSPWaveNode::process(void)
 
 void GPDSPWaveNode::rewind(void)
 {
-    _position = 0.0f;
+    _position = GPDSPFV(0.0);
     return;
 }
 
-GPDSPError GPDSPWaveNode::makeWave(float resolution, std::vector<std::pair<float, float> > const** wave) const
+GPDSPError GPDSPWaveNode::makeWave(GPDSPFloat resolution, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > const** wave) const
 {
-    static std::unordered_map<std::string, std::vector<std::pair<float, float> > > s_wave;
-    std::unordered_map<std::string, std::vector<std::pair<float, float> > >::iterator it;
+    static std::unordered_map<std::string, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > > s_wave;
+    std::unordered_map<std::string, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > >::iterator it;
     std::string key;
     char string[256];
     int size;
@@ -167,7 +167,7 @@ GPDSPError GPDSPWaveNode::makeWave(float resolution, std::vector<std::pair<float
                     }
                     else {
                         try {
-                            s_wave[key] = std::vector<std::pair<float, float> >(size, std::make_pair(0.0f, 0.0f));
+                            s_wave[key] = std::vector<std::pair<GPDSPFloat, GPDSPFloat> >(size, std::make_pair(GPDSPFV(0.0), GPDSPFV(0.0)));
                         }
                         catch (std::bad_alloc const&) {
                             error = GPDSPERROR_NO_MEMORY;

@@ -61,22 +61,22 @@ std::string GPDSPSawtoothWaveNode::getName(void) const
     return "GPDSPSawtoothWaveNode";
 }
 
-float GPDSPSawtoothWaveNode::getWave(float phase) const
+GPDSPFloat GPDSPSawtoothWaveNode::getWave(GPDSPFloat phase) const
 {
-    return (phase < 0.5f) ? (phase / 0.5f) : (phase / 0.5f - 2.0f);
+    return (phase < GPDSPFV(0.5)) ? (phase / GPDSPFV(0.5)) : (phase / GPDSPFV(0.5) - GPDSPFV(2.0));
 }
 
-void GPDSPSawtoothWaveNode::fillWave(std::vector<std::pair<float, float> >* wave) const
+void GPDSPSawtoothWaveNode::fillWave(std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const
 {
     int size;
     int i;
     
     size = static_cast<int>(wave->size());
     for (i = 0; i < size; ++i) {
-        (*wave)[i].first = 2.0f * i / size;
+        (*wave)[i].first = GPDSPFV(2.0) * i / size;
     }
     for (i = size / 2 + size % 2; i < size; ++i) {
-        (*wave)[i].first -= 2.0f;
+        (*wave)[i].first -= GPDSPFV(2.0);
     }
     return;
 }

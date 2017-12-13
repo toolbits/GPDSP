@@ -61,19 +61,19 @@ std::string GPDSPSinWaveNode::getName(void) const
     return "GPDSPSinWaveNode";
 }
 
-float GPDSPSinWaveNode::getWave(float phase) const
+GPDSPFloat GPDSPSinWaveNode::getWave(GPDSPFloat phase) const
 {
-    return sin(2.0f * M_PI * phase);
+    return sin(GPDSPFV(2.0) * M_PI * phase);
 }
 
-void GPDSPSinWaveNode::fillWave(std::vector<std::pair<float, float> >* wave) const
+void GPDSPSinWaveNode::fillWave(std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const
 {
     int size;
     int i;
     
     size = static_cast<int>(wave->size());
     for (i = 0; i < size; ++i) {
-        (*wave)[i].first = sin(2.0f * M_PI * i / size);
+        (*wave)[i].first = sin(GPDSPFV(2.0) * M_PI * i / size);
     }
     return;
 }

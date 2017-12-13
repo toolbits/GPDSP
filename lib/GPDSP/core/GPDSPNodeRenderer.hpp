@@ -62,6 +62,7 @@ class GPDSPFlexOutputtableNode;
 class GPDSPBufferInputNode;
 class GPDSPBufferOutputNode;
 class GPDSPConstantNode;
+class GPDSPSignNode;
 class GPDSPGateNode;
 class GPDSPPeekNode;
 class GPDSPAmplifyNode;
@@ -69,6 +70,7 @@ class GPDSPDelayNode;
 class GPDSPBufferNode;
 class GPDSPSumNode;
 class GPDSPMultiplyNode;
+class GPDSPSquareRootNode;
 class GPDSPGenericNode;
 
 class GPDSPNodeRenderer {
@@ -95,6 +97,8 @@ class GPDSPNodeRenderer {
                                             getNodeBufferOutput         (std::string const& name) const;
                 std::shared_ptr<GPDSPConstantNode>
                                             getNodeConstant             (std::string const& name) const;
+                std::shared_ptr<GPDSPSignNode>
+                                            getNodeSign                 (std::string const& name) const;
                 std::shared_ptr<GPDSPGateNode>
                                             getNodeGate                 (std::string const& name) const;
                 std::shared_ptr<GPDSPPeekNode>
@@ -109,6 +113,8 @@ class GPDSPNodeRenderer {
                                             getNodeSum                  (std::string const& name) const;
                 std::shared_ptr<GPDSPMultiplyNode>
                                             getNodeMultiply             (std::string const& name) const;
+                std::shared_ptr<GPDSPSquareRootNode>
+                                            getNodeSquareRoot           (std::string const& name) const;
                 std::shared_ptr<GPDSPSinWaveNode>
                                             getNodeSinWave              (std::string const& name) const;
                 std::shared_ptr<GPDSPTriangleWaveNode>
@@ -120,6 +126,7 @@ class GPDSPNodeRenderer {
                 std::shared_ptr<GPDSPGenericNode>
                                             getNodeGeneric              (std::string const& name) const;
                 std::shared_ptr<GPDSPNode>  getNode                     (std::string const& name) const;
+                int                         getSize                     (void) const;
                 GPDSPError                  setCountI                   (std::string const& name, int count, std::string const& what);
                 GPDSPError                  getCountI                   (std::string const& name, int* count) const;
                 GPDSPError                  setCountO                   (std::string const& name, int count, std::string const& what);
@@ -131,9 +138,9 @@ class GPDSPNodeRenderer {
                 GPDSPError                  getModeI                    (std::string const& name, int index, GPDSPMode* mode) const;
                 GPDSPError                  setLinkPositiveI            (std::string const& name, int index, std::string const& from, int which);
                 GPDSPError                  setLinkNegativeI            (std::string const& name, int index, std::string const& from, int which);
-                GPDSPError                  setLinkConstantI            (std::string const& name, int index, float constant);
+                GPDSPError                  setLinkConstantI            (std::string const& name, int index, GPDSPFloat constant);
                 GPDSPError                  getLinkI                    (std::string const& name, int index, std::string* from, int* which) const;
-                GPDSPError                  getLinkI                    (std::string const& name, int index, float* constant) const;
+                GPDSPError                  getLinkI                    (std::string const& name, int index, GPDSPFloat* constant) const;
                 GPDSPError                  clearLinkI                  (std::string const& name, int index);
                 GPDSPError                  clearLinkI                  (std::string const& name, GPDSPMode mode);
                 GPDSPError                  clearLinkI                  (std::string const& name, std::string const& from, int which);
@@ -141,8 +148,8 @@ class GPDSPNodeRenderer {
                 GPDSPError                  clearLinkI                  (std::string const& name);
                 GPDSPError                  clearLinkO                  (std::string const& name, int index);
                 GPDSPError                  clearLinkO                  (std::string const& name);
-                GPDSPError                  getValueI                   (std::string const& name, int index, float* value) const;
-                GPDSPError                  getValueO                   (std::string const& name, int index, float* value) const;
+                GPDSPError                  getValueI                   (std::string const& name, int index, GPDSPFloat* value) const;
+                GPDSPError                  getValueO                   (std::string const& name, int index, GPDSPFloat* value) const;
                 std::string                 getNextNode                 (void) const;
                 bool                        hasNextNode                 (void) const;
                 std::string                 findNode                    (std::shared_ptr<GPDSPNode const> const& node) const;
@@ -151,20 +158,22 @@ class GPDSPNodeRenderer {
                 GPDSPError                  findLinkI                   (std::string const& name, GPDSPMode mode, int* index) const;
                 GPDSPError                  findLinkI                   (std::string const& name, std::string const& from, int which, int* index) const;
                 GPDSPError                  findLinkI                   (std::string const& name, std::string const& from, int* index) const;
-                GPDSPError                  newNodeBufferInput          (std::string const& name, float const* buffer, int length, int interleave);
-                GPDSPError                  newNodeBufferOutput         (std::string const& name, float* buffer, int length, int interleave);
-                GPDSPError                  newNodeConstant             (std::string const& name, float constant);
-                GPDSPError                  newNodeGate                 (std::string const& name, float minimum, float maximum);
+                GPDSPError                  newNodeBufferInput          (std::string const& name, GPDSPFloat const* buffer, int length, int interleave);
+                GPDSPError                  newNodeBufferOutput         (std::string const& name, GPDSPFloat* buffer, int length, int interleave);
+                GPDSPError                  newNodeConstant             (std::string const& name, GPDSPFloat constant);
+                GPDSPError                  newNodeSign                 (std::string const& name);
+                GPDSPError                  newNodeGate                 (std::string const& name, GPDSPFloat minimum, GPDSPFloat maximum);
                 GPDSPError                  newNodePeek                 (std::string const& name);
-                GPDSPError                  newNodeAmplify              (std::string const& name, float gain);
+                GPDSPError                  newNodeAmplify              (std::string const& name, GPDSPFloat gain);
                 GPDSPError                  newNodeDelay                (std::string const& name);
                 GPDSPError                  newNodeBuffer               (std::string const& name, int size);
                 GPDSPError                  newNodeSum                  (std::string const& name, int count);
                 GPDSPError                  newNodeMultiply             (std::string const& name, int count);
-                GPDSPError                  newNodeSinWave              (std::string const& name, float resolution = GPDSPSinWaveNode::defaultResolution());
-                GPDSPError                  newNodeTriangleWave         (std::string const& name, float resolution = GPDSPTriangleWaveNode::defaultResolution());
-                GPDSPError                  newNodeSawtoothWave         (std::string const& name, float resolution = GPDSPSawtoothWaveNode::defaultResolution());
-                GPDSPError                  newNodeSquareWave           (std::string const& name, float resolution = GPDSPSquareWaveNode::defaultResolution());
+                GPDSPError                  newNodeSquareRoot           (std::string const& name);
+                GPDSPError                  newNodeSinWave              (std::string const& name, GPDSPFloat resolution = GPDSPSinWaveNode::defaultResolution());
+                GPDSPError                  newNodeTriangleWave         (std::string const& name, GPDSPFloat resolution = GPDSPTriangleWaveNode::defaultResolution());
+                GPDSPError                  newNodeSawtoothWave         (std::string const& name, GPDSPFloat resolution = GPDSPSawtoothWaveNode::defaultResolution());
+                GPDSPError                  newNodeSquareWave           (std::string const& name, GPDSPFloat resolution = GPDSPSquareWaveNode::defaultResolution());
                 GPDSPError                  newNodeGeneric              (std::string const& name, std::string const& file);
                 GPDSPError                  newNode                     (std::string const& name, std::shared_ptr<GPDSPNode> const& node);
                 GPDSPError                  appendI                     (std::string const& name, std::string const& what);
@@ -190,10 +199,10 @@ class GPDSPNodeRenderer {
                 GPDSPError                  save                        (std::string const& file, GPDSPSerializable* serializable = NULL) const;
         static  GPDSPError                  addTag                      (tinyxml2::XMLElement* parent, std::string const& tag, tinyxml2::XMLElement** child);
         static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, int value);
-        static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, float value);
+        static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, GPDSPFloat value);
         static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, std::string const& value);
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int* value);
-        static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, float* value);
+        static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int format, GPDSPFloat* value);
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, std::string* value);
         static  std::string                 stringize                   (GPDSPError error);
     private:
@@ -209,18 +218,20 @@ class GPDSPNodeRenderer {
                 GPDSPError                  makeSequence                (void);
                 GPDSPError                  optimizeSequence            (void);
                 GPDSPError                  writeInputTag               (tinyxml2::XMLElement* parent, std::shared_ptr<GPDSPNode const> const& node, std::string const& name) const;
-                GPDSPError                  readInputTag                (tinyxml2::XMLElement const* parent, std::string const& name);
+                GPDSPError                  readInputTag                (tinyxml2::XMLElement const* parent, std::string const& name, int format);
         static  GPDSPError                  countInputTag               (tinyxml2::XMLElement const* parent, int* count);
         static  GPDSPError                  writeRateTag                (tinyxml2::XMLElement* parent, int rate);
         static  GPDSPError                  readRateTag                 (tinyxml2::XMLElement const* parent, int rate);
+        static  GPDSPError                  writeFormatTag              (tinyxml2::XMLElement* parent);
+        static  GPDSPError                  readFormatTag               (tinyxml2::XMLElement const* parent, int* format);
         static  GPDSPError                  writeLinkTag                (tinyxml2::XMLElement* parent, std::string const& node, int index, bool positive);
-        static  GPDSPError                  writeLinkTag                (tinyxml2::XMLElement* parent, float constant);
+        static  GPDSPError                  writeLinkTag                (tinyxml2::XMLElement* parent, GPDSPFloat constant);
         static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, std::string* node, int* index);
-        static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, float* constant);
+        static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, int format, GPDSPFloat* constant);
         static  GPDSPError                  stringize                   (std::string const& prefix, int param, std::string* result);
-        static  GPDSPError                  stringize                   (std::string const& prefix, float param, std::string* result);
+        static  GPDSPError                  stringize                   (std::string const& prefix, GPDSPFloat param, std::string* result);
         static  GPDSPError                  numberize                   (std::string const& prefix, std::string const& param, int* result);
-        static  GPDSPError                  numberize                   (std::string const& prefix, std::string const& param, float* result);
+        static  GPDSPError                  numberize                   (std::string const& prefix, std::string const& param, GPDSPFloat* result);
     private:
                                             GPDSPNodeRenderer           (GPDSPNodeRenderer const&);
                 GPDSPNodeRenderer&          operator=                   (GPDSPNodeRenderer const&);
@@ -238,6 +249,11 @@ inline GPDSPNodeRenderer::~GPDSPNodeRenderer(void)
 inline int GPDSPNodeRenderer::getRate(void) const
 {
     return _rate;
+}
+
+inline int GPDSPNodeRenderer::getSize(void) const
+{
+    return static_cast<int>(_node.size());
 }
 
 inline bool GPDSPNodeRenderer::hasNextNode(void) const
