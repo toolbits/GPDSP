@@ -94,7 +94,7 @@ inline GPDSPError GPDSPOutputtableNode::getValueO(int index, GPDSPFloat* value) 
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (_terminal[index].valid) {
             if (value != NULL) {
                 *value = _terminal[index].value;
@@ -114,7 +114,7 @@ inline GPDSPError GPDSPOutputtableNode::setValueO(int index, GPDSPFloat value)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         _terminal[index].valid = true;
         _terminal[index].value = value;
     }

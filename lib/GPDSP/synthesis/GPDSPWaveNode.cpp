@@ -175,7 +175,7 @@ GPDSPError GPDSPWaveNode::makeWave(GPDSPFloat resolution, std::vector<std::pair<
                         if (error == GPDSPERROR_OK) {
                             if ((it = s_wave.find(key)) != s_wave.end()) {
                                 fillWave(&it->second);
-                                for (i = 0; i < it->second.size(); ++i) {
+                                for (i = 0; i < static_cast<int>(it->second.size()); ++i) {
                                     it->second[i].second = it->second[(i + 1) % it->second.size()].first - it->second[i].first;
                                 }
                                 *wave = &it->second;

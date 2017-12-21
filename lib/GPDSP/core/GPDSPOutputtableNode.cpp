@@ -61,7 +61,7 @@ GPDSPError GPDSPOutputtableNode::setNameO(int index, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         _terminal[index].name = what;
     }
     else {
@@ -74,7 +74,7 @@ GPDSPError GPDSPOutputtableNode::getNameO(int index, std::string* what) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (what != NULL) {
             *what = _terminal[index].name;
         }
@@ -90,7 +90,7 @@ int GPDSPOutputtableNode::findNameO(std::string const& what) const
     int i;
     int result(-1);
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if (_terminal[i].name == what) {
             result = i;
             break;
@@ -103,7 +103,7 @@ void GPDSPOutputtableNode::invalidate(void)
 {
     int i;
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         _terminal[i].valid = false;
     }
     return;
@@ -116,7 +116,7 @@ GPDSPError GPDSPOutputtableNode::setCountO(int count, std::string const& what)
     if (count < 0) {
         count = 0;
     }
-    if (count != _terminal.size()) {
+    if (count != static_cast<int>(_terminal.size())) {
         try {
             _terminal.resize(count, TerminalRec{what, false, GPDSPFV(0.0)});
         }
@@ -150,7 +150,7 @@ GPDSPError GPDSPOutputtableNode::insertO(int index, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         try {
             _terminal.insert(_terminal.begin() + index, TerminalRec{what, false, GPDSPFV(0.0)});
         }
@@ -171,7 +171,7 @@ GPDSPError GPDSPOutputtableNode::removeO(int index)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         _terminal.erase(_terminal.begin() + index);
         invalidate();
     }

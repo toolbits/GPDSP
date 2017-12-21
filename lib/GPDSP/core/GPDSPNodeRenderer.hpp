@@ -186,6 +186,7 @@ class GPDSPNodeRenderer {
                 void                        clearNode                   (void);
                 GPDSPError                  clearI                      (std::string const& name);
                 GPDSPError                  clearO                      (std::string const& name);
+                GPDSPError                  renameNode                  (std::string const& name, std::string const& alternate);
                 void                        iterateNode                 (void) const;
                 void                        invalidate                  (void);
                 GPDSPError                  prepare                     (void);

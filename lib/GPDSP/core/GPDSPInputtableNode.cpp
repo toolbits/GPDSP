@@ -61,7 +61,7 @@ GPDSPError GPDSPInputtableNode::setNameI(int index, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         _terminal[index].name = what;
     }
     else {
@@ -74,7 +74,7 @@ GPDSPError GPDSPInputtableNode::getNameI(int index, std::string* what) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (what != NULL) {
             *what = _terminal[index].name;
         }
@@ -89,7 +89,7 @@ GPDSPError GPDSPInputtableNode::getModeI(int index, GPDSPMode* mode) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (mode != NULL) {
             *mode = _terminal[index].mode;
         }
@@ -104,7 +104,7 @@ GPDSPError GPDSPInputtableNode::setLinkPositiveI(int index, GPDSPOutputtableNode
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (_terminal[index].mode != GPDSPMODE_POSITIVE || from != _terminal[index].node || which != _terminal[index].index) {
             _terminal[index].mode = GPDSPMODE_POSITIVE;
             _terminal[index].node = from;
@@ -122,7 +122,7 @@ GPDSPError GPDSPInputtableNode::setLinkNegativeI(int index, GPDSPOutputtableNode
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (_terminal[index].mode != GPDSPMODE_NEGATIVE || from != _terminal[index].node || which != _terminal[index].index) {
             _terminal[index].mode = GPDSPMODE_NEGATIVE;
             _terminal[index].node = from;
@@ -140,7 +140,7 @@ GPDSPError GPDSPInputtableNode::setLinkConstantI(int index, GPDSPFloat constant)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (_terminal[index].mode != GPDSPMODE_CONSTANT || constant != _terminal[index].constant) {
             _terminal[index].mode = GPDSPMODE_CONSTANT;
             _terminal[index].constant = constant;
@@ -157,7 +157,7 @@ GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const**
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (_terminal[index].mode == GPDSPMODE_POSITIVE || _terminal[index].mode == GPDSPMODE_NEGATIVE) {
             if (from != NULL) {
                 *from = _terminal[index].node;
@@ -180,7 +180,7 @@ GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPFloat* constant) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (_terminal[index].mode == GPDSPMODE_CONSTANT) {
             if (constant != NULL) {
                 *constant = _terminal[index].constant;
@@ -200,7 +200,7 @@ GPDSPError GPDSPInputtableNode::clearLinkI(int index)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         if (_terminal[index].mode != GPDSPMODE_NONE) {
             _terminal[index].mode = GPDSPMODE_NONE;
             invalidate();
@@ -216,7 +216,7 @@ void GPDSPInputtableNode::clearLinkI(GPDSPMode mode)
 {
     int i;
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if (_terminal[i].mode == mode) {
             if (_terminal[i].mode != GPDSPMODE_NONE) {
                 _terminal[i].mode = GPDSPMODE_NONE;
@@ -231,7 +231,7 @@ void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from, int which
 {
     int i;
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if ((_terminal[i].mode == GPDSPMODE_POSITIVE || _terminal[i].mode == GPDSPMODE_NEGATIVE) && _terminal[i].node == from && _terminal[i].index == which) {
             _terminal[i].mode = GPDSPMODE_NONE;
             invalidate();
@@ -244,7 +244,7 @@ void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from)
 {
     int i;
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if ((_terminal[i].mode == GPDSPMODE_POSITIVE || _terminal[i].mode == GPDSPMODE_NEGATIVE) && _terminal[i].node == from) {
             _terminal[i].mode = GPDSPMODE_NONE;
             invalidate();
@@ -257,7 +257,7 @@ void GPDSPInputtableNode::clearLinkI(void)
 {
     int i;
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if (_terminal[i].mode != GPDSPMODE_NONE) {
             _terminal[i].mode = GPDSPMODE_NONE;
             invalidate();
@@ -270,7 +270,7 @@ GPDSPError GPDSPInputtableNode::getValueI(int index, GPDSPFloat* value) const
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         switch (_terminal[index].mode) {
             case GPDSPMODE_POSITIVE:
                 if (_terminal[index].node != NULL) {
@@ -315,7 +315,7 @@ int GPDSPInputtableNode::findNameI(std::string const& what) const
     int i;
     int result(-1);
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if (_terminal[i].name == what) {
             result = i;
             break;
@@ -329,7 +329,7 @@ int GPDSPInputtableNode::findLinkI(GPDSPMode mode) const
     int i;
     int result(-1);
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if (_terminal[i].mode == mode) {
             result = i;
             break;
@@ -343,7 +343,7 @@ int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from, int which) 
     int i;
     int result(-1);
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if ((_terminal[i].mode == GPDSPMODE_POSITIVE || _terminal[i].mode == GPDSPMODE_NEGATIVE) && _terminal[i].node == from && _terminal[i].index == which) {
             result = i;
             break;
@@ -357,7 +357,7 @@ int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from) const
     int i;
     int result(-1);
     
-    for (i = 0; i < _terminal.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
         if ((_terminal[i].mode == GPDSPMODE_POSITIVE || _terminal[i].mode == GPDSPMODE_NEGATIVE) && _terminal[i].node == from) {
             result = i;
             break;
@@ -378,9 +378,9 @@ GPDSPError GPDSPInputtableNode::setCountI(int count, std::string const& what)
     if (count < 0) {
         count = 0;
     }
-    if (count != _terminal.size()) {
+    if (count != static_cast<int>(_terminal.size())) {
         try {
-            _terminal.resize(count, TerminalRec{what, GPDSPMODE_NONE});
+            _terminal.resize(count, TerminalRec{what, GPDSPMODE_NONE, {}});
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
@@ -397,7 +397,7 @@ GPDSPError GPDSPInputtableNode::appendI(std::string const& what)
     GPDSPError error(GPDSPERROR_OK);
     
     try {
-        _terminal.push_back(TerminalRec{what, GPDSPMODE_NONE});
+        _terminal.push_back(TerminalRec{what, GPDSPMODE_NONE, {}});
     }
     catch (std::bad_alloc const&) {
         error = GPDSPERROR_NO_MEMORY;
@@ -412,9 +412,9 @@ GPDSPError GPDSPInputtableNode::insertI(int index, std::string const& what)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         try {
-            _terminal.insert(_terminal.begin() + index, TerminalRec{what, GPDSPMODE_NONE});
+            _terminal.insert(_terminal.begin() + index, TerminalRec{what, GPDSPMODE_NONE, {}});
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
@@ -433,7 +433,7 @@ GPDSPError GPDSPInputtableNode::removeI(int index)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if (0 <= index && index < _terminal.size()) {
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
         _terminal.erase(_terminal.begin() + index);
         invalidate();
     }

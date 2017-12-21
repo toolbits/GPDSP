@@ -78,7 +78,7 @@ GPDSPError GPDSPGenericNode::open(std::string const& file)
                         node = _renderer.getNode(name);
                         if ((input = std::dynamic_pointer_cast<GPDSPGenericInputNode>(node)) != NULL) {
                             if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
-                                if (index + 1 > _input.size()) {
+                                if (index + 1 > static_cast<int>(_input.size())) {
                                     try {
                                         _input.resize(index + 1, NULL);
                                     }
@@ -98,7 +98,7 @@ GPDSPError GPDSPGenericNode::open(std::string const& file)
                         }
                         else if ((output = std::dynamic_pointer_cast<GPDSPGenericOutputNode>(node)) != NULL) {
                             if ((error = nameToIndex(name, &index)) == GPDSPERROR_OK) {
-                                if (index + 1 > _output.size()) {
+                                if (index + 1 > static_cast<int>(_output.size())) {
                                     try {
                                         _output.resize(index + 1, NULL);
                                     }
@@ -241,7 +241,7 @@ GPDSPError GPDSPGenericNode::copyInput(void)
     int i;
     GPDSPError error(GPDSPERROR_OK);
     
-    for (i = 0; i < _input.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_input.size()); ++i) {
         error = getValueI(i, &value);
         switch (error) {
             case GPDSPERROR_OK:
@@ -268,7 +268,7 @@ GPDSPError GPDSPGenericNode::copyOutput(void)
     int i;
     GPDSPError error(GPDSPERROR_OK);
     
-    for (i = 0; i < _output.size(); ++i) {
+    for (i = 0; i < static_cast<int>(_output.size()); ++i) {
         if (_output[i] != NULL) {
             error = _output[i]->getValueI(0, &value);
             switch (error) {

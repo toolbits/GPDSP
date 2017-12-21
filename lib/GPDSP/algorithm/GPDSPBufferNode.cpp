@@ -64,7 +64,7 @@ GPDSPError GPDSPBufferNode::setSize(int size)
     if (size < 0) {
         size = 0;
     }
-    if (size != _queue.size()) {
+    if (size != static_cast<int>(_queue.size())) {
         try {
             _queue.assign(size, GPDSPFV(0.0));
         }

@@ -58,7 +58,7 @@ class GPDSPNodeRenderer;
 
 class GPDSPSerializable {
     public:
-        virtual GPDSPError                  load                        (GPDSPNodeRenderer* renderer, std::string const& type, std::string const& name, tinyxml2::XMLElement const* element) = 0;
+        virtual GPDSPError                  load                        (GPDSPNodeRenderer* renderer, std::string const& type, std::string const& name, int format, tinyxml2::XMLElement const* element) = 0;
         virtual GPDSPError                  save                        (GPDSPNodeRenderer const& renderer, std::shared_ptr<GPDSPNode const> const& node, std::string const& name, tinyxml2::XMLElement* element) = 0;
     protected:
         explicit                            GPDSPSerializable           (void);

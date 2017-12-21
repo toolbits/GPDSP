@@ -1035,11 +1035,18 @@ GPDSPError GPDSPNodeRenderer::deleteNode(std::string const& name)
 {
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((error = clearLinkO(name)) == GPDSPERROR_OK) {
-        _sequence.clear();
-        _wait.clear();
-        _node.erase(name);
-        _nit = _node.end();
+    error = clearLinkO(name);
+    switch (error) {
+        case GPDSPERROR_INVALID_NODE:
+            error = GPDSPERROR_OK;
+        case GPDSPERROR_OK:
+            _sequence.clear();
+            _wait.clear();
+            _node.erase(name);
+            _nit = _node.end();
+            break;
+        default:
+            break;
     }
     return error;
 }
@@ -1093,6 +1100,39 @@ GPDSPError GPDSPNodeRenderer::clearO(std::string const& name)
     
     if ((error = getNodeFlexOutputtable(name, &node)) == GPDSPERROR_OK) {
         node->clearO();
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::renameNode(std::string const& name, std::string const& alternate)
+{
+    std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (alternate != "") {
+        if ((it = _node.find(name)) != _node.end()) {
+            if (_node.find(alternate) == _node.end()) {
+                try {
+                    _node[alternate] = it->second;
+                }
+                catch (std::bad_alloc const&) {
+                    error = GPDSPERROR_NO_MEMORY;
+                }
+                if (error == GPDSPERROR_OK) {
+                    _node.erase(name);
+                    _nit = _node.end();
+                }
+            }
+            else {
+                error = GPDSPERROR_ALREADY_EXIST;
+            }
+        }
+        else {
+            error = GPDSPERROR_NO_NODE;
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_PARAM;
     }
     return error;
 }
@@ -1445,7 +1485,7 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* s
                                                         error = newNodeGenericOutput(name);
                                                     }
                                                     else if (serializable != NULL) {
-                                                        error = serializable->load(this, string, name, xml.instance);
+                                                        error = serializable->load(this, string, name, format, xml.instance);
                                                     }
                                                     else {
                                                         error = GPDSPERROR_NO_SUPPORT;
@@ -1556,6 +1596,9 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
         }
         catch (std::bad_alloc const&) {
             error = GPDSPERROR_NO_MEMORY;
+        }
+        if (error != GPDSPERROR_OK) {
+            break;
         }
     }
     if (error == GPDSPERROR_OK) {
