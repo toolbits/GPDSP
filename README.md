@@ -30,7 +30,8 @@ o GPDSPSquareWaveNode: generate square wave with customizable frequency and phas
 
 An audio processing example application for openFrameworks:  
 
-<img width="960" alt="screenshot" src="https://user-images.githubusercontent.com/1215065/33012132-57f4c914-ce23-11e7-92bc-8c40254051d5.png">
+<img width="960" alt="screenshot" src="https://user-images.githubusercontent.com/1215065/34238138-8f419cca-e643-11e7-875b-2ce06e682744.png">
+<img width="960" alt="screenshot" src="https://user-images.githubusercontent.com/1215065/34238146-950483ca-e643-11e7-9e03-78d545a7fbbe.png">
 
 The openFrameworks exmaple code needs ofxDatGui addon.  
 Please install ofxDatGui first:  
