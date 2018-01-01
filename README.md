@@ -56,5 +56,5 @@ https://github.com/toolbits/GPDSP/tree/master/release
 Development environment:  
 
 o macOS High Sierra (10.13.2)  
-o Xcode 9.0 (Apple LLVM 9.0.0)  
+o Xcode 9.2 (Apple LLVM 9.0.0)  
 o openFrameworks 0.9.8  

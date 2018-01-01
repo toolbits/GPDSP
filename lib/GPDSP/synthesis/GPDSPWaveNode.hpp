@@ -1,7 +1,7 @@
 /*
 **      General Purpose DSP Library
 **
-**      Original Copyright (C) 2017 - 2017 HORIGUCHI Junshi.
+**      Original Copyright (C) 2017 - 2018 HORIGUCHI Junshi.
 **                                          http://iridium.jp/
 **                                          zap00365@nifty.com
 **      Portions Copyright (C) <year> <author>
@@ -12,7 +12,7 @@
 **      E-mail      zap00365@nifty.com
 **
 **      This source code is for Xcode.
-**      Xcode 9.0 (Apple LLVM 9.0.0)
+**      Xcode 9.2 (Apple LLVM 9.0.0)
 **
 **      GPDSPWaveNode.hpp
 **
@@ -74,11 +74,11 @@ class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
     protected:
         explicit                            GPDSPWaveNode               (int rate);
         virtual                             ~GPDSPWaveNode              (void) = 0;
-    private:
-                GPDSPError                  makeWave                    (GPDSPFloat resolution, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > const** wave) const;
         virtual std::string                 getName                     (void) const = 0;
         virtual GPDSPFloat                  getWave                     (GPDSPFloat phase) const = 0;
         virtual void                        fillWave                    (std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const = 0;
+    private:
+                GPDSPError                  makeWave                    (GPDSPFloat resolution, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > const** wave) const;
     private:
                                             GPDSPWaveNode               (GPDSPWaveNode const&);
                 GPDSPWaveNode&              operator=                   (GPDSPWaveNode const&);

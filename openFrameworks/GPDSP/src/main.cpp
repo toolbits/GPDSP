@@ -1,7 +1,7 @@
 /*
 **      General Purpose DSP Library
 **
-**      Original Copyright (C) 2017 - 2017 HORIGUCHI Junshi.
+**      Original Copyright (C) 2017 - 2018 HORIGUCHI Junshi.
 **                                          http://iridium.jp/
 **                                          zap00365@nifty.com
 **      Portions Copyright (C) <year> <author>

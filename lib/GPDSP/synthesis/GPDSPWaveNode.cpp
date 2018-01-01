@@ -1,7 +1,7 @@
 /*
 **      General Purpose DSP Library
 **
-**      Original Copyright (C) 2017 - 2017 HORIGUCHI Junshi.
+**      Original Copyright (C) 2017 - 2018 HORIGUCHI Junshi.
 **                                          http://iridium.jp/
 **                                          zap00365@nifty.com
 **      Portions Copyright (C) <year> <author>
@@ -12,7 +12,7 @@
 **      E-mail      zap00365@nifty.com
 **
 **      This source code is for Xcode.
-**      Xcode 9.0 (Apple LLVM 9.0.0)
+**      Xcode 9.2 (Apple LLVM 9.0.0)
 **
 **      GPDSPWaveNode.cpp
 **

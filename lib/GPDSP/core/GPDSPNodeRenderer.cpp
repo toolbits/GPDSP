@@ -1,7 +1,7 @@
 /*
 **      General Purpose DSP Library
 **
-**      Original Copyright (C) 2017 - 2017 HORIGUCHI Junshi.
+**      Original Copyright (C) 2017 - 2018 HORIGUCHI Junshi.
 **                                          http://iridium.jp/
 **                                          zap00365@nifty.com
 **      Portions Copyright (C) <year> <author>
@@ -12,7 +12,7 @@
 **      E-mail      zap00365@nifty.com
 **
 **      This source code is for Xcode.
-**      Xcode 9.0 (Apple LLVM 9.0.0)
+**      Xcode 9.2 (Apple LLVM 9.0.0)
 **
 **      GPDSPNodeRenderer.cpp
 **
@@ -1111,20 +1111,22 @@ GPDSPError GPDSPNodeRenderer::renameNode(std::string const& name, std::string co
     
     if (alternate != "") {
         if ((it = _node.find(name)) != _node.end()) {
-            if (_node.find(alternate) == _node.end()) {
-                try {
-                    _node[alternate] = it->second;
+            if (alternate != name) {
+                if (_node.find(alternate) == _node.end()) {
+                    try {
+                        _node[alternate] = it->second;
+                    }
+                    catch (std::bad_alloc const&) {
+                        error = GPDSPERROR_NO_MEMORY;
+                    }
+                    if (error == GPDSPERROR_OK) {
+                        _node.erase(name);
+                        _nit = _node.end();
+                    }
                 }
-                catch (std::bad_alloc const&) {
-                    error = GPDSPERROR_NO_MEMORY;
+                else {
+                    error = GPDSPERROR_ALREADY_EXIST;
                 }
-                if (error == GPDSPERROR_OK) {
-                    _node.erase(name);
-                    _nit = _node.end();
-                }
-            }
-            else {
-                error = GPDSPERROR_ALREADY_EXIST;
             }
         }
         else {
@@ -2406,40 +2408,32 @@ GPDSPError GPDSPNodeRenderer::readInputTag(tinyxml2::XMLElement const* parent, s
             if (terminal->Name() != NULL) {
                 if ((error = numberize("::", terminal->Name(), &number)) == GPDSPERROR_OK) {
                     if (number >= 0) {
-                        if (!terminal->NoChildren()) {
-                            string = "";
-                            if ((error = readTag(terminal, "mode", true, &string)) == GPDSPERROR_OK) {
-                                if (string == "") {
-                                    if (terminal->FirstChildElement("constant") == NULL) {
-                                        string = "positive";
+                        if (terminal->FirstChildElement("constant") == NULL) {
+                            if (terminal->FirstChildElement("negative") == NULL) {
+                                if ((error = readLinkTag(terminal, &string, &index)) == GPDSPERROR_OK) {
+                                    if (string != "") {
+                                        error = setLinkPositiveI(name, number, string, index);
                                     }
-                                    else if (terminal->FirstChildElement("node") == NULL) {
-                                        string = "constant";
-                                    }
-                                }
-                                if (string == "positive") {
-                                    if ((error = readLinkTag(terminal, &string, &index)) == GPDSPERROR_OK) {
-                                        if (string != "") {
-                                            error = setLinkPositiveI(name, number, string, index);
-                                        }
-                                    }
-                                }
-                                else if (string == "negative") {
-                                    if ((error = readLinkTag(terminal, &string, &index)) == GPDSPERROR_OK) {
-                                        if (string != "") {
-                                            error = setLinkNegativeI(name, number, string, index);
-                                        }
-                                    }
-                                }
-                                else if (string == "constant") {
-                                    if ((error = readLinkTag(terminal, format, &value)) == GPDSPERROR_OK) {
-                                        error = setLinkConstantI(name, number, value);
-                                    }
-                                }
-                                else {
-                                    error = GPDSPERROR_INVALID_FORMAT;
                                 }
                             }
+                            else if (terminal->FirstChildElement("positive") == NULL) {
+                                if ((error = readLinkTag(terminal, &string, &index)) == GPDSPERROR_OK) {
+                                    if (string != "") {
+                                        error = setLinkNegativeI(name, number, string, index);
+                                    }
+                                }
+                            }
+                            else {
+                                error = GPDSPERROR_INVALID_FORMAT;
+                            }
+                        }
+                        else if (terminal->FirstChildElement("positive") == NULL && terminal->FirstChildElement("negative") == NULL) {
+                            if ((error = readLinkTag(terminal, format, &value)) == GPDSPERROR_OK) {
+                                error = setLinkConstantI(name, number, value);
+                            }
+                        }
+                        else {
+                            error = GPDSPERROR_INVALID_FORMAT;
                         }
                     }
                     else {
@@ -2556,7 +2550,7 @@ GPDSPError GPDSPNodeRenderer::readFormatTag(tinyxml2::XMLElement const* parent, 
     GPDSPError error(GPDSPERROR_OK);
     
     value = sizeof(GPDSPFloat) * 8;
-    if ((error = readTag(parent, "format", true, &value)) == GPDSPERROR_OK) {
+    if ((error = readTag(parent, "format", false, &value)) == GPDSPERROR_OK) {
         *format = value;
     }
     return error;
@@ -2564,9 +2558,10 @@ GPDSPError GPDSPNodeRenderer::readFormatTag(tinyxml2::XMLElement const* parent, 
 
 GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, std::string const& node, int index, bool positive)
 {
+    tinyxml2::XMLElement* element;
     GPDSPError error(GPDSPERROR_OK);
     
-    if ((error = writeTag(parent, "mode", (positive) ? ("positive") : ("negative"))) == GPDSPERROR_OK) {
+    if ((error = addTag(parent, (positive) ? ("positive") : ("negative"), &element)) == GPDSPERROR_OK) {
         if ((error = writeTag(parent, "node", node)) == GPDSPERROR_OK) {
             error = writeTag(parent, "index", index);
         }
@@ -2576,12 +2571,7 @@ GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, std::st
 
 GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, GPDSPFloat constant)
 {
-    GPDSPError error(GPDSPERROR_OK);
-    
-    if ((error = writeTag(parent, "mode", "constant")) == GPDSPERROR_OK) {
-        error = writeTag(parent, "constant", constant);
-    }
-    return error;
+    return writeTag(parent, "constant", constant);
 }
 
 GPDSPError GPDSPNodeRenderer::readLinkTag(tinyxml2::XMLElement const* parent, std::string* node, int* index)

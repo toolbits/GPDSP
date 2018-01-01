@@ -130,7 +130,7 @@
                     <node>mul[L-Re]</node>
                 </::0>
                 <::1>
-                    <mode>negative</mode>
+                    <negative />
                     <node>mul[L-Im]</node>
                 </::1>
             </input>
@@ -142,7 +142,7 @@
                     <node>mul[R-Re]</node>
                 </::0>
                 <::1>
-                    <mode>negative</mode>
+                    <negative />
                     <node>mul[R-Im]</node>
                 </::1>
             </input>
@@ -152,7 +152,7 @@
             <name>sin</name>
             <input>
                 <::0>
-                    <constant>1000</constant>
+                    <constant>880</constant>
                 </::0>
             </input>
         </GPDSPSinWaveNode>

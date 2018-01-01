@@ -1,7 +1,7 @@
 /*
 **      GPDSPGenerative
 **
-**      Original Copyright (C) 2017 - 2017 HORIGUCHI Junshi.
+**      Original Copyright (C) 2017 - 2018 HORIGUCHI Junshi.
 **                                          http://iridium.jp/
 **                                          zap00365@nifty.com
 **      Portions Copyright (C) <year> <author>
@@ -12,7 +12,7 @@
 **      E-mail      zap00365@nifty.com
 **
 **      This source code is for Xcode.
-**      Xcode 9.0 (Apple LLVM 9.0.0)
+**      Xcode 9.2 (Apple LLVM 9.0.0)
 **
 **      ofApp.cpp
 **
@@ -57,7 +57,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSPGenerative 0.6.5        2017 iridium.jp");
+    ofSetWindowTitle("GPDSPGenerative 0.7.0        2017 - 2018 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
