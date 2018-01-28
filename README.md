@@ -54,7 +54,7 @@ Compiled binary is here:
 https://github.com/toolbits/GPDSP/tree/master/release  
 
 Document is here:  
-https://github.com/toolbits/GPDSP/tree/master/release/html  
+https://toolbits.github.io/GPDSP/  
 
 Development environment:  
 
