@@ -53,6 +53,13 @@
 
 namespace ir {
 
+//! バッファ入力ノードを表す具象クラス
+/*!
+    GPDSPBufferInputNode クラスは, 設定されたバッファからデータを読み込むためのバッファ入力ノードを表す具象クラスです.
+    バッファが設定されていないときは, 0.0 を出力します.
+ 
+    入力ターミナルは持たず, １つの出力ターミナル "out" を持ちます.
+ */
 class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRewindableNode, public virtual GPDSPRefreshableNode {
     private:
                 GPDSPFloat const*           _delegate;
@@ -62,18 +69,94 @@ class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRe
                 int                         _position;
     
     public:
+        //! コンストラクタです.
+        /*!
+            リソースを初期化します.
+         */
         explicit                            GPDSPBufferInputNode        (void);
+        //! デストラクタです.
+        /*!
+            管理しているリソースを解放します.
+         */
         virtual                             ~GPDSPBufferInputNode       (void);
+        //! 既存の入力バッファを参照, または, 新規の入力バッファを自動的に確保します.
+        /*!
+            buffer 引数に NULL 以外のアドレスを設定すると, 既存の入力バッファを入力バッファとして参照します.
+            このとき, length 引数, もしくは interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
+         
+            buffer 引数に NULL を設定し length 引数が 0 以下でないとき,
+            length 引数と interleave 引数から適切な入力バッファのサイズを計算し, 自動的に入力バッファを確保します.
+            このとき, interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
+         
+            buffer 引数に NULL を設定し length 引数が 0 以下のとき,
+            既存の入力バッファが設定されている場合は入力バッファの参照を解除し,
+            入力バッファが自動的に確保されている場合は入力バッファを解放します.
+         
+            @param[in] buffer 既存の入力バッファ (NULL 可能)
+            @param[in] length 入力バッファのサイズ
+            @param[in] interleave データの間隔
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
                 GPDSPError                  setBuffer                   (GPDSPFloat const* buffer, int length, int interleave);
+        //! 読み込み専用の入力バッファを取得します.
+        /*!
+            @param[out] length 入力バッファのサイズ (NULL 可能)
+            @param[out] interleave データの間隔 (NULL 可能)
+            @retval NULL 入力バッファが設定されていない
+            @retval その他 入力バッファのアドレス
+         */
                 GPDSPFloat const*           getBufferReadonly           (int* length, int* interleave) const;
+        //! 書き込み可能な入力バッファを取得します.
+        /*!
+            @param[out] length 入力バッファのサイズ (NULL 可能)
+            @param[out] interleave データの間隔 (NULL 可能)
+            @retval NULL 自動的に確保された入力バッファではない
+            @retval その他 入力バッファのアドレス
+         */
                 GPDSPFloat*                 getBufferWritable           (int* length, int* interleave);
+        //! 入力バッファの操作位置を設定します.
+        /*!
+            @param[in] position 設定する操作位置
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_INVALID_STATE 不正な状態
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
                 GPDSPError                  setPosition                 (int position);
+        //! 入力バッファの操作位置を取得します.
+        /*!
+            @return 現在の操作位置
+         */
                 int                         getPosition                 (void) const;
+        //! 入力バッファが既存の入力バッファへの参照であるかどうかを判定します.
+        /*!
+            @retval true 既存の入力バッファへの参照
+            @retval false 入力バッファが設定されていないか自動的に確保された入力バッファ
+         */
                 bool                        isDelegate                  (void) const;
+        //! 出力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 演算前の準備をします.
+        /*!
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+         */
         virtual GPDSPError                  process                     (void);
+        //! 入力バッファの操作位置を先頭に再初期化します.
         virtual void                        rewind                      (void);
+        //! 入力バッファの値を 0.0 に再初期化します.
         virtual void                        refresh                     (void);
     private:
                                             GPDSPBufferInputNode        (GPDSPBufferInputNode const&);

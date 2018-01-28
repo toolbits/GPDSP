@@ -70,11 +70,27 @@ class GPDSPOutputtableNode : public virtual GPDSPNode {
                 GPDSPError                  getNameO                    (int index, std::string* what) const;
                 GPDSPError                  getValueO                   (int index, GPDSPFloat* value) const;
                 int                         findNameO                   (std::string const& what) const;
+        //! 出力の演算結果を無効化し, 再演算を要求します.
         virtual void                        invalidate                  (void);
     protected:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPOutputtableNode        (void);
+        //! デストラクタです.
+        /*!
+            管理しているリソースを解放します.
+         */
         virtual                             ~GPDSPOutputtableNode       (void) = 0;
                 GPDSPError                  setCountO                   (int count, std::string const& what);
+        //! 出力ターミナルの値を設定します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[in] value 設定する値
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
                 GPDSPError                  setValueO                   (int index, GPDSPFloat value);
                 GPDSPError                  appendO                     (std::string const& what);
                 GPDSPError                  insertO                     (int index, std::string const& what);

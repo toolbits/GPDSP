@@ -92,9 +92,21 @@ class GPDSPInputtableNode : public virtual GPDSPNode {
                 int                         findLinkI                   (GPDSPMode mode) const;
                 int                         findLinkI                   (GPDSPOutputtableNode const* from, int which) const;
                 int                         findLinkI                   (GPDSPOutputtableNode const* from) const;
+        //! 入力の演算結果を無効化し, 再演算を要求します.
+        /*!
+            何もしません.
+         */
         virtual void                        invalidate                  (void);
     protected:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPInputtableNode         (void);
+        //! デストラクタです.
+        /*!
+            管理しているリソースを解放します.
+         */
         virtual                             ~GPDSPInputtableNode        (void) = 0;
                 GPDSPError                  setCountI                   (int count, std::string const& what);
                 GPDSPError                  appendI                     (std::string const& what);

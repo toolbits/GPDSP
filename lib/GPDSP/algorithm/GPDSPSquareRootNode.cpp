@@ -49,18 +49,8 @@
 
 namespace ir {
 
-inline float fast_sqrt(float x)
-{
-    int32_t temp(0x5F3759DF - (*reinterpret_cast<int32_t*>(&x) >> 1));
-    float z(*reinterpret_cast<float*>(&temp));
-    float h(0.5f * x);
-    
-    z *= 1.5f - h * z * z;
-    z *= 1.5f - h * z * z;
-    return z * x;
-}
-
-inline double fast_sqrt(double x)
+#ifdef __GPDSP64
+static inline double fast_sqrt(double x)
 {
     int64_t temp(0x5FE6EB50C7B537AALL - (*reinterpret_cast<int64_t*>(&x) >> 1));
     double z(*reinterpret_cast<double*>(&temp));
@@ -70,6 +60,18 @@ inline double fast_sqrt(double x)
     z *= 1.5 - h * z * z;
     return z * x;
 }
+#else
+static inline float fast_sqrt(float x)
+{
+    int32_t temp(0x5F3759DF - (*reinterpret_cast<int32_t*>(&x) >> 1));
+    float z(*reinterpret_cast<float*>(&temp));
+    float h(0.5f * x);
+    
+    z *= 1.5f - h * z * z;
+    z *= 1.5f - h * z * z;
+    return z * x;
+}
+#endif
 
 GPDSPSquareRootNode::GPDSPSquareRootNode(void)
 {

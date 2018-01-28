@@ -51,12 +51,46 @@
 
 namespace ir {
 
+//! 外部出力ノードを表す具象クラス
+/*!
+    GPDSPGenericOutputNode クラスは, 出力ターミナルではなく getValueI() 関数を使用して,
+    出力を外部へ書き込むための外部出力ノードを表す具象クラスです.
+ 
+    GPDSPGenericNode クラスとともに使用します.
+ 
+    １つの入力ターミナル "in" を持ち, 出力ターミナルは持ちません.
+ */
 class GPDSPGenericOutputNode : public GPDSPInputtableNode {
     public:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPGenericOutputNode      (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPGenericOutputNode     (void);
+        //! 入力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 演算前の準備をします.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_IGNORE 演算対象外として無視
+         */
         virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPGenericOutputNode      (GPDSPGenericOutputNode const&);

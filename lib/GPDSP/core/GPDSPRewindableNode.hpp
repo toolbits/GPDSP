@@ -49,11 +49,26 @@
 
 namespace ir {
 
+//! ノードが巻き戻し可能であることを表すインターフェースクラス
+/*!
+    GPDSPRewindableNode クラスは, ノードが巻き戻し可能であることを表し, GPDSPNode クラスとともに継承して利用する基底クラスです.
+ 
+    各種ノードを表す具象クラスは, GPDSPRewindableNode クラスの rewind() 関数を実装する必要があります.
+ */
 class GPDSPRewindableNode {
     public:
+        //! 入出力バッファの操作位置などを再初期化します.
         virtual void                        rewind                      (void) = 0;
     protected:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPRewindableNode         (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPRewindableNode        (void) = 0;
     private:
                                             GPDSPRewindableNode         (GPDSPRewindableNode const&);

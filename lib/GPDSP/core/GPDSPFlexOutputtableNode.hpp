@@ -59,7 +59,15 @@ class GPDSPFlexOutputtableNode : public GPDSPOutputtableNode {
                 GPDSPError                  removeO                     (int index);
                 void                        clearO                      (void);
     protected:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPFlexOutputtableNode    (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPFlexOutputtableNode   (void) = 0;
     private:
                                             GPDSPFlexOutputtableNode    (GPDSPFlexOutputtableNode const&);

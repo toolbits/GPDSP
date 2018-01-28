@@ -12,7 +12,7 @@
 **      E-mail      zap00365@nifty.com
 **
 **      This source code is for Xcode.
-**      Xcode 9.0 (Apple LLVM 9.0.0)
+**      Xcode 9.2 (Apple LLVM 9.0.0)
 **
 **      main.cpp
 **

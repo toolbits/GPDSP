@@ -53,8 +53,11 @@ of_v0.9.8_osx_release/
 Compiled binary is here:  
 https://github.com/toolbits/GPDSP/tree/master/release  
 
+Document is here:  
+https://github.com/toolbits/GPDSP/tree/master/release/html  
+
 Development environment:  
 
-o macOS High Sierra (10.13.2)  
+o macOS High Sierra (10.13.3)  
 o Xcode 9.2 (Apple LLVM 9.0.0)  
 o openFrameworks 0.9.8  

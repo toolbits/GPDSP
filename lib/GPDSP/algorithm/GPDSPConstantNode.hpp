@@ -51,18 +51,60 @@
 
 namespace ir {
 
+//! 定数ノードを表す具象クラス
+/*!
+    GPDSPConstantNode クラスは, 設定された定数値を出力する定数ノードを表す具象クラスです.
+ 
+    入力ターミナルは持たず, １つの出力ターミナル "out" を持ちます.
+ */
 class GPDSPConstantNode : public GPDSPOutputtableNode {
     private:
                 GPDSPFloat                  _constant;
     
     public:
+        //! コンストラクタです.
+        /*!
+            定数値を defaultConstant() に初期化します.
+         */
         explicit                            GPDSPConstantNode           (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPConstantNode          (void);
+        //! デフォルトの定数値を取得します.
+        /*!
+            @retval 0.0 デフォルトの定数値
+         */
         static  GPDSPFloat                  defaultConstant             (void);
+        //! 定数値を設定します.
+        /*!
+            @param[in] constant 設定する定数値
+         */
                 void                        setConstant                 (GPDSPFloat constant);
+        //! 定数値を取得します.
+        /*!
+            @return 現在の定数値
+         */
                 GPDSPFloat                  getConstant                 (void) const;
+        //! 出力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 演算前の準備をします.
+        /*!
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+         */
         virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPConstantNode           (GPDSPConstantNode const&);

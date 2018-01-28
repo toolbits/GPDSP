@@ -53,7 +53,7 @@
 #include "../algorithm/GPDSPConstantNode.hpp"
 #include "../algorithm/GPDSPSignNode.hpp"
 #include "../algorithm/GPDSPGateNode.hpp"
-#include "../algorithm/GPDSPPeekNode.hpp"
+#include "../algorithm/GPDSPPeakNode.hpp"
 #include "../algorithm/GPDSPAmplifyNode.hpp"
 #include "../algorithm/GPDSPDelayNode.hpp"
 #include "../algorithm/GPDSPBufferNode.hpp"
@@ -109,9 +109,9 @@ std::shared_ptr<GPDSPGateNode> GPDSPNodeRenderer::getNodeGate(std::string const&
     return std::dynamic_pointer_cast<GPDSPGateNode>(getNode(name));
 }
 
-std::shared_ptr<GPDSPPeekNode> GPDSPNodeRenderer::getNodePeek(std::string const& name) const
+std::shared_ptr<GPDSPPeakNode> GPDSPNodeRenderer::getNodePeak(std::string const& name) const
 {
-    return std::dynamic_pointer_cast<GPDSPPeekNode>(getNode(name));
+    return std::dynamic_pointer_cast<GPDSPPeakNode>(getNode(name));
 }
 
 std::shared_ptr<GPDSPAmplifyNode> GPDSPNodeRenderer::getNodeAmplify(std::string const& name) const
@@ -727,13 +727,13 @@ GPDSPError GPDSPNodeRenderer::newNodeGate(std::string const& name, GPDSPFloat mi
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodePeek(std::string const& name)
+GPDSPError GPDSPNodeRenderer::newNodePeak(std::string const& name)
 {
-    std::shared_ptr<GPDSPPeekNode> node;
+    std::shared_ptr<GPDSPPeakNode> node;
     GPDSPError error(GPDSPERROR_OK);
     
     try {
-        node = std::make_shared<GPDSPPeekNode>();
+        node = std::make_shared<GPDSPPeakNode>();
     }
     catch (std::bad_alloc const&) {
         error = GPDSPERROR_NO_MEMORY;
@@ -1388,8 +1388,8 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* s
                                                             error = newNodeGate(name, param.minimum, param.maximum);
                                                         }
                                                     }
-                                                    else if (string == "GPDSPPeekNode") {
-                                                        error = newNodePeek(name);
+                                                    else if (string == "GPDSPPeakNode") {
+                                                        error = newNodePeak(name);
                                                     }
                                                     else if (string == "GPDSPAmplifyNode") {
                                                         param.gain = GPDSPAmplifyNode::defaultGain();
@@ -1570,7 +1570,7 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
     std::shared_ptr<GPDSPConstantNode const> constant;
     std::shared_ptr<GPDSPSignNode const> sign;
     std::shared_ptr<GPDSPGateNode const> gate;
-    std::shared_ptr<GPDSPPeekNode const> peek;
+    std::shared_ptr<GPDSPPeakNode const> peak;
     std::shared_ptr<GPDSPAmplifyNode const> amplify;
     std::shared_ptr<GPDSPDelayNode const> delay;
     std::shared_ptr<GPDSPBufferNode const> buffer;
@@ -1658,8 +1658,8 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
                                                             }
                                                         }
                                                     }
-                                                    else if ((peek = std::dynamic_pointer_cast<GPDSPPeekNode const>(mit->second)) != NULL) {
-                                                        xml.instance->SetName("GPDSPPeekNode");
+                                                    else if ((peak = std::dynamic_pointer_cast<GPDSPPeakNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPPeakNode");
                                                     }
                                                     else if ((amplify = std::dynamic_pointer_cast<GPDSPAmplifyNode const>(mit->second)) != NULL) {
                                                         xml.instance->SetName("GPDSPAmplifyNode");

@@ -52,13 +52,48 @@
 
 namespace ir {
 
+//! 平方根ノードを表す具象クラス
+/*!
+    GPDSPSquareRootNode クラスは, 入力の平方根を計算して出力する平方根ノードを表す具象クラスです.
+    ニュートン法を利用した高速演算アルゴリズムにより, 精度よりも速度を優先して演算します.
+ 
+    入力が負のときは, 入力の絶対値の平方根を計算したのち符号を反転させます.
+ 
+    １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ */
 class GPDSPSquareRootNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     public:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPSquareRootNode         (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPSquareRootNode        (void);
+        //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 入出力の演算結果を無効化し, 再演算を要求します.
         virtual void                        invalidate                  (void);
+        //! 演算前の準備をします.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval GPDSPERROR_WAIT データフロー入力待ち
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPSquareRootNode         (GPDSPSquareRootNode const&);

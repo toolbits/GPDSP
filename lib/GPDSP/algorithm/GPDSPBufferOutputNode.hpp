@@ -53,6 +53,12 @@
 
 namespace ir {
 
+//! バッファ出力ノードを表す具象クラス
+/*!
+    GPDSPBufferOutputNode クラスは, 設定されたバッファにデータを書き込むためのバッファ出力ノードを表す具象クラスです.
+ 
+    １つの入力ターミナル "in" を持ち, 出力ターミナルは持ちません.
+ */
 class GPDSPBufferOutputNode : public GPDSPInputtableNode, public virtual GPDSPRewindableNode, public virtual GPDSPRefreshableNode {
     private:
                 GPDSPFloat*                 _delegate;
@@ -62,17 +68,87 @@ class GPDSPBufferOutputNode : public GPDSPInputtableNode, public virtual GPDSPRe
                 int                         _position;
     
     public:
+        //! コンストラクタです.
+        /*!
+            リソースを初期化します.
+         */
         explicit                            GPDSPBufferOutputNode       (void);
+        //! デストラクタです.
+        /*!
+            管理しているリソースを解放します.
+         */
         virtual                             ~GPDSPBufferOutputNode      (void);
+        //! 既存の出力バッファを参照, または, 新規の出力バッファを自動的に確保します.
+        /*!
+            buffer 引数に NULL 以外のアドレスを設定すると, 既存の出力バッファを出力バッファとして参照します.
+            このとき, length 引数, もしくは interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
+         
+            buffer 引数に NULL を設定し length 引数が 0 以下でないとき,
+            length 引数と interleave 引数から適切な出力バッファのサイズを計算し, 自動的に出力バッファを確保します.
+            このとき, interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
+         
+            buffer 引数に NULL を設定し length 引数が 0 以下のとき,
+            既存の出力バッファが設定されている場合は出力バッファの参照を解除し,
+            出力バッファが自動的に確保されている場合は出力バッファを解放します.
+         
+            @param[in] buffer 既存の出力バッファ (NULL 可能)
+            @param[in] length 出力バッファのサイズ
+            @param[in] interleave データの間隔
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
                 GPDSPError                  setBuffer                   (GPDSPFloat* buffer, int length, int interleave);
+        //! 読み込み専用の出力バッファを取得します.
+        /*!
+            @param[out] length 出力バッファのサイズ (NULL 可能)
+            @param[out] interleave データの間隔 (NULL 可能)
+            @retval NULL 出力バッファが設定されていない
+            @retval その他 出力バッファのアドレス
+         */
                 GPDSPFloat const*           getBufferReadonly           (int* length, int* interleave) const;
+        //! 出力バッファの操作位置を設定します.
+        /*!
+            @param[in] position 設定する操作位置
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_INVALID_STATE 不正な状態
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
                 GPDSPError                  setPosition                 (int position);
+        //! 出力バッファの操作位置を取得します.
+        /*!
+            @return 現在の操作位置
+         */
                 int                         getPosition                 (void) const;
+        //! 出力バッファが既存の出力バッファへの参照であるかどうかを判定します.
+        /*!
+            @retval true 既存の出力バッファへの参照
+            @retval false 出力バッファが設定されていないか自動的に確保された出力バッファ
+         */
                 bool                        isDelegate                  (void) const;
+        //! 入力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 演算前の準備をします.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval GPDSPERROR_WAIT データフロー入力待ち
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  process                     (void);
+        //! 出力バッファの操作位置を先頭に再初期化します.
         virtual void                        rewind                      (void);
+        //! 出力バッファの値を 0.0 に再初期化します.
         virtual void                        refresh                     (void);
     private:
                                             GPDSPBufferOutputNode       (GPDSPBufferOutputNode const&);

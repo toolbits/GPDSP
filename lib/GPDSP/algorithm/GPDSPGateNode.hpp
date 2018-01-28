@@ -53,23 +53,80 @@
 
 namespace ir {
 
+//! 制限ノードを表す具象クラス
+/*!
+    GPDSPGateNode クラスは, 設定された最小値と最大値の間に入力を制限して出力する制限ノードを表す具象クラスです.
+    最小値が最大値よりも大きいときは, 0.0 を出力します.
+ 
+    １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ */
 class GPDSPGateNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     private:
                 GPDSPFloat                  _minimum;
                 GPDSPFloat                  _maximum;
     
     public:
+        //! コンストラクタです.
+        /*!
+            最小値を defaultMinimum(), 最大値を defaultMaximum() に初期化します.
+         */
         explicit                            GPDSPGateNode               (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPGateNode              (void);
+        //! デフォルトの最小値を取得します.
+        /*!
+            @retval -INFINITY デフォルトの最小値
+         */
         static  GPDSPFloat                  defaultMinimum              (void);
+        //! デフォルトの最大値を取得します.
+        /*!
+            @retval +INFINITY デフォルトの最大値
+         */
         static  GPDSPFloat                  defaultMaximum              (void);
+        //! 最小値を設定します.
+        /*!
+            @param[in] minimum 設定する最小値
+         */
                 void                        setMinimum                  (GPDSPFloat minimum);
+        //! 最小値を取得します.
+        /*!
+            @return 現在の最小値
+         */
                 GPDSPFloat                  getMinimum                  (void) const;
+        //! 最大値を設定します.
+        /*!
+            @param[in] maximum 設定する最大値
+         */
                 void                        setMaximum                  (GPDSPFloat maximum);
+        //! 最大値を取得します.
+        /*!
+            @return 現在の最大値
+         */
                 GPDSPFloat                  getMaximum                  (void) const;
+        //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 入出力の演算結果を無効化し, 再演算を要求します.
         virtual void                        invalidate                  (void);
+        //! 演算前の準備をします.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval GPDSPERROR_WAIT データフロー入力待ち
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPGateNode               (GPDSPGateNode const&);

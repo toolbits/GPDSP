@@ -51,13 +51,44 @@
 
 namespace ir {
 
+//! 三角波ノードを表す具象クラス
+/*!
+    GPDSPTriangleWaveNode クラスは, 入力された周波数と位相に従って三角波を生成する三角波ノードを表す具象クラスです.
+ 
+    あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.
+ 
+    ２つの入力ターミナル "frequency", "phase" と, １つの出力ターミナル "out" を持ちます.
+ */
 class GPDSPTriangleWaveNode : public GPDSPWaveNode {
     public:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         
+            @param[in] rate サンプリングレート > 0
+         */
         explicit                            GPDSPTriangleWaveNode       (int rate);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPTriangleWaveNode      (void);
     protected:
+        //! 波形バッファの名前を取得します.
+        /*!
+            @return "GPDSPTriangleWaveNode"
+         */
         virtual std::string                 getName                     (void) const;
+        //! 引数に指定された位相に対応する, 三角波の値を取得します.
+        /*!
+            @param[in] phase 位相 [0.0, 1.0)
+            @return 三角波の値 [-1.0, +1.0]
+         */
         virtual GPDSPFloat                  getWave                     (GPDSPFloat phase) const;
+        //! 引数に指定された波形バッファに対して, １波長分の三角波の値を計算して書き込みます.
+        /*!
+            @param[in,out] wave 波形バッファ
+         */
         virtual void                        fillWave                    (std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const;
     private:
                                             GPDSPTriangleWaveNode       (GPDSPTriangleWaveNode const&);

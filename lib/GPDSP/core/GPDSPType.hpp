@@ -55,39 +55,72 @@ namespace ir {
 #define GPDSPFV(param)  (param)
 #define GPDSPFP         "%+.14e"
 #define GPDSPFS         "%lf"
+//! 演算対象のデータ型
+/*!
+    32 ビット浮動小数点をもちいる場合は, GPDSPConfig.hpp ファイル内で __GPDSP64 マクロを定義しない.
+ */
 typedef double          GPDSPFloat;
 #else
 #define GPDSPFV(param)  (param##f)
 #define GPDSPFP         "%+.6e"
 #define GPDSPFS         "%f"
+//! 演算対象のデータ型
+/*!
+    64 ビット浮動小数点をもちいる場合は, GPDSPConfig.hpp ファイル内で __GPDSP64 マクロを定義する.
+ */
 typedef float           GPDSPFloat;
 #endif
 
+//! エラーを表す定数
 enum GPDSPError {
+    //! 正常
     GPDSPERROR_OK,
+    //! データフロー入力待ち
     GPDSPERROR_WAIT,
+    //! 演算対象外として無視
     GPDSPERROR_IGNORE,
+    //! 一部の演算のみ完了
     GPDSPERROR_FRAGMENT,
+    //! 演算は無限ループ
     GPDSPERROR_LOOP,
+    //! サポートされていない
     GPDSPERROR_NO_SUPPORT,
+    //! ファイルが存在しない
     GPDSPERROR_NO_FILE,
+    //! メモリ不足
     GPDSPERROR_NO_MEMORY,
+    //! 項目が見つからない
     GPDSPERROR_NO_FOUND,
+    //! ノードが見つからない
     GPDSPERROR_NO_NODE,
+    //! すでに存在している
     GPDSPERROR_ALREADY_EXIST,
+    //! 不正な状態
     GPDSPERROR_INVALID_STATE,
+    //! 不正なパラメータ
     GPDSPERROR_INVALID_PARAM,
+    //! 範囲外のパラメータ
     GPDSPERROR_INVALID_RANGE,
+    //! 不正なフォーマット
     GPDSPERROR_INVALID_FORMAT,
+    //! 不正なノード
     GPDSPERROR_INVALID_NODE,
+    //! 失敗
     GPDSPERROR_FAILED,
+    //! エラーを表す定数の最大値
     GPDSPERROR_LIMIT
 };
+//! 入力ターミナルのモードを表す定数
 enum GPDSPMode {
+    //! 無効
     GPDSPMODE_NONE,
+    //! 非反転入力
     GPDSPMODE_POSITIVE,
+    //! 反転入力
     GPDSPMODE_NEGATIVE,
+    //! 定数入力
     GPDSPMODE_CONSTANT,
+    //! モードを表す定数の最大値
     GPDSPMODE_LIMIT
 };
 

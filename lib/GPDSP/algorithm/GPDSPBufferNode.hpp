@@ -54,19 +54,63 @@
 
 namespace ir {
 
+//! 任意遅延ノードを表す具象クラス
+/*!
+    GPDSPBufferNode クラスは, 入力を任意時間だけ遅延させて出力する任意遅延ノードを表す具象クラスです.
+    内部バッファのサイズが 0 のときは, 入力を即時に出力します.
+ 
+    １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ */
 class GPDSPBufferNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
                 std::deque<GPDSPFloat>      _queue;
     
     public:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPBufferNode             (void);
+        //! デストラクタです.
+        /*!
+            管理しているリソースを解放します.
+         */
         virtual                             ~GPDSPBufferNode            (void);
+        //! 内部バッファのサイズを設定し, 値を 0.0 に初期化します.
+        /*!
+            @param[in] size 設定するサイズ
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
                 GPDSPError                  setSize                     (int size);
+        //! 内部バッファのサイズを取得します.
+        /*!
+            @return 現在のサイズ
+         */
                 int                         getSize                     (void) const;
+        //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 入出力の演算結果を無効化し, 再演算を要求します.
         virtual void                        invalidate                  (void);
+        //! 演算前の準備をします.
+        /*!
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval GPDSPERROR_WAIT データフロー入力待ち
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  process                     (void);
+        //! 内部バッファの値を 0.0 に再初期化します.
         virtual void                        refresh                     (void);
     private:
                                             GPDSPBufferNode             (GPDSPBufferNode const&);

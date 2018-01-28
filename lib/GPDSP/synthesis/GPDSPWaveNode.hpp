@@ -54,6 +54,14 @@
 
 namespace ir {
 
+//! 波形ノードを表す抽象クラス
+/*!
+    GPDSPWaveNode クラスは, さまざまな波形を生成して出力する波形ノードを表す抽象クラスです.
+ 
+    あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.
+ 
+    各種ノードを表す具象クラスは, GPDSPWaveNode クラスの getName(), getWave(), fillWave() 関数を実装する必要があります.
+ */
 class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRewindableNode {
     private:
                 int                         _rate;
@@ -63,19 +71,89 @@ class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
                 GPDSPFloat                  _position;
     
     public:
+        //! デフォルトの解像度を取得します.
+        /*!
+            @retval +INFINITY デフォルトの解像度
+         */
         static  GPDSPFloat                  defaultResolution           (void);
+        //! 解像度を設定します.
+        /*!
+            (0.0, +INFINITY) の範囲の値を設定すると, サンプリングレートと解像度に応じた波形バッファがあらかじめ作成され,
+            演算時には波形バッファを参照し直線補完にて値を求めます.
+         
+            +INFINITY を設定すると波形バッファを作成することなく, 演算時に値を逐次計算して求めます.
+         
+            コンストラクタのサンプリングレート引数に 0 以下の値が設定されているとき, この関数は失敗します.
+         
+            @param[in] resolution 設定する解像度 (0.0, +INFINITY]
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval GPDSPERROR_INVALID_STATE 不正な状態
+            @retval GPDSPERROR_INVALID_PARAM 不正なパラメータ
+            @retval GPDSPERROR_FAILED 失敗
+         */
                 GPDSPError                  setResolution               (GPDSPFloat resolution);
+        //! 解像度を取得します.
+        /*!
+            @return 現在の解像度
+         */
                 GPDSPFloat                  getResolution               (void) const;
+        //! 入力ターミナルを２つと, 出力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 入出力の演算結果を無効化し, 再演算を要求します.
         virtual void                        invalidate                  (void);
+        //! 演算前の準備をします.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval GPDSPERROR_WAIT データフロー入力待ち
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  process                     (void);
+        //! 波形バッファの位相を先頭に再初期化します.
         virtual void                        rewind                      (void);
     protected:
+        //! コンストラクタです.
+        /*!
+            解像度を defaultResolution() に設定し, リソースを初期化します.
+         
+            @param[in] rate サンプリングレート > 0
+         */
         explicit                            GPDSPWaveNode               (int rate);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPWaveNode              (void) = 0;
+        //! 波形バッファの名前を取得します.
+        /*!
+            @retval "" [返却禁止]
+            @retval その他の名前
+         */
         virtual std::string                 getName                     (void) const = 0;
+        //! 引数に指定された位相に対応する, 波形の値を取得します.
+        /*!
+            @param[in] phase 位相 [0.0, 1.0)
+            @return 波形の値 [-1.0, +1.0]
+         */
         virtual GPDSPFloat                  getWave                     (GPDSPFloat phase) const = 0;
+        //! 引数に指定された波形バッファに対して, １波長分の波形の値を計算して書き込みます.
+        /*!
+            (*wave)[N].first に対して波形の値を設定し, (*wave)[N].second は変更してはいけません.
+            また, *wave のサイズを変更したり, *wave を解放してはいけません.
+         
+            @param[in,out] wave 波形バッファ
+         */
         virtual void                        fillWave                    (std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const = 0;
     private:
                 GPDSPError                  makeWave                    (GPDSPFloat resolution, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > const** wave) const;

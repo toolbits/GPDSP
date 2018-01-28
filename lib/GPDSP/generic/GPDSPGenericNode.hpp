@@ -58,6 +58,15 @@ namespace ir {
 class GPDSPGenericInputNode;
 class GPDSPGenericOutputNode;
 
+//! 任意ノードを表す具象クラス
+/*!
+    GPDSPGenericNode クラスは, .gpdsp 拡張子を持つ外部ファイルから XML 形式で記述されたノードの構成を読み込み,
+    任意の特性を持つフィルタとして振る舞う任意ノードを表す具象クラスです.
+ 
+    GPDSPGenericInputNode クラス, GPDSPGenericOutputNode クラスとともに使用します.
+ 
+    入力ターミナルと出力ターミナルの個数と名前は, 読み込む任意ノードの構成に依存します.
+ */
 class GPDSPGenericNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRewindableNode, public virtual GPDSPRefreshableNode {
     private:
                 int                         _rate;
@@ -69,20 +78,91 @@ class GPDSPGenericNode : public GPDSPInputtableNode, public GPDSPOutputtableNode
                                             _output;
     
     public:
+        //! コンストラクタです.
+        /*!
+            リソースを初期化します.
+         
+            @param[in] rate サンプリングレート >= 0
+         */
         explicit                            GPDSPGenericNode            (int rate);
+        //! デストラクタです.
+        /*!
+            管理しているリソースを解放します.
+         */
         virtual                             ~GPDSPGenericNode           (void);
+        //! 内部で利用している GPDSPNodeRenderer クラスのインスタンスを取得します.
+        /*!
+            @return インスタンスへの参照
+         */
                 GPDSPNodeRenderer const&    getRenderer                 (void) const;
+        //! 開いているファイルのパスを取得します.
+        /*!
+            @return パスへの参照
+         */
                 std::string const&          getFile                     (void) const;
+        //! .gpdsp 拡張子を持つ外部ファイルを開いて, XML 形式で記述されたノードの構成を読み込みます.
+        /*!
+            @param[in] file ファイルのパス
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_SUPPORT サポートされていない
+            @retval GPDSPERROR_NO_FILE ファイルが存在しない
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval GPDSPERROR_NO_FOUND 項目が見つからない
+            @retval GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval GPDSPERROR_INVALID_STATE 不正な状態
+            @retval GPDSPERROR_INVALID_PARAM 不正なパラメータ
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval GPDSPERROR_INVALID_FORMAT 不正なフォーマット
+            @retval GPDSPERROR_FAILED 失敗
+         */
                 GPDSPError                  open                        (std::string const& file);
+        //! 開いているファイルを閉じて, 管理しているリソースを解放します.
                 void                        close                       (void);
+        //! 固定個数の入出力ターミナルを生成します.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 演算結果を無効化し, 再演算を要求します.
         virtual void                        invalidate                  (void);
+        //! 演算前の準備をします.
+        /*!
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval GPDSPERROR_WAIT [返却なし]
+            @retval GPDSPERROR_IGNORE [返却なし]
+            @retval GPDSPERROR_FRAGMENT [返却なし]
+            @retval GPDSPERROR_LOOP [返却なし]
+            @retval その他のエラー
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval GPDSPERROR_WAIT データフロー入力待ち
+            @retval GPDSPERROR_IGNORE [返却なし]
+            @retval GPDSPERROR_FRAGMENT 一部の演算のみ完了
+            @retval GPDSPERROR_LOOP [返却なし]
+            @retval その他のエラー
+         */
         virtual GPDSPError                  process                     (void);
+        //! 入出力バッファの操作位置などを再初期化します.
         virtual void                        rewind                      (void);
+        //! 入出力バッファの値などを再初期化します.
         virtual void                        refresh                     (void);
     protected:
+        //! 入力ターミナルの値を対応する内部の GPDSPGenericInputNode クラスのインスタンスにコピーします.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
                 GPDSPError                  copyInput                   (void);
+        //! 内部の GPDSPGenericOutputNode クラスのインスタンスの値を対応する出力ターミナルにコピーします.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
                 GPDSPError                  copyOutput                  (void);
     private:
         static  GPDSPError                  nameToIndex                 (std::string const& name, int* index);

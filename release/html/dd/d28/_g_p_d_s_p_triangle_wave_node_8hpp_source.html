@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>IridiumFrameworks / GPDSP: synthesis/GPDSPTriangleWaveNode.hpp ソースファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">IridiumFrameworks / GPDSP
+   &#160;<span id="projectnumber">0.8.0</span>
+   </div>
+   <div id="projectbrief">A real time / non-real time General Purpose DSP library, written in C++.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.14 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('dd/d28/_g_p_d_s_p_triangle_wave_node_8hpp_source.html','../../');});
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">GPDSPTriangleWaveNode.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">**      General Purpose DSP Library</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">**</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">**      Original Copyright (C) 2017 - 2018 HORIGUCHI Junshi.</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">**                                          http://iridium.jp/</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">**                                          zap00365@nifty.com</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">**      Portions Copyright (C) &lt;year&gt; &lt;author&gt;</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">**                                          &lt;website&gt;</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">**                                          &lt;e-mail&gt;</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">**      Version     POSIX / C++11</span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">**      Website     http://iridium.jp/</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">**      E-mail      zap00365@nifty.com</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">**</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">**      This source code is for Xcode.</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">**      Xcode 9.2 (Apple LLVM 9.0.0)</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">**</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">**      GPDSPTriangleWaveNode.hpp</span></div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">**</span></div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">**      ------------------------------------------------------------------------</span></div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">**</span></div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">**      The MIT License (MIT)</span></div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">**</span></div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">**      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and</span></div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">**      associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction,</span></div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">**      including without limitation the rights to use, copy, modify, merge, publish, distribute,</span></div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">**      sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is</span></div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">**      furnished to do so, subject to the following conditions:</span></div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">**      The above copyright notice and this permission notice shall be included in all copies or</span></div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">**      substantial portions of the Software.</span></div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">**      THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING</span></div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">**      BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</span></div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">**      IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span></div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">**      WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span></div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">**      OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span></div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">**</span></div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">**      以下に定める条件に従い、本ソフトウェアおよび関連文書のファイル（以下「ソフトウェア」）の複製を</span></div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">**      取得するすべての人に対し、ソフトウェアを無制限に扱うことを無償で許可します。</span></div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">**      これには、ソフトウェアの複製を使用、複写、変更、結合、掲載、頒布、サブライセンス、および、または販売する権利、</span></div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">**      およびソフトウェアを提供する相手に同じことを許可する権利も無制限に含まれます。</span></div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">**      上記の著作権表示および本許諾表示を、ソフトウェアのすべての複製または重要な部分に記載するものとします。</span></div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">**      ソフトウェアは「現状のまま」で、明示であるか暗黙であるかを問わず、何らの保証もなく提供されます。</span></div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">**      ここでいう保証とは、商品性、特定の目的への適合性、および権利非侵害についての保証も含みますが、それに限定されるものではありません。</span></div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">**      作者または著作権者は、契約行為、不法行為、またはそれ以外であろうと、ソフトウェアに起因または関連し、</span></div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">**      あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、その他の義務について何らの責任も負わないものとします。</span></div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">*/</span></div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#ifndef __GPDSPTRIANGLEWAVENODE_HPP</span></div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#define __GPDSPTRIANGLEWAVENODE_HPP</span></div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &quot;GPDSPWaveNode.hpp&quot;</span></div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d1/d04/namespaceir.html">ir</a> {</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div><div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html">   62</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html">GPDSPTriangleWaveNode</a> : <span class="keyword">public</span> <a class="code" href="../../da/d05/classir_1_1_g_p_d_s_p_wave_node.html">GPDSPWaveNode</a> {</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">public</span>:</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">explicit</span>                            <a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#a8ebb5066669718abe664e1c76cbff0eb">GPDSPTriangleWaveNode</a>       (<span class="keywordtype">int</span> rate);</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">virtual</span>                             <a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#ad84e0b2b3602348ca0db3574d46f9d0e">~GPDSPTriangleWaveNode</a>      (<span class="keywordtype">void</span>);</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">protected</span>:</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keyword">virtual</span> std::string                 <a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#a774a0c9fb7e15cb6265427d0c3c08f10">getName</a>                     (<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="../../d1/d04/namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>                  <a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#aee55a6e2dd65395b23ed65ce55ddaf4b">getWave</a>                     (<a class="code" href="../../d1/d04/namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> phase) <span class="keyword">const</span>;</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span>                        <a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#a49f28de8ff5ba0b0e248574d9bd99b34">fillWave</a>                    (std::vector&lt;std::pair&lt;GPDSPFloat, GPDSPFloat&gt; &gt;* wave) <span class="keyword">const</span>;</div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">private</span>:</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                            <a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#a8ebb5066669718abe664e1c76cbff0eb">GPDSPTriangleWaveNode</a>       (<a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html">GPDSPTriangleWaveNode</a> <span class="keyword">const</span>&amp;);</div><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                <a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html">GPDSPTriangleWaveNode</a>&amp;      operator=                   (<a class="code" href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html">GPDSPTriangleWaveNode</a> <span class="keyword">const</span>&amp;);</div><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}<span class="comment">// end of namespace</span></div><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="classir_1_1_g_p_d_s_p_triangle_wave_node_html_a8ebb5066669718abe664e1c76cbff0eb"><div class="ttname"><a href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#a8ebb5066669718abe664e1c76cbff0eb">ir::GPDSPTriangleWaveNode::GPDSPTriangleWaveNode</a></div><div class="ttdeci">GPDSPTriangleWaveNode(int rate)</div><div class="ttdoc">コンストラクタです. </div><div class="ttdef"><b>Definition:</b> GPDSPTriangleWaveNode.cpp:51</div></div>
+<div class="ttc" id="classir_1_1_g_p_d_s_p_triangle_wave_node_html_ad84e0b2b3602348ca0db3574d46f9d0e"><div class="ttname"><a href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#ad84e0b2b3602348ca0db3574d46f9d0e">ir::GPDSPTriangleWaveNode::~GPDSPTriangleWaveNode</a></div><div class="ttdeci">virtual ~GPDSPTriangleWaveNode(void)</div><div class="ttdoc">デストラクタです. </div><div class="ttdef"><b>Definition:</b> GPDSPTriangleWaveNode.cpp:55</div></div>
+<div class="ttc" id="classir_1_1_g_p_d_s_p_triangle_wave_node_html_aee55a6e2dd65395b23ed65ce55ddaf4b"><div class="ttname"><a href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#aee55a6e2dd65395b23ed65ce55ddaf4b">ir::GPDSPTriangleWaveNode::getWave</a></div><div class="ttdeci">virtual GPDSPFloat getWave(GPDSPFloat phase) const</div><div class="ttdoc">引数に指定された位相に対応する, 三角波の値を取得します. </div><div class="ttdef"><b>Definition:</b> GPDSPTriangleWaveNode.cpp:64</div></div>
+<div class="ttc" id="namespaceir_html_aebd4ed76132a8ec88d498b83d237c51b"><div class="ttname"><a href="../../d1/d04/namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">ir::GPDSPFloat</a></div><div class="ttdeci">float GPDSPFloat</div><div class="ttdoc">演算対象のデータ型 </div><div class="ttdef"><b>Definition:</b> GPDSPType.hpp:71</div></div>
+<div class="ttc" id="classir_1_1_g_p_d_s_p_triangle_wave_node_html"><div class="ttname"><a href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html">ir::GPDSPTriangleWaveNode</a></div><div class="ttdoc">三角波ノードを表す具象クラス </div><div class="ttdef"><b>Definition:</b> GPDSPTriangleWaveNode.hpp:62</div></div>
+<div class="ttc" id="classir_1_1_g_p_d_s_p_triangle_wave_node_html_a774a0c9fb7e15cb6265427d0c3c08f10"><div class="ttname"><a href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#a774a0c9fb7e15cb6265427d0c3c08f10">ir::GPDSPTriangleWaveNode::getName</a></div><div class="ttdeci">virtual std::string getName(void) const</div><div class="ttdoc">波形バッファの名前を取得します. </div><div class="ttdef"><b>Definition:</b> GPDSPTriangleWaveNode.cpp:59</div></div>
+<div class="ttc" id="classir_1_1_g_p_d_s_p_wave_node_html"><div class="ttname"><a href="../../da/d05/classir_1_1_g_p_d_s_p_wave_node.html">ir::GPDSPWaveNode</a></div><div class="ttdoc">波形ノードを表す抽象クラス </div><div class="ttdef"><b>Definition:</b> GPDSPWaveNode.hpp:65</div></div>
+<div class="ttc" id="classir_1_1_g_p_d_s_p_triangle_wave_node_html_a49f28de8ff5ba0b0e248574d9bd99b34"><div class="ttname"><a href="../../d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html#a49f28de8ff5ba0b0e248574d9bd99b34">ir::GPDSPTriangleWaveNode::fillWave</a></div><div class="ttdeci">virtual void fillWave(std::vector&lt; std::pair&lt; GPDSPFloat, GPDSPFloat &gt; &gt; *wave) const</div><div class="ttdoc">引数に指定された波形バッファに対して, １波長分の三角波の値を計算して書き込みます. ...</div><div class="ttdef"><b>Definition:</b> GPDSPTriangleWaveNode.cpp:80</div></div>
+<div class="ttc" id="namespaceir_html"><div class="ttname"><a href="../../d1/d04/namespaceir.html">ir</a></div><div class="ttdef"><b>Definition:</b> GPDSPAmplifyNode.cpp:49</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_10f258cf4c217ac9c098d7e4f7634949.html">synthesis</a></li><li class="navelem"><b>GPDSPTriangleWaveNode.hpp</b></li>
+    <li class="footer">構築:
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
+  </ul>
+</div>
+</body>
+</html>

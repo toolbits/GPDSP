@@ -49,11 +49,26 @@
 
 namespace ir {
 
+//! ノードがリフレッシュ可能であることを表すインターフェースクラス
+/*!
+    GPDSPRefreshableNode クラスは, ノードがリフレッシュ可能であることを表し, GPDSPNode クラスとともに継承して利用する基底クラスです.
+ 
+    各種ノードを表す具象クラスは, GPDSPRefreshableNode クラスの refresh() 関数を実装する必要があります.
+ */
 class GPDSPRefreshableNode {
     public:
+        //! 入出力バッファの値などを再初期化します.
         virtual void                        refresh                     (void) = 0;
     protected:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPRefreshableNode        (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPRefreshableNode       (void) = 0;
     private:
                                             GPDSPRefreshableNode        (GPDSPRefreshableNode const&);

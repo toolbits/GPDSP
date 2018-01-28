@@ -51,13 +51,54 @@
 
 namespace ir {
 
+//! 外部入力ノードを表す具象クラス
+/*!
+    GPDSPGenericInputNode クラスは, 入力ターミナルではなく setValueO() 関数を使用して,
+    入力を外部から読み込むための外部入力ノードを表す具象クラスです.
+ 
+    GPDSPGenericNode クラスとともに使用します.
+ 
+    入力ターミナルは持たず, １つの出力ターミナル "out" を持ちます.
+ */
 class GPDSPGenericInputNode : public GPDSPOutputtableNode {
     public:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPGenericInputNode       (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPGenericInputNode      (void);
+        //! 出力ターミナルの値を設定します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[in] value 設定する値
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
                 GPDSPError                  setValueO                   (int index, GPDSPFloat value);
+        //! 出力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 演算前の準備をします.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_IGNORE 演算対象外として無視
+         */
         virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPGenericInputNode       (GPDSPGenericInputNode const&);

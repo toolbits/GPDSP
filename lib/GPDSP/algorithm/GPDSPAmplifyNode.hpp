@@ -52,19 +52,63 @@
 
 namespace ir {
 
+//! 増幅ノードを表す具象クラス
+/*!
+    GPDSPAmplifyNode クラスは, 設定された増幅率と入力を積算して出力する増幅ノードを表す具象クラスです.
+ 
+    １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ */
 class GPDSPAmplifyNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     private:
                 GPDSPFloat                  _gain;
     
     public:
+        //! コンストラクタです.
+        /*!
+            増幅率を defaultGain() に初期化します.
+         */
         explicit                            GPDSPAmplifyNode            (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPAmplifyNode           (void);
+        //! デフォルトの増幅率を取得します.
+        /*!
+            @retval 1.0 デフォルトの増幅率
+         */
         static  GPDSPFloat                  defaultGain                 (void);
+        //! 増幅率を設定します.
+        /*!
+            @param[in] gain 設定する増幅率
+         */
                 void                        setGain                     (GPDSPFloat gain);
+        //! 増幅率を取得します.
+        /*!
+            @return 現在の増幅率
+         */
                 GPDSPFloat                  getGain                     (void) const;
+        //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
+        /*!
+            @retval GPDSPERROR_OK 正常
+            @retval GPDSPERROR_NO_MEMORY メモリ不足
+         */
         virtual GPDSPError                  fixate                      (void);
+        //! 入出力の演算結果を無効化し, 再演算を要求します.
         virtual void                        invalidate                  (void);
+        //! 演算前の準備をします.
+        /*!
+            何もしません.
+         
+            @retval GPDSPERROR_OK 正常 (準備を完了)
+         */
         virtual GPDSPError                  prepare                     (void);
+        //! 演算を行います.
+        /*!
+            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval GPDSPERROR_WAIT データフロー入力待ち
+            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
         virtual GPDSPError                  process                     (void);
     private:
                                             GPDSPAmplifyNode            (GPDSPAmplifyNode const&);

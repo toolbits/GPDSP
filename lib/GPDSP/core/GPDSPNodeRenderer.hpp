@@ -64,7 +64,7 @@ class GPDSPBufferOutputNode;
 class GPDSPConstantNode;
 class GPDSPSignNode;
 class GPDSPGateNode;
-class GPDSPPeekNode;
+class GPDSPPeakNode;
 class GPDSPAmplifyNode;
 class GPDSPDelayNode;
 class GPDSPBufferNode;
@@ -101,8 +101,8 @@ class GPDSPNodeRenderer {
                                             getNodeSign                 (std::string const& name) const;
                 std::shared_ptr<GPDSPGateNode>
                                             getNodeGate                 (std::string const& name) const;
-                std::shared_ptr<GPDSPPeekNode>
-                                            getNodePeek                 (std::string const& name) const;
+                std::shared_ptr<GPDSPPeakNode>
+                                            getNodePeak                 (std::string const& name) const;
                 std::shared_ptr<GPDSPAmplifyNode>
                                             getNodeAmplify              (std::string const& name) const;
                 std::shared_ptr<GPDSPDelayNode>
@@ -163,7 +163,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeConstant             (std::string const& name, GPDSPFloat constant);
                 GPDSPError                  newNodeSign                 (std::string const& name);
                 GPDSPError                  newNodeGate                 (std::string const& name, GPDSPFloat minimum, GPDSPFloat maximum);
-                GPDSPError                  newNodePeek                 (std::string const& name);
+                GPDSPError                  newNodePeak                 (std::string const& name);
                 GPDSPError                  newNodeAmplify              (std::string const& name, GPDSPFloat gain);
                 GPDSPError                  newNodeDelay                (std::string const& name);
                 GPDSPError                  newNodeBuffer               (std::string const& name, int size);

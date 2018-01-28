@@ -36,7 +36,7 @@
 		C3CF7E301FBA7B4400ACB607 /* GPDSPBufferOutputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E161FBA791400ACB607 /* GPDSPBufferOutputNode.cpp */; };
 		C3CF7E311FBA7B4600ACB607 /* GPDSPConstantNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E181FBA791400ACB607 /* GPDSPConstantNode.cpp */; };
 		C3CF7E321FBA7B4900ACB607 /* GPDSPGateNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E1C1FBA791400ACB607 /* GPDSPGateNode.cpp */; };
-		C3CF7E331FBA7B4B00ACB607 /* GPDSPPeekNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E201FBA791400ACB607 /* GPDSPPeekNode.cpp */; };
+		C3CF7E331FBA7B4B00ACB607 /* GPDSPPeakNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E201FBA791400ACB607 /* GPDSPPeakNode.cpp */; };
 		C3CF7E341FBA7B4D00ACB607 /* GPDSPAmplifyNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E101FBA791400ACB607 /* GPDSPAmplifyNode.cpp */; };
 		C3CF7E351FBA7B5000ACB607 /* GPDSPDelayNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E1A1FBA791400ACB607 /* GPDSPDelayNode.cpp */; };
 		C3CF7E361FBA7B5200ACB607 /* GPDSPBufferNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E141FBA791400ACB607 /* GPDSPBufferNode.cpp */; };
@@ -191,8 +191,8 @@
 		C3CF7E1D1FBA791400ACB607 /* GPDSPGateNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGateNode.hpp; sourceTree = "<group>"; };
 		C3CF7E1E1FBA791400ACB607 /* GPDSPMultiplyNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPMultiplyNode.cpp; sourceTree = "<group>"; };
 		C3CF7E1F1FBA791400ACB607 /* GPDSPMultiplyNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPMultiplyNode.hpp; sourceTree = "<group>"; };
-		C3CF7E201FBA791400ACB607 /* GPDSPPeekNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPPeekNode.cpp; sourceTree = "<group>"; };
-		C3CF7E211FBA791400ACB607 /* GPDSPPeekNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPPeekNode.hpp; sourceTree = "<group>"; };
+		C3CF7E201FBA791400ACB607 /* GPDSPPeakNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPPeakNode.cpp; sourceTree = "<group>"; };
+		C3CF7E211FBA791400ACB607 /* GPDSPPeakNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPPeakNode.hpp; sourceTree = "<group>"; };
 		C3CF7E221FBA791400ACB607 /* GPDSPSumNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSumNode.cpp; sourceTree = "<group>"; };
 		C3CF7E231FBA791400ACB607 /* GPDSPSumNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSumNode.hpp; sourceTree = "<group>"; };
 		C3E26AE51FCDA0BE00AA602E /* hilbert.gpdsp */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = hilbert.gpdsp; path = bin/data/hilbert.gpdsp; sourceTree = "<group>"; };
@@ -392,8 +392,8 @@
 				C3ACEF801FE00029003CAD27 /* GPDSPSignNode.cpp */,
 				C3CF7E1D1FBA791400ACB607 /* GPDSPGateNode.hpp */,
 				C3CF7E1C1FBA791400ACB607 /* GPDSPGateNode.cpp */,
-				C3CF7E211FBA791400ACB607 /* GPDSPPeekNode.hpp */,
-				C3CF7E201FBA791400ACB607 /* GPDSPPeekNode.cpp */,
+				C3CF7E211FBA791400ACB607 /* GPDSPPeakNode.hpp */,
+				C3CF7E201FBA791400ACB607 /* GPDSPPeakNode.cpp */,
 				C3CF7E111FBA791400ACB607 /* GPDSPAmplifyNode.hpp */,
 				C3CF7E101FBA791400ACB607 /* GPDSPAmplifyNode.cpp */,
 				C3CF7E1B1FBA791400ACB607 /* GPDSPDelayNode.hpp */,
@@ -590,7 +590,7 @@
 				C3CF7E311FBA7B4600ACB607 /* GPDSPConstantNode.cpp in Sources */,
 				C3ACEF811FE00029003CAD27 /* GPDSPSignNode.cpp in Sources */,
 				C3CF7E321FBA7B4900ACB607 /* GPDSPGateNode.cpp in Sources */,
-				C3CF7E331FBA7B4B00ACB607 /* GPDSPPeekNode.cpp in Sources */,
+				C3CF7E331FBA7B4B00ACB607 /* GPDSPPeakNode.cpp in Sources */,
 				C3CF7E341FBA7B4D00ACB607 /* GPDSPAmplifyNode.cpp in Sources */,
 				C3CF7E351FBA7B5000ACB607 /* GPDSPDelayNode.cpp in Sources */,
 				C3CF7E361FBA7B5200ACB607 /* GPDSPBufferNode.cpp in Sources */,

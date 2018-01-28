@@ -59,7 +59,15 @@ class GPDSPFlexInputtableNode : public GPDSPInputtableNode {
                 GPDSPError                  removeI                     (int index);
                 void                        clearI                      (void);
     protected:
+        //! コンストラクタです.
+        /*!
+            何もしません.
+         */
         explicit                            GPDSPFlexInputtableNode     (void);
+        //! デストラクタです.
+        /*!
+            何もしません.
+         */
         virtual                             ~GPDSPFlexInputtableNode    (void) = 0;
     private:
                                             GPDSPFlexInputtableNode     (GPDSPFlexInputtableNode const&);
