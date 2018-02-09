@@ -48,11 +48,11 @@
 
 namespace ir {
 
-GPDSPSerializable::GPDSPSerializable(void)
+GPDSPSerializable::GPDSPSerializable(void) noexcept
 {
 }
 
-GPDSPSerializable::~GPDSPSerializable(void)
+GPDSPSerializable::~GPDSPSerializable(void) noexcept
 {
 }
 

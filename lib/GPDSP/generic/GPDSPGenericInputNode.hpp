@@ -59,6 +59,13 @@ namespace ir {
     GPDSPGenericNode クラスとともに使用します.
  
     入力ターミナルは持たず, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPGenericInputNode>
+        <name>公開する入力ターミナル番号.公開する入力ターミナル名</name>
+    </GPDSPGenericInputNode>
+    @endcode
  */
 class GPDSPGenericInputNode : public GPDSPOutputtableNode {
     public:
@@ -66,46 +73,46 @@ class GPDSPGenericInputNode : public GPDSPOutputtableNode {
         /*!
             何もしません.
          */
-        explicit                            GPDSPGenericInputNode       (void);
+        explicit                            GPDSPGenericInputNode       (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPGenericInputNode      (void);
+        virtual                             ~GPDSPGenericInputNode      (void) noexcept;
         //! 出力ターミナルの値を設定します.
         /*!
             @param[in] index ターミナル番号
             @param[in] value 設定する値
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-                GPDSPError                  setValueO                   (int index, GPDSPFloat value);
+                GPDSPError                  setValueO                   (int index, GPDSPFloat value) noexcept;
         //! 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 演算前の準備をします.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_IGNORE 演算対象外として無視
+            @retval #GPDSPERROR_IGNORE 演算対象外として無視
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
     private:
                                             GPDSPGenericInputNode       (GPDSPGenericInputNode const&);
                 GPDSPGenericInputNode&      operator=                   (GPDSPGenericInputNode const&);
 };
 
-inline GPDSPError GPDSPGenericInputNode::setValueO(int index, GPDSPFloat value)
+inline GPDSPError GPDSPGenericInputNode::setValueO(int index, GPDSPFloat value) noexcept
 {
     return GPDSPOutputtableNode::setValueO(index, value);
 }

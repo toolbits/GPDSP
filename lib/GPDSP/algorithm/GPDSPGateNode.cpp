@@ -48,15 +48,15 @@
 
 namespace ir {
 
-GPDSPGateNode::GPDSPGateNode(void) : _minimum(defaultMinimum()), _maximum(defaultMaximum())
+GPDSPGateNode::GPDSPGateNode(void) noexcept : _minimum(defaultMinimum()), _maximum(defaultMaximum())
 {
 }
 
-GPDSPGateNode::~GPDSPGateNode(void)
+GPDSPGateNode::~GPDSPGateNode(void) noexcept
 {
 }
 
-void GPDSPGateNode::setMinimum(GPDSPFloat minimum)
+void GPDSPGateNode::setMinimum(GPDSPFloat minimum) noexcept
 {
     if (minimum != _minimum) {
         _minimum = minimum;
@@ -65,7 +65,7 @@ void GPDSPGateNode::setMinimum(GPDSPFloat minimum)
     return;
 }
 
-void GPDSPGateNode::setMaximum(GPDSPFloat maximum)
+void GPDSPGateNode::setMaximum(GPDSPFloat maximum) noexcept
 {
     if (maximum != _maximum) {
         _maximum = maximum;
@@ -74,7 +74,7 @@ void GPDSPGateNode::setMaximum(GPDSPFloat maximum)
     return;
 }
 
-GPDSPError GPDSPGateNode::fixate(void)
+GPDSPError GPDSPGateNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -90,19 +90,19 @@ GPDSPError GPDSPGateNode::fixate(void)
     return error;
 }
 
-void GPDSPGateNode::invalidate(void)
+void GPDSPGateNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPGateNode::prepare(void)
+GPDSPError GPDSPGateNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPGateNode::process(void)
+GPDSPError GPDSPGateNode::process(void) noexcept
 {
     GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);

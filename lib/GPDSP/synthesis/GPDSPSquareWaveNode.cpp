@@ -48,25 +48,25 @@
 
 namespace ir {
 
-GPDSPSquareWaveNode::GPDSPSquareWaveNode(int rate) : GPDSPWaveNode(rate)
+GPDSPSquareWaveNode::GPDSPSquareWaveNode(int rate) noexcept : GPDSPWaveNode(rate)
 {
 }
 
-GPDSPSquareWaveNode::~GPDSPSquareWaveNode(void)
+GPDSPSquareWaveNode::~GPDSPSquareWaveNode(void) noexcept
 {
 }
 
-std::string GPDSPSquareWaveNode::getName(void) const
+std::string GPDSPSquareWaveNode::getName(void) const noexcept
 {
     return "GPDSPSquareWaveNode";
 }
 
-GPDSPFloat GPDSPSquareWaveNode::getWave(GPDSPFloat phase) const
+GPDSPFloat GPDSPSquareWaveNode::getWave(GPDSPFloat phase) const noexcept
 {
     return (phase < GPDSPFV(0.5)) ? (GPDSPFV(+1.0)) : (GPDSPFV(-1.0));
 }
 
-void GPDSPSquareWaveNode::fillWave(std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const
+void GPDSPSquareWaveNode::fillWave(std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const noexcept
 {
     int size;
     int i;

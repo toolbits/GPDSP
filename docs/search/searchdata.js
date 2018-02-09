@@ -1,13 +1,15 @@
 var indexSectionsWithContent =
 {
-  0: "acdfghilnoprsw~ã",
+  0: "acdfghilnoprsw~ãä",
   1: "g",
   2: "i",
-  3: "acdfghilnoprsw~",
-  4: "g",
+  3: "g",
+  4: "acdfghilnoprsw~",
   5: "g",
   6: "g",
-  7: "gã"
+  7: "g",
+  8: "g",
+  9: "gãä"
 };
 
 var indexSectionNames =
@@ -15,11 +17,13 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "namespaces",
-  3: "functions",
-  4: "typedefs",
-  5: "enums",
-  6: "enumvalues",
-  7: "pages"
+  3: "files",
+  4: "functions",
+  5: "typedefs",
+  6: "enums",
+  7: "enumvalues",
+  8: "defines",
+  9: "pages"
 };
 
 var indexSectionLabels =
@@ -27,10 +31,12 @@ var indexSectionLabels =
   0: "全て",
   1: "クラス",
   2: "名前空間",
-  3: "関数",
-  4: "型定義",
-  5: "列挙型",
-  6: "列挙値",
-  7: "ページ"
+  3: "ファイル",
+  4: "関数",
+  5: "型定義",
+  6: "列挙型",
+  7: "列挙値",
+  8: "マクロ定義",
+  9: "ページ"
 };
 

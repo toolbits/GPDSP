@@ -48,16 +48,16 @@
 
 namespace ir {
 
-GPDSPBufferNode::GPDSPBufferNode(void)
+GPDSPBufferNode::GPDSPBufferNode(void) noexcept
 {
 }
 
-GPDSPBufferNode::~GPDSPBufferNode(void)
+GPDSPBufferNode::~GPDSPBufferNode(void) noexcept
 {
     _queue.clear();
 }
 
-GPDSPError GPDSPBufferNode::setSize(int size)
+GPDSPError GPDSPBufferNode::setSize(int size) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -78,7 +78,7 @@ GPDSPError GPDSPBufferNode::setSize(int size)
     return error;
 }
 
-GPDSPError GPDSPBufferNode::fixate(void)
+GPDSPError GPDSPBufferNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -94,14 +94,14 @@ GPDSPError GPDSPBufferNode::fixate(void)
     return error;
 }
 
-void GPDSPBufferNode::invalidate(void)
+void GPDSPBufferNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPBufferNode::prepare(void)
+GPDSPError GPDSPBufferNode::prepare(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -111,7 +111,7 @@ GPDSPError GPDSPBufferNode::prepare(void)
     return error;
 }
 
-GPDSPError GPDSPBufferNode::process(void)
+GPDSPError GPDSPBufferNode::process(void) noexcept
 {
     GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
@@ -135,7 +135,7 @@ GPDSPError GPDSPBufferNode::process(void)
     return error;
 }
 
-void GPDSPBufferNode::refresh(void)
+void GPDSPBufferNode::refresh(void) noexcept
 {
     std::fill_n(_queue.begin(), _queue.size(), GPDSPFV(0.0));
     return;

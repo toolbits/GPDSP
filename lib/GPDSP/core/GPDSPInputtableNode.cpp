@@ -48,16 +48,16 @@
 
 namespace ir {
 
-GPDSPInputtableNode::GPDSPInputtableNode(void)
+GPDSPInputtableNode::GPDSPInputtableNode(void) noexcept
 {
 }
 
-GPDSPInputtableNode::~GPDSPInputtableNode(void)
+GPDSPInputtableNode::~GPDSPInputtableNode(void) noexcept
 {
     _terminal.clear();
 }
 
-GPDSPError GPDSPInputtableNode::setNameI(int index, std::string const& what)
+GPDSPError GPDSPInputtableNode::setNameI(int index, std::string const& what) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -70,7 +70,7 @@ GPDSPError GPDSPInputtableNode::setNameI(int index, std::string const& what)
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::getNameI(int index, std::string* what) const
+GPDSPError GPDSPInputtableNode::getNameI(int index, std::string* what) const noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -85,22 +85,7 @@ GPDSPError GPDSPInputtableNode::getNameI(int index, std::string* what) const
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::getModeI(int index, GPDSPMode* mode) const
-{
-    GPDSPError error(GPDSPERROR_OK);
-    
-    if (0 <= index && index < static_cast<int>(_terminal.size())) {
-        if (mode != NULL) {
-            *mode = _terminal[index].mode;
-        }
-    }
-    else {
-        error = GPDSPERROR_INVALID_RANGE;
-    }
-    return error;
-}
-
-GPDSPError GPDSPInputtableNode::setLinkPositiveI(int index, GPDSPOutputtableNode const* from, int which)
+GPDSPError GPDSPInputtableNode::setLinkPositiveI(int index, GPDSPOutputtableNode const* from, int which) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -118,7 +103,7 @@ GPDSPError GPDSPInputtableNode::setLinkPositiveI(int index, GPDSPOutputtableNode
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::setLinkNegativeI(int index, GPDSPOutputtableNode const* from, int which)
+GPDSPError GPDSPInputtableNode::setLinkNegativeI(int index, GPDSPOutputtableNode const* from, int which) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -136,7 +121,7 @@ GPDSPError GPDSPInputtableNode::setLinkNegativeI(int index, GPDSPOutputtableNode
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::setLinkConstantI(int index, GPDSPFloat constant)
+GPDSPError GPDSPInputtableNode::setLinkConstantI(int index, GPDSPFloat constant) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -153,7 +138,22 @@ GPDSPError GPDSPInputtableNode::setLinkConstantI(int index, GPDSPFloat constant)
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const** from, int* which) const
+GPDSPError GPDSPInputtableNode::getModeI(int index, GPDSPMode* mode) const noexcept
+{
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if (0 <= index && index < static_cast<int>(_terminal.size())) {
+        if (mode != NULL) {
+            *mode = _terminal[index].mode;
+        }
+    }
+    else {
+        error = GPDSPERROR_INVALID_RANGE;
+    }
+    return error;
+}
+
+GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const** from, int* which) const noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -167,7 +167,7 @@ GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const**
             }
         }
         else {
-            error = GPDSPERROR_INVALID_PARAM;
+            error = GPDSPERROR_INVALID_STATE;
         }
     }
     else {
@@ -176,7 +176,7 @@ GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPOutputtableNode const**
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPFloat* constant) const
+GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPFloat* constant) const noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -187,7 +187,7 @@ GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPFloat* constant) const
             }
         }
         else {
-            error = GPDSPERROR_INVALID_PARAM;
+            error = GPDSPERROR_INVALID_STATE;
         }
     }
     else {
@@ -196,7 +196,7 @@ GPDSPError GPDSPInputtableNode::getLinkI(int index, GPDSPFloat* constant) const
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::clearLinkI(int index)
+GPDSPError GPDSPInputtableNode::clearLinkI(int index) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -212,7 +212,7 @@ GPDSPError GPDSPInputtableNode::clearLinkI(int index)
     return error;
 }
 
-void GPDSPInputtableNode::clearLinkI(GPDSPMode mode)
+void GPDSPInputtableNode::clearLinkI(GPDSPMode mode) noexcept
 {
     int i;
     
@@ -227,7 +227,7 @@ void GPDSPInputtableNode::clearLinkI(GPDSPMode mode)
     return;
 }
 
-void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from, int which)
+void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from, int which) noexcept
 {
     int i;
     
@@ -240,7 +240,7 @@ void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from, int which
     return;
 }
 
-void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from)
+void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from) noexcept
 {
     int i;
     
@@ -253,7 +253,20 @@ void GPDSPInputtableNode::clearLinkI(GPDSPOutputtableNode const* from)
     return;
 }
 
-void GPDSPInputtableNode::clearLinkI(void)
+void GPDSPInputtableNode::clearLinkI(GPDSPFloat constant) noexcept
+{
+    int i;
+    
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
+        if (_terminal[i].mode == GPDSPMODE_CONSTANT && _terminal[i].constant == constant) {
+            _terminal[i].mode = GPDSPMODE_NONE;
+            invalidate();
+        }
+    }
+    return;
+}
+
+void GPDSPInputtableNode::clearLinkI(void) noexcept
 {
     int i;
     
@@ -266,7 +279,7 @@ void GPDSPInputtableNode::clearLinkI(void)
     return;
 }
 
-GPDSPError GPDSPInputtableNode::getValueI(int index, GPDSPFloat* value) const
+GPDSPError GPDSPInputtableNode::getValueI(int index, GPDSPFloat* value) const noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -310,7 +323,7 @@ GPDSPError GPDSPInputtableNode::getValueI(int index, GPDSPFloat* value) const
     return error;
 }
 
-int GPDSPInputtableNode::findNameI(std::string const& what) const
+int GPDSPInputtableNode::findNameI(std::string const& what) const noexcept
 {
     int i;
     int result(-1);
@@ -324,7 +337,7 @@ int GPDSPInputtableNode::findNameI(std::string const& what) const
     return result;
 }
 
-int GPDSPInputtableNode::findLinkI(GPDSPMode mode) const
+int GPDSPInputtableNode::findModeI(GPDSPMode mode) const noexcept
 {
     int i;
     int result(-1);
@@ -338,7 +351,7 @@ int GPDSPInputtableNode::findLinkI(GPDSPMode mode) const
     return result;
 }
 
-int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from, int which) const
+int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from, int which) const noexcept
 {
     int i;
     int result(-1);
@@ -352,7 +365,7 @@ int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from, int which) 
     return result;
 }
 
-int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from) const
+int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from) const noexcept
 {
     int i;
     int result(-1);
@@ -366,12 +379,26 @@ int GPDSPInputtableNode::findLinkI(GPDSPOutputtableNode const* from) const
     return result;
 }
 
-void GPDSPInputtableNode::invalidate(void)
+int GPDSPInputtableNode::findLinkI(GPDSPFloat constant) const noexcept
+{
+    int i;
+    int result(-1);
+    
+    for (i = 0; i < static_cast<int>(_terminal.size()); ++i) {
+        if (_terminal[i].mode == GPDSPMODE_CONSTANT && _terminal[i].constant == constant) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+}
+
+void GPDSPInputtableNode::invalidate(void) noexcept
 {
     return;
 }
 
-GPDSPError GPDSPInputtableNode::setCountI(int count, std::string const& what)
+GPDSPError GPDSPInputtableNode::setCountI(int count, std::string const& what) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -392,7 +419,7 @@ GPDSPError GPDSPInputtableNode::setCountI(int count, std::string const& what)
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::appendI(std::string const& what)
+GPDSPError GPDSPInputtableNode::appendI(std::string const& what) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -408,7 +435,7 @@ GPDSPError GPDSPInputtableNode::appendI(std::string const& what)
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::insertI(int index, std::string const& what)
+GPDSPError GPDSPInputtableNode::insertI(int index, std::string const& what) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -429,7 +456,7 @@ GPDSPError GPDSPInputtableNode::insertI(int index, std::string const& what)
     return error;
 }
 
-GPDSPError GPDSPInputtableNode::removeI(int index)
+GPDSPError GPDSPInputtableNode::removeI(int index) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -443,7 +470,7 @@ GPDSPError GPDSPInputtableNode::removeI(int index)
     return error;
 }
 
-void GPDSPInputtableNode::clearI(void)
+void GPDSPInputtableNode::clearI(void) noexcept
 {
     _terminal.clear();
     invalidate();

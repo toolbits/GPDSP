@@ -27,13 +27,25 @@ var NAVTREE =
     [ "GPDSP ライブラリ概要", "index.html", [
       [ "GPDSP とは", "index.html#sec_overview", null ],
       [ "利用方法", "index.html#sec_howtouse", null ],
-      [ "標準ノードの種類", "index.html#sec_lineup", null ],
+      [ "ノードの種類", "index.html#sec_lineup", null ],
       [ "任意ノードと .gpdsp ファイル", "index.html#sec_generic", null ],
       [ "ライブラリの特徴", "index.html#sec_feature", null ]
     ] ],
-    [ "ライセンスと著作権", "d6/dd7/page_copyright.html", [
-      [ "ライセンス", "d6/dd7/page_copyright.html#sec_license", null ],
-      [ "著作権", "d6/dd7/page_copyright.html#sec_copyright", null ]
+    [ "ノード構成の保存と復元", "page_gpdsp.html", [
+      [ ".gpdsp ファイルとは", "page_gpdsp.html#sec_gpdsp_gpdsp", null ]
+    ] ],
+    [ "任意ノード", "page_generic.html", [
+      [ "任意ノードとは", "page_generic.html#sec_generic_overview", null ],
+      [ ".gpdsp ファイルの記述", "page_generic.html#sec_generic_gpdsp", null ]
+    ] ],
+    [ "エラー処理", "page_error.html", [
+      [ "エラー処理の方針", "page_error.html#sec_error_overview", null ],
+      [ "エラー情報の出力", "page_error.html#sec_error_print", null ],
+      [ "ディレイ・フリー・ループの扱い", "page_error.html#sec_error_loop", null ]
+    ] ],
+    [ "ライセンスと著作権", "page_copyright.html", [
+      [ "ライセンス", "page_copyright.html#sec_copyright_license", null ],
+      [ "著作権", "page_copyright.html#sec_copyright_copyright", null ]
     ] ],
     [ "名前空間メンバ", "namespacemembers.html", [
       [ "全て", "namespacemembers.html", null ],
@@ -49,17 +61,25 @@ var NAVTREE =
         [ "全て", "functions.html", "functions_dup" ],
         [ "関数", "functions_func.html", "functions_func" ]
       ] ]
+    ] ],
+    [ "ファイル", "files.html", [
+      [ "ファイル一覧", "files.html", "files_dup" ],
+      [ "ファイルメンバ", "globals.html", [
+        [ "全て", "globals.html", null ],
+        [ "マクロ定義", "globals_defs.html", null ]
+      ] ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"d2/d2c/classir_1_1_g_p_d_s_p_flex_outputtable_node.html#a9846a1ec52e62aec90c65b8490b4f7d7",
-"d6/df5/classir_1_1_g_p_d_s_p_node_renderer.html#a288c7c064302003dc495b9d37e5760b5",
-"db/d16/classir_1_1_g_p_d_s_p_gate_node.html#a8c36fe5509dd50238e2681fd9a4a9425",
-"df/d9c/classir_1_1_g_p_d_s_p_amplify_node.html#a4797673494a105cc58ff755b9d480dff"
+"_g_p_d_s_p_8hpp.html",
+"classir_1_1_g_p_d_s_p_buffer_output_node.html#a26b4c93d4cdafd3accf462aee3a4b8a2",
+"classir_1_1_g_p_d_s_p_generic_node.html#a9c2f9396b45ea0c2e25933363429588a",
+"classir_1_1_g_p_d_s_p_peak_node.html#a04db220b174bd618ee64fa48bf16d22f",
+"classir_1_1_g_p_d_s_p_square_wave_node.html#a20ebdd54c7ee988f6bb5a80e5b311e6d",
+"page_generic.html#sec_generic_overview"
 ];
 
 var SYNCONMSG = 'クリックで同期表示が無効になります';

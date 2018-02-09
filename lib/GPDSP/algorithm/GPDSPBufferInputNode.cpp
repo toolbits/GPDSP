@@ -48,16 +48,16 @@
 
 namespace ir {
 
-GPDSPBufferInputNode::GPDSPBufferInputNode(void) : _delegate(NULL)
+GPDSPBufferInputNode::GPDSPBufferInputNode(void) noexcept : _delegate(NULL)
 {
 }
 
-GPDSPBufferInputNode::~GPDSPBufferInputNode(void)
+GPDSPBufferInputNode::~GPDSPBufferInputNode(void) noexcept
 {
     _buffer.clear();
 }
 
-GPDSPError GPDSPBufferInputNode::setBuffer(GPDSPFloat const* buffer, int length, int interleave)
+GPDSPError GPDSPBufferInputNode::setBuffer(GPDSPFloat const* buffer, int length, int interleave) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -104,7 +104,7 @@ GPDSPError GPDSPBufferInputNode::setBuffer(GPDSPFloat const* buffer, int length,
     return error;
 }
 
-GPDSPFloat const* GPDSPBufferInputNode::getBufferReadonly(int* length, int* interleave) const
+GPDSPFloat const* GPDSPBufferInputNode::getBufferReadonly(int* length, int* interleave) const noexcept
 {
     if (_delegate != NULL) {
         if (length != NULL) {
@@ -117,7 +117,7 @@ GPDSPFloat const* GPDSPBufferInputNode::getBufferReadonly(int* length, int* inte
     return _delegate;
 }
 
-GPDSPFloat* GPDSPBufferInputNode::getBufferWritable(int* length, int* interleave)
+GPDSPFloat* GPDSPBufferInputNode::getBufferWritable(int* length, int* interleave) noexcept
 {
     GPDSPFloat* result(NULL);
     
@@ -135,7 +135,7 @@ GPDSPFloat* GPDSPBufferInputNode::getBufferWritable(int* length, int* interleave
     return result;
 }
 
-GPDSPError GPDSPBufferInputNode::setPosition(int position)
+GPDSPError GPDSPBufferInputNode::setPosition(int position) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -156,7 +156,7 @@ GPDSPError GPDSPBufferInputNode::setPosition(int position)
     return error;
 }
 
-GPDSPError GPDSPBufferInputNode::fixate(void)
+GPDSPError GPDSPBufferInputNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -167,7 +167,7 @@ GPDSPError GPDSPBufferInputNode::fixate(void)
     return error;
 }
 
-GPDSPError GPDSPBufferInputNode::prepare(void)
+GPDSPError GPDSPBufferInputNode::prepare(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -184,12 +184,12 @@ GPDSPError GPDSPBufferInputNode::prepare(void)
     return error;
 }
 
-GPDSPError GPDSPBufferInputNode::process(void)
+GPDSPError GPDSPBufferInputNode::process(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-void GPDSPBufferInputNode::rewind(void)
+void GPDSPBufferInputNode::rewind(void) noexcept
 {
     if (_delegate != NULL) {
         _position = 0;
@@ -197,7 +197,7 @@ void GPDSPBufferInputNode::rewind(void)
     return;
 }
 
-void GPDSPBufferInputNode::refresh(void)
+void GPDSPBufferInputNode::refresh(void) noexcept
 {
     if (_delegate != NULL) {
         std::fill_n(_buffer.begin(), _buffer.size(), GPDSPFV(0.0));

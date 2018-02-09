@@ -52,6 +52,12 @@
 
 namespace ir {
 
+//! 入力ターミナルを持つノードを表す抽象クラス
+/*!
+    GPDSPInputtableNode クラスは, 入力ターミナルを持つノードを表す抽象クラスです.
+ 
+    固定個数の入力ターミナルを持つ各種ノードを表す具象クラスは, GPDSPInputtableNode クラスを継承して実装します.
+ */
 class GPDSPInputtableNode : public virtual GPDSPNode {
     private:
         struct TerminalRec {
@@ -73,52 +79,220 @@ class GPDSPInputtableNode : public virtual GPDSPNode {
                 std::vector<TerminalRec>    _terminal;
     
     public:
-                int                         getCountI                   (void) const;
-                GPDSPError                  setNameI                    (int index, std::string const& what);
-                GPDSPError                  getNameI                    (int index, std::string* what) const;
-                GPDSPError                  getModeI                    (int index, GPDSPMode* mode) const;
-                GPDSPError                  setLinkPositiveI            (int index, GPDSPOutputtableNode const* from, int which);
-                GPDSPError                  setLinkNegativeI            (int index, GPDSPOutputtableNode const* from, int which);
-                GPDSPError                  setLinkConstantI            (int index, GPDSPFloat constant);
-                GPDSPError                  getLinkI                    (int index, GPDSPOutputtableNode const** from, int* which) const;
-                GPDSPError                  getLinkI                    (int index, GPDSPFloat* constant) const;
-                GPDSPError                  clearLinkI                  (int index);
-                void                        clearLinkI                  (GPDSPMode mode);
-                void                        clearLinkI                  (GPDSPOutputtableNode const* from, int which);
-                void                        clearLinkI                  (GPDSPOutputtableNode const* from);
-                void                        clearLinkI                  (void);
-                GPDSPError                  getValueI                   (int index, GPDSPFloat* value) const;
-                int                         findNameI                   (std::string const& what) const;
-                int                         findLinkI                   (GPDSPMode mode) const;
-                int                         findLinkI                   (GPDSPOutputtableNode const* from, int which) const;
-                int                         findLinkI                   (GPDSPOutputtableNode const* from) const;
+        //! 入力ターミナルの個数を取得します.
+        /*!
+            @return 現在の個数
+         */
+                int                         getCountI                   (void) const noexcept;
+        //! 入力ターミナルの名前を設定します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  setNameI                    (int index, std::string const& what) noexcept;
+        //! 入力ターミナルの名前を取得します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[out] what 名前の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  getNameI                    (int index, std::string* what) const noexcept;
+        //! 入力ターミナルの非反転入力のノード接続を設定し, モードを #GPDSPMODE_POSITIVE に変更します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[in] from 設定するノード (NULL 可能)
+            @param[in] which 設定するノードのターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  setLinkPositiveI            (int index, GPDSPOutputtableNode const* from, int which) noexcept;
+        //! 入力ターミナルの反転入力のノード接続を設定し, モードを #GPDSPMODE_NEGATIVE に変更します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[in] from 設定するノード (NULL 可能)
+            @param[in] which 設定するノードのターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  setLinkNegativeI            (int index, GPDSPOutputtableNode const* from, int which) noexcept;
+        //! 入力ターミナルの定数入力の定数値を設定し, モードを #GPDSPMODE_CONSTANT に変更します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[in] constant 設定する定数値
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  setLinkConstantI            (int index, GPDSPFloat constant) noexcept;
+        //! 入力ターミナルのモードを取得します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[out] mode モードの取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  getModeI                    (int index, GPDSPMode* mode) const noexcept;
+        //! 入力ターミナルのモードが #GPDSPMODE_POSITIVE か #GPDSPMODE_NEGATIVE の場合に, ノード接続を取得します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[out] from ノードの取得先 (NULL 可能)
+            @param[out] which ノードのターミナル番号の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  getLinkI                    (int index, GPDSPOutputtableNode const** from, int* which) const noexcept;
+        //! 入力ターミナルのモードが #GPDSPMODE_CONSTANT の場合に, 定数値を取得します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[out] constant 定数値の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  getLinkI                    (int index, GPDSPFloat* constant) const noexcept;
+        //! 入力ターミナルのノード接続と定数値を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] index ターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  clearLinkI                  (int index) noexcept;
+        //! 入力ターミナルのノード接続と定数値を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] mode 解除するモード
+         */
+                void                        clearLinkI                  (GPDSPMode mode) noexcept;
+        //! 入力ターミナルのノード接続を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] from 解除するノード (NULL 可能)
+            @param[in] which 解除するノードのターミナル番号
+         */
+                void                        clearLinkI                  (GPDSPOutputtableNode const* from, int which) noexcept;
+        //! 入力ターミナルのノード接続を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] from 解除するノード (NULL 可能)
+         */
+                void                        clearLinkI                  (GPDSPOutputtableNode const* from) noexcept;
+        //! 入力ターミナルの定数値を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] constant 解除する定数値
+         */
+                void                        clearLinkI                  (GPDSPFloat constant) noexcept;
+        //! すべての入力ターミナルのノード接続と定数値を解除し, モードを #GPDSPMODE_NONE に変更します.
+                void                        clearLinkI                  (void) noexcept;
+        //! 入力ターミナルの値を取得します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[out] value 値の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  getValueI                   (int index, GPDSPFloat* value) const noexcept;
+        //! 引数に指定された名前を持つ入力ターミナルを検索します.
+        /*!
+            同じ名前を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] what 検索する名前
+            @retval -1 存在しない
+            @retval その他 ターミナル番号
+         */
+                int                         findNameI                   (std::string const& what) const noexcept;
+        //! 引数に指定されたモードを持つ入力ターミナルを検索します.
+        /*!
+            同じモードを持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] mode 検索するモード
+            @retval -1 存在しない
+            @retval その他 ターミナル番号
+         */
+                int                         findModeI                   (GPDSPMode mode) const noexcept;
+        //! 引数に指定されたノード接続を持つ入力ターミナルを検索します.
+        /*!
+            同じノード接続を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] from 検索するノード (NULL 可能)
+            @param[in] which 検索するノードのターミナル番号
+            @retval -1 存在しない
+            @retval その他 ターミナル番号
+         */
+                int                         findLinkI                   (GPDSPOutputtableNode const* from, int which) const noexcept;
+        //! 引数に指定されたノード接続を持つ入力ターミナルを検索します.
+        /*!
+            同じノード接続を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] from 検索するノード (NULL 可能)
+            @retval -1 存在しない
+            @retval その他 ターミナル番号
+         */
+                int                         findLinkI                   (GPDSPOutputtableNode const* from) const noexcept;
+        //! 引数に指定された定数値を持つ入力ターミナルを検索します.
+        /*!
+            同じ定数値を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] constant 検索する定数値
+            @retval -1 存在しない
+            @retval その他 ターミナル番号
+         */
+                int                         findLinkI                   (GPDSPFloat constant) const noexcept;
         //! 入力の演算結果を無効化し, 再演算を要求します.
         /*!
             何もしません.
          */
-        virtual void                        invalidate                  (void);
+        virtual void                        invalidate                  (void) noexcept;
     protected:
         //! コンストラクタです.
         /*!
             何もしません.
          */
-        explicit                            GPDSPInputtableNode         (void);
+        explicit                            GPDSPInputtableNode         (void) noexcept;
         //! デストラクタです.
         /*!
             管理しているリソースを解放します.
          */
-        virtual                             ~GPDSPInputtableNode        (void) = 0;
-                GPDSPError                  setCountI                   (int count, std::string const& what);
-                GPDSPError                  appendI                     (std::string const& what);
-                GPDSPError                  insertI                     (int index, std::string const& what);
-                GPDSPError                  removeI                     (int index);
-                void                        clearI                      (void);
+        virtual                             ~GPDSPInputtableNode        (void) noexcept = 0;
+        //! 入力ターミナルの個数と名前を設定します.
+        /*!
+            @param[in] count 設定する個数
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+         */
+                GPDSPError                  setCountI                   (int count, std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ入力ターミナルを追加します.
+        /*!
+            @param[in] what 追加する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+         */
+                GPDSPError                  appendI                     (std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ入力ターミナルを挿入します.
+        /*!
+            @param[in] index 挿入する位置
+            @param[in] what 挿入する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  insertI                     (int index, std::string const& what) noexcept;
+        //! 入力ターミナルを削除します.
+        /*!
+            @param[in] index ターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  removeI                     (int index) noexcept;
+        //! すべての入力ターミナルを削除します.
+                void                        clearI                      (void) noexcept;
     private:
                                             GPDSPInputtableNode         (GPDSPInputtableNode const&);
                 GPDSPInputtableNode&        operator=                   (GPDSPInputtableNode const&);
 };
 
-inline int GPDSPInputtableNode::getCountI(void) const
+inline int GPDSPInputtableNode::getCountI(void) const noexcept
 {
     return static_cast<int>(_terminal.size());
 }

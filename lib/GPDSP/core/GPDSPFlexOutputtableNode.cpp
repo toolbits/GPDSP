@@ -48,11 +48,11 @@
 
 namespace ir {
 
-GPDSPFlexOutputtableNode::GPDSPFlexOutputtableNode(void)
+GPDSPFlexOutputtableNode::GPDSPFlexOutputtableNode(void) noexcept
 {
 }
 
-GPDSPFlexOutputtableNode::~GPDSPFlexOutputtableNode(void)
+GPDSPFlexOutputtableNode::~GPDSPFlexOutputtableNode(void) noexcept
 {
 }
 

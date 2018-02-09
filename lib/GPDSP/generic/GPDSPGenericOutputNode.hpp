@@ -59,6 +59,19 @@ namespace ir {
     GPDSPGenericNode クラスとともに使用します.
  
     １つの入力ターミナル "in" を持ち, 出力ターミナルは持ちません.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPGenericOutputNode>
+        <name>公開する出力ターミナル番号.公開する出力ターミナル名</name>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <index>in に対する入力元のターミナル番号</index>
+            </::0>
+        </input>
+    </GPDSPGenericOutputNode>
+    @endcode
  */
 class GPDSPGenericOutputNode : public GPDSPInputtableNode {
     public:
@@ -66,32 +79,32 @@ class GPDSPGenericOutputNode : public GPDSPInputtableNode {
         /*!
             何もしません.
          */
-        explicit                            GPDSPGenericOutputNode      (void);
+        explicit                            GPDSPGenericOutputNode      (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPGenericOutputNode     (void);
+        virtual                             ~GPDSPGenericOutputNode     (void) noexcept;
         //! 入力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 演算前の準備をします.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_IGNORE 演算対象外として無視
+            @retval #GPDSPERROR_IGNORE 演算対象外として無視
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
     private:
                                             GPDSPGenericOutputNode      (GPDSPGenericOutputNode const&);
                 GPDSPGenericOutputNode&     operator=                   (GPDSPGenericOutputNode const&);

@@ -48,20 +48,20 @@
 
 namespace ir {
 
-GPDSPTriangleWaveNode::GPDSPTriangleWaveNode(int rate) : GPDSPWaveNode(rate)
+GPDSPTriangleWaveNode::GPDSPTriangleWaveNode(int rate) noexcept : GPDSPWaveNode(rate)
 {
 }
 
-GPDSPTriangleWaveNode::~GPDSPTriangleWaveNode(void)
+GPDSPTriangleWaveNode::~GPDSPTriangleWaveNode(void) noexcept
 {
 }
 
-std::string GPDSPTriangleWaveNode::getName(void) const
+std::string GPDSPTriangleWaveNode::getName(void) const noexcept
 {
     return "GPDSPTriangleWaveNode";
 }
 
-GPDSPFloat GPDSPTriangleWaveNode::getWave(GPDSPFloat phase) const
+GPDSPFloat GPDSPTriangleWaveNode::getWave(GPDSPFloat phase) const noexcept
 {
     GPDSPFloat result(GPDSPFV(0.0));
     
@@ -77,7 +77,7 @@ GPDSPFloat GPDSPTriangleWaveNode::getWave(GPDSPFloat phase) const
     return result;
 }
 
-void GPDSPTriangleWaveNode::fillWave(std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const
+void GPDSPTriangleWaveNode::fillWave(std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const noexcept
 {
     int size;
     int temp;

@@ -48,11 +48,11 @@
 
 namespace ir {
 
-GPDSPRefreshableNode::GPDSPRefreshableNode(void)
+GPDSPRefreshableNode::GPDSPRefreshableNode(void) noexcept
 {
 }
 
-GPDSPRefreshableNode::~GPDSPRefreshableNode(void)
+GPDSPRefreshableNode::~GPDSPRefreshableNode(void) noexcept
 {
 }
 

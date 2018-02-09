@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">IridiumFrameworks / GPDSP
-   &#160;<span id="projectnumber">0.8.0</span>
+   &#160;<span id="projectnumber">0.9.0</span>
    </div>
    <div id="projectbrief">A real time / non-real time General Purpose DSP library, written in C++.</div>
   </td>
@@ -94,52 +94,55 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="textblock"><h1><a class="anchor" id="sec_overview"></a>
 GPDSP とは</h1>
 <p>GPDSP ライブラリは, デジタル信号処理を簡単に行うためのライブラリです. 増幅や遅延や加算などを表す任意のノードをプログラム上で接続することにより, デジタル信号処理のアルゴリズムを簡単に構築して実行することができます.</p>
-<p>利用者はデジタル信号処理のデータの計算順序やアルゴリズムの詳細を記述する必要はなく, GPDSP ライブラリがデータフローを適切に最適化します. 最適化はデジタル信号処理の実行中にも動的に行われるため, ノードの構成をダイナミックに変更しても最速となる計算順序を自動的に探索します.</p>
+<p>開発者はデジタル信号処理のデータの計算順序やアルゴリズムの詳細を記述する必要はなく, GPDSP ライブラリがデータフローを適切に最適化します. 最適化はデジタル信号処理の実行中にも動的に行われるため, ノードの構成をダイナミックに変更しても最速となる計算順序を自動的に探索します.</p>
 <p>また, .gpdsp 形式の外部ファイルから XML 形式で記述された任意のノード構成を読み込み, １つのノードとして利用することができます. この機能を利用することにより, あらかじめ用意されたノードの動作以外にも, 任意の特性を持つノードを作成して実行することができるようになります.</p>
 <h1><a class="anchor" id="sec_howtouse"></a>
 利用方法</h1>
-<p>GPDSP ライブラリでは, 基本的には <a class="el" href="d6/df5/classir_1_1_g_p_d_s_p_node_renderer.html">GPDSPNodeRenderer</a> クラスを利用して, 各種ノードを生成したりノードを接続してデータフローを設計します.</p>
-<p>各種ノードに固有の属性や動作を設定したり変更するときは, <a class="el" href="d6/df5/classir_1_1_g_p_d_s_p_node_renderer.html">GPDSPNodeRenderer</a> クラスのインスタンスから各種ノードのインスタンスを取得して, ノードに固有の関数を呼び出します.</p>
+<p>GPDSP ライブラリでは, 基本的には <a class="el" href="classir_1_1_g_p_d_s_p_node_renderer.html">GPDSPNodeRenderer</a> クラスを利用して, 各種ノードを生成したりノードを接続してデータフローを設計します.</p>
+<p>各種ノードに固有の属性や動作を設定したり変更するときは, <a class="el" href="classir_1_1_g_p_d_s_p_node_renderer.html">GPDSPNodeRenderer</a> クラスのインスタンスから各種ノードのインスタンスを取得して, ノードに固有の関数を呼び出します.</p>
 <p>以下に 100 バイトのデータに対して増幅率 2.0 のデジタル信号処理を行うプログラム例を示します.</p>
-<div class="fragment"><div class="line">GPDSPNodeRenderer dsp;</div><div class="line"><span class="keywordtype">float</span>* in;</div><div class="line"><span class="keywordtype">float</span> <span class="keyword">const</span>* out;</div><div class="line"><span class="keywordtype">int</span> i;</div><div class="line"></div><div class="line"><span class="comment">// サンプリングレートを 44100Hz に設定</span></div><div class="line">dsp.setRate(44100);</div><div class="line"></div><div class="line"><span class="comment">// 100 バイトの入力バッファを確保して, バッファ入力ノードを作成</span></div><div class="line">dsp.newNodeBufferInput(<span class="stringliteral">&quot;data_in&quot;</span>, NULL, 100, 1);</div><div class="line"></div><div class="line"><span class="comment">// 100 バイトの出力バッファを確保して, バッファ出力ノードを作成</span></div><div class="line">dsp.newNodeBufferOutput(<span class="stringliteral">&quot;data_out&quot;</span>, NULL, 100, 1);</div><div class="line"></div><div class="line"><span class="comment">// 増幅率 2.0 の増幅ノードを作成</span></div><div class="line">dsp.newNodeAmplify(<span class="stringliteral">&quot;amp&quot;</span>, 2.0f);</div><div class="line"></div><div class="line"><span class="comment">// 増幅ノードの入力とバッファ入力ノードの出力を接続</span></div><div class="line">dsp.setLinkPositiveI(<span class="stringliteral">&quot;amp&quot;</span>, 0, <span class="stringliteral">&quot;data_in&quot;</span>, 0);</div><div class="line"></div><div class="line"><span class="comment">// バッファ出力ノードの入力と増幅ノードの出力を接続</span></div><div class="line">dsp.setLinkPositiveI(<span class="stringliteral">&quot;data_out&quot;</span>, 0, <span class="stringliteral">&quot;amp&quot;</span>, 0);</div><div class="line"></div><div class="line"><span class="comment">// バッファ入力ノードが確保した 100 バイトのバッファを取得</span></div><div class="line">in = dsp.getNodeBufferInput(<span class="stringliteral">&quot;data_in&quot;</span>)-&gt;getBufferWritable(NULL, NULL);</div><div class="line"></div><div class="line"><span class="comment">// バッファに処理前のデータを書き込み</span></div><div class="line"><span class="keywordflow">for</span> (i = 0; i &lt; 100; ++i) {</div><div class="line">    in[i] = i / 100.0f;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="comment">// 100 バイト分のデジタル信号処理を実行</span></div><div class="line">dsp.render(100);</div><div class="line"></div><div class="line"><span class="comment">// バッファ出力ノードが確保した 100 バイトのバッファを取得</span></div><div class="line">out = dsp.getNodeBufferOutput(<span class="stringliteral">&quot;data_out&quot;</span>)-&gt;getBufferReadonly(NULL, NULL);</div><div class="line"></div><div class="line"><span class="comment">// 処理後のデータをバッファから読み出し</span></div><div class="line"><span class="keywordflow">for</span> (i = 0; i &lt; 100; ++i) {</div><div class="line">    cout &lt;&lt; out[i] &lt;&lt; endl;</div><div class="line">}</div></div><!-- fragment --><h1><a class="anchor" id="sec_lineup"></a>
-標準ノードの種類</h1>
+<p><b>GPDSP ライブラリを利用したプログラム例</b></p>
+<div class="fragment"><div class="line"><a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html">ir::GPDSPNodeRenderer</a> dsp;</div><div class="line"><span class="keywordtype">float</span>* in;</div><div class="line"><span class="keywordtype">float</span> <span class="keyword">const</span>* out;</div><div class="line"><span class="keywordtype">int</span> i;</div><div class="line"></div><div class="line"><span class="comment">// サンプリングレートを 44100Hz に設定</span></div><div class="line">dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#afe8e8ae86bba4819673eae17a68f4827">setRate</a>(44100);</div><div class="line"></div><div class="line"><span class="comment">// 100 バイトの入力バッファを確保して, バッファ入力ノードを作成</span></div><div class="line">dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#a57b57bb529fcf1876316008cff739f11">newNodeBufferInput</a>(<span class="stringliteral">&quot;data_in&quot;</span>, NULL, 100, 1);</div><div class="line"></div><div class="line"><span class="comment">// 100 バイトの出力バッファを確保して, バッファ出力ノードを作成</span></div><div class="line">dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#a1f2811d78029e8af39ec7d1876ef0c53">newNodeBufferOutput</a>(<span class="stringliteral">&quot;data_out&quot;</span>, NULL, 100, 1);</div><div class="line"></div><div class="line"><span class="comment">// 増幅率 2.0 の増幅ノードを作成</span></div><div class="line">dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#ac8e14213cdba0cbd7f4a3c55692fcc7d">newNodeAmplify</a>(<span class="stringliteral">&quot;amp&quot;</span>, 2.0f);</div><div class="line"></div><div class="line"><span class="comment">// 増幅ノードの入力とバッファ入力ノードの出力を接続</span></div><div class="line">dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#a4896c9b9897f4b693073a61d24ef3594">setLinkPositiveI</a>(<span class="stringliteral">&quot;amp&quot;</span>, 0, <span class="stringliteral">&quot;data_in&quot;</span>, 0);</div><div class="line"></div><div class="line"><span class="comment">// バッファ出力ノードの入力と増幅ノードの出力を接続</span></div><div class="line">dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#a4896c9b9897f4b693073a61d24ef3594">setLinkPositiveI</a>(<span class="stringliteral">&quot;data_out&quot;</span>, 0, <span class="stringliteral">&quot;amp&quot;</span>, 0);</div><div class="line"></div><div class="line"><span class="comment">// バッファ入力ノードが確保した 100 バイトのバッファを取得</span></div><div class="line">in = dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#a379b2c61d968a2e8670dc65c3b11472c">getNodeBufferInput</a>(<span class="stringliteral">&quot;data_in&quot;</span>)-&gt;getBufferWritable(NULL, NULL);</div><div class="line"></div><div class="line"><span class="comment">// バッファに処理前のデータを書き込み</span></div><div class="line"><span class="keywordflow">for</span> (i = 0; i &lt; 100; ++i) {</div><div class="line">    in[i] = i / 100.0f;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="comment">// 100 バイト分のデジタル信号処理を実行</span></div><div class="line">dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#afa61b8523ff712907ad9e6a6517bbaf9">render</a>(100);</div><div class="line"></div><div class="line"><span class="comment">// バッファ出力ノードが確保した 100 バイトのバッファを取得</span></div><div class="line">out = dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#a770ccc3cfe67c74c4751041f0f4f492d">getNodeBufferOutput</a>(<span class="stringliteral">&quot;data_out&quot;</span>)-&gt;getBufferReadonly(NULL, NULL);</div><div class="line"></div><div class="line"><span class="comment">// 処理後のデータをバッファから読み出し</span></div><div class="line"><span class="keywordflow">for</span> (i = 0; i &lt; 100; ++i) {</div><div class="line">    std::cout &lt;&lt; out[i] &lt;&lt; std::endl;</div><div class="line">}</div></div><!-- fragment --><h1><a class="anchor" id="sec_lineup"></a>
+ノードの種類</h1>
+<p>GPDSP ライブラリには, 以下の表に示すような具象ノードがあらかじめ含まれています.</p>
+<p>開発者は, <a class="el" href="classir_1_1_g_p_d_s_p_generic_node.html" title="任意ノードを表す具象クラス ">GPDSPGenericNode</a> クラスを利用するか, 抽象ノードを継承した新しいノードを実装することにより, 独自の機能を持ったノードを追加することができます.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">クラス名  </th><th class="markdownTableHeadNone">解説   </th></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="d1/d09/classir_1_1_g_p_d_s_p_buffer_input_node.html" title="バッファ入力ノードを表す具象クラス ">GPDSPBufferInputNode</a>  </td><td class="markdownTableBodyNone">バッファ入力ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_buffer_input_node.html" title="バッファ入力ノードを表す具象クラス ">GPDSPBufferInputNode</a>  </td><td class="markdownTableBodyNone">バッファ入力ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="de/d5e/classir_1_1_g_p_d_s_p_buffer_output_node.html" title="バッファ出力ノードを表す具象クラス ">GPDSPBufferOutputNode</a>  </td><td class="markdownTableBodyNone">バッファ出力ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_buffer_output_node.html" title="バッファ出力ノードを表す具象クラス ">GPDSPBufferOutputNode</a>  </td><td class="markdownTableBodyNone">バッファ出力ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="dc/d88/classir_1_1_g_p_d_s_p_constant_node.html" title="定数ノードを表す具象クラス ">GPDSPConstantNode</a>  </td><td class="markdownTableBodyNone">定数ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_constant_node.html" title="定数ノードを表す具象クラス ">GPDSPConstantNode</a>  </td><td class="markdownTableBodyNone">定数ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="d0/d4d/classir_1_1_g_p_d_s_p_sign_node.html" title="符号ノードを表す具象クラス ">GPDSPSignNode</a>  </td><td class="markdownTableBodyNone">符号ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_sign_node.html" title="符号ノードを表す具象クラス ">GPDSPSignNode</a>  </td><td class="markdownTableBodyNone">符号ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="db/d16/classir_1_1_g_p_d_s_p_gate_node.html" title="制限ノードを表す具象クラス ">GPDSPGateNode</a>  </td><td class="markdownTableBodyNone">制限ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_gate_node.html" title="制限ノードを表す具象クラス ">GPDSPGateNode</a>  </td><td class="markdownTableBodyNone">制限ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="d0/d10/classir_1_1_g_p_d_s_p_peak_node.html" title="極限ノードを表す具象クラス ">GPDSPPeakNode</a>  </td><td class="markdownTableBodyNone">極限ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_peak_node.html" title="極限ノードを表す具象クラス ">GPDSPPeakNode</a>  </td><td class="markdownTableBodyNone">極限ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="df/d9c/classir_1_1_g_p_d_s_p_amplify_node.html" title="増幅ノードを表す具象クラス ">GPDSPAmplifyNode</a>  </td><td class="markdownTableBodyNone">増幅ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_amplify_node.html" title="増幅ノードを表す具象クラス ">GPDSPAmplifyNode</a>  </td><td class="markdownTableBodyNone">増幅ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="d8/dbd/classir_1_1_g_p_d_s_p_delay_node.html" title="単位遅延ノードを表す具象クラス ">GPDSPDelayNode</a>  </td><td class="markdownTableBodyNone">単位遅延ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_delay_node.html" title="単位遅延ノードを表す具象クラス ">GPDSPDelayNode</a>  </td><td class="markdownTableBodyNone">単位遅延ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="d1/dc5/classir_1_1_g_p_d_s_p_buffer_node.html" title="任意遅延ノードを表す具象クラス ">GPDSPBufferNode</a>  </td><td class="markdownTableBodyNone">任意遅延ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_buffer_node.html" title="任意遅延ノードを表す具象クラス ">GPDSPBufferNode</a>  </td><td class="markdownTableBodyNone">任意遅延ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="d3/ddb/classir_1_1_g_p_d_s_p_sum_node.html" title="総和ノードを表す具象クラス ">GPDSPSumNode</a>  </td><td class="markdownTableBodyNone">総和ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_sum_node.html" title="総和ノードを表す具象クラス ">GPDSPSumNode</a>  </td><td class="markdownTableBodyNone">総和ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="d8/d39/classir_1_1_g_p_d_s_p_multiply_node.html" title="総積ノードを表す具象クラス ">GPDSPMultiplyNode</a>  </td><td class="markdownTableBodyNone">総積ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_multiply_node.html" title="総積ノードを表す具象クラス ">GPDSPMultiplyNode</a>  </td><td class="markdownTableBodyNone">総積ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="dc/d04/classir_1_1_g_p_d_s_p_square_root_node.html" title="平方根ノードを表す具象クラス ">GPDSPSquareRootNode</a>  </td><td class="markdownTableBodyNone">平方根ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_square_root_node.html" title="平方根ノードを表す具象クラス ">GPDSPSquareRootNode</a>  </td><td class="markdownTableBodyNone">平方根ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="d2/dea/classir_1_1_g_p_d_s_p_sin_wave_node.html" title="サイン波ノードを表す具象クラス ">GPDSPSinWaveNode</a>  </td><td class="markdownTableBodyNone">サイン波ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_sin_wave_node.html" title="サイン波ノードを表す具象クラス ">GPDSPSinWaveNode</a>  </td><td class="markdownTableBodyNone">サイン波ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="d6/d66/classir_1_1_g_p_d_s_p_triangle_wave_node.html" title="三角波ノードを表す具象クラス ">GPDSPTriangleWaveNode</a>  </td><td class="markdownTableBodyNone">三角波ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_triangle_wave_node.html" title="三角波ノードを表す具象クラス ">GPDSPTriangleWaveNode</a>  </td><td class="markdownTableBodyNone">三角波ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="df/d6a/classir_1_1_g_p_d_s_p_sawtooth_wave_node.html" title="鋸波ノードを表す具象クラス ">GPDSPSawtoothWaveNode</a>  </td><td class="markdownTableBodyNone">鋸波ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_sawtooth_wave_node.html" title="鋸波ノードを表す具象クラス ">GPDSPSawtoothWaveNode</a>  </td><td class="markdownTableBodyNone">鋸波ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="df/d70/classir_1_1_g_p_d_s_p_square_wave_node.html" title="矩形波ノードを表す具象クラス ">GPDSPSquareWaveNode</a>  </td><td class="markdownTableBodyNone">矩形波ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html" title="矩形波ノードを表す具象クラス ">GPDSPSquareWaveNode</a>  </td><td class="markdownTableBodyNone">矩形波ノード   </td></tr>
 <tr class="markdownTableBody" class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="d6/db6/classir_1_1_g_p_d_s_p_generic_node.html" title="任意ノードを表す具象クラス ">GPDSPGenericNode</a>  </td><td class="markdownTableBodyNone">任意ノード   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="classir_1_1_g_p_d_s_p_generic_node.html" title="任意ノードを表す具象クラス ">GPDSPGenericNode</a>  </td><td class="markdownTableBodyNone">任意ノード   </td></tr>
 </table>
 <h1><a class="anchor" id="sec_generic"></a>
 任意ノードと .gpdsp ファイル</h1>

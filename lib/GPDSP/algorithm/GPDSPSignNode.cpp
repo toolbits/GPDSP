@@ -49,15 +49,15 @@
 
 namespace ir {
 
-GPDSPSignNode::GPDSPSignNode(void)
+GPDSPSignNode::GPDSPSignNode(void) noexcept
 {
 }
 
-GPDSPSignNode::~GPDSPSignNode(void)
+GPDSPSignNode::~GPDSPSignNode(void) noexcept
 {
 }
 
-GPDSPError GPDSPSignNode::fixate(void)
+GPDSPError GPDSPSignNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -73,19 +73,19 @@ GPDSPError GPDSPSignNode::fixate(void)
     return error;
 }
 
-void GPDSPSignNode::invalidate(void)
+void GPDSPSignNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPSignNode::prepare(void)
+GPDSPError GPDSPSignNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPSignNode::process(void)
+GPDSPError GPDSPSignNode::process(void) noexcept
 {
     GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);

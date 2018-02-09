@@ -58,6 +58,19 @@ namespace ir {
     それ以外のときは 0.0 を出力する符号ノードを表す具象クラスです.
  
     １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPSignNode>
+        <name>ノード名</name>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <index>in に対する入力元のターミナル番号</index>
+            </::0>
+        </input>
+    </GPDSPSignNode>
+    @endcode
  */
 class GPDSPSignNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     public:
@@ -65,34 +78,34 @@ class GPDSPSignNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
         /*!
             何もしません.
          */
-        explicit                            GPDSPSignNode               (void);
+        explicit                            GPDSPSignNode               (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPSignNode              (void);
+        virtual                             ~GPDSPSignNode              (void) noexcept;
         //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 入出力の演算結果を無効化し, 再演算を要求します.
-        virtual void                        invalidate                  (void);
+        virtual void                        invalidate                  (void) noexcept;
         //! 演算前の準備をします.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
-            @retval GPDSPERROR_OK 正常 (演算を完了)
-            @retval GPDSPERROR_WAIT データフロー入力待ち
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
     private:
                                             GPDSPSignNode               (GPDSPSignNode const&);
                 GPDSPSignNode&              operator=                   (GPDSPSignNode const&);

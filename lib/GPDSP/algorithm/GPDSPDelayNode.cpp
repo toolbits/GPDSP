@@ -48,15 +48,15 @@
 
 namespace ir {
 
-GPDSPDelayNode::GPDSPDelayNode(void) : _queue(GPDSPFV(0.0))
+GPDSPDelayNode::GPDSPDelayNode(void) noexcept : _queue(GPDSPFV(0.0))
 {
 }
 
-GPDSPDelayNode::~GPDSPDelayNode(void)
+GPDSPDelayNode::~GPDSPDelayNode(void) noexcept
 {
 }
 
-GPDSPError GPDSPDelayNode::fixate(void)
+GPDSPError GPDSPDelayNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -72,19 +72,19 @@ GPDSPError GPDSPDelayNode::fixate(void)
     return error;
 }
 
-void GPDSPDelayNode::invalidate(void)
+void GPDSPDelayNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPDelayNode::prepare(void)
+GPDSPError GPDSPDelayNode::prepare(void) noexcept
 {
     return setValueO(0, _queue);
 }
 
-GPDSPError GPDSPDelayNode::process(void)
+GPDSPError GPDSPDelayNode::process(void) noexcept
 {
     GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
@@ -95,7 +95,7 @@ GPDSPError GPDSPDelayNode::process(void)
     return error;
 }
 
-void GPDSPDelayNode::refresh(void)
+void GPDSPDelayNode::refresh(void) noexcept
 {
     _queue = GPDSPFV(0.0);
     return;

@@ -87,182 +87,608 @@ class GPDSPNodeRenderer {
                                             _nit;
     
     public:
-        explicit                            GPDSPNodeRenderer           (void);
-                                            ~GPDSPNodeRenderer          (void);
-                GPDSPError                  setRate                     (int rate);
-                int                         getRate                     (void) const;
+        //! コンストラクタです.
+        /*!
+            リソースを初期化します.
+         */
+        explicit                            GPDSPNodeRenderer           (void) noexcept;
+        //! デストラクタです.
+        /*!
+            管理しているリソースを解放します.
+         */
+                                            ~GPDSPNodeRenderer          (void) noexcept;
+        //! サンプリングレートを設定します.
+        /*!
+            サンプリングレートは, ノードが１つも登録されていないときに設定します.
+            すでにノードが存在する場合, この関数は失敗します.
+         
+            0 を設定すると, 明示的なサンプリングレートの考慮を行いません.
+            このとき, 明示的なサンプリングレートの指定を必要とするいくつかの種類のノードは生成に失敗することがあります.
+            また, load() 関数において .gpdsp ファイルで記述されているサンプリングレートとの比較を行いません.
+         
+            0 よりも大きな値を設定すると, サンプリングレートが明示的に処理されます.
+            いくつかの種類のノードは, 設定されたサンプリングレートを参照して生成されます.
+            また, load() 関数において .gpdsp ファイルで記述されているサンプリングレートとの比較を行い,
+            一致する項目のノード構成を読み込みます.
+         
+            @param[in] rate サンプリングレート >= 0
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  setRate                     (int rate) noexcept;
+        //! サンプリングレートを取得します.
+        /*!
+            @return 現在のサンプリングレート
+         */
+                int                         getRate                     (void) const noexcept;
+        //! GPDSPBufferInputNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPBufferInputNode>
-                                            getNodeBufferInput          (std::string const& name) const;
+                                            getNodeBufferInput          (std::string const& name) const noexcept;
+        //! GPDSPBufferOutputNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPBufferOutputNode>
-                                            getNodeBufferOutput         (std::string const& name) const;
+                                            getNodeBufferOutput         (std::string const& name) const noexcept;
+        //! GPDSPConstantNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPConstantNode>
-                                            getNodeConstant             (std::string const& name) const;
+                                            getNodeConstant             (std::string const& name) const noexcept;
+        //! GPDSPSignNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPSignNode>
-                                            getNodeSign                 (std::string const& name) const;
+                                            getNodeSign                 (std::string const& name) const noexcept;
+        //! GPDSPGateNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPGateNode>
-                                            getNodeGate                 (std::string const& name) const;
+                                            getNodeGate                 (std::string const& name) const noexcept;
+        //! GPDSPPeakNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPPeakNode>
-                                            getNodePeak                 (std::string const& name) const;
+                                            getNodePeak                 (std::string const& name) const noexcept;
+        //! GPDSPAmplifyNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPAmplifyNode>
-                                            getNodeAmplify              (std::string const& name) const;
+                                            getNodeAmplify              (std::string const& name) const noexcept;
+        //! GPDSPDelayNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPDelayNode>
-                                            getNodeDelay                (std::string const& name) const;
+                                            getNodeDelay                (std::string const& name) const noexcept;
+        //! GPDSPBufferNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPBufferNode>
-                                            getNodeBuffer               (std::string const& name) const;
+                                            getNodeBuffer               (std::string const& name) const noexcept;
+        //! GPDSPSumNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPSumNode>
-                                            getNodeSum                  (std::string const& name) const;
+                                            getNodeSum                  (std::string const& name) const noexcept;
+        //! GPDSPMultiplyNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPMultiplyNode>
-                                            getNodeMultiply             (std::string const& name) const;
+                                            getNodeMultiply             (std::string const& name) const noexcept;
+        //! GPDSPSquareRootNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPSquareRootNode>
-                                            getNodeSquareRoot           (std::string const& name) const;
+                                            getNodeSquareRoot           (std::string const& name) const noexcept;
+        //! GPDSPSinWaveNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPSinWaveNode>
-                                            getNodeSinWave              (std::string const& name) const;
+                                            getNodeSinWave              (std::string const& name) const noexcept;
+        //! GPDSPTriangleWaveNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPTriangleWaveNode>
-                                            getNodeTriangleWave         (std::string const& name) const;
+                                            getNodeTriangleWave         (std::string const& name) const noexcept;
+        //! GPDSPSawtoothWaveNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPSawtoothWaveNode>
-                                            getNodeSawtoothWave         (std::string const& name) const;
+                                            getNodeSawtoothWave         (std::string const& name) const noexcept;
+        //! GPDSPSquareWaveNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPSquareWaveNode>
-                                            getNodeSquareWave           (std::string const& name) const;
+                                            getNodeSquareWave           (std::string const& name) const noexcept;
+        //! GPDSPGenericNode クラスのノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
                 std::shared_ptr<GPDSPGenericNode>
-                                            getNodeGeneric              (std::string const& name) const;
-                std::shared_ptr<GPDSPNode>  getNode                     (std::string const& name) const;
-                int                         getSize                     (void) const;
-                GPDSPError                  setCountI                   (std::string const& name, int count, std::string const& what);
-                GPDSPError                  getCountI                   (std::string const& name, int* count) const;
-                GPDSPError                  setCountO                   (std::string const& name, int count, std::string const& what);
-                GPDSPError                  getCountO                   (std::string const& name, int* count) const;
-                GPDSPError                  setNameI                    (std::string const& name, int index, std::string const& what);
-                GPDSPError                  getNameI                    (std::string const& name, int index, std::string* what) const;
-                GPDSPError                  setNameO                    (std::string const& name, int index, std::string const& what);
-                GPDSPError                  getNameO                    (std::string const& name, int index, std::string* what) const;
-                GPDSPError                  getModeI                    (std::string const& name, int index, GPDSPMode* mode) const;
-                GPDSPError                  setLinkPositiveI            (std::string const& name, int index, std::string const& from, int which);
-                GPDSPError                  setLinkNegativeI            (std::string const& name, int index, std::string const& from, int which);
-                GPDSPError                  setLinkConstantI            (std::string const& name, int index, GPDSPFloat constant);
-                GPDSPError                  getLinkI                    (std::string const& name, int index, std::string* from, int* which) const;
-                GPDSPError                  getLinkI                    (std::string const& name, int index, GPDSPFloat* constant) const;
-                GPDSPError                  clearLinkI                  (std::string const& name, int index);
-                GPDSPError                  clearLinkI                  (std::string const& name, GPDSPMode mode);
-                GPDSPError                  clearLinkI                  (std::string const& name, std::string const& from, int which);
-                GPDSPError                  clearLinkI                  (std::string const& name, std::string const& from);
-                GPDSPError                  clearLinkI                  (std::string const& name);
-                GPDSPError                  clearLinkO                  (std::string const& name, int index);
-                GPDSPError                  clearLinkO                  (std::string const& name);
-                GPDSPError                  getValueI                   (std::string const& name, int index, GPDSPFloat* value) const;
-                GPDSPError                  getValueO                   (std::string const& name, int index, GPDSPFloat* value) const;
-                std::string                 getNextNode                 (void) const;
-                bool                        hasNextNode                 (void) const;
-                std::string                 findNode                    (std::shared_ptr<GPDSPNode const> const& node) const;
-                GPDSPError                  findNameI                   (std::string const& name, std::string const& what, int* index) const;
-                GPDSPError                  findNameO                   (std::string const& name, std::string const& what, int* index) const;
-                GPDSPError                  findLinkI                   (std::string const& name, GPDSPMode mode, int* index) const;
-                GPDSPError                  findLinkI                   (std::string const& name, std::string const& from, int which, int* index) const;
-                GPDSPError                  findLinkI                   (std::string const& name, std::string const& from, int* index) const;
-                GPDSPError                  newNodeBufferInput          (std::string const& name, GPDSPFloat const* buffer, int length, int interleave);
-                GPDSPError                  newNodeBufferOutput         (std::string const& name, GPDSPFloat* buffer, int length, int interleave);
-                GPDSPError                  newNodeConstant             (std::string const& name, GPDSPFloat constant);
-                GPDSPError                  newNodeSign                 (std::string const& name);
-                GPDSPError                  newNodeGate                 (std::string const& name, GPDSPFloat minimum, GPDSPFloat maximum);
-                GPDSPError                  newNodePeak                 (std::string const& name);
-                GPDSPError                  newNodeAmplify              (std::string const& name, GPDSPFloat gain);
-                GPDSPError                  newNodeDelay                (std::string const& name);
-                GPDSPError                  newNodeBuffer               (std::string const& name, int size);
-                GPDSPError                  newNodeSum                  (std::string const& name, int count);
-                GPDSPError                  newNodeMultiply             (std::string const& name, int count);
-                GPDSPError                  newNodeSquareRoot           (std::string const& name);
-                GPDSPError                  newNodeSinWave              (std::string const& name, GPDSPFloat resolution = GPDSPSinWaveNode::defaultResolution());
-                GPDSPError                  newNodeTriangleWave         (std::string const& name, GPDSPFloat resolution = GPDSPTriangleWaveNode::defaultResolution());
-                GPDSPError                  newNodeSawtoothWave         (std::string const& name, GPDSPFloat resolution = GPDSPSawtoothWaveNode::defaultResolution());
-                GPDSPError                  newNodeSquareWave           (std::string const& name, GPDSPFloat resolution = GPDSPSquareWaveNode::defaultResolution());
-                GPDSPError                  newNodeGeneric              (std::string const& name, std::string const& file);
-                GPDSPError                  newNode                     (std::string const& name, std::shared_ptr<GPDSPNode> const& node);
-                GPDSPError                  appendI                     (std::string const& name, std::string const& what);
-                GPDSPError                  appendO                     (std::string const& name, std::string const& what);
-                GPDSPError                  insertI                     (std::string const& name, int index, std::string const& what);
-                GPDSPError                  insertO                     (std::string const& name, int index, std::string const& what);
-                GPDSPError                  deleteNode                  (std::string const& name);
-                GPDSPError                  removeI                     (std::string const& name, int index);
-                GPDSPError                  removeO                     (std::string const& name, int index);
-                void                        clearNode                   (void);
-                GPDSPError                  clearI                      (std::string const& name);
-                GPDSPError                  clearO                      (std::string const& name);
-                GPDSPError                  renameNode                  (std::string const& name, std::string const& alternate);
-                void                        iterateNode                 (void) const;
-                void                        invalidate                  (void);
-                GPDSPError                  prepare                     (void);
-                GPDSPError                  process                     (void);
-                GPDSPError                  render                      (int count, int* remain = NULL);
-                GPDSPError                  rewind                      (std::string const& name);
-                void                        rewind                      (void);
-                GPDSPError                  refresh                     (std::string const& name);
-                void                        refresh                     (void);
-                GPDSPError                  load                        (std::string const& file, GPDSPSerializable* serializable = NULL);
-                GPDSPError                  save                        (std::string const& file, GPDSPSerializable* serializable = NULL) const;
-        static  GPDSPError                  addTag                      (tinyxml2::XMLElement* parent, std::string const& tag, tinyxml2::XMLElement** child);
-        static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, int value);
-        static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, GPDSPFloat value);
-        static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, std::string const& value);
-        static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int* value);
-        static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int format, GPDSPFloat* value);
-        static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, std::string* value);
-        static  std::string                 stringize                   (GPDSPError error);
+                                            getNodeGeneric              (std::string const& name) const noexcept;
+        //! ノードを取得します.
+        /*!
+            @param[in] name ノードの名前
+            @retval NULL ノードが見つからない
+            @retval その他 有効なノード
+         */
+                std::shared_ptr<GPDSPNode>  getNode                     (std::string const& name) const noexcept;
+        //! ノードの個数を取得します.
+        /*!
+            @return 現在の個数
+         */
+                int                         getSize                     (void) const noexcept;
+        //! 入力ターミナルの個数と名前を設定します.
+        /*!
+            @param[in] name ノードの名前
+            @param[in] count 設定する個数
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
+                GPDSPError                  setCountI                   (std::string const& name, int count, std::string const& what) noexcept;
+        //! 入力ターミナルの個数を取得します.
+        /*!
+            @param[in] name ノードの名前
+            @param[out] count 個数の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+         */
+                GPDSPError                  getCountI                   (std::string const& name, int* count) const noexcept;
+        //! 出力ターミナルの個数と名前を設定します.
+        /*!
+            @param[in] name ノードの名前
+            @param[in] count 設定する個数
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
+                GPDSPError                  setCountO                   (std::string const& name, int count, std::string const& what) noexcept;
+        //! 出力ターミナルの個数を取得します.
+        /*!
+            @param[in] name ノードの名前
+            @param[out] count 個数の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+         */
+                GPDSPError                  getCountO                   (std::string const& name, int* count) const noexcept;
+                GPDSPError                  setNameI                    (std::string const& name, int index, std::string const& what) noexcept;
+                GPDSPError                  getNameI                    (std::string const& name, int index, std::string* what) const noexcept;
+                GPDSPError                  setNameO                    (std::string const& name, int index, std::string const& what) noexcept;
+                GPDSPError                  getNameO                    (std::string const& name, int index, std::string* what) const noexcept;
+                GPDSPError                  setLinkPositiveI            (std::string const& name, int index, std::string const& from, int which) noexcept;
+                GPDSPError                  setLinkNegativeI            (std::string const& name, int index, std::string const& from, int which) noexcept;
+                GPDSPError                  setLinkConstantI            (std::string const& name, int index, GPDSPFloat constant) noexcept;
+                GPDSPError                  getModeI                    (std::string const& name, int index, GPDSPMode* mode) const noexcept;
+                GPDSPError                  getLinkI                    (std::string const& name, int index, std::string* from, int* which) const noexcept;
+                GPDSPError                  getLinkI                    (std::string const& name, int index, GPDSPFloat* constant) const noexcept;
+                GPDSPError                  clearLinkI                  (std::string const& name, int index) noexcept;
+                GPDSPError                  clearLinkI                  (std::string const& name, GPDSPMode mode) noexcept;
+                GPDSPError                  clearLinkI                  (std::string const& name, std::string const& from, int which) noexcept;
+                GPDSPError                  clearLinkI                  (std::string const& name, std::string const& from) noexcept;
+                GPDSPError                  clearLinkI                  (std::string const& name, GPDSPFloat constant) noexcept;
+                GPDSPError                  clearLinkI                  (std::string const& name) noexcept;
+                GPDSPError                  clearLinkO                  (std::string const& name, int index) noexcept;
+                GPDSPError                  clearLinkO                  (std::string const& name) noexcept;
+                GPDSPError                  getValueI                   (std::string const& name, int index, GPDSPFloat* value) const noexcept;
+                GPDSPError                  getValueO                   (std::string const& name, int index, GPDSPFloat* value) const noexcept;
+                std::string                 getNextNode                 (void) const noexcept;
+                bool                        hasNextNode                 (void) const noexcept;
+                std::string                 findNode                    (std::shared_ptr<GPDSPNode const> const& node) const noexcept;
+                GPDSPError                  findNameI                   (std::string const& name, std::string const& what, int* index) const noexcept;
+                GPDSPError                  findNameO                   (std::string const& name, std::string const& what, int* index) const noexcept;
+                GPDSPError                  findModeI                   (std::string const& name, GPDSPMode mode, int* index) const noexcept;
+                GPDSPError                  findLinkI                   (std::string const& name, std::string const& from, int which, int* index) const noexcept;
+                GPDSPError                  findLinkI                   (std::string const& name, std::string const& from, int* index) const noexcept;
+                GPDSPError                  findLinkI                   (std::string const& name, GPDSPFloat constant, int* index) const noexcept;
+        //! 既存の入力バッファを参照, または, 新規の入力バッファを自動的に確保して GPDSPBufferInputNode クラスのノードを生成します.
+        /*!
+            buffer 引数に NULL 以外を設定すると, 既存の入力バッファを入力バッファとして参照します.
+            このとき, length 引数, もしくは interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
+         
+            buffer 引数に NULL を設定し length 引数が 0 以下でないとき,
+            length 引数と interleave 引数から適切な入力バッファのサイズを計算し, 自動的に入力バッファを確保します.
+            このとき, interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
+         
+            buffer 引数に NULL を設定し length 引数が 0 以下のとき,
+            既存の入力バッファが設定されている場合は入力バッファの参照を解除し,
+            入力バッファが自動的に確保されている場合は入力バッファを解放します.
+         
+            @param[in] name ノードの名前
+            @param[in] buffer 既存の入力バッファ (NULL 可能)
+            @param[in] length 入力バッファのサイズ
+            @param[in] interleave データの間隔
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeBufferInput          (std::string const& name, GPDSPFloat const* buffer, int length, int interleave) noexcept;
+        //! 既存の出力バッファを参照, または, 新規の出力バッファを自動的に確保して GPDSPBufferOutputNode クラスのノードを生成します.
+        /*!
+            buffer 引数に NULL 以外を設定すると, 既存の出力バッファを出力バッファとして参照します.
+            このとき, length 引数, もしくは interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
+         
+            buffer 引数に NULL を設定し length 引数が 0 以下でないとき,
+            length 引数と interleave 引数から適切な出力バッファのサイズを計算し, 自動的に出力バッファを確保します.
+            このとき, interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
+         
+            buffer 引数に NULL を設定し length 引数が 0 以下のとき,
+            既存の出力バッファが設定されている場合は出力バッファの参照を解除し,
+            出力バッファが自動的に確保されている場合は出力バッファを解放します.
+         
+            @param[in] name ノードの名前
+            @param[in] buffer 既存の出力バッファ (NULL 可能)
+            @param[in] length 出力バッファのサイズ
+            @param[in] interleave データの間隔
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeBufferOutput         (std::string const& name, GPDSPFloat* buffer, int length, int interleave) noexcept;
+        //! 定数値を指定して GPDSPConstantNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @param[in] constant 指定する定数値
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeConstant             (std::string const& name, GPDSPFloat constant) noexcept;
+        //! GPDSPSignNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeSign                 (std::string const& name) noexcept;
+        //! 最小値と最大値を指定して GPDSPGateNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @param[in] minimum 指定する最小値
+            @param[in] maximum 指定する最大値
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeGate                 (std::string const& name, GPDSPFloat minimum, GPDSPFloat maximum) noexcept;
+        //! GPDSPPeakNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodePeak                 (std::string const& name) noexcept;
+        //! 増幅率を指定して GPDSPAmplifyNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @param[in] gain 指定する増幅率
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeAmplify              (std::string const& name, GPDSPFloat gain) noexcept;
+        //! GPDSPDelayNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeDelay                (std::string const& name) noexcept;
+        //! 内部バッファのサイズを指定し, 値を 0.0 に初期化して GPDSPBufferNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @param[in] size 指定するサイズ
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeBuffer               (std::string const& name, int size) noexcept;
+        //! 入力ターミナルの個数を指定して GPDSPSumNode クラスのノードを生成します.
+        /*!
+            入力ターミナルの名前は, すべて "in" になります.
+         
+            @param[in] name ノードの名前
+            @param[in] count 指定する個数
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeSum                  (std::string const& name, int count) noexcept;
+        //! 入力ターミナルの個数を指定して GPDSPMultiplyNode クラスのノードを生成します.
+        /*!
+            入力ターミナルの名前は, すべて "in" になります.
+         
+            @param[in] name ノードの名前
+            @param[in] count 指定する個数
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeMultiply             (std::string const& name, int count) noexcept;
+        //! GPDSPSquareRootNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  newNodeSquareRoot           (std::string const& name) noexcept;
+        //! 解像度を指定して GPDSPSinWaveNode クラスのノードを生成します.
+        /*!
+            resolution 引数に (0.0, +INFINITY) の範囲の値を設定すると,
+            サンプリングレートと解像度に応じた波形バッファがあらかじめ作成され,
+            演算時には波形バッファを参照し直線補完にて値を求めます.
+         
+            resolution 引数に +INFINITY を設定すると波形バッファを作成することなく,
+            演算時に値を逐次計算して求めます.
+         
+            サンプリングレートが 0 に設定されているとき, この関数は失敗します.
+         
+            @param[in] name ノードの名前
+            @param[in] resolution 設定する解像度 (0.0, +INFINITY]
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+            @retval #GPDSPERROR_FAILED 失敗
+         */
+                GPDSPError                  newNodeSinWave              (std::string const& name, GPDSPFloat resolution = GPDSPSinWaveNode::defaultResolution()) noexcept;
+        //! 解像度を指定して GPDSPTriangleWaveNode クラスのノードを生成します.
+        /*!
+            resolution 引数に (0.0, +INFINITY) の範囲の値を設定すると,
+            サンプリングレートと解像度に応じた波形バッファがあらかじめ作成され,
+            演算時には波形バッファを参照し直線補完にて値を求めます.
+         
+            resolution 引数に +INFINITY を設定すると波形バッファを作成することなく,
+            演算時に値を逐次計算して求めます.
+         
+            サンプリングレートが 0 に設定されているとき, この関数は失敗します.
+         
+            @param[in] name ノードの名前
+            @param[in] resolution 設定する解像度 (0.0, +INFINITY]
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+            @retval #GPDSPERROR_FAILED 失敗
+         */
+                GPDSPError                  newNodeTriangleWave         (std::string const& name, GPDSPFloat resolution = GPDSPTriangleWaveNode::defaultResolution()) noexcept;
+        //! 解像度を指定して GPDSPSawtoothWaveNode クラスのノードを生成します.
+        /*!
+            resolution 引数に (0.0, +INFINITY) の範囲の値を設定すると,
+            サンプリングレートと解像度に応じた波形バッファがあらかじめ作成され,
+            演算時には波形バッファを参照し直線補完にて値を求めます.
+         
+            resolution 引数に +INFINITY を設定すると波形バッファを作成することなく,
+            演算時に値を逐次計算して求めます.
+         
+            サンプリングレートが 0 に設定されているとき, この関数は失敗します.
+         
+            @param[in] name ノードの名前
+            @param[in] resolution 設定する解像度 (0.0, +INFINITY]
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+            @retval #GPDSPERROR_FAILED 失敗
+         */
+                GPDSPError                  newNodeSawtoothWave         (std::string const& name, GPDSPFloat resolution = GPDSPSawtoothWaveNode::defaultResolution()) noexcept;
+        //! 解像度を指定して GPDSPSquareWaveNode クラスのノードを生成します.
+        /*!
+            resolution 引数に (0.0, +INFINITY) の範囲の値を設定すると,
+            サンプリングレートと解像度に応じた波形バッファがあらかじめ作成され,
+            演算時には波形バッファを参照し直線補完にて値を求めます.
+         
+            resolution 引数に +INFINITY を設定すると波形バッファを作成することなく,
+            演算時に値を逐次計算して求めます.
+         
+            サンプリングレートが 0 に設定されているとき, この関数は失敗します.
+         
+            @param[in] name ノードの名前
+            @param[in] resolution 設定する解像度 (0.0, +INFINITY]
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+            @retval #GPDSPERROR_FAILED 失敗
+         */
+                GPDSPError                  newNodeSquareWave           (std::string const& name, GPDSPFloat resolution = GPDSPSquareWaveNode::defaultResolution()) noexcept;
+        //! .gpdsp 拡張子を持つ外部ファイルを開いて, XML 形式で記述されたノードの構成を読み込み GPDSPGenericNode クラスのノードを生成します.
+        /*!
+            @param[in] name ノードの名前
+            @param[in] file ファイルのパス
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_SUPPORT サポートされていない
+            @retval #GPDSPERROR_NO_FILE ファイルが存在しない
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_NO_FOUND 項目が見つからない
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_FORMAT 不正なフォーマット
+            @retval #GPDSPERROR_FAILED 失敗
+         */
+                GPDSPError                  newNodeGeneric              (std::string const& name, std::string const& file) noexcept;
+        //! 既存のノードを追加します.
+        /*!
+            すでに生成された既存のノードを GPDSPNodeRenderer クラスの管理下に追加します.
+         
+            追加されるノードは name 引数により名前付けされ, 他のノードの名前と重複してはいけません.
+            名前の検証に成功した場合は, GPDSPNode::fixate() 関数が呼び出されたのち管理下に追加されます.
+         
+            name 引数が空文字か node 引数が NULL のとき, この関数は失敗します.
+         
+            @param[in] name ノードの名前
+            @param[in] node 既存のノード
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
+         */
+                GPDSPError                  appendNode                  (std::string const& name, std::shared_ptr<GPDSPNode> const& node) noexcept;
+                GPDSPError                  appendI                     (std::string const& name, std::string const& what) noexcept;
+                GPDSPError                  appendO                     (std::string const& name, std::string const& what) noexcept;
+                GPDSPError                  insertI                     (std::string const& name, int index, std::string const& what) noexcept;
+                GPDSPError                  insertO                     (std::string const& name, int index, std::string const& what) noexcept;
+                GPDSPError                  removeNode                  (std::string const& name) noexcept;
+                GPDSPError                  removeI                     (std::string const& name, int index) noexcept;
+                GPDSPError                  removeO                     (std::string const& name, int index) noexcept;
+                void                        clearNode                   (void) noexcept;
+                GPDSPError                  clearI                      (std::string const& name) noexcept;
+                GPDSPError                  clearO                      (std::string const& name) noexcept;
+                GPDSPError                  renameNode                  (std::string const& name, std::string const& alternate) noexcept;
+                void                        iterateNode                 (void) const noexcept;
+                void                        invalidate                  (void) noexcept;
+                GPDSPError                  prepare                     (void) noexcept;
+                GPDSPError                  process                     (void) noexcept;
+                GPDSPError                  render                      (int count, int* remain = NULL) noexcept;
+                GPDSPError                  rewind                      (std::string const& name) noexcept;
+                void                        rewind                      (void) noexcept;
+                GPDSPError                  refresh                     (std::string const& name) noexcept;
+                void                        refresh                     (void) noexcept;
+                GPDSPError                  load                        (std::string const& file, GPDSPSerializable* serializable = NULL) noexcept;
+                GPDSPError                  save                        (std::string const& file, GPDSPSerializable* serializable = NULL) const noexcept;
+        static  GPDSPError                  addTag                      (tinyxml2::XMLElement* parent, std::string const& tag, tinyxml2::XMLElement** child) noexcept;
+        static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, int value) noexcept;
+        static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, GPDSPFloat value) noexcept;
+        static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, std::string const& value) noexcept;
+        static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int* value) noexcept;
+        static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int format, GPDSPFloat* value) noexcept;
+        static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, std::string* value) noexcept;
+        static  std::string                 stringize                   (GPDSPError error) noexcept;
     private:
-                GPDSPError                  getNodeInputtable           (std::string const& name, std::shared_ptr<GPDSPInputtableNode>* node);
-                GPDSPError                  getNodeInputtable           (std::string const& name, std::shared_ptr<GPDSPInputtableNode const>* node) const;
-                GPDSPError                  getNodeFlexInputtable       (std::string const& name, std::shared_ptr<GPDSPFlexInputtableNode>* node);
-                GPDSPError                  getNodeOutputtable          (std::string const& name, std::shared_ptr<GPDSPOutputtableNode>* node);
-                GPDSPError                  getNodeOutputtable          (std::string const& name, std::shared_ptr<GPDSPOutputtableNode const>* node) const;
-                GPDSPError                  getNodeFlexOutputtable      (std::string const& name, std::shared_ptr<GPDSPFlexOutputtableNode>* node);
-                GPDSPError                  newNodeGenericInput         (std::string const& name);
-                GPDSPError                  newNodeGenericOutput        (std::string const& name);
-                GPDSPError                  makeWait                    (void);
-                GPDSPError                  makeSequence                (void);
-                GPDSPError                  optimizeSequence            (void);
-                GPDSPError                  writeInputTag               (tinyxml2::XMLElement* parent, std::shared_ptr<GPDSPNode const> const& node, std::string const& name) const;
-                GPDSPError                  readInputTag                (tinyxml2::XMLElement const* parent, std::string const& name, int format);
-        static  GPDSPError                  countInputTag               (tinyxml2::XMLElement const* parent, int* count);
-        static  GPDSPError                  writeRateTag                (tinyxml2::XMLElement* parent, int rate);
-        static  GPDSPError                  readRateTag                 (tinyxml2::XMLElement const* parent, int rate);
-        static  GPDSPError                  writeFormatTag              (tinyxml2::XMLElement* parent);
-        static  GPDSPError                  readFormatTag               (tinyxml2::XMLElement const* parent, int* format);
-        static  GPDSPError                  writeLinkTag                (tinyxml2::XMLElement* parent, std::string const& node, int index, bool positive);
-        static  GPDSPError                  writeLinkTag                (tinyxml2::XMLElement* parent, GPDSPFloat constant);
-        static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, std::string* node, int* index);
-        static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, int format, GPDSPFloat* constant);
-        static  GPDSPError                  stringize                   (std::string const& prefix, int param, std::string* result);
-        static  GPDSPError                  stringize                   (std::string const& prefix, GPDSPFloat param, std::string* result);
-        static  GPDSPError                  numberize                   (std::string const& prefix, std::string const& param, int* result);
-        static  GPDSPError                  numberize                   (std::string const& prefix, std::string const& param, GPDSPFloat* result);
+                GPDSPError                  getNodeInputtable           (std::string const& name, std::shared_ptr<GPDSPInputtableNode>* node) noexcept;
+                GPDSPError                  getNodeInputtable           (std::string const& name, std::shared_ptr<GPDSPInputtableNode const>* node) const noexcept;
+                GPDSPError                  getNodeFlexInputtable       (std::string const& name, std::shared_ptr<GPDSPFlexInputtableNode>* node) noexcept;
+                GPDSPError                  getNodeOutputtable          (std::string const& name, std::shared_ptr<GPDSPOutputtableNode>* node) noexcept;
+                GPDSPError                  getNodeOutputtable          (std::string const& name, std::shared_ptr<GPDSPOutputtableNode const>* node) const noexcept;
+                GPDSPError                  getNodeFlexOutputtable      (std::string const& name, std::shared_ptr<GPDSPFlexOutputtableNode>* node) noexcept;
+                GPDSPError                  newNodeGenericInput         (std::string const& name) noexcept;
+                GPDSPError                  newNodeGenericOutput        (std::string const& name) noexcept;
+                GPDSPError                  makeWait                    (void) noexcept;
+                GPDSPError                  makeSequence                (void) noexcept;
+                GPDSPError                  optimizeSequence            (void) noexcept;
+                GPDSPError                  writeInputTag               (tinyxml2::XMLElement* parent, std::shared_ptr<GPDSPNode const> const& node, std::string const& name) const noexcept;
+                GPDSPError                  readInputTag                (tinyxml2::XMLElement const* parent, std::string const& name, int format) noexcept;
+        static  GPDSPError                  countInputTag               (tinyxml2::XMLElement const* parent, int* count) noexcept;
+        static  GPDSPError                  writeRateTag                (tinyxml2::XMLElement* parent, int rate) noexcept;
+        static  GPDSPError                  readRateTag                 (tinyxml2::XMLElement const* parent, int rate) noexcept;
+        static  GPDSPError                  writeFormatTag              (tinyxml2::XMLElement* parent) noexcept;
+        static  GPDSPError                  readFormatTag               (tinyxml2::XMLElement const* parent, int* format) noexcept;
+        static  GPDSPError                  writeLinkTag                (tinyxml2::XMLElement* parent, std::string const& node, int index, bool positive) noexcept;
+        static  GPDSPError                  writeLinkTag                (tinyxml2::XMLElement* parent, GPDSPFloat constant) noexcept;
+        static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, std::string* node, int* index) noexcept;
+        static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, int format, GPDSPFloat* constant) noexcept;
+        static  GPDSPError                  stringize                   (std::string const& prefix, int param, std::string* result) noexcept;
+        static  GPDSPError                  stringize                   (std::string const& prefix, GPDSPFloat param, std::string* result) noexcept;
+        static  GPDSPError                  numberize                   (std::string const& prefix, std::string const& param, int* result) noexcept;
+        static  GPDSPError                  numberize                   (std::string const& prefix, std::string const& param, GPDSPFloat* result) noexcept;
     private:
                                             GPDSPNodeRenderer           (GPDSPNodeRenderer const&);
                 GPDSPNodeRenderer&          operator=                   (GPDSPNodeRenderer const&);
 };
 
-inline GPDSPNodeRenderer::GPDSPNodeRenderer(void) : _rate(0), _nit(_node.end())
+inline GPDSPNodeRenderer::GPDSPNodeRenderer(void) noexcept : _rate(0), _nit(_node.end())
 {
 }
 
-inline GPDSPNodeRenderer::~GPDSPNodeRenderer(void)
+inline GPDSPNodeRenderer::~GPDSPNodeRenderer(void) noexcept
 {
     clearNode();
 }
 
-inline int GPDSPNodeRenderer::getRate(void) const
+inline int GPDSPNodeRenderer::getRate(void) const noexcept
 {
     return _rate;
 }
 
-inline int GPDSPNodeRenderer::getSize(void) const
+inline int GPDSPNodeRenderer::getSize(void) const noexcept
 {
     return static_cast<int>(_node.size());
 }
 
-inline bool GPDSPNodeRenderer::hasNextNode(void) const
+inline bool GPDSPNodeRenderer::hasNextNode(void) const noexcept
 {
     return (_nit != _node.end());
 }
 
-inline void GPDSPNodeRenderer::iterateNode(void) const
+inline void GPDSPNodeRenderer::iterateNode(void) const noexcept
 {
     _nit = _node.begin();
     return;

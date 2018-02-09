@@ -49,25 +49,51 @@
 
 #include "../GPDSPConfig.hpp"
 
+//! IridiumFrameworks を表す名前空間
 namespace ir {
 
+//! 演算対象のデータ型に応じた定数値を記述するためのマクロ
+/*!
+    | 32 ビット | 64 ビット |
+    | :------------: | :------------: |
+    | param##f | param |
+ */
 #ifdef __GPDSP64
 #define GPDSPFV(param)  (param)
-#define GPDSPFP         "%+.14e"
-#define GPDSPFS         "%lf"
-//! 演算対象のデータ型
-/*!
-    32 ビット浮動小数点をもちいる場合は, GPDSPConfig.hpp ファイル内で __GPDSP64 マクロを定義しない.
- */
-typedef double          GPDSPFloat;
 #else
 #define GPDSPFV(param)  (param##f)
+#endif
+//! 演算対象のデータ型に応じた出力書式フォーマットを記述するためのマクロ
+/*!
+    | 32 ビット | 64 ビット |
+    | :------------: | :------------: |
+    | "%+.6e" | "%+.14e" |
+ */
+#ifdef __GPDSP64
+#define GPDSPFP         "%+.14e"
+#else
 #define GPDSPFP         "%+.6e"
+#endif
+//! 演算対象のデータ型に応じた入力書式フォーマットを記述するためのマクロ
+/*!
+    | 32 ビット | 64 ビット |
+    | :------------: | :------------: |
+    | "%f" | "%lf" |
+ */
+#ifdef __GPDSP64
+#define GPDSPFS         "%lf"
+#else
 #define GPDSPFS         "%f"
+#endif
+
 //! 演算対象のデータ型
 /*!
-    64 ビット浮動小数点をもちいる場合は, GPDSPConfig.hpp ファイル内で __GPDSP64 マクロを定義する.
+    32 ビット浮動小数点をもちいる場合は GPDSPConfig.hpp ファイル内で __GPDSP64 マクロを定義せず,
+    64 ビット浮動小数点をもちいる場合は定義する.
  */
+#ifdef __GPDSP64
+typedef double          GPDSPFloat;
+#else
 typedef float           GPDSPFloat;
 #endif
 
@@ -87,7 +113,7 @@ enum GPDSPError {
     GPDSPERROR_NO_SUPPORT,
     //! ファイルが存在しない
     GPDSPERROR_NO_FILE,
-    //! メモリ不足
+    //! メモリが不足している
     GPDSPERROR_NO_MEMORY,
     //! 項目が見つからない
     GPDSPERROR_NO_FOUND,

@@ -86,7 +86,7 @@ namespace ir {
     増幅や遅延や加算などを表す任意のノードをプログラム上で接続することにより,
     デジタル信号処理のアルゴリズムを簡単に構築して実行することができます.
  
-    利用者はデジタル信号処理のデータの計算順序やアルゴリズムの詳細を記述する必要はなく,
+    開発者はデジタル信号処理のデータの計算順序やアルゴリズムの詳細を記述する必要はなく,
     GPDSP ライブラリがデータフローを適切に最適化します. 最適化はデジタル信号処理の実行中にも動的に行われるため,
     ノードの構成をダイナミックに変更しても最速となる計算順序を自動的に探索します.
  
@@ -103,8 +103,10 @@ namespace ir {
  
     以下に 100 バイトのデータに対して増幅率 2.0 のデジタル信号処理を行うプログラム例を示します.
  
+    <b>GPDSP ライブラリを利用したプログラム例</b>
+ 
     @code
-    GPDSPNodeRenderer dsp;
+    ir::GPDSPNodeRenderer dsp;
     float* in;
     float const* out;
     int i;
@@ -143,11 +145,16 @@ namespace ir {
  
     // 処理後のデータをバッファから読み出し
     for (i = 0; i < 100; ++i) {
-        cout << out[i] << endl;
+        std::cout << out[i] << std::endl;
     }
     @endcode
  
-    @section sec_lineup 標準ノードの種類
+    @section sec_lineup ノードの種類
+    GPDSP ライブラリには, 以下の表に示すような具象ノードがあらかじめ含まれています.
+ 
+    開発者は, GPDSPGenericNode クラスを利用するか,
+    抽象ノードを継承した新しいノードを実装することにより, 独自の機能を持ったノードを追加することができます.
+ 
     | クラス名 | 解説 |
     | --------- | --------- |
     | GPDSPBufferInputNode | バッファ入力ノード |
@@ -174,9 +181,64 @@ namespace ir {
     @section sec_feature ライブラリの特徴
     執筆中
  
+    @page page_gpdsp ノード構成の保存と復元
+ 
+    @section sec_gpdsp_gpdsp .gpdsp ファイルとは
+    執筆中
+ 
+    @page page_generic 任意ノード
+ 
+    @section sec_generic_overview 任意ノードとは
+    執筆中
+ 
+    @section sec_generic_gpdsp .gpdsp ファイルの記述
+    執筆中
+ 
+    @page page_error エラー処理
+ 
+    @section sec_error_overview エラー処理の方針
+    GPDSP ライブラリは, エラー値を関数の戻り値として返却し, 例外をもちいたエラー処理を行いません.
+    エラー値は #GPDSPError 型で表現され, GPDSPERROR_ プリフィックスで始まるマクロとして定義されています.
+ 
+    各種関数は実行時にエラーが発生した場合, 関数が呼び出される前の状態を保持します.
+    引数を介して結果が返却される関数では, 関数の実行が成功しない限り, 引数の内容が書き換えられることはありません.
+ 
+    @section sec_error_print エラー情報の出力
+    エラー値は GPDSPNodeRenderer::stringize() 関数を利用することで, エラーの解説を含む文字列に変換することができます.
+    std::cout や printf() 関数とともに利用することでデバッグ作業を行いやすくなります.
+ 
+    <b>std::cout 利用の場合</b>
+ 
+    @code
+    ir::GPDSPNodeRenderer dsp;
+    ir::GPDSPError error;
+ 
+    error = dsp.load("example.gpdsp");
+    std::cout << GPDSPNodeRenderer::stringize(error) << std::endl;
+    @endcode
+ 
+    <b>printf() 関数利用の場合</b>
+ 
+    @code
+    ir::GPDSPNodeRenderer dsp;
+    ir::GPDSPError error;
+ 
+    error = dsp.load("example.gpdsp");
+    printf("%s\n", GPDSPNodeRenderer::stringize(error).c_str());
+    @endcode
+ 
+    @section sec_error_loop ディレイ・フリー・ループの扱い
+    循環する構造を含むノード接続を行う場合, 循環経路の途中に GPDSPDelayNode クラスや
+    GPDSPBufferNode クラスなどの遅延ノードを挿入しておく必要があります.
+ 
+    遅延ノードを含まない循環経路はディレイ・フリー・ループと呼ばれ, 離散的に演算することができません.
+ 
+    GPDSP ライブラリでは, ディレイ・フリー・ループを自動的に検出し,
+    GPDSPNodeRenderer::render() 関数が #GPDSPERROR_LOOP を返却します.
+ 
     @page page_copyright ライセンスと著作権
  
-    @section sec_license ライセンス
+    @section sec_copyright_license ライセンス
     Original Copyright (C) 2017 - 2018 HORIGUCHI Junshi. http://iridium.jp/ zap00365@nifty.com
  
     The MIT License (MIT)
@@ -204,7 +266,7 @@ namespace ir {
     作者または著作権者は、契約行為、不法行為、またはそれ以外であろうと、ソフトウェアに起因または関連し、
     あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、その他の義務について何らの責任も負わないものとします。
  
-    @section sec_copyright 著作権
+    @section sec_copyright_copyright 著作権
     Copyright (C) 2017 - 2018 HORIGUCHI Junshi. All rights reserved.
  */
 

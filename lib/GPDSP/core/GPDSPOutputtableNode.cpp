@@ -48,16 +48,16 @@
 
 namespace ir {
 
-GPDSPOutputtableNode::GPDSPOutputtableNode(void)
+GPDSPOutputtableNode::GPDSPOutputtableNode(void) noexcept
 {
 }
 
-GPDSPOutputtableNode::~GPDSPOutputtableNode(void)
+GPDSPOutputtableNode::~GPDSPOutputtableNode(void) noexcept
 {
     _terminal.clear();
 }
 
-GPDSPError GPDSPOutputtableNode::setNameO(int index, std::string const& what)
+GPDSPError GPDSPOutputtableNode::setNameO(int index, std::string const& what) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -70,7 +70,7 @@ GPDSPError GPDSPOutputtableNode::setNameO(int index, std::string const& what)
     return error;
 }
 
-GPDSPError GPDSPOutputtableNode::getNameO(int index, std::string* what) const
+GPDSPError GPDSPOutputtableNode::getNameO(int index, std::string* what) const noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -85,7 +85,7 @@ GPDSPError GPDSPOutputtableNode::getNameO(int index, std::string* what) const
     return error;
 }
 
-int GPDSPOutputtableNode::findNameO(std::string const& what) const
+int GPDSPOutputtableNode::findNameO(std::string const& what) const noexcept
 {
     int i;
     int result(-1);
@@ -99,7 +99,7 @@ int GPDSPOutputtableNode::findNameO(std::string const& what) const
     return result;
 }
 
-void GPDSPOutputtableNode::invalidate(void)
+void GPDSPOutputtableNode::invalidate(void) noexcept
 {
     int i;
     
@@ -109,7 +109,7 @@ void GPDSPOutputtableNode::invalidate(void)
     return;
 }
 
-GPDSPError GPDSPOutputtableNode::setCountO(int count, std::string const& what)
+GPDSPError GPDSPOutputtableNode::setCountO(int count, std::string const& what) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -130,7 +130,7 @@ GPDSPError GPDSPOutputtableNode::setCountO(int count, std::string const& what)
     return error;
 }
 
-GPDSPError GPDSPOutputtableNode::appendO(std::string const& what)
+GPDSPError GPDSPOutputtableNode::appendO(std::string const& what) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -146,7 +146,7 @@ GPDSPError GPDSPOutputtableNode::appendO(std::string const& what)
     return error;
 }
 
-GPDSPError GPDSPOutputtableNode::insertO(int index, std::string const& what)
+GPDSPError GPDSPOutputtableNode::insertO(int index, std::string const& what) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -167,7 +167,7 @@ GPDSPError GPDSPOutputtableNode::insertO(int index, std::string const& what)
     return error;
 }
 
-GPDSPError GPDSPOutputtableNode::removeO(int index)
+GPDSPError GPDSPOutputtableNode::removeO(int index) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -181,7 +181,7 @@ GPDSPError GPDSPOutputtableNode::removeO(int index)
     return error;
 }
 
-void GPDSPOutputtableNode::clearO(void)
+void GPDSPOutputtableNode::clearO(void) noexcept
 {
     _terminal.clear();
     invalidate();

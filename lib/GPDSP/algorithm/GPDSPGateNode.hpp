@@ -59,6 +59,23 @@ namespace ir {
     最小値が最大値よりも大きいときは, 0.0 を出力します.
  
     １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPGateNode>
+        <name>ノード名</name>
+        <param>
+            <minimum>最小値</minimum>
+            <maximum>最大値</maximum>
+        </param>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <index>in に対する入力元のターミナル番号</index>
+            </::0>
+        </input>
+    </GPDSPGateNode>
+    @endcode
  */
 class GPDSPGateNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     private:
@@ -70,85 +87,85 @@ class GPDSPGateNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
         /*!
             最小値を defaultMinimum(), 最大値を defaultMaximum() に初期化します.
          */
-        explicit                            GPDSPGateNode               (void);
+        explicit                            GPDSPGateNode               (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPGateNode              (void);
+        virtual                             ~GPDSPGateNode              (void) noexcept;
         //! デフォルトの最小値を取得します.
         /*!
             @retval -INFINITY デフォルトの最小値
          */
-        static  GPDSPFloat                  defaultMinimum              (void);
+        static  GPDSPFloat                  defaultMinimum              (void) noexcept;
         //! デフォルトの最大値を取得します.
         /*!
             @retval +INFINITY デフォルトの最大値
          */
-        static  GPDSPFloat                  defaultMaximum              (void);
+        static  GPDSPFloat                  defaultMaximum              (void) noexcept;
         //! 最小値を設定します.
         /*!
             @param[in] minimum 設定する最小値
          */
-                void                        setMinimum                  (GPDSPFloat minimum);
+                void                        setMinimum                  (GPDSPFloat minimum) noexcept;
         //! 最小値を取得します.
         /*!
             @return 現在の最小値
          */
-                GPDSPFloat                  getMinimum                  (void) const;
+                GPDSPFloat                  getMinimum                  (void) const noexcept;
         //! 最大値を設定します.
         /*!
             @param[in] maximum 設定する最大値
          */
-                void                        setMaximum                  (GPDSPFloat maximum);
+                void                        setMaximum                  (GPDSPFloat maximum) noexcept;
         //! 最大値を取得します.
         /*!
             @return 現在の最大値
          */
-                GPDSPFloat                  getMaximum                  (void) const;
+                GPDSPFloat                  getMaximum                  (void) const noexcept;
         //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 入出力の演算結果を無効化し, 再演算を要求します.
-        virtual void                        invalidate                  (void);
+        virtual void                        invalidate                  (void) noexcept;
         //! 演算前の準備をします.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
-            @retval GPDSPERROR_OK 正常 (演算を完了)
-            @retval GPDSPERROR_WAIT データフロー入力待ち
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
     private:
                                             GPDSPGateNode               (GPDSPGateNode const&);
                 GPDSPGateNode&              operator=                   (GPDSPGateNode const&);
 };
 
-inline GPDSPFloat GPDSPGateNode::defaultMinimum(void)
+inline GPDSPFloat GPDSPGateNode::defaultMinimum(void) noexcept
 {
     return -INFINITY;
 }
 
-inline GPDSPFloat GPDSPGateNode::defaultMaximum(void)
+inline GPDSPFloat GPDSPGateNode::defaultMaximum(void) noexcept
 {
     return +INFINITY;
 }
 
-inline GPDSPFloat GPDSPGateNode::getMinimum(void) const
+inline GPDSPFloat GPDSPGateNode::getMinimum(void) const noexcept
 {
     return _minimum;
 }
 
-inline GPDSPFloat GPDSPGateNode::getMaximum(void) const
+inline GPDSPFloat GPDSPGateNode::getMaximum(void) const noexcept
 {
     return _maximum;
 }

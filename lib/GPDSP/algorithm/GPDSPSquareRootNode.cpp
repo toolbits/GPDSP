@@ -73,15 +73,15 @@ static inline float fast_sqrt(float x)
 }
 #endif
 
-GPDSPSquareRootNode::GPDSPSquareRootNode(void)
+GPDSPSquareRootNode::GPDSPSquareRootNode(void) noexcept
 {
 }
 
-GPDSPSquareRootNode::~GPDSPSquareRootNode(void)
+GPDSPSquareRootNode::~GPDSPSquareRootNode(void) noexcept
 {
 }
 
-GPDSPError GPDSPSquareRootNode::fixate(void)
+GPDSPError GPDSPSquareRootNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -97,19 +97,19 @@ GPDSPError GPDSPSquareRootNode::fixate(void)
     return error;
 }
 
-void GPDSPSquareRootNode::invalidate(void)
+void GPDSPSquareRootNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPSquareRootNode::prepare(void)
+GPDSPError GPDSPSquareRootNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPSquareRootNode::process(void)
+GPDSPError GPDSPSquareRootNode::process(void) noexcept
 {
     GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);

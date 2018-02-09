@@ -48,15 +48,15 @@
 
 namespace ir {
 
-GPDSPAmplifyNode::GPDSPAmplifyNode(void) : _gain(defaultGain())
+GPDSPAmplifyNode::GPDSPAmplifyNode(void) noexcept : _gain(defaultGain())
 {
 }
 
-GPDSPAmplifyNode::~GPDSPAmplifyNode(void)
+GPDSPAmplifyNode::~GPDSPAmplifyNode(void) noexcept
 {
 }
 
-void GPDSPAmplifyNode::setGain(GPDSPFloat gain)
+void GPDSPAmplifyNode::setGain(GPDSPFloat gain) noexcept
 {
     if (gain != _gain) {
         _gain = gain;
@@ -65,7 +65,7 @@ void GPDSPAmplifyNode::setGain(GPDSPFloat gain)
     return;
 }
 
-GPDSPError GPDSPAmplifyNode::fixate(void)
+GPDSPError GPDSPAmplifyNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -81,19 +81,19 @@ GPDSPError GPDSPAmplifyNode::fixate(void)
     return error;
 }
 
-void GPDSPAmplifyNode::invalidate(void)
+void GPDSPAmplifyNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPAmplifyNode::prepare(void)
+GPDSPError GPDSPAmplifyNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPAmplifyNode::process(void)
+GPDSPError GPDSPAmplifyNode::process(void) noexcept
 {
     GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);

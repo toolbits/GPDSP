@@ -53,6 +53,12 @@
 
 namespace ir {
 
+//! 出力ターミナルを持つノードを表す抽象クラス
+/*!
+    GPDSPOutputtableNode クラスは, 出力ターミナルを持つノードを表す抽象クラスです.
+ 
+    固定個数の出力ターミナルを持つ各種ノードを表す具象クラスは, GPDSPOutputtableNode クラスを継承して実装します.
+ */
 class GPDSPOutputtableNode : public virtual GPDSPNode {
     private:
         struct TerminalRec {
@@ -65,48 +71,110 @@ class GPDSPOutputtableNode : public virtual GPDSPNode {
                 std::vector<TerminalRec>    _terminal;
     
     public:
-                int                         getCountO                   (void) const;
-                GPDSPError                  setNameO                    (int index, std::string const& what);
-                GPDSPError                  getNameO                    (int index, std::string* what) const;
-                GPDSPError                  getValueO                   (int index, GPDSPFloat* value) const;
-                int                         findNameO                   (std::string const& what) const;
+        //! 出力ターミナルの個数を取得します.
+        /*!
+            @return 現在の個数
+         */
+                int                         getCountO                   (void) const noexcept;
+        //! 出力ターミナルの名前を設定します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  setNameO                    (int index, std::string const& what) noexcept;
+        //! 出力ターミナルの名前を取得します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[out] what 名前の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  getNameO                    (int index, std::string* what) const noexcept;
+        //! 出力ターミナルの値を取得します.
+        /*!
+            @param[in] index ターミナル番号
+            @param[out] value 値の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  getValueO                   (int index, GPDSPFloat* value) const noexcept;
+        //! 引数に指定された名前を持つ出力ターミナルを検索します.
+        /*!
+            同じ名前を持つ出力ターミナルが複数ある場合には, 最初に見つかった出力ターミナルを返却します.
+         
+            @param[in] what 検索する名前
+            @retval -1 存在しない
+            @retval その他 ターミナル番号
+         */
+                int                         findNameO                   (std::string const& what) const noexcept;
         //! 出力の演算結果を無効化し, 再演算を要求します.
-        virtual void                        invalidate                  (void);
+        virtual void                        invalidate                  (void) noexcept;
     protected:
         //! コンストラクタです.
         /*!
             何もしません.
          */
-        explicit                            GPDSPOutputtableNode        (void);
+        explicit                            GPDSPOutputtableNode        (void) noexcept;
         //! デストラクタです.
         /*!
             管理しているリソースを解放します.
          */
-        virtual                             ~GPDSPOutputtableNode       (void) = 0;
-                GPDSPError                  setCountO                   (int count, std::string const& what);
+        virtual                             ~GPDSPOutputtableNode       (void) noexcept = 0;
+        //! 出力ターミナルの個数と名前を設定します.
+        /*!
+            @param[in] count 設定する個数
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+         */
+                GPDSPError                  setCountO                   (int count, std::string const& what) noexcept;
         //! 出力ターミナルの値を設定します.
         /*!
             @param[in] index ターミナル番号
             @param[in] value 設定する値
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-                GPDSPError                  setValueO                   (int index, GPDSPFloat value);
-                GPDSPError                  appendO                     (std::string const& what);
-                GPDSPError                  insertO                     (int index, std::string const& what);
-                GPDSPError                  removeO                     (int index);
-                void                        clearO                      (void);
+                GPDSPError                  setValueO                   (int index, GPDSPFloat value) noexcept;
+        //! 引数に指定された名前を持つ出力ターミナルを追加します.
+        /*!
+            @param[in] what 追加する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+         */
+                GPDSPError                  appendO                     (std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ出力ターミナルを挿入します.
+        /*!
+            @param[in] index 挿入する位置
+            @param[in] what 挿入する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  insertO                     (int index, std::string const& what) noexcept;
+        //! 出力ターミナルを削除します.
+        /*!
+            @param[in] index ターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  removeO                     (int index) noexcept;
+        //! すべての出力ターミナルを削除します.
+                void                        clearO                      (void) noexcept;
     private:
                                             GPDSPOutputtableNode        (GPDSPOutputtableNode const&);
                 GPDSPOutputtableNode&       operator=                   (GPDSPOutputtableNode const&);
 };
 
-inline int GPDSPOutputtableNode::getCountO(void) const
+inline int GPDSPOutputtableNode::getCountO(void) const noexcept
 {
     return static_cast<int>(_terminal.size());
 }
 
-inline GPDSPError GPDSPOutputtableNode::getValueO(int index, GPDSPFloat* value) const
+inline GPDSPError GPDSPOutputtableNode::getValueO(int index, GPDSPFloat* value) const noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -126,7 +194,7 @@ inline GPDSPError GPDSPOutputtableNode::getValueO(int index, GPDSPFloat* value) 
     return error;
 }
 
-inline GPDSPError GPDSPOutputtableNode::setValueO(int index, GPDSPFloat value)
+inline GPDSPError GPDSPOutputtableNode::setValueO(int index, GPDSPFloat value) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     

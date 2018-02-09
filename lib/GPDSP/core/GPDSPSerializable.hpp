@@ -58,19 +58,19 @@ class GPDSPNodeRenderer;
 
 class GPDSPSerializable {
     public:
-        virtual GPDSPError                  load                        (GPDSPNodeRenderer* renderer, std::string const& type, std::string const& name, int format, tinyxml2::XMLElement const* element) = 0;
-        virtual GPDSPError                  save                        (GPDSPNodeRenderer const& renderer, std::shared_ptr<GPDSPNode const> const& node, std::string const& name, tinyxml2::XMLElement* element) = 0;
+        virtual GPDSPError                  load                        (GPDSPNodeRenderer* renderer, std::string const& type, std::string const& name, int format, tinyxml2::XMLElement const* element) noexcept = 0;
+        virtual GPDSPError                  save                        (GPDSPNodeRenderer const& renderer, std::shared_ptr<GPDSPNode const> const& node, std::string const& name, tinyxml2::XMLElement* element) noexcept = 0;
     protected:
         //! コンストラクタです.
         /*!
             何もしません.
          */
-        explicit                            GPDSPSerializable           (void);
+        explicit                            GPDSPSerializable           (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPSerializable          (void) = 0;
+        virtual                             ~GPDSPSerializable          (void) noexcept = 0;
     private:
                                             GPDSPSerializable           (GPDSPSerializable const&);
                 GPDSPSerializable&          operator=                   (GPDSPSerializable const&);

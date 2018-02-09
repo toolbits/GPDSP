@@ -57,7 +57,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSPGenerative 0.8.0        2017 - 2018 iridium.jp");
+    ofSetWindowTitle("GPDSPGenerative 0.9.0        2017 - 2018 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
@@ -232,7 +232,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo)
         if (ofFile::doesFileExist(dragInfo.files[0]) && !ofDirectory::doesDirectoryExist(dragInfo.files[0])) {
             if (chdir(ofFilePath::getEnclosingDirectory(dragInfo.files[0]).c_str()) == 0) {
                 _mutexParam.lock();
-                _dsp.deleteNode("generic");
+                _dsp.removeNode("generic");
                 syncIn("in[L]", 0);
                 selectIn("in[L]", 0, "out[L]", "in[R]");
                 syncIn("in[R]", 0);

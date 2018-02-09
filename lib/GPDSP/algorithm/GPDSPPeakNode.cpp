@@ -49,15 +49,15 @@
 
 namespace ir {
 
-GPDSPPeakNode::GPDSPPeakNode(void) : _peak(GPDSPFV(0.0))
+GPDSPPeakNode::GPDSPPeakNode(void) noexcept : _peak(GPDSPFV(0.0))
 {
 }
 
-GPDSPPeakNode::~GPDSPPeakNode(void)
+GPDSPPeakNode::~GPDSPPeakNode(void) noexcept
 {
 }
 
-GPDSPError GPDSPPeakNode::fixate(void)
+GPDSPError GPDSPPeakNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -73,19 +73,19 @@ GPDSPError GPDSPPeakNode::fixate(void)
     return error;
 }
 
-void GPDSPPeakNode::invalidate(void)
+void GPDSPPeakNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPPeakNode::prepare(void)
+GPDSPError GPDSPPeakNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPPeakNode::process(void)
+GPDSPError GPDSPPeakNode::process(void) noexcept
 {
     GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
@@ -105,7 +105,7 @@ GPDSPError GPDSPPeakNode::process(void)
     return error;
 }
 
-void GPDSPPeakNode::refresh(void)
+void GPDSPPeakNode::refresh(void) noexcept
 {
     _peak = GPDSPFV(0.0);
     return;

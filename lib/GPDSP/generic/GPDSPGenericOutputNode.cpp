@@ -48,15 +48,15 @@
 
 namespace ir {
 
-GPDSPGenericOutputNode::GPDSPGenericOutputNode(void)
+GPDSPGenericOutputNode::GPDSPGenericOutputNode(void) noexcept
 {
 }
 
-GPDSPGenericOutputNode::~GPDSPGenericOutputNode(void)
+GPDSPGenericOutputNode::~GPDSPGenericOutputNode(void) noexcept
 {
 }
 
-GPDSPError GPDSPGenericOutputNode::fixate(void)
+GPDSPError GPDSPGenericOutputNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -67,12 +67,12 @@ GPDSPError GPDSPGenericOutputNode::fixate(void)
     return error;
 }
 
-GPDSPError GPDSPGenericOutputNode::prepare(void)
+GPDSPError GPDSPGenericOutputNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPGenericOutputNode::process(void)
+GPDSPError GPDSPGenericOutputNode::process(void) noexcept
 {
     return GPDSPERROR_IGNORE;
 }

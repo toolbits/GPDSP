@@ -50,16 +50,16 @@
 
 namespace ir {
 
-GPDSPGenericNode::GPDSPGenericNode(int rate) : _rate(rate)
+GPDSPGenericNode::GPDSPGenericNode(int rate) noexcept : _rate(rate)
 {
 }
 
-GPDSPGenericNode::~GPDSPGenericNode(void)
+GPDSPGenericNode::~GPDSPGenericNode(void) noexcept
 {
     close();
 }
 
-GPDSPError GPDSPGenericNode::open(std::string const& file)
+GPDSPError GPDSPGenericNode::open(std::string const& file) noexcept
 {
     std::shared_ptr<GPDSPNode> node;
     std::shared_ptr<GPDSPGenericInputNode> input;
@@ -163,7 +163,7 @@ GPDSPError GPDSPGenericNode::open(std::string const& file)
     return error;
 }
 
-void GPDSPGenericNode::close(void)
+void GPDSPGenericNode::close(void) noexcept
 {
     clearO();
     clearI();
@@ -175,12 +175,12 @@ void GPDSPGenericNode::close(void)
     return;
 }
 
-GPDSPError GPDSPGenericNode::fixate(void)
+GPDSPError GPDSPGenericNode::fixate(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-void GPDSPGenericNode::invalidate(void)
+void GPDSPGenericNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
@@ -188,7 +188,7 @@ void GPDSPGenericNode::invalidate(void)
     return;
 }
 
-GPDSPError GPDSPGenericNode::prepare(void)
+GPDSPError GPDSPGenericNode::prepare(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -198,7 +198,7 @@ GPDSPError GPDSPGenericNode::prepare(void)
     return error;
 }
 
-GPDSPError GPDSPGenericNode::process(void)
+GPDSPError GPDSPGenericNode::process(void) noexcept
 {
     GPDSPError state;
     GPDSPError error(GPDSPERROR_OK);
@@ -223,19 +223,19 @@ GPDSPError GPDSPGenericNode::process(void)
     return error;
 }
 
-void GPDSPGenericNode::rewind(void)
+void GPDSPGenericNode::rewind(void) noexcept
 {
     _renderer.rewind();
     return;
 }
 
-void GPDSPGenericNode::refresh(void)
+void GPDSPGenericNode::refresh(void) noexcept
 {
     _renderer.refresh();
     return;
 }
 
-GPDSPError GPDSPGenericNode::copyInput(void)
+GPDSPError GPDSPGenericNode::copyInput(void) noexcept
 {
     GPDSPFloat value;
     int i;
@@ -262,7 +262,7 @@ GPDSPError GPDSPGenericNode::copyInput(void)
     return error;
 }
 
-GPDSPError GPDSPGenericNode::copyOutput(void)
+GPDSPError GPDSPGenericNode::copyOutput(void) noexcept
 {
     GPDSPFloat value;
     int i;
@@ -292,7 +292,7 @@ GPDSPError GPDSPGenericNode::copyOutput(void)
     return error;
 }
 
-GPDSPError GPDSPGenericNode::nameToIndex(std::string const& name, int* index)
+GPDSPError GPDSPGenericNode::nameToIndex(std::string const& name, int* index) noexcept
 {
     std::string string;
     std::string::size_type dot;

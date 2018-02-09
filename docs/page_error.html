@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>IridiumFrameworks / GPDSP: エラー処理</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">IridiumFrameworks / GPDSP
+   &#160;<span id="projectnumber">0.9.0</span>
+   </div>
+   <div id="projectbrief">A real time / non-real time General Purpose DSP library, written in C++.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.14 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('page_error.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">エラー処理 </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="sec_error_overview"></a>
+エラー処理の方針</h1>
+<p>GPDSP ライブラリは, エラー値を関数の戻り値として返却し, 例外をもちいたエラー処理を行いません. エラー値は <a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" title="エラーを表す定数 ">GPDSPError</a> 型で表現され, GPDSPERROR_ プリフィックスで始まるマクロとして定義されています.</p>
+<p>各種関数は実行時にエラーが発生した場合, 関数が呼び出される前の状態を保持します. 引数を介して結果が返却される関数では, 関数の実行が成功しない限り, 引数の内容が書き換えられることはありません.</p>
+<h1><a class="anchor" id="sec_error_print"></a>
+エラー情報の出力</h1>
+<p>エラー値は <a class="el" href="classir_1_1_g_p_d_s_p_node_renderer.html#aa3b44d0e433af51a455e2ecf8d38f033">GPDSPNodeRenderer::stringize()</a> 関数を利用することで, エラーの解説を含む文字列に変換することができます. std::cout や printf() 関数とともに利用することでデバッグ作業を行いやすくなります.</p>
+<p><b>std::cout 利用の場合</b></p>
+<div class="fragment"><div class="line"><a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html">ir::GPDSPNodeRenderer</a> dsp;</div><div class="line"><a class="code" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">ir::GPDSPError</a> error;</div><div class="line"></div><div class="line">error = dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#a51c5cbc9cf966ff8dc06c6d37802739b">load</a>(<span class="stringliteral">&quot;example.gpdsp&quot;</span>);</div><div class="line">std::cout &lt;&lt; <a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#aa3b44d0e433af51a455e2ecf8d38f033">GPDSPNodeRenderer::stringize</a>(error) &lt;&lt; std::endl;</div></div><!-- fragment --><p><b>printf() 関数利用の場合</b></p>
+<div class="fragment"><div class="line"><a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html">ir::GPDSPNodeRenderer</a> dsp;</div><div class="line"><a class="code" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">ir::GPDSPError</a> error;</div><div class="line"></div><div class="line">error = dsp.<a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#a51c5cbc9cf966ff8dc06c6d37802739b">load</a>(<span class="stringliteral">&quot;example.gpdsp&quot;</span>);</div><div class="line">printf(<span class="stringliteral">&quot;%s\n&quot;</span>, <a class="code" href="classir_1_1_g_p_d_s_p_node_renderer.html#aa3b44d0e433af51a455e2ecf8d38f033">GPDSPNodeRenderer::stringize</a>(error).c_str());</div></div><!-- fragment --><h1><a class="anchor" id="sec_error_loop"></a>
+ディレイ・フリー・ループの扱い</h1>
+<p>循環する構造を含むノード接続を行う場合, 循環経路の途中に <a class="el" href="classir_1_1_g_p_d_s_p_delay_node.html" title="単位遅延ノードを表す具象クラス ">GPDSPDelayNode</a> クラスや <a class="el" href="classir_1_1_g_p_d_s_p_buffer_node.html" title="任意遅延ノードを表す具象クラス ">GPDSPBufferNode</a> クラスなどの遅延ノードを挿入しておく必要があります.</p>
+<p>遅延ノードを含まない循環経路はディレイ・フリー・ループと呼ばれ, 離散的に演算することができません.</p>
+<p>GPDSP ライブラリでは, ディレイ・フリー・ループを自動的に検出し, <a class="el" href="classir_1_1_g_p_d_s_p_node_renderer.html#afa61b8523ff712907ad9e6a6517bbaf9">GPDSPNodeRenderer::render()</a> 関数が <a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6af32b56264e1cbdb5e057ba3f6586bca5" title="演算は無限ループ ">GPDSPERROR_LOOP</a> を返却します. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">構築:
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
+  </ul>
+</div>
+</body>
+</html>

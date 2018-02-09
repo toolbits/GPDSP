@@ -51,50 +51,84 @@
 
 namespace ir {
 
+//! 可変個数の入力ターミナルを持つノードを表す抽象クラス
+/*!
+    GPDSPFlexInputtableNode クラスは, 可変個数の入力ターミナルを持つノードを表す抽象クラスです.
+ 
+    可変個数の入力ターミナルを持つ各種ノードを表す具象クラスは, GPDSPFlexInputtableNode クラスを継承して実装します.
+ */
 class GPDSPFlexInputtableNode : public GPDSPInputtableNode {
     public:
-                GPDSPError                  setCountI                   (int count, std::string const& what);
-                GPDSPError                  appendI                     (std::string const& what);
-                GPDSPError                  insertI                     (int index, std::string const& what);
-                GPDSPError                  removeI                     (int index);
-                void                        clearI                      (void);
+        //! 入力ターミナルの個数と名前を設定します.
+        /*!
+            @param[in] count 設定する個数
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+         */
+                GPDSPError                  setCountI                   (int count, std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ入力ターミナルを追加します.
+        /*!
+            @param[in] what 追加する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+         */
+                GPDSPError                  appendI                     (std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ入力ターミナルを挿入します.
+        /*!
+            @param[in] index 挿入する位置
+            @param[in] what 挿入する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  insertI                     (int index, std::string const& what) noexcept;
+        //! 入力ターミナルを削除します.
+        /*!
+            @param[in] index ターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  removeI                     (int index) noexcept;
+        //! すべての入力ターミナルを削除します.
+                void                        clearI                      (void) noexcept;
     protected:
         //! コンストラクタです.
         /*!
             何もしません.
          */
-        explicit                            GPDSPFlexInputtableNode     (void);
+        explicit                            GPDSPFlexInputtableNode     (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPFlexInputtableNode    (void) = 0;
+        virtual                             ~GPDSPFlexInputtableNode    (void) noexcept = 0;
     private:
                                             GPDSPFlexInputtableNode     (GPDSPFlexInputtableNode const&);
                 GPDSPFlexInputtableNode&    operator=                   (GPDSPFlexInputtableNode const&);
 };
 
-inline GPDSPError GPDSPFlexInputtableNode::setCountI(int count, std::string const& what)
+inline GPDSPError GPDSPFlexInputtableNode::setCountI(int count, std::string const& what) noexcept
 {
     return GPDSPInputtableNode::setCountI(count, what);
 }
 
-inline GPDSPError GPDSPFlexInputtableNode::appendI(std::string const& what)
+inline GPDSPError GPDSPFlexInputtableNode::appendI(std::string const& what) noexcept
 {
     return GPDSPInputtableNode::appendI(what);
 }
 
-inline GPDSPError GPDSPFlexInputtableNode::insertI(int index, std::string const& what)
+inline GPDSPError GPDSPFlexInputtableNode::insertI(int index, std::string const& what) noexcept
 {
     return GPDSPInputtableNode::insertI(index, what);
 }
 
-inline GPDSPError GPDSPFlexInputtableNode::removeI(int index)
+inline GPDSPError GPDSPFlexInputtableNode::removeI(int index) noexcept
 {
     return GPDSPInputtableNode::removeI(index);
 }
 
-inline void GPDSPFlexInputtableNode::clearI(void)
+inline void GPDSPFlexInputtableNode::clearI(void) noexcept
 {
     GPDSPInputtableNode::clearI();
     return;

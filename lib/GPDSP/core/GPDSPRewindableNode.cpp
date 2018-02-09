@@ -48,11 +48,11 @@
 
 namespace ir {
 
-GPDSPRewindableNode::GPDSPRewindableNode(void)
+GPDSPRewindableNode::GPDSPRewindableNode(void) noexcept
 {
 }
 
-GPDSPRewindableNode::~GPDSPRewindableNode(void)
+GPDSPRewindableNode::~GPDSPRewindableNode(void) noexcept
 {
 }
 

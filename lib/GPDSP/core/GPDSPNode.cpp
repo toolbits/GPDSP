@@ -48,11 +48,11 @@
 
 namespace ir {
 
-GPDSPNode::GPDSPNode(void)
+GPDSPNode::GPDSPNode(void) noexcept
 {
 }
 
-GPDSPNode::~GPDSPNode(void)
+GPDSPNode::~GPDSPNode(void) noexcept
 {
 }
 

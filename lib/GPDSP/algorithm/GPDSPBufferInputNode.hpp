@@ -59,6 +59,17 @@ namespace ir {
     バッファが設定されていないときは, 0.0 を出力します.
  
     入力ターミナルは持たず, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPBufferInputNode>
+        <name>ノード名</name>
+        <param>
+            <length>入力バッファのサイズ</length>
+            <interleave>データの間隔</interleave>
+        </param>
+    </GPDSPBufferInputNode>
+    @endcode
  */
 class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRewindableNode, public virtual GPDSPRefreshableNode {
     private:
@@ -73,15 +84,15 @@ class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRe
         /*!
             リソースを初期化します.
          */
-        explicit                            GPDSPBufferInputNode        (void);
+        explicit                            GPDSPBufferInputNode        (void) noexcept;
         //! デストラクタです.
         /*!
             管理しているリソースを解放します.
          */
-        virtual                             ~GPDSPBufferInputNode       (void);
+        virtual                             ~GPDSPBufferInputNode       (void) noexcept;
         //! 既存の入力バッファを参照, または, 新規の入力バッファを自動的に確保します.
         /*!
-            buffer 引数に NULL 以外のアドレスを設定すると, 既存の入力バッファを入力バッファとして参照します.
+            buffer 引数に NULL 以外を設定すると, 既存の入力バッファを入力バッファとして参照します.
             このとき, length 引数, もしくは interleave 引数に 0 以下の値を設定するとこの関数は失敗します.
          
             buffer 引数に NULL を設定し length 引数が 0 以下でないとき,
@@ -95,80 +106,80 @@ class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRe
             @param[in] buffer 既存の入力バッファ (NULL 可能)
             @param[in] length 入力バッファのサイズ
             @param[in] interleave データの間隔
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
-            @retval GPDSPERROR_INVALID_PARAM 不正なパラメータ
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
          */
-                GPDSPError                  setBuffer                   (GPDSPFloat const* buffer, int length, int interleave);
+                GPDSPError                  setBuffer                   (GPDSPFloat const* buffer, int length, int interleave) noexcept;
         //! 読み込み専用の入力バッファを取得します.
         /*!
             @param[out] length 入力バッファのサイズ (NULL 可能)
             @param[out] interleave データの間隔 (NULL 可能)
             @retval NULL 入力バッファが設定されていない
-            @retval その他 入力バッファのアドレス
+            @retval その他 有効な入力バッファ
          */
-                GPDSPFloat const*           getBufferReadonly           (int* length, int* interleave) const;
+                GPDSPFloat const*           getBufferReadonly           (int* length, int* interleave) const noexcept;
         //! 書き込み可能な入力バッファを取得します.
         /*!
             @param[out] length 入力バッファのサイズ (NULL 可能)
             @param[out] interleave データの間隔 (NULL 可能)
             @retval NULL 自動的に確保された入力バッファではない
-            @retval その他 入力バッファのアドレス
+            @retval その他 有効な入力バッファ
          */
-                GPDSPFloat*                 getBufferWritable           (int* length, int* interleave);
+                GPDSPFloat*                 getBufferWritable           (int* length, int* interleave) noexcept;
         //! 入力バッファの操作位置を設定します.
         /*!
             @param[in] position 設定する操作位置
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_INVALID_STATE 不正な状態
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-                GPDSPError                  setPosition                 (int position);
+                GPDSPError                  setPosition                 (int position) noexcept;
         //! 入力バッファの操作位置を取得します.
         /*!
             @return 現在の操作位置
          */
-                int                         getPosition                 (void) const;
+                int                         getPosition                 (void) const noexcept;
         //! 入力バッファが既存の入力バッファへの参照であるかどうかを判定します.
         /*!
             @retval true 既存の入力バッファへの参照
             @retval false 入力バッファが設定されていないか自動的に確保された入力バッファ
          */
-                bool                        isDelegate                  (void) const;
+                bool                        isDelegate                  (void) const noexcept;
         //! 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 演算前の準備をします.
         /*!
-            @retval GPDSPERROR_OK 正常 (準備を完了)
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
         //! 入力バッファの操作位置を先頭に再初期化します.
-        virtual void                        rewind                      (void);
+        virtual void                        rewind                      (void) noexcept;
         //! 入力バッファの値を 0.0 に再初期化します.
-        virtual void                        refresh                     (void);
+        virtual void                        refresh                     (void) noexcept;
     private:
                                             GPDSPBufferInputNode        (GPDSPBufferInputNode const&);
                 GPDSPBufferInputNode&       operator=                   (GPDSPBufferInputNode const&);
 };
 
-inline int GPDSPBufferInputNode::getPosition(void) const
+inline int GPDSPBufferInputNode::getPosition(void) const noexcept
 {
     return (_delegate != NULL) ? (_position) : (0);
 }
 
-inline bool GPDSPBufferInputNode::isDelegate(void) const
+inline bool GPDSPBufferInputNode::isDelegate(void) const noexcept
 {
     return (_delegate != NULL && _buffer.size() <= 0);
 }

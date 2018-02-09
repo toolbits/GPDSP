@@ -49,15 +49,15 @@
 
 namespace ir {
 
-GPDSPWaveNode::GPDSPWaveNode(int rate) : _rate(rate), _resolution(defaultResolution()), _wave(NULL), _position(GPDSPFV(0.0))
+GPDSPWaveNode::GPDSPWaveNode(int rate) noexcept : _rate(rate), _resolution(defaultResolution()), _wave(NULL), _position(GPDSPFV(0.0))
 {
 }
 
-GPDSPWaveNode::~GPDSPWaveNode(void)
+GPDSPWaveNode::~GPDSPWaveNode(void) noexcept
 {
 }
 
-GPDSPError GPDSPWaveNode::setResolution(GPDSPFloat resolution)
+GPDSPError GPDSPWaveNode::setResolution(GPDSPFloat resolution) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -75,7 +75,7 @@ GPDSPError GPDSPWaveNode::setResolution(GPDSPFloat resolution)
     return error;
 }
 
-GPDSPError GPDSPWaveNode::fixate(void)
+GPDSPError GPDSPWaveNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -95,19 +95,19 @@ GPDSPError GPDSPWaveNode::fixate(void)
     return error;
 }
 
-void GPDSPWaveNode::invalidate(void)
+void GPDSPWaveNode::invalidate(void) noexcept
 {
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPWaveNode::prepare(void)
+GPDSPError GPDSPWaveNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPWaveNode::process(void)
+GPDSPError GPDSPWaveNode::process(void) noexcept
 {
     GPDSPFloat frequency;
     GPDSPFloat phase;
@@ -140,13 +140,13 @@ GPDSPError GPDSPWaveNode::process(void)
     return error;
 }
 
-void GPDSPWaveNode::rewind(void)
+void GPDSPWaveNode::rewind(void) noexcept
 {
     _position = GPDSPFV(0.0);
     return;
 }
 
-GPDSPError GPDSPWaveNode::makeWave(GPDSPFloat resolution, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > const** wave) const
+GPDSPError GPDSPWaveNode::makeWave(GPDSPFloat resolution, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > const** wave) const noexcept
 {
     static std::unordered_map<std::string, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > > s_wave;
     std::unordered_map<std::string, std::vector<std::pair<GPDSPFloat, GPDSPFloat> > >::iterator it;

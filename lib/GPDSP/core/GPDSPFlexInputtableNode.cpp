@@ -48,11 +48,11 @@
 
 namespace ir {
 
-GPDSPFlexInputtableNode::GPDSPFlexInputtableNode(void)
+GPDSPFlexInputtableNode::GPDSPFlexInputtableNode(void) noexcept
 {
 }
 
-GPDSPFlexInputtableNode::~GPDSPFlexInputtableNode(void)
+GPDSPFlexInputtableNode::~GPDSPFlexInputtableNode(void) noexcept
 {
 }
 

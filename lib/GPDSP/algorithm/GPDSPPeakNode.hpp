@@ -59,6 +59,19 @@ namespace ir {
     振幅は入力の絶対値となるため, 出力が負の値になることはありません.
  
     １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPPeakNode>
+        <name>ノード名</name>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <index>in に対する入力元のターミナル番号</index>
+            </::0>
+        </input>
+    </GPDSPPeakNode>
+    @endcode
  */
 class GPDSPPeakNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
@@ -69,36 +82,36 @@ class GPDSPPeakNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
         /*!
             極限値を 0.0 に初期化します.
          */
-        explicit                            GPDSPPeakNode               (void);
+        explicit                            GPDSPPeakNode               (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPPeakNode              (void);
+        virtual                             ~GPDSPPeakNode              (void) noexcept;
         //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 入出力の演算結果を無効化し, 再演算を要求します.
-        virtual void                        invalidate                  (void);
+        virtual void                        invalidate                  (void) noexcept;
         //! 演算前の準備をします.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
-            @retval GPDSPERROR_OK 正常 (演算を完了)
-            @retval GPDSPERROR_WAIT データフロー入力待ち
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
         //! 極限値を 0.0 に再初期化します.
-        virtual void                        refresh                     (void);
+        virtual void                        refresh                     (void) noexcept;
     private:
                                             GPDSPPeakNode               (GPDSPPeakNode const&);
                 GPDSPPeakNode&              operator=                   (GPDSPPeakNode const&);

@@ -60,6 +60,22 @@ namespace ir {
     内部バッファのサイズが 0 のときは, 入力を即時に出力します.
  
     １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPBufferNode>
+        <name>ノード名</name>
+        <param>
+            <size>内部バッファのサイズ</size>
+        </param>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <index>in に対する入力元のターミナル番号</index>
+            </::0>
+        </input>
+    </GPDSPBufferNode>
+    @endcode
  */
 class GPDSPBufferNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
@@ -70,54 +86,54 @@ class GPDSPBufferNode : public GPDSPInputtableNode, public GPDSPOutputtableNode,
         /*!
             何もしません.
          */
-        explicit                            GPDSPBufferNode             (void);
+        explicit                            GPDSPBufferNode             (void) noexcept;
         //! デストラクタです.
         /*!
             管理しているリソースを解放します.
          */
-        virtual                             ~GPDSPBufferNode            (void);
+        virtual                             ~GPDSPBufferNode            (void) noexcept;
         //! 内部バッファのサイズを設定し, 値を 0.0 に初期化します.
         /*!
             @param[in] size 設定するサイズ
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-                GPDSPError                  setSize                     (int size);
+                GPDSPError                  setSize                     (int size) noexcept;
         //! 内部バッファのサイズを取得します.
         /*!
             @return 現在のサイズ
          */
-                int                         getSize                     (void) const;
+                int                         getSize                     (void) const noexcept;
         //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 入出力の演算結果を無効化し, 再演算を要求します.
-        virtual void                        invalidate                  (void);
+        virtual void                        invalidate                  (void) noexcept;
         //! 演算前の準備をします.
         /*!
-            @retval GPDSPERROR_OK 正常 (準備を完了)
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
-            @retval GPDSPERROR_OK 正常 (演算を完了)
-            @retval GPDSPERROR_WAIT データフロー入力待ち
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
         //! 内部バッファの値を 0.0 に再初期化します.
-        virtual void                        refresh                     (void);
+        virtual void                        refresh                     (void) noexcept;
     private:
                                             GPDSPBufferNode             (GPDSPBufferNode const&);
                 GPDSPBufferNode&            operator=                   (GPDSPBufferNode const&);
 };
 
-inline int GPDSPBufferNode::getSize(void) const
+inline int GPDSPBufferNode::getSize(void) const noexcept
 {
     return static_cast<int>(_queue.size());
 }

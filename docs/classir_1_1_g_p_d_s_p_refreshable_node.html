@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>IridiumFrameworks / GPDSP: ir::GPDSPRefreshableNode クラス</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">IridiumFrameworks / GPDSP
+   &#160;<span id="projectnumber">0.9.0</span>
+   </div>
+   <div id="projectbrief">A real time / non-real time General Purpose DSP library, written in C++.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.14 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classir_1_1_g_p_d_s_p_refreshable_node.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="#pro-methods">限定公開メンバ関数</a> &#124;
+<a href="classir_1_1_g_p_d_s_p_refreshable_node-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle">
+<div class="title">ir::GPDSPRefreshableNode クラス<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>リフレッシュ可能なノードを表すインターフェースクラス  
+ <a href="classir_1_1_g_p_d_s_p_refreshable_node.html#details">[詳解]</a></p>
+<div class="dynheader">
+ir::GPDSPRefreshableNode の継承関係図</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classir_1_1_g_p_d_s_p_refreshable_node.png" usemap="#ir::GPDSPRefreshableNode_map" alt=""/>
+  <map id="ir::GPDSPRefreshableNode_map" name="ir::GPDSPRefreshableNode_map">
+<area href="classir_1_1_g_p_d_s_p_buffer_input_node.html" title="バッファ入力ノードを表す具象クラス " alt="ir::GPDSPBufferInputNode" shape="rect" coords="0,56,170,80"/>
+<area href="classir_1_1_g_p_d_s_p_buffer_node.html" title="任意遅延ノードを表す具象クラス " alt="ir::GPDSPBufferNode" shape="rect" coords="180,56,350,80"/>
+<area href="classir_1_1_g_p_d_s_p_buffer_output_node.html" title="バッファ出力ノードを表す具象クラス " alt="ir::GPDSPBufferOutputNode" shape="rect" coords="360,56,530,80"/>
+<area href="classir_1_1_g_p_d_s_p_delay_node.html" title="単位遅延ノードを表す具象クラス " alt="ir::GPDSPDelayNode" shape="rect" coords="540,56,710,80"/>
+<area href="classir_1_1_g_p_d_s_p_generic_node.html" title="任意ノードを表す具象クラス " alt="ir::GPDSPGenericNode" shape="rect" coords="720,56,890,80"/>
+<area href="classir_1_1_g_p_d_s_p_peak_node.html" title="極限ノードを表す具象クラス " alt="ir::GPDSPPeakNode" shape="rect" coords="900,56,1070,80"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr class="memitem:a152754af8c24727fc573fcf328ff6d08"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_refreshable_node.html#a152754af8c24727fc573fcf328ff6d08">refresh</a> (void) noexcept=0</td></tr>
+<tr class="memdesc:a152754af8c24727fc573fcf328ff6d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">入出力バッファの値などを再初期化します.  <a href="#a152754af8c24727fc573fcf328ff6d08">[詳解]</a><br /></td></tr>
+<tr class="separator:a152754af8c24727fc573fcf328ff6d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+限定公開メンバ関数</h2></td></tr>
+<tr class="memitem:ade0bf0a18dd4e82603069d0fcaf5c5c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_refreshable_node.html#ade0bf0a18dd4e82603069d0fcaf5c5c6">GPDSPRefreshableNode</a> (void) noexcept</td></tr>
+<tr class="memdesc:ade0bf0a18dd4e82603069d0fcaf5c5c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンストラクタです.  <a href="#ade0bf0a18dd4e82603069d0fcaf5c5c6">[詳解]</a><br /></td></tr>
+<tr class="separator:ade0bf0a18dd4e82603069d0fcaf5c5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af781c67806a865a00f55cd427e26b84c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_refreshable_node.html#af781c67806a865a00f55cd427e26b84c">~GPDSPRefreshableNode</a> (void) noexcept=0</td></tr>
+<tr class="memdesc:af781c67806a865a00f55cd427e26b84c"><td class="mdescLeft">&#160;</td><td class="mdescRight">デストラクタです.  <a href="#af781c67806a865a00f55cd427e26b84c">[詳解]</a><br /></td></tr>
+<tr class="separator:af781c67806a865a00f55cd427e26b84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>リフレッシュ可能なノードを表すインターフェースクラス </p>
+<p><a class="el" href="classir_1_1_g_p_d_s_p_refreshable_node.html" title="リフレッシュ可能なノードを表すインターフェースクラス ">GPDSPRefreshableNode</a> クラスは, ノードがリフレッシュ可能であることを表し, <a class="el" href="classir_1_1_g_p_d_s_p_node.html" title="ノードを表すインターフェースクラス ">GPDSPNode</a> クラスとともに仮想継承して利用する基底クラスです.</p>
+<p>リフレッシュ可能な各種ノードを表す具象クラスは, <a class="el" href="classir_1_1_g_p_d_s_p_refreshable_node.html" title="リフレッシュ可能なノードを表すインターフェースクラス ">GPDSPRefreshableNode</a> クラスを仮想継承し, <a class="el" href="classir_1_1_g_p_d_s_p_refreshable_node.html#a152754af8c24727fc573fcf328ff6d08" title="入出力バッファの値などを再初期化します. ">refresh()</a> 関数を実装します. </p>
+</div><h2 class="groupheader">構築子と解体子</h2>
+<a id="ade0bf0a18dd4e82603069d0fcaf5c5c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade0bf0a18dd4e82603069d0fcaf5c5c6">&#9670;&nbsp;</a></span>GPDSPRefreshableNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ir::GPDSPRefreshableNode::GPDSPRefreshableNode </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">protected</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>コンストラクタです. </p>
+<p>何もしません. </p>
+
+</div>
+</div>
+<a id="af781c67806a865a00f55cd427e26b84c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af781c67806a865a00f55cd427e26b84c">&#9670;&nbsp;</a></span>~GPDSPRefreshableNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ir::GPDSPRefreshableNode::~GPDSPRefreshableNode </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>デストラクタです. </p>
+<p>何もしません. </p>
+
+</div>
+</div>
+<h2 class="groupheader">関数詳解</h2>
+<a id="a152754af8c24727fc573fcf328ff6d08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a152754af8c24727fc573fcf328ff6d08">&#9670;&nbsp;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ir::GPDSPRefreshableNode::refresh </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>入出力バッファの値などを再初期化します. </p>
+
+<p><a class="el" href="classir_1_1_g_p_d_s_p_generic_node.html#a9d68278bffe530af67853c4e1c421eca">ir::GPDSPGenericNode</a>, <a class="el" href="classir_1_1_g_p_d_s_p_buffer_input_node.html#a051686db3ac7b6e1bd37ab5d51a1c6f3">ir::GPDSPBufferInputNode</a>, <a class="el" href="classir_1_1_g_p_d_s_p_buffer_output_node.html#aaa1fa6cd4e1b2d2708ec21a4cacbf4ae">ir::GPDSPBufferOutputNode</a>, <a class="el" href="classir_1_1_g_p_d_s_p_buffer_node.html#a152b5aa293535ec9afb6c533e4ba2c8b">ir::GPDSPBufferNode</a>, <a class="el" href="classir_1_1_g_p_d_s_p_peak_node.html#a0dfb68ce92bc7ba41b02f3b1267fb81c">ir::GPDSPPeakNode</a>, <a class="el" href="classir_1_1_g_p_d_s_p_delay_node.html#a23bb320d868a831dca16667fd9c71f78">ir::GPDSPDelayNode</a>で実装されています。</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceir.html">ir</a></li><li class="navelem"><a class="el" href="classir_1_1_g_p_d_s_p_refreshable_node.html">GPDSPRefreshableNode</a></li>
+    <li class="footer">構築:
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -51,50 +51,84 @@
 
 namespace ir {
 
+//! 可変個数の出力ターミナルを持つノードを表す抽象クラス
+/*!
+    GPDSPFlexOutputtableNode クラスは, 可変個数の出力ターミナルを持つノードを表す抽象クラスです.
+ 
+    可変個数の出力ターミナルを持つ各種ノードを表す具象クラスは, GPDSPFlexOutputtableNode クラスを継承して実装します.
+ */
 class GPDSPFlexOutputtableNode : public GPDSPOutputtableNode {
     public:
-                GPDSPError                  setCountO                   (int count, std::string const& what);
-                GPDSPError                  appendO                     (std::string const& what);
-                GPDSPError                  insertO                     (int index, std::string const& what);
-                GPDSPError                  removeO                     (int index);
-                void                        clearO                      (void);
+        //! 出力ターミナルの個数と名前を設定します.
+        /*!
+            @param[in] count 設定する個数
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+         */
+                GPDSPError                  setCountO                   (int count, std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ出力ターミナルを追加します.
+        /*!
+            @param[in] what 追加する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+         */
+                GPDSPError                  appendO                     (std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ出力ターミナルを挿入します.
+        /*!
+            @param[in] index 挿入する位置
+            @param[in] what 挿入する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  insertO                     (int index, std::string const& what) noexcept;
+        //! 出力ターミナルを削除します.
+        /*!
+            @param[in] index ターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+         */
+                GPDSPError                  removeO                     (int index) noexcept;
+        //! すべての出力ターミナルを削除します.
+                void                        clearO                      (void) noexcept;
     protected:
         //! コンストラクタです.
         /*!
             何もしません.
          */
-        explicit                            GPDSPFlexOutputtableNode    (void);
+        explicit                            GPDSPFlexOutputtableNode    (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPFlexOutputtableNode   (void) = 0;
+        virtual                             ~GPDSPFlexOutputtableNode   (void) noexcept = 0;
     private:
                                             GPDSPFlexOutputtableNode    (GPDSPFlexOutputtableNode const&);
                 GPDSPFlexOutputtableNode&   operator=                   (GPDSPFlexOutputtableNode const&);
 };
 
-inline GPDSPError GPDSPFlexOutputtableNode::setCountO(int count, std::string const& what)
+inline GPDSPError GPDSPFlexOutputtableNode::setCountO(int count, std::string const& what) noexcept
 {
     return GPDSPOutputtableNode::setCountO(count, what);
 }
 
-inline GPDSPError GPDSPFlexOutputtableNode::appendO(std::string const& what)
+inline GPDSPError GPDSPFlexOutputtableNode::appendO(std::string const& what) noexcept
 {
     return GPDSPOutputtableNode::appendO(what);
 }
 
-inline GPDSPError GPDSPFlexOutputtableNode::insertO(int index, std::string const& what)
+inline GPDSPError GPDSPFlexOutputtableNode::insertO(int index, std::string const& what) noexcept
 {
     return GPDSPOutputtableNode::insertO(index, what);
 }
 
-inline GPDSPError GPDSPFlexOutputtableNode::removeO(int index)
+inline GPDSPError GPDSPFlexOutputtableNode::removeO(int index) noexcept
 {
     return GPDSPOutputtableNode::removeO(index);
 }
 
-inline void GPDSPFlexOutputtableNode::clearO(void)
+inline void GPDSPFlexOutputtableNode::clearO(void) noexcept
 {
     GPDSPOutputtableNode::clearO();
     return;

@@ -58,6 +58,19 @@ namespace ir {
     GPDSPDelayNode クラスは, 入力を単位時間だけ遅延させて出力する単位遅延ノードを表す具象クラスです.
  
     １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPDelayNode>
+        <name>ノード名</name>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <index>in に対する入力元のターミナル番号</index>
+            </::0>
+        </input>
+    </GPDSPDelayNode>
+    @endcode
  */
 class GPDSPDelayNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
     private:
@@ -68,35 +81,35 @@ class GPDSPDelayNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, 
         /*!
             内部バッファの値を 0.0 に初期化します.
          */
-        explicit                            GPDSPDelayNode              (void);
+        explicit                            GPDSPDelayNode              (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPDelayNode             (void);
+        virtual                             ~GPDSPDelayNode             (void) noexcept;
         //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 入出力の演算結果を無効化し, 再演算を要求します.
-        virtual void                        invalidate                  (void);
+        virtual void                        invalidate                  (void) noexcept;
         //! 演算前の準備をします.
         /*!
-            @retval GPDSPERROR_OK 正常 (準備を完了)
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
-            @retval GPDSPERROR_OK 正常 (演算を完了)
-            @retval GPDSPERROR_WAIT データフロー入力待ち
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
         //! 内部バッファの値を 0.0 に再初期化します.
-        virtual void                        refresh                     (void);
+        virtual void                        refresh                     (void) noexcept;
     private:
                                             GPDSPDelayNode              (GPDSPDelayNode const&);
                 GPDSPDelayNode&             operator=                   (GPDSPDelayNode const&);

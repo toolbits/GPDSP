@@ -57,6 +57,22 @@ namespace ir {
     GPDSPAmplifyNode クラスは, 設定された増幅率と入力を積算して出力する増幅ノードを表す具象クラスです.
  
     １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPAmplifyNode>
+        <name>ノード名</name>
+        <param>
+            <gain>増幅率</gain>
+        </param>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <index>in に対する入力元のターミナル番号</index>
+            </::0>
+        </input>
+    </GPDSPAmplifyNode>
+    @endcode
  */
 class GPDSPAmplifyNode : public GPDSPInputtableNode, public GPDSPOutputtableNode {
     private:
@@ -67,60 +83,60 @@ class GPDSPAmplifyNode : public GPDSPInputtableNode, public GPDSPOutputtableNode
         /*!
             増幅率を defaultGain() に初期化します.
          */
-        explicit                            GPDSPAmplifyNode            (void);
+        explicit                            GPDSPAmplifyNode            (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPAmplifyNode           (void);
+        virtual                             ~GPDSPAmplifyNode           (void) noexcept;
         //! デフォルトの増幅率を取得します.
         /*!
             @retval 1.0 デフォルトの増幅率
          */
-        static  GPDSPFloat                  defaultGain                 (void);
+        static  GPDSPFloat                  defaultGain                 (void) noexcept;
         //! 増幅率を設定します.
         /*!
             @param[in] gain 設定する増幅率
          */
-                void                        setGain                     (GPDSPFloat gain);
+                void                        setGain                     (GPDSPFloat gain) noexcept;
         //! 増幅率を取得します.
         /*!
             @return 現在の増幅率
          */
-                GPDSPFloat                  getGain                     (void) const;
+                GPDSPFloat                  getGain                     (void) const noexcept;
         //! 入力ターミナルを１つと, 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 入出力の演算結果を無効化し, 再演算を要求します.
-        virtual void                        invalidate                  (void);
+        virtual void                        invalidate                  (void) noexcept;
         //! 演算前の準備をします.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
-            @retval GPDSPERROR_OK 正常 (演算を完了)
-            @retval GPDSPERROR_WAIT データフロー入力待ち
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
     private:
                                             GPDSPAmplifyNode            (GPDSPAmplifyNode const&);
                 GPDSPAmplifyNode&           operator=                   (GPDSPAmplifyNode const&);
 };
 
-inline GPDSPFloat GPDSPAmplifyNode::defaultGain(void)
+inline GPDSPFloat GPDSPAmplifyNode::defaultGain(void) noexcept
 {
     return GPDSPFV(1.0);
 }
 
-inline GPDSPFloat GPDSPAmplifyNode::getGain(void) const
+inline GPDSPFloat GPDSPAmplifyNode::getGain(void) const noexcept
 {
     return _gain;
 }

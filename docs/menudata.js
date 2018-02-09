@@ -60,4 +60,9 @@ var menudata={children:[
 {text:"r",url:"functions_func_r.html#index_r"},
 {text:"s",url:"functions_func_s.html#index_s"},
 {text:"w",url:"functions_func_w.html#index_w"},
-{text:"~",url:"functions_func_0x7e.html#index_0x7e"}]}]}]}]}
+{text:"~",url:"functions_func_0x7e.html#index_0x7e"}]}]}]},
+{text:"ファイル",url:"files.html",children:[
+{text:"ファイル一覧",url:"files.html"},
+{text:"ファイルメンバ",url:"globals.html",children:[
+{text:"全て",url:"globals.html"},
+{text:"マクロ定義",url:"globals_defs.html"}]}]}]}

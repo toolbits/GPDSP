@@ -53,9 +53,9 @@ namespace ir {
 
 //! ノードを表すインターフェースクラス
 /*!
-    GPDSPNode クラスは, 全てのノードの基底クラスです.
+    GPDSPNode クラスは, すべてのノードの基底クラスです.
  
-    各種ノードを表す具象クラスは, GPDSPNode クラスの fixate(), invalidate(), prepare(), process() 関数を実装する必要があります.
+    各種ノードを表す具象クラスは, GPDSPNode クラスを仮想継承し, fixate(), invalidate(), prepare(), process() 関数を実装します.
  */
 class GPDSPNode {
     public:
@@ -63,45 +63,45 @@ class GPDSPNode {
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPNode                  (void) = 0;
+        virtual                             ~GPDSPNode                  (void) noexcept = 0;
         //! 固定個数の入出力ターミナルを生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_WAIT [返却禁止]
-            @retval GPDSPERROR_IGNORE [返却禁止]
-            @retval GPDSPERROR_FRAGMENT [返却禁止]
-            @retval GPDSPERROR_LOOP [返却禁止]
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_WAIT [返却禁止]
+            @retval #GPDSPERROR_IGNORE [返却禁止]
+            @retval #GPDSPERROR_FRAGMENT [返却禁止]
+            @retval #GPDSPERROR_LOOP [返却禁止]
             @retval その他のエラー
          */
-        virtual GPDSPError                  fixate                      (void) = 0;
+        virtual GPDSPError                  fixate                      (void) noexcept = 0;
         //! 演算結果を無効化し, 再演算を要求します.
-        virtual void                        invalidate                  (void) = 0;
+        virtual void                        invalidate                  (void) noexcept = 0;
         //! 演算前の準備をします.
         /*!
-            @retval GPDSPERROR_OK 正常 (準備を完了)
-            @retval GPDSPERROR_WAIT [返却禁止]
-            @retval GPDSPERROR_IGNORE [返却禁止]
-            @retval GPDSPERROR_FRAGMENT [返却禁止]
-            @retval GPDSPERROR_LOOP [返却禁止]
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_WAIT [返却禁止]
+            @retval #GPDSPERROR_IGNORE [返却禁止]
+            @retval #GPDSPERROR_FRAGMENT [返却禁止]
+            @retval #GPDSPERROR_LOOP [返却禁止]
             @retval その他のエラー
          */
-        virtual GPDSPError                  prepare                     (void) = 0;
+        virtual GPDSPError                  prepare                     (void) noexcept = 0;
         //! 演算を行います.
         /*!
-            @retval GPDSPERROR_OK 正常 (演算を完了)
-            @retval GPDSPERROR_WAIT データフロー入力待ち
-            @retval GPDSPERROR_IGNORE 演算対象外として無視
-            @retval GPDSPERROR_FRAGMENT 一部の演算のみ完了
-            @retval GPDSPERROR_LOOP [返却禁止]
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_IGNORE 演算対象外として無視
+            @retval #GPDSPERROR_FRAGMENT 一部の演算のみ完了
+            @retval #GPDSPERROR_LOOP [返却禁止]
             @retval その他のエラー
          */
-        virtual GPDSPError                  process                     (void) = 0;
+        virtual GPDSPError                  process                     (void) noexcept = 0;
     protected:
         //! コンストラクタです.
         /*!
             何もしません.
          */
-        explicit                            GPDSPNode                   (void);
+        explicit                            GPDSPNode                   (void) noexcept;
     private:
                                             GPDSPNode                   (GPDSPNode const&);
                 GPDSPNode&                  operator=                   (GPDSPNode const&);

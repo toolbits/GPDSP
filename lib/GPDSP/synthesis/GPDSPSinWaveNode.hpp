@@ -58,6 +58,26 @@ namespace ir {
     あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.
  
     ２つの入力ターミナル "frequency", "phase" と, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPSinWaveNode>
+        <name>ノード名</name>
+        <param>
+            <resolution>解像度</resolution>
+        </param>
+        <input>
+            <::0>
+                <node>frequency に対する入力元のノード名</node>
+                <index>frequency に対する入力元のターミナル番号</index>
+            </::0>
+            <::1>
+                <node>phase に対する入力元のノード名</node>
+                <index>phase に対する入力元のターミナル番号</index>
+            </::1>
+        </input>
+    </GPDSPSinWaveNode>
+    @endcode
  */
 class GPDSPSinWaveNode : public GPDSPWaveNode {
     public:
@@ -67,29 +87,29 @@ class GPDSPSinWaveNode : public GPDSPWaveNode {
          
             @param[in] rate サンプリングレート > 0
          */
-        explicit                            GPDSPSinWaveNode            (int rate);
+        explicit                            GPDSPSinWaveNode            (int rate) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPSinWaveNode           (void);
+        virtual                             ~GPDSPSinWaveNode           (void) noexcept;
     protected:
         //! 波形バッファの名前を取得します.
         /*!
             @return "GPDSPSinWaveNode"
          */
-        virtual std::string                 getName                     (void) const;
+        virtual std::string                 getName                     (void) const noexcept;
         //! 引数に指定された位相に対応する, サイン波の値を取得します.
         /*!
             @param[in] phase 位相 [0.0, 1.0)
             @return サイン波の値 [-1.0, +1.0]
          */
-        virtual GPDSPFloat                  getWave                     (GPDSPFloat phase) const;
+        virtual GPDSPFloat                  getWave                     (GPDSPFloat phase) const noexcept;
         //! 引数に指定された波形バッファに対して, １波長分のサイン波の値を計算して書き込みます.
         /*!
             @param[in,out] wave 波形バッファ
          */
-        virtual void                        fillWave                    (std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const;
+        virtual void                        fillWave                    (std::vector<std::pair<GPDSPFloat, GPDSPFloat> >* wave) const noexcept;
     private:
                                             GPDSPSinWaveNode            (GPDSPSinWaveNode const&);
                 GPDSPSinWaveNode&           operator=                   (GPDSPSinWaveNode const&);

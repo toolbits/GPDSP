@@ -48,15 +48,15 @@
 
 namespace ir {
 
-GPDSPSumNode::GPDSPSumNode(void)
+GPDSPSumNode::GPDSPSumNode(void) noexcept
 {
 }
 
-GPDSPSumNode::~GPDSPSumNode(void)
+GPDSPSumNode::~GPDSPSumNode(void) noexcept
 {
 }
 
-GPDSPError GPDSPSumNode::fixate(void)
+GPDSPError GPDSPSumNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -67,19 +67,19 @@ GPDSPError GPDSPSumNode::fixate(void)
     return error;
 }
 
-void GPDSPSumNode::invalidate(void)
+void GPDSPSumNode::invalidate(void) noexcept
 {
     GPDSPFlexInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPSumNode::prepare(void)
+GPDSPError GPDSPSumNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPSumNode::process(void)
+GPDSPError GPDSPSumNode::process(void) noexcept
 {
     GPDSPFloat sigma;
     GPDSPFloat value;

@@ -48,15 +48,15 @@
 
 namespace ir {
 
-GPDSPMultiplyNode::GPDSPMultiplyNode(void)
+GPDSPMultiplyNode::GPDSPMultiplyNode(void) noexcept
 {
 }
 
-GPDSPMultiplyNode::~GPDSPMultiplyNode(void)
+GPDSPMultiplyNode::~GPDSPMultiplyNode(void) noexcept
 {
 }
 
-GPDSPError GPDSPMultiplyNode::fixate(void)
+GPDSPError GPDSPMultiplyNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -67,19 +67,19 @@ GPDSPError GPDSPMultiplyNode::fixate(void)
     return error;
 }
 
-void GPDSPMultiplyNode::invalidate(void)
+void GPDSPMultiplyNode::invalidate(void) noexcept
 {
     GPDSPFlexInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
 }
 
-GPDSPError GPDSPMultiplyNode::prepare(void)
+GPDSPError GPDSPMultiplyNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPMultiplyNode::process(void)
+GPDSPError GPDSPMultiplyNode::process(void) noexcept
 {
     GPDSPFloat pi;
     GPDSPFloat value;

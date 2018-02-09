@@ -56,6 +56,16 @@ namespace ir {
     GPDSPConstantNode クラスは, 設定された定数値を出力する定数ノードを表す具象クラスです.
  
     入力ターミナルは持たず, １つの出力ターミナル "out" を持ちます.
+ 
+    <b>.gpdsp ファイルでの記述例</b>
+    @code{.xml}
+    <GPDSPConstantNode>
+        <name>ノード名</name>
+        <param>
+            <constant>定数値</constant>
+        </param>
+    </GPDSPConstantNode>
+    @endcode
  */
 class GPDSPConstantNode : public GPDSPOutputtableNode {
     private:
@@ -66,57 +76,57 @@ class GPDSPConstantNode : public GPDSPOutputtableNode {
         /*!
             定数値を defaultConstant() に初期化します.
          */
-        explicit                            GPDSPConstantNode           (void);
+        explicit                            GPDSPConstantNode           (void) noexcept;
         //! デストラクタです.
         /*!
             何もしません.
          */
-        virtual                             ~GPDSPConstantNode          (void);
+        virtual                             ~GPDSPConstantNode          (void) noexcept;
         //! デフォルトの定数値を取得します.
         /*!
             @retval 0.0 デフォルトの定数値
          */
-        static  GPDSPFloat                  defaultConstant             (void);
+        static  GPDSPFloat                  defaultConstant             (void) noexcept;
         //! 定数値を設定します.
         /*!
             @param[in] constant 設定する定数値
          */
-                void                        setConstant                 (GPDSPFloat constant);
+                void                        setConstant                 (GPDSPFloat constant) noexcept;
         //! 定数値を取得します.
         /*!
             @return 現在の定数値
          */
-                GPDSPFloat                  getConstant                 (void) const;
+                GPDSPFloat                  getConstant                 (void) const noexcept;
         //! 出力ターミナルを１つ生成します.
         /*!
-            @retval GPDSPERROR_OK 正常
-            @retval GPDSPERROR_NO_MEMORY メモリ不足
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
          */
-        virtual GPDSPError                  fixate                      (void);
+        virtual GPDSPError                  fixate                      (void) noexcept;
         //! 演算前の準備をします.
         /*!
-            @retval GPDSPERROR_OK 正常 (準備を完了)
-            @retval GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_OK 正常 (準備を完了)
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
-        virtual GPDSPError                  prepare                     (void);
+        virtual GPDSPError                  prepare                     (void) noexcept;
         //! 演算を行います.
         /*!
             何もしません.
          
-            @retval GPDSPERROR_OK 正常 (演算を完了)
+            @retval #GPDSPERROR_OK 正常 (演算を完了)
          */
-        virtual GPDSPError                  process                     (void);
+        virtual GPDSPError                  process                     (void) noexcept;
     private:
                                             GPDSPConstantNode           (GPDSPConstantNode const&);
                 GPDSPConstantNode&          operator=                   (GPDSPConstantNode const&);
 };
 
-inline GPDSPFloat GPDSPConstantNode::defaultConstant(void)
+inline GPDSPFloat GPDSPConstantNode::defaultConstant(void) noexcept
 {
     return GPDSPFV(0.0);
 }
 
-inline GPDSPFloat GPDSPConstantNode::getConstant(void) const
+inline GPDSPFloat GPDSPConstantNode::getConstant(void) const noexcept
 {
     return _constant;
 }

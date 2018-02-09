@@ -48,16 +48,16 @@
 
 namespace ir {
 
-GPDSPBufferOutputNode::GPDSPBufferOutputNode(void) : _delegate(NULL)
+GPDSPBufferOutputNode::GPDSPBufferOutputNode(void) noexcept : _delegate(NULL)
 {
 }
 
-GPDSPBufferOutputNode::~GPDSPBufferOutputNode(void)
+GPDSPBufferOutputNode::~GPDSPBufferOutputNode(void) noexcept
 {
     _buffer.clear();
 }
 
-GPDSPError GPDSPBufferOutputNode::setBuffer(GPDSPFloat* buffer, int length, int interleave)
+GPDSPError GPDSPBufferOutputNode::setBuffer(GPDSPFloat* buffer, int length, int interleave) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -104,7 +104,7 @@ GPDSPError GPDSPBufferOutputNode::setBuffer(GPDSPFloat* buffer, int length, int 
     return error;
 }
 
-GPDSPFloat const* GPDSPBufferOutputNode::getBufferReadonly(int* length, int* interleave) const
+GPDSPFloat const* GPDSPBufferOutputNode::getBufferReadonly(int* length, int* interleave) const noexcept
 {
     if (_delegate != NULL) {
         if (length != NULL) {
@@ -117,7 +117,7 @@ GPDSPFloat const* GPDSPBufferOutputNode::getBufferReadonly(int* length, int* int
     return _delegate;
 }
 
-GPDSPError GPDSPBufferOutputNode::setPosition(int position)
+GPDSPError GPDSPBufferOutputNode::setPosition(int position) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -138,7 +138,7 @@ GPDSPError GPDSPBufferOutputNode::setPosition(int position)
     return error;
 }
 
-GPDSPError GPDSPBufferOutputNode::fixate(void)
+GPDSPError GPDSPBufferOutputNode::fixate(void) noexcept
 {
     GPDSPError error(GPDSPERROR_OK);
     
@@ -149,12 +149,12 @@ GPDSPError GPDSPBufferOutputNode::fixate(void)
     return error;
 }
 
-GPDSPError GPDSPBufferOutputNode::prepare(void)
+GPDSPError GPDSPBufferOutputNode::prepare(void) noexcept
 {
     return GPDSPERROR_OK;
 }
 
-GPDSPError GPDSPBufferOutputNode::process(void)
+GPDSPError GPDSPBufferOutputNode::process(void) noexcept
 {
     GPDSPFloat value;
     GPDSPError error(GPDSPERROR_OK);
@@ -170,7 +170,7 @@ GPDSPError GPDSPBufferOutputNode::process(void)
     return error;
 }
 
-void GPDSPBufferOutputNode::rewind(void)
+void GPDSPBufferOutputNode::rewind(void) noexcept
 {
     if (_delegate != NULL) {
         _position = 0;
@@ -178,7 +178,7 @@ void GPDSPBufferOutputNode::rewind(void)
     return;
 }
 
-void GPDSPBufferOutputNode::refresh(void)
+void GPDSPBufferOutputNode::refresh(void) noexcept
 {
     if (_delegate != NULL) {
         std::fill_n(_delegate, _length * _interleave, GPDSPFV(0.0));
