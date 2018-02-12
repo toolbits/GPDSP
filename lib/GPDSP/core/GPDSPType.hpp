@@ -56,7 +56,7 @@ namespace ir {
 /*!
     | 32 ビット | 64 ビット |
     | :------------: | :------------: |
-    | param##f | param |
+    | param\#\#f | param |
  */
 #ifdef __GPDSP64
 #define GPDSPFV(param)  (param)
@@ -89,7 +89,7 @@ namespace ir {
 //! 演算対象のデータ型
 /*!
     32 ビット浮動小数点をもちいる場合は GPDSPConfig.hpp ファイル内で __GPDSP64 マクロを定義せず,
-    64 ビット浮動小数点をもちいる場合は定義する.
+    64 ビット浮動小数点をもちいる場合は定義します.
  */
 #ifdef __GPDSP64
 typedef double          GPDSPFloat;

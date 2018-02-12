@@ -73,6 +73,10 @@ class GPDSPMultiplyNode;
 class GPDSPSquareRootNode;
 class GPDSPGenericNode;
 
+//! ノードを管理してデジタル信号処理の演算を行うクラス
+/*!
+    GPDSPNodeRenderer クラスは, 各種ノードを生成したり管理し, デジタル信号処理の演算を行うためのクラスです.
+ */
 class GPDSPNodeRenderer {
     private:
                 int                         _rate;
@@ -124,7 +128,7 @@ class GPDSPNodeRenderer {
                 int                         getRate                     (void) const noexcept;
         //! GPDSPBufferInputNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -132,7 +136,7 @@ class GPDSPNodeRenderer {
                                             getNodeBufferInput          (std::string const& name) const noexcept;
         //! GPDSPBufferOutputNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -140,7 +144,7 @@ class GPDSPNodeRenderer {
                                             getNodeBufferOutput         (std::string const& name) const noexcept;
         //! GPDSPConstantNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -148,7 +152,7 @@ class GPDSPNodeRenderer {
                                             getNodeConstant             (std::string const& name) const noexcept;
         //! GPDSPSignNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -156,7 +160,7 @@ class GPDSPNodeRenderer {
                                             getNodeSign                 (std::string const& name) const noexcept;
         //! GPDSPGateNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -164,7 +168,7 @@ class GPDSPNodeRenderer {
                                             getNodeGate                 (std::string const& name) const noexcept;
         //! GPDSPPeakNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -172,7 +176,7 @@ class GPDSPNodeRenderer {
                                             getNodePeak                 (std::string const& name) const noexcept;
         //! GPDSPAmplifyNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -180,7 +184,7 @@ class GPDSPNodeRenderer {
                                             getNodeAmplify              (std::string const& name) const noexcept;
         //! GPDSPDelayNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -188,7 +192,7 @@ class GPDSPNodeRenderer {
                                             getNodeDelay                (std::string const& name) const noexcept;
         //! GPDSPBufferNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -196,7 +200,7 @@ class GPDSPNodeRenderer {
                                             getNodeBuffer               (std::string const& name) const noexcept;
         //! GPDSPSumNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -204,7 +208,7 @@ class GPDSPNodeRenderer {
                                             getNodeSum                  (std::string const& name) const noexcept;
         //! GPDSPMultiplyNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -212,7 +216,7 @@ class GPDSPNodeRenderer {
                                             getNodeMultiply             (std::string const& name) const noexcept;
         //! GPDSPSquareRootNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -220,7 +224,7 @@ class GPDSPNodeRenderer {
                                             getNodeSquareRoot           (std::string const& name) const noexcept;
         //! GPDSPSinWaveNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -228,7 +232,7 @@ class GPDSPNodeRenderer {
                                             getNodeSinWave              (std::string const& name) const noexcept;
         //! GPDSPTriangleWaveNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -236,7 +240,7 @@ class GPDSPNodeRenderer {
                                             getNodeTriangleWave         (std::string const& name) const noexcept;
         //! GPDSPSawtoothWaveNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -244,7 +248,7 @@ class GPDSPNodeRenderer {
                                             getNodeSawtoothWave         (std::string const& name) const noexcept;
         //! GPDSPSquareWaveNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -252,7 +256,7 @@ class GPDSPNodeRenderer {
                                             getNodeSquareWave           (std::string const& name) const noexcept;
         //! GPDSPGenericNode クラスのノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -260,7 +264,7 @@ class GPDSPNodeRenderer {
                                             getNodeGeneric              (std::string const& name) const noexcept;
         //! ノードを取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
@@ -272,7 +276,7 @@ class GPDSPNodeRenderer {
                 int                         getSize                     (void) const noexcept;
         //! 入力ターミナルの個数と名前を設定します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] count 設定する個数
             @param[in] what 設定する名前
             @retval #GPDSPERROR_OK 正常
@@ -283,7 +287,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  setCountI                   (std::string const& name, int count, std::string const& what) noexcept;
         //! 入力ターミナルの個数を取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[out] count 個数の取得先 (NULL 可能)
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_NODE ノードが見つからない
@@ -291,7 +295,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  getCountI                   (std::string const& name, int* count) const noexcept;
         //! 出力ターミナルの個数と名前を設定します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] count 設定する個数
             @param[in] what 設定する名前
             @retval #GPDSPERROR_OK 正常
@@ -302,40 +306,289 @@ class GPDSPNodeRenderer {
                 GPDSPError                  setCountO                   (std::string const& name, int count, std::string const& what) noexcept;
         //! 出力ターミナルの個数を取得します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[out] count 個数の取得先 (NULL 可能)
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_NODE ノードが見つからない
          */
                 GPDSPError                  getCountO                   (std::string const& name, int* count) const noexcept;
+        //! 入力ターミナルの名前を設定します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  setNameI                    (std::string const& name, int index, std::string const& what) noexcept;
+        //! 入力ターミナルの名前を取得します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[out] what 名前の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  getNameI                    (std::string const& name, int index, std::string* what) const noexcept;
+        //! 出力ターミナルの名前を設定します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[in] what 設定する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  setNameO                    (std::string const& name, int index, std::string const& what) noexcept;
+        //! 出力ターミナルの名前を取得します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[out] what 名前の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  getNameO                    (std::string const& name, int index, std::string* what) const noexcept;
+        //! 入力ターミナルの非反転入力のノード接続を設定し, モードを #GPDSPMODE_POSITIVE に変更します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[in] from 設定するノードのノード名
+            @param[in] which 設定するノードのターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  setLinkPositiveI            (std::string const& name, int index, std::string const& from, int which) noexcept;
+        //! 入力ターミナルの反転入力のノード接続を設定し, モードを #GPDSPMODE_NEGATIVE に変更します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[in] from 設定するノードのノード名
+            @param[in] which 設定するノードのターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  setLinkNegativeI            (std::string const& name, int index, std::string const& from, int which) noexcept;
+        //! 入力ターミナルの定数入力の定数値を設定し, モードを #GPDSPMODE_CONSTANT に変更します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[in] constant 設定する定数値
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  setLinkConstantI            (std::string const& name, int index, GPDSPFloat constant) noexcept;
+        //! 入力ターミナルのモードを取得します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[out] mode モードの取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  getModeI                    (std::string const& name, int index, GPDSPMode* mode) const noexcept;
+        //! 入力ターミナルのモードが #GPDSPMODE_POSITIVE か #GPDSPMODE_NEGATIVE の場合に, ノード接続を取得します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[out] from ノードのノード名の取得先 (NULL 可能)
+            @param[out] which ノードのターミナル番号の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  getLinkI                    (std::string const& name, int index, std::string* from, int* which) const noexcept;
+        //! 入力ターミナルのモードが #GPDSPMODE_CONSTANT の場合に, 定数値を取得します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[out] constant 定数値の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_STATE 不正な状態
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  getLinkI                    (std::string const& name, int index, GPDSPFloat* constant) const noexcept;
+        //! 入力ターミナルのノード接続と定数値を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  clearLinkI                  (std::string const& name, int index) noexcept;
+        //! 入力ターミナルのノード接続と定数値を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] name ノード名
+            @param[in] mode 解除するモード
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  clearLinkI                  (std::string const& name, GPDSPMode mode) noexcept;
+        //! 入力ターミナルのノード接続を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] name ノード名
+            @param[in] from 解除するノードのノード名
+            @param[in] which 解除するノードのターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  clearLinkI                  (std::string const& name, std::string const& from, int which) noexcept;
+        //! 入力ターミナルのノード接続を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] name ノード名
+            @param[in] from 解除するノードのノード名
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  clearLinkI                  (std::string const& name, std::string const& from) noexcept;
+        //! 入力ターミナルの定数値を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] name ノード名
+            @param[in] constant 解除する定数値
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  clearLinkI                  (std::string const& name, GPDSPFloat constant) noexcept;
+        //! すべての入力ターミナルのノード接続と定数値を解除し, モードを #GPDSPMODE_NONE に変更します.
+        /*!
+            @param[in] name ノード名
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  clearLinkI                  (std::string const& name) noexcept;
                 GPDSPError                  clearLinkO                  (std::string const& name, int index) noexcept;
                 GPDSPError                  clearLinkO                  (std::string const& name) noexcept;
+        //! 入力ターミナルの値を取得します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[out] value 値の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  getValueI                   (std::string const& name, int index, GPDSPFloat* value) const noexcept;
+        //! 出力ターミナルの値を取得します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @param[out] value 値の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_WAIT データフロー入力待ち
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  getValueO                   (std::string const& name, int index, GPDSPFloat* value) const noexcept;
                 std::string                 getNextNode                 (void) const noexcept;
                 bool                        hasNextNode                 (void) const noexcept;
                 std::string                 findNode                    (std::shared_ptr<GPDSPNode const> const& node) const noexcept;
+        //! 引数に指定された名前を持つ入力ターミナルを検索します.
+        /*!
+            同じ名前を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] name ノード名
+            @param[in] what 検索する名前
+            @param[out] index 結果の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_FOUND 項目が見つからない
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  findNameI                   (std::string const& name, std::string const& what, int* index) const noexcept;
+        //! 引数に指定された名前を持つ出力ターミナルを検索します.
+        /*!
+            同じ名前を持つ出力ターミナルが複数ある場合には, 最初に見つかった出力ターミナルを返却します.
+         
+            @param[in] name ノード名
+            @param[in] what 検索する名前
+            @param[out] index 結果の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_FOUND 項目が見つからない
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  findNameO                   (std::string const& name, std::string const& what, int* index) const noexcept;
+        //! 引数に指定されたモードを持つ入力ターミナルを検索します.
+        /*!
+            同じモードを持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] name ノード名
+            @param[in] mode 検索するモード
+            @param[out] index 結果の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_FOUND 項目が見つからない
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  findModeI                   (std::string const& name, GPDSPMode mode, int* index) const noexcept;
+        //! 引数に指定されたノード接続を持つ入力ターミナルを検索します.
+        /*!
+            同じノード接続を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] name ノード名
+            @param[in] from 検索するノードのノード名
+            @param[in] which 検索するノードのターミナル番号
+            @param[out] index 結果の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_FOUND 項目が見つからない
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  findLinkI                   (std::string const& name, std::string const& from, int which, int* index) const noexcept;
+        //! 引数に指定されたノード接続を持つ入力ターミナルを検索します.
+        /*!
+            同じノード接続を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] name ノード名
+            @param[in] from 検索するノードのノード名
+            @param[out] index 結果の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_FOUND 項目が見つからない
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  findLinkI                   (std::string const& name, std::string const& from, int* index) const noexcept;
+        //! 引数に指定された定数値を持つ入力ターミナルを検索します.
+        /*!
+            同じ定数値を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
+         
+            @param[in] name ノード名
+            @param[in] constant 検索する定数値
+            @param[out] index 結果の取得先 (NULL 可能)
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_FOUND 項目が見つからない
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  findLinkI                   (std::string const& name, GPDSPFloat constant, int* index) const noexcept;
         //! 既存の入力バッファを参照, または, 新規の入力バッファを自動的に確保して GPDSPBufferInputNode クラスのノードを生成します.
         /*!
@@ -350,7 +603,7 @@ class GPDSPNodeRenderer {
             既存の入力バッファが設定されている場合は入力バッファの参照を解除し,
             入力バッファが自動的に確保されている場合は入力バッファを解放します.
          
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] buffer 既存の入力バッファ (NULL 可能)
             @param[in] length 入力バッファのサイズ
             @param[in] interleave データの間隔
@@ -373,7 +626,7 @@ class GPDSPNodeRenderer {
             既存の出力バッファが設定されている場合は出力バッファの参照を解除し,
             出力バッファが自動的に確保されている場合は出力バッファを解放します.
          
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] buffer 既存の出力バッファ (NULL 可能)
             @param[in] length 出力バッファのサイズ
             @param[in] interleave データの間隔
@@ -385,7 +638,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeBufferOutput         (std::string const& name, GPDSPFloat* buffer, int length, int interleave) noexcept;
         //! 定数値を指定して GPDSPConstantNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] constant 指定する定数値
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -395,7 +648,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeConstant             (std::string const& name, GPDSPFloat constant) noexcept;
         //! GPDSPSignNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
             @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
@@ -404,7 +657,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeSign                 (std::string const& name) noexcept;
         //! 最小値と最大値を指定して GPDSPGateNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] minimum 指定する最小値
             @param[in] maximum 指定する最大値
             @retval #GPDSPERROR_OK 正常
@@ -415,7 +668,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeGate                 (std::string const& name, GPDSPFloat minimum, GPDSPFloat maximum) noexcept;
         //! GPDSPPeakNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
             @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
@@ -424,7 +677,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodePeak                 (std::string const& name) noexcept;
         //! 増幅率を指定して GPDSPAmplifyNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] gain 指定する増幅率
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -434,7 +687,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeAmplify              (std::string const& name, GPDSPFloat gain) noexcept;
         //! GPDSPDelayNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
             @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
@@ -443,7 +696,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeDelay                (std::string const& name) noexcept;
         //! 内部バッファのサイズを指定し, 値を 0.0 に初期化して GPDSPBufferNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] size 指定するサイズ
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -455,7 +708,7 @@ class GPDSPNodeRenderer {
         /*!
             入力ターミナルの名前は, すべて "in" になります.
          
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] count 指定する個数
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -467,7 +720,7 @@ class GPDSPNodeRenderer {
         /*!
             入力ターミナルの名前は, すべて "in" になります.
          
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] count 指定する個数
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -477,7 +730,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeMultiply             (std::string const& name, int count) noexcept;
         //! GPDSPSquareRootNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
             @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
@@ -495,7 +748,7 @@ class GPDSPNodeRenderer {
          
             サンプリングレートが 0 に設定されているとき, この関数は失敗します.
          
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] resolution 設定する解像度 (0.0, +INFINITY]
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -516,7 +769,7 @@ class GPDSPNodeRenderer {
          
             サンプリングレートが 0 に設定されているとき, この関数は失敗します.
          
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] resolution 設定する解像度 (0.0, +INFINITY]
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -537,7 +790,7 @@ class GPDSPNodeRenderer {
          
             サンプリングレートが 0 に設定されているとき, この関数は失敗します.
          
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] resolution 設定する解像度 (0.0, +INFINITY]
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -558,7 +811,7 @@ class GPDSPNodeRenderer {
          
             サンプリングレートが 0 に設定されているとき, この関数は失敗します.
          
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] resolution 設定する解像度 (0.0, +INFINITY]
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
@@ -570,7 +823,7 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeSquareWave           (std::string const& name, GPDSPFloat resolution = GPDSPSquareWaveNode::defaultResolution()) noexcept;
         //! .gpdsp 拡張子を持つ外部ファイルを開いて, XML 形式で記述されたノードの構成を読み込み GPDSPGenericNode クラスのノードを生成します.
         /*!
-            @param[in] name ノードの名前
+            @param[in] name ノード名
             @param[in] file ファイルのパス
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_SUPPORT サポートされていない
@@ -587,30 +840,102 @@ class GPDSPNodeRenderer {
                 GPDSPError                  newNodeGeneric              (std::string const& name, std::string const& file) noexcept;
         //! 既存のノードを追加します.
         /*!
-            すでに生成された既存のノードを GPDSPNodeRenderer クラスの管理下に追加します.
+            すでに生成された既存のノードを GPDSPNodeRenderer クラスの管理下に登録します.
          
-            追加されるノードは name 引数により名前付けされ, 他のノードの名前と重複してはいけません.
-            名前の検証に成功した場合は, GPDSPNode::fixate() 関数が呼び出されたのち管理下に追加されます.
+            追加されるノードは name 引数により名前付けされ, 他のノードのノード名と重複してはいけません.
+            名前の検証に成功した場合は, GPDSPNode::fixate() 関数が呼び出されたのち管理下に登録されます.
          
             name 引数が空文字か node 引数が NULL のとき, この関数は失敗します.
          
-            @param[in] name ノードの名前
-            @param[in] node 既存のノード
+            @param[in] name ノード名
+            @param[in] node 追加するノード
             @retval #GPDSPERROR_OK 正常
             @retval #GPDSPERROR_NO_MEMORY メモリが不足している
             @retval #GPDSPERROR_ALREADY_EXIST すでに存在している
             @retval #GPDSPERROR_INVALID_PARAM 不正なパラメータ
          */
                 GPDSPError                  appendNode                  (std::string const& name, std::shared_ptr<GPDSPNode> const& node) noexcept;
+        //! 引数に指定された名前を持つ入力ターミナルを追加します.
+        /*!
+            @param[in] name ノード名
+            @param[in] what 追加する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  appendI                     (std::string const& name, std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ出力ターミナルを追加します.
+        /*!
+            @param[in] name ノード名
+            @param[in] what 追加する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  appendO                     (std::string const& name, std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ入力ターミナルを挿入します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index 挿入する位置
+            @param[in] what 挿入する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  insertI                     (std::string const& name, int index, std::string const& what) noexcept;
+        //! 引数に指定された名前を持つ出力ターミナルを挿入します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index 挿入する位置
+            @param[in] what 挿入する名前
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_MEMORY メモリが不足している
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  insertO                     (std::string const& name, int index, std::string const& what) noexcept;
                 GPDSPError                  removeNode                  (std::string const& name) noexcept;
+        //! 入力ターミナルを削除します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  removeI                     (std::string const& name, int index) noexcept;
+        //! 出力ターミナルを削除します.
+        /*!
+            @param[in] name ノード名
+            @param[in] index ターミナル番号
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  removeO                     (std::string const& name, int index) noexcept;
                 void                        clearNode                   (void) noexcept;
+        //! すべての入力ターミナルを削除します.
+        /*!
+            @param[in] name ノード名
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  clearI                      (std::string const& name) noexcept;
+        //! すべての出力ターミナルを削除します.
+        /*!
+            @param[in] name ノード名
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_NO_NODE ノードが見つからない
+            @retval #GPDSPERROR_INVALID_NODE 不正なノード
+         */
                 GPDSPError                  clearO                      (std::string const& name) noexcept;
                 GPDSPError                  renameNode                  (std::string const& name, std::string const& alternate) noexcept;
                 void                        iterateNode                 (void) const noexcept;
@@ -631,6 +956,11 @@ class GPDSPNodeRenderer {
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int* value) noexcept;
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int format, GPDSPFloat* value) noexcept;
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, std::string* value) noexcept;
+        //! エラー値を解説を含む文字列に変換します.
+        /*!
+            @param[in] error エラー値
+            @return 変換された文字列
+         */
         static  std::string                 stringize                   (GPDSPError error) noexcept;
     private:
                 GPDSPError                  getNodeInputtable           (std::string const& name, std::shared_ptr<GPDSPInputtableNode>* node) noexcept;

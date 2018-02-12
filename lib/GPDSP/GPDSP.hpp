@@ -105,7 +105,7 @@ namespace ir {
  
     <b>GPDSP ライブラリを利用したプログラム例</b>
  
-    @code
+    @code{.cpp}
     ir::GPDSPNodeRenderer dsp;
     float* in;
     float const* out;
@@ -150,10 +150,10 @@ namespace ir {
     @endcode
  
     @section sec_lineup ノードの種類
-    GPDSP ライブラリには, 以下の表に示すような具象ノードがあらかじめ含まれています.
+    GPDSP ライブラリには, 以下の表に示すような具象ノードがあらかじめ用意されています.
  
     開発者は, GPDSPGenericNode クラスを利用するか,
-    抽象ノードを継承した新しいノードを実装することにより, 独自の機能を持ったノードを追加することができます.
+    抽象ノードを継承した新しいノードを実装することにより, 独自の機能を持ったノードを追加することもできます.
  
     | クラス名 | 解説 |
     | --------- | --------- |
@@ -209,7 +209,7 @@ namespace ir {
  
     <b>std::cout 利用の場合</b>
  
-    @code
+    @code{.cpp}
     ir::GPDSPNodeRenderer dsp;
     ir::GPDSPError error;
  
@@ -219,7 +219,7 @@ namespace ir {
  
     <b>printf() 関数利用の場合</b>
  
-    @code
+    @code{.cpp}
     ir::GPDSPNodeRenderer dsp;
     ir::GPDSPError error;
  

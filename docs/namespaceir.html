@@ -1,343 +1,403 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IridiumFrameworks / GPDSP: ir 名前空間</title>
-<link href="tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
-<script type="text/javascript" src="search/search.js"></script>
-<link href="doxygen.css" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8" />
+  <title>ir namespace | IridiumFrameworks / GPDSP 0.9.1</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark.compiled.css" />
+  <link rel="stylesheet" href="m-dark.doxygen.compiled.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
 </head>
 <body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IridiumFrameworks / GPDSP
-   &#160;<span id="projectnumber">0.9.0</span>
-   </div>
-   <div id="projectbrief">A real time / non-real time General Purpose DSP library, written in C++.</div>
-  </td>
- </tr>
- </tbody>
-</table>
-</div>
-<!-- end header part -->
-<!-- 構築: Doxygen 1.8.14 -->
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'検索');
-/* @license-end */
-</script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','検索');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">IridiumFrameworks / GPDSP 0.9.1 <span class="m-thin">A real time / non-real time General Purpose DSP library, written in C++.</span></a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-dox-search-icon" title="Search" onclick="return showSearch()"><svg viewBox="0 0 16 16">
+          <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-dox-search-icon" title="Search" onclick="return showSearch()"><svg viewBox="0 0 16 16">
+              <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>ir <span class="m-thin">namespace</span></h1>
+        <p>IridiumFrameworks を表す名前空間</p>
+        <div class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#enum-members">Enums</a></li>
+                <li><a href="#typedef-members">Typedefs</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <section id="nested-classes">
+          <h2><a href="#nested-classes">Classes</a></h3>
+          <dl class="m-dox">
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_amplify_node.html" class="m-dox">GPDSPAmplifyNode</a>
+            </dt>
+            <dd>増幅ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_buffer_input_node.html" class="m-dox">GPDSPBufferInputNode</a>
+            </dt>
+            <dd>バッファ入力ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_buffer_node.html" class="m-dox">GPDSPBufferNode</a>
+            </dt>
+            <dd>任意遅延ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_buffer_output_node.html" class="m-dox">GPDSPBufferOutputNode</a>
+            </dt>
+            <dd>バッファ出力ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_constant_node.html" class="m-dox">GPDSPConstantNode</a>
+            </dt>
+            <dd>定数ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_delay_node.html" class="m-dox">GPDSPDelayNode</a>
+            </dt>
+            <dd>単位遅延ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_flex_inputtable_node.html" class="m-dox">GPDSPFlexInputtableNode</a>
+            </dt>
+            <dd>可変個数の入力ターミナルを持つノードを表す抽象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_flex_outputtable_node.html" class="m-dox">GPDSPFlexOutputtableNode</a>
+            </dt>
+            <dd>可変個数の出力ターミナルを持つノードを表す抽象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_gate_node.html" class="m-dox">GPDSPGateNode</a>
+            </dt>
+            <dd>制限ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_generic_input_node.html" class="m-dox">GPDSPGenericInputNode</a>
+            </dt>
+            <dd>外部入力ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_generic_node.html" class="m-dox">GPDSPGenericNode</a>
+            </dt>
+            <dd>任意ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_generic_output_node.html" class="m-dox">GPDSPGenericOutputNode</a>
+            </dt>
+            <dd>外部出力ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_inputtable_node.html" class="m-dox">GPDSPInputtableNode</a>
+            </dt>
+            <dd>入力ターミナルを持つノードを表す抽象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_multiply_node.html" class="m-dox">GPDSPMultiplyNode</a>
+            </dt>
+            <dd>総積ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_node.html" class="m-dox">GPDSPNode</a>
+            </dt>
+            <dd>ノードを表すインターフェースクラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_node_renderer.html" class="m-dox">GPDSPNodeRenderer</a>
+            </dt>
+            <dd>ノードを管理してデジタル信号処理の演算を行うクラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_outputtable_node.html" class="m-dox">GPDSPOutputtableNode</a>
+            </dt>
+            <dd>出力ターミナルを持つノードを表す抽象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_peak_node.html" class="m-dox">GPDSPPeakNode</a>
+            </dt>
+            <dd>極限ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_refreshable_node.html" class="m-dox">GPDSPRefreshableNode</a>
+            </dt>
+            <dd>リフレッシュ可能なノードを表すインターフェースクラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_rewindable_node.html" class="m-dox">GPDSPRewindableNode</a>
+            </dt>
+            <dd>巻き戻し可能なノードを表すインターフェースクラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_sawtooth_wave_node.html" class="m-dox">GPDSPSawtoothWaveNode</a>
+            </dt>
+            <dd>鋸波ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_serializable.html" class="m-dox">GPDSPSerializable</a>
+            </dt>
+            <dd>カスタムノードクラスの保存と復元を実装するインターフェースクラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_sign_node.html" class="m-dox">GPDSPSignNode</a>
+            </dt>
+            <dd>符号ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_sin_wave_node.html" class="m-dox">GPDSPSinWaveNode</a>
+            </dt>
+            <dd>サイン波ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_square_root_node.html" class="m-dox">GPDSPSquareRootNode</a>
+            </dt>
+            <dd>平方根ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_square_wave_node.html" class="m-dox">GPDSPSquareWaveNode</a>
+            </dt>
+            <dd>矩形波ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_sum_node.html" class="m-dox">GPDSPSumNode</a>
+            </dt>
+            <dd>総和ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_triangle_wave_node.html" class="m-dox">GPDSPTriangleWaveNode</a>
+            </dt>
+            <dd>三角波ノードを表す具象クラス</dd>
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_wave_node.html" class="m-dox">GPDSPWaveNode</a>
+            </dt>
+            <dd>波形ノードを表す抽象クラス</dd>
+          </dl>
+        </section>
+        <section id="enum-members">
+          <h2><a href="#enum-members">Enums</a></h3>
+          <dl class="m-dox">
+            <dt>
+              <span class="m-dox-wrap-bumper">enum <a href="#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> { </span><span class="m-dox-wrap"><a href="#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" class="m-dox">GPDSPERROR_OK</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a4b1a2a1904ba79bf8dced4fae712f9dc" class="m-dox">GPDSPERROR_WAIT</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a5b0d01d78fcd61bef7b7c6056084b99e" class="m-dox">GPDSPERROR_IGNORE</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a78b43c41bb07c19e0d0879b4ae0b5a56" class="m-dox">GPDSPERROR_FRAGMENT</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6af32b56264e1cbdb5e057ba3f6586bca5" class="m-dox">GPDSPERROR_LOOP</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6afe3b4cc03b0ce11a717325a293df8dad" class="m-dox">GPDSPERROR_NO_SUPPORT</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a7bfc8b9eea0a5e3e0bec8304569ad69a" class="m-dox">GPDSPERROR_NO_FILE</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" class="m-dox">GPDSPERROR_NO_MEMORY</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a3990d06a7d53021435d6abce3d3f744c" class="m-dox">GPDSPERROR_NO_FOUND</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a0b44443e40b9aaa09706e48740c983ff" class="m-dox">GPDSPERROR_NO_NODE</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6ae2324a5d1da49d6f7314740d850f1e2c" class="m-dox">GPDSPERROR_ALREADY_EXIST</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a2be43908c5c5593c4c39afd593d31175" class="m-dox">GPDSPERROR_INVALID_STATE</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a9d5e6285bf40013fe6acc04b724915b8" class="m-dox">GPDSPERROR_INVALID_PARAM</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" class="m-dox">GPDSPERROR_INVALID_RANGE</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a1e9aee33db7f92c92a4ef31a113677c2" class="m-dox">GPDSPERROR_INVALID_FORMAT</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a93d311b937d47061087745e126db0d1d" class="m-dox">GPDSPERROR_INVALID_NODE</a>,
+              <a href="#af2c7a8e0cbb14a94727348796b3bcca6a7cc240a24104b6bac57104c51a4c698a" class="m-dox">GPDSPERROR_FAILED</a> }</span>
+            </dt>
+            <dd>エラーを表す定数</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">enum <a href="#ae9f4c6deb4e3279ae0b971c5fb37645f" class="m-dox">GPDSPMode</a> { </span><span class="m-dox-wrap"><a href="#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" class="m-dox">GPDSPMODE_NONE</a>,
+              <a href="#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce" class="m-dox">GPDSPMODE_POSITIVE</a>,
+              <a href="#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841" class="m-dox">GPDSPMODE_NEGATIVE</a>,
+              <a href="#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b" class="m-dox">GPDSPMODE_CONSTANT</a> }</span>
+            </dt>
+            <dd>入力ターミナルのモードを表す定数</dd>
+          </dl>
+        </section>
+        <section id="typedef-members">
+          <h2><a href="#typedef-members">Typedefs</a></h3>
+          <dl class="m-dox">
+            <dt>
+              using <a href="#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> = float
+            </dt>
+            <dd>演算対象のデータ型</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Enum documentation</h2>
+          <section class="m-dox-details" id="af2c7a8e0cbb14a94727348796b3bcca6"><div>
+            <h3>
+              enum ir::<wbr /><a href="#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox-self">GPDSPError</a>
+            </h3>
+            <p>エラーを表す定数</p>
+            <table class="m-table m-fullwidth m-flat m-dox">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8">GPDSPERROR_OK</a></td>
+                  <td>
+正常                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a4b1a2a1904ba79bf8dced4fae712f9dc" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a4b1a2a1904ba79bf8dced4fae712f9dc">GPDSPERROR_WAIT</a></td>
+                  <td>
+データフロー入力待ち                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a5b0d01d78fcd61bef7b7c6056084b99e" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a5b0d01d78fcd61bef7b7c6056084b99e">GPDSPERROR_IGNORE</a></td>
+                  <td>
+演算対象外として無視                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a78b43c41bb07c19e0d0879b4ae0b5a56" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a78b43c41bb07c19e0d0879b4ae0b5a56">GPDSPERROR_FRAGMENT</a></td>
+                  <td>
+一部の演算のみ完了                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6af32b56264e1cbdb5e057ba3f6586bca5" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6af32b56264e1cbdb5e057ba3f6586bca5">GPDSPERROR_LOOP</a></td>
+                  <td>
+演算は無限ループ                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6afe3b4cc03b0ce11a717325a293df8dad" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6afe3b4cc03b0ce11a717325a293df8dad">GPDSPERROR_NO_SUPPORT</a></td>
+                  <td>
+サポートされていない                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a7bfc8b9eea0a5e3e0bec8304569ad69a" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a7bfc8b9eea0a5e3e0bec8304569ad69a">GPDSPERROR_NO_FILE</a></td>
+                  <td>
+ファイルが存在しない                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95">GPDSPERROR_NO_MEMORY</a></td>
+                  <td>
+メモリが不足している                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a3990d06a7d53021435d6abce3d3f744c" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a3990d06a7d53021435d6abce3d3f744c">GPDSPERROR_NO_FOUND</a></td>
+                  <td>
+項目が見つからない                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a0b44443e40b9aaa09706e48740c983ff" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a0b44443e40b9aaa09706e48740c983ff">GPDSPERROR_NO_NODE</a></td>
+                  <td>
+ノードが見つからない                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6ae2324a5d1da49d6f7314740d850f1e2c" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6ae2324a5d1da49d6f7314740d850f1e2c">GPDSPERROR_ALREADY_EXIST</a></td>
+                  <td>
+すでに存在している                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a2be43908c5c5593c4c39afd593d31175" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a2be43908c5c5593c4c39afd593d31175">GPDSPERROR_INVALID_STATE</a></td>
+                  <td>
+不正な状態                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a9d5e6285bf40013fe6acc04b724915b8" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a9d5e6285bf40013fe6acc04b724915b8">GPDSPERROR_INVALID_PARAM</a></td>
+                  <td>
+不正なパラメータ                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b">GPDSPERROR_INVALID_RANGE</a></td>
+                  <td>
+範囲外のパラメータ                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a1e9aee33db7f92c92a4ef31a113677c2" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a1e9aee33db7f92c92a4ef31a113677c2">GPDSPERROR_INVALID_FORMAT</a></td>
+                  <td>
+不正なフォーマット                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a93d311b937d47061087745e126db0d1d" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a93d311b937d47061087745e126db0d1d">GPDSPERROR_INVALID_NODE</a></td>
+                  <td>
+不正なノード                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#af2c7a8e0cbb14a94727348796b3bcca6a7cc240a24104b6bac57104c51a4c698a" class="m-dox-self" name="af2c7a8e0cbb14a94727348796b3bcca6a7cc240a24104b6bac57104c51a4c698a">GPDSPERROR_FAILED</a></td>
+                  <td>
+失敗                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-dox-details" id="ae9f4c6deb4e3279ae0b971c5fb37645f"><div>
+            <h3>
+              enum ir::<wbr /><a href="#ae9f4c6deb4e3279ae0b971c5fb37645f" class="m-dox-self">GPDSPMode</a>
+            </h3>
+            <p>入力ターミナルのモードを表す定数</p>
+            <table class="m-table m-fullwidth m-flat m-dox">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" class="m-dox-self" name="ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc">GPDSPMODE_NONE</a></td>
+                  <td>
+無効                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce" class="m-dox-self" name="ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce">GPDSPMODE_POSITIVE</a></td>
+                  <td>
+非反転入力                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841" class="m-dox-self" name="ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841">GPDSPMODE_NEGATIVE</a></td>
+                  <td>
+反転入力                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b" class="m-dox-self" name="ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b">GPDSPMODE_CONSTANT</a></td>
+                  <td>
+定数入力                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+        <section>
+          <h2>Typedef documentation</h2>
+          <section class="m-dox-details" id="aebd4ed76132a8ec88d498b83d237c51b"><div>
+            <h3>
+              typedef float ir::<wbr /><a href="#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox-self">GPDSPFloat</a>
+            </h3>
+            <p>演算対象のデータ型</p>
+<p>32 ビット浮動小数点をもちいる場合は <a href="_g_p_d_s_p_config_8hpp.html" class="m-dox">GPDSPConfig.hpp</a> ファイル内で __GPDSP64 マクロを定義せず, 64 ビット浮動小数点をもちいる場合は定義します.</p>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-dox-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-dox-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-dox-search-content">
+          <input type="search" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" />
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            Search for symbols, headers, pages or example source files. You can omit any prefix from the symbol or file path.
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('namespaceir.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
-</div>
-
-<div class="header">
-  <div class="summary">
-<a href="#nested-classes">クラス</a> &#124;
-<a href="#typedef-members">型定義</a> &#124;
-<a href="#enum-members">列挙型</a>  </div>
-  <div class="headertitle">
-<div class="title">ir 名前空間</div>  </div>
-</div><!--header-->
-<div class="contents">
-
-<p>IridiumFrameworks を表す名前空間  
-<a href="#details">[詳解]</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-クラス</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_amplify_node.html">GPDSPAmplifyNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">増幅ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_amplify_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_buffer_input_node.html">GPDSPBufferInputNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファ入力ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_buffer_input_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_buffer_node.html">GPDSPBufferNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">任意遅延ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_buffer_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_buffer_output_node.html">GPDSPBufferOutputNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファ出力ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_buffer_output_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_constant_node.html">GPDSPConstantNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">定数ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_constant_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_delay_node.html">GPDSPDelayNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">単位遅延ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_delay_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_flex_inputtable_node.html">GPDSPFlexInputtableNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">可変個数の入力ターミナルを持つノードを表す抽象クラス  <a href="classir_1_1_g_p_d_s_p_flex_inputtable_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_flex_outputtable_node.html">GPDSPFlexOutputtableNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">可変個数の出力ターミナルを持つノードを表す抽象クラス  <a href="classir_1_1_g_p_d_s_p_flex_outputtable_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_gate_node.html">GPDSPGateNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">制限ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_gate_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_generic_input_node.html">GPDSPGenericInputNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">外部入力ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_generic_input_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_generic_node.html">GPDSPGenericNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">任意ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_generic_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_generic_output_node.html">GPDSPGenericOutputNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">外部出力ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_generic_output_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html">GPDSPInputtableNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルを持つノードを表す抽象クラス  <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_multiply_node.html">GPDSPMultiplyNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">総積ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_multiply_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_node.html">GPDSPNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ノードを表すインターフェースクラス  <a href="classir_1_1_g_p_d_s_p_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_node_renderer.html">GPDSPNodeRenderer</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力ターミナルを持つノードを表す抽象クラス  <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_peak_node.html">GPDSPPeakNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">極限ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_peak_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_refreshable_node.html">GPDSPRefreshableNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">リフレッシュ可能なノードを表すインターフェースクラス  <a href="classir_1_1_g_p_d_s_p_refreshable_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_rewindable_node.html">GPDSPRewindableNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">巻き戻し可能なノードを表すインターフェースクラス  <a href="classir_1_1_g_p_d_s_p_rewindable_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_sawtooth_wave_node.html">GPDSPSawtoothWaveNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">鋸波ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_sawtooth_wave_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_serializable.html">GPDSPSerializable</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_sign_node.html">GPDSPSignNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">符号ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_sign_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_sin_wave_node.html">GPDSPSinWaveNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">サイン波ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_sin_wave_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_square_root_node.html">GPDSPSquareRootNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">平方根ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_square_root_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html">GPDSPSquareWaveNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">矩形波ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_square_wave_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_sum_node.html">GPDSPSumNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">総和ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_sum_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_triangle_wave_node.html">GPDSPTriangleWaveNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">三角波ノードを表す具象クラス  <a href="classir_1_1_g_p_d_s_p_triangle_wave_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html">GPDSPWaveNode</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">波形ノードを表す抽象クラス  <a href="classir_1_1_g_p_d_s_p_wave_node.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-型定義</h2></td></tr>
-<tr class="memitem:aebd4ed76132a8ec88d498b83d237c51b"><td class="memItemLeft" align="right" valign="top">typedef float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a></td></tr>
-<tr class="memdesc:aebd4ed76132a8ec88d498b83d237c51b"><td class="mdescLeft">&#160;</td><td class="mdescRight">演算対象のデータ型  <a href="#aebd4ed76132a8ec88d498b83d237c51b">[詳解]</a><br /></td></tr>
-<tr class="separator:aebd4ed76132a8ec88d498b83d237c51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-列挙型</h2></td></tr>
-<tr class="memitem:af2c7a8e0cbb14a94727348796b3bcca6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> { <br />
-&#160;&#160;<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8">GPDSPERROR_OK</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a4b1a2a1904ba79bf8dced4fae712f9dc">GPDSPERROR_WAIT</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a5b0d01d78fcd61bef7b7c6056084b99e">GPDSPERROR_IGNORE</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a78b43c41bb07c19e0d0879b4ae0b5a56">GPDSPERROR_FRAGMENT</a>, 
-<br />
-&#160;&#160;<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6af32b56264e1cbdb5e057ba3f6586bca5">GPDSPERROR_LOOP</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6afe3b4cc03b0ce11a717325a293df8dad">GPDSPERROR_NO_SUPPORT</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a7bfc8b9eea0a5e3e0bec8304569ad69a">GPDSPERROR_NO_FILE</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95">GPDSPERROR_NO_MEMORY</a>, 
-<br />
-&#160;&#160;<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a3990d06a7d53021435d6abce3d3f744c">GPDSPERROR_NO_FOUND</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a0b44443e40b9aaa09706e48740c983ff">GPDSPERROR_NO_NODE</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6ae2324a5d1da49d6f7314740d850f1e2c">GPDSPERROR_ALREADY_EXIST</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a2be43908c5c5593c4c39afd593d31175">GPDSPERROR_INVALID_STATE</a>, 
-<br />
-&#160;&#160;<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9d5e6285bf40013fe6acc04b724915b8">GPDSPERROR_INVALID_PARAM</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b">GPDSPERROR_INVALID_RANGE</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a1e9aee33db7f92c92a4ef31a113677c2">GPDSPERROR_INVALID_FORMAT</a>, 
-<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a93d311b937d47061087745e126db0d1d">GPDSPERROR_INVALID_NODE</a>, 
-<br />
-&#160;&#160;<a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a7cc240a24104b6bac57104c51a4c698a">GPDSPERROR_FAILED</a>
-<br />
- }</td></tr>
-<tr class="memdesc:af2c7a8e0cbb14a94727348796b3bcca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">エラーを表す定数  <a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">[詳解]</a><br /></td></tr>
-<tr class="separator:af2c7a8e0cbb14a94727348796b3bcca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9f4c6deb4e3279ae0b971c5fb37645f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">GPDSPMode</a> { <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc">GPDSPMODE_NONE</a>, 
-<a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce">GPDSPMODE_POSITIVE</a>, 
-<a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841">GPDSPMODE_NEGATIVE</a>, 
-<a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b">GPDSPMODE_CONSTANT</a>
- }</td></tr>
-<tr class="memdesc:ae9f4c6deb4e3279ae0b971c5fb37645f"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルのモードを表す定数  <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">[詳解]</a><br /></td></tr>
-<tr class="separator:ae9f4c6deb4e3279ae0b971c5fb37645f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
-<div class="textblock"><p>IridiumFrameworks を表す名前空間 </p>
-</div><h2 class="groupheader">型定義詳解</h2>
-<a id="aebd4ed76132a8ec88d498b83d237c51b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebd4ed76132a8ec88d498b83d237c51b">&#9670;&nbsp;</a></span>GPDSPFloat</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef float <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">ir::GPDSPFloat</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>演算対象のデータ型 </p>
-<p>32 ビット浮動小数点をもちいる場合は <a class="el" href="_g_p_d_s_p_config_8hpp.html">GPDSPConfig.hpp</a> ファイル内で __GPDSP64 マクロを定義せず, 64 ビット浮動小数点をもちいる場合は定義する. </p>
-
-</div>
-</div>
-<h2 class="groupheader">列挙型詳解</h2>
-<a id="af2c7a8e0cbb14a94727348796b3bcca6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2c7a8e0cbb14a94727348796b3bcca6">&#9670;&nbsp;</a></span>GPDSPError</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">ir::GPDSPError</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>エラーを表す定数 </p>
-<table class="fieldtable">
-<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8"></a>GPDSPERROR_OK&#160;</td><td class="fielddoc"><p>正常 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a4b1a2a1904ba79bf8dced4fae712f9dc"></a>GPDSPERROR_WAIT&#160;</td><td class="fielddoc"><p>データフロー入力待ち </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a5b0d01d78fcd61bef7b7c6056084b99e"></a>GPDSPERROR_IGNORE&#160;</td><td class="fielddoc"><p>演算対象外として無視 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a78b43c41bb07c19e0d0879b4ae0b5a56"></a>GPDSPERROR_FRAGMENT&#160;</td><td class="fielddoc"><p>一部の演算のみ完了 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6af32b56264e1cbdb5e057ba3f6586bca5"></a>GPDSPERROR_LOOP&#160;</td><td class="fielddoc"><p>演算は無限ループ </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6afe3b4cc03b0ce11a717325a293df8dad"></a>GPDSPERROR_NO_SUPPORT&#160;</td><td class="fielddoc"><p>サポートされていない </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a7bfc8b9eea0a5e3e0bec8304569ad69a"></a>GPDSPERROR_NO_FILE&#160;</td><td class="fielddoc"><p>ファイルが存在しない </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95"></a>GPDSPERROR_NO_MEMORY&#160;</td><td class="fielddoc"><p>メモリが不足している </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a3990d06a7d53021435d6abce3d3f744c"></a>GPDSPERROR_NO_FOUND&#160;</td><td class="fielddoc"><p>項目が見つからない </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a0b44443e40b9aaa09706e48740c983ff"></a>GPDSPERROR_NO_NODE&#160;</td><td class="fielddoc"><p>ノードが見つからない </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6ae2324a5d1da49d6f7314740d850f1e2c"></a>GPDSPERROR_ALREADY_EXIST&#160;</td><td class="fielddoc"><p>すでに存在している </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a2be43908c5c5593c4c39afd593d31175"></a>GPDSPERROR_INVALID_STATE&#160;</td><td class="fielddoc"><p>不正な状態 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a9d5e6285bf40013fe6acc04b724915b8"></a>GPDSPERROR_INVALID_PARAM&#160;</td><td class="fielddoc"><p>不正なパラメータ </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b"></a>GPDSPERROR_INVALID_RANGE&#160;</td><td class="fielddoc"><p>範囲外のパラメータ </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a1e9aee33db7f92c92a4ef31a113677c2"></a>GPDSPERROR_INVALID_FORMAT&#160;</td><td class="fielddoc"><p>不正なフォーマット </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a93d311b937d47061087745e126db0d1d"></a>GPDSPERROR_INVALID_NODE&#160;</td><td class="fielddoc"><p>不正なノード </p>
-</td></tr>
-<tr><td class="fieldname"><a id="af2c7a8e0cbb14a94727348796b3bcca6a7cc240a24104b6bac57104c51a4c698a"></a>GPDSPERROR_FAILED&#160;</td><td class="fielddoc"><p>失敗 </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a id="ae9f4c6deb4e3279ae0b971c5fb37645f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9f4c6deb4e3279ae0b971c5fb37645f">&#9670;&nbsp;</a></span>GPDSPMode</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">ir::GPDSPMode</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>入力ターミナルのモードを表す定数 </p>
-<table class="fieldtable">
-<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc"></a>GPDSPMODE_NONE&#160;</td><td class="fielddoc"><p>無効 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce"></a>GPDSPMODE_POSITIVE&#160;</td><td class="fielddoc"><p>非反転入力 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841"></a>GPDSPMODE_NEGATIVE&#160;</td><td class="fielddoc"><p>反転入力 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b"></a>GPDSPMODE_CONSTANT&#160;</td><td class="fielddoc"><p>定数入力 </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-</div><!-- contents -->
-</div><!-- doc-content -->
-<!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespaceir.html">ir</a></li>
-    <li class="footer">構築:
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
-  </ul>
-</div>
+<script src="search.js"></script>
+<script src="searchdata.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>IridiumFrameworks / GPDSP 0.9.1 A real time / non-real time General Purpose DSP library, written in C++.</p>
+        <p>Copyright (C) 2017 - 2018 <a href="http://github.com/toolbits">HORIGUCHI Junshi</a>. All rights reserved.</p>
+        <p>Created by <a href="http://doxygen.org/">Doxygen</a> 1.8.14 and <a href="http://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
 </body>
 </html>

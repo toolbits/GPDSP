@@ -1,2413 +1,454 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IridiumFrameworks / GPDSP: ir::GPDSPSquareWaveNode クラス</title>
-<link href="tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
-<script type="text/javascript" src="search/search.js"></script>
-<link href="doxygen.css" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8" />
+  <title>ir::GPDSPSquareWaveNode class | IridiumFrameworks / GPDSP 0.9.1</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark.compiled.css" />
+  <link rel="stylesheet" href="m-dark.doxygen.compiled.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
 </head>
 <body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IridiumFrameworks / GPDSP
-   &#160;<span id="projectnumber">0.9.0</span>
-   </div>
-   <div id="projectbrief">A real time / non-real time General Purpose DSP library, written in C++.</div>
-  </td>
- </tr>
- </tbody>
-</table>
-</div>
-<!-- end header part -->
-<!-- 構築: Doxygen 1.8.14 -->
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'検索');
-/* @license-end */
-</script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','検索');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">IridiumFrameworks / GPDSP 0.9.1 <span class="m-thin">A real time / non-real time General Purpose DSP library, written in C++.</span></a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-dox-search-icon" title="Search" onclick="return showSearch()"><svg viewBox="0 0 16 16">
+          <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-dox-search-icon" title="Search" onclick="return showSearch()"><svg viewBox="0 0 16 16">
+              <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespaceir.html">ir</a>::</span>GPDSPSquareWaveNode <span class="m-thin">class</span>
+        </h1>
+        <p>矩形波ノードを表す具象クラス</p>
+        <div class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#base-classes">Base classes</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+                <li><a href="#pub-static-methods">Public static functions</a></li>
+                <li><a href="#pro-methods">Protected functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+<p><a href="classir_1_1_g_p_d_s_p_square_wave_node.html" class="m-dox">GPDSPSquareWaveNode</a> クラスは, 入力された周波数と位相に従って矩形波を生成する矩形波ノードを表す具象クラスです.</p><p>あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.</p><p>２つの入力ターミナル &quot;frequency&quot;, &quot;phase&quot; と, １つの出力ターミナル &quot;out&quot; を持ちます.</p><p><strong>.gpdsp ファイルでの記述例</strong></p><pre class="m-code"><span class="nt">&lt;GPDSPSquareWaveNode&gt;</span>
+    <span class="nt">&lt;name&gt;</span>ノード名<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;param&gt;</span>
+        <span class="nt">&lt;resolution&gt;</span>解像度<span class="nt">&lt;/resolution&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;input&gt;</span>
+        <span class="nt">&lt;::0&gt;</span>
+            <span class="nt">&lt;node&gt;</span>frequency に対する入力元のノード名<span class="nt">&lt;/node&gt;</span>
+            <span class="nt">&lt;index&gt;</span>frequency に対する入力元のターミナル番号<span class="nt">&lt;/index&gt;</span>
+        <span class="nt">&lt;/::0&gt;</span>
+        <span class="nt">&lt;::1&gt;</span>
+            <span class="nt">&lt;node&gt;</span>phase に対する入力元のノード名<span class="nt">&lt;/node&gt;</span>
+            <span class="nt">&lt;index&gt;</span>phase に対する入力元のターミナル番号<span class="nt">&lt;/index&gt;</span>
+        <span class="nt">&lt;/::1&gt;</span>
+    <span class="nt">&lt;/input&gt;</span>
+<span class="nt">&lt;/GPDSPSquareWaveNode&gt;</span></pre>
+        <section id="base-classes">
+          <h2><a href="#base-classes">Base classes</a></h2>
+          <dl class="m-dox">
+            <dt>
+              class <a href="classir_1_1_g_p_d_s_p_wave_node.html" class="m-dox">GPDSPWaveNode</a>
+            </dt>
+            <dd>波形ノードを表す抽象クラス</dd>
+          </dl>
+        </section>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-dox">
+            <dt>
+              <span class="m-dox-wrap-bumper"> <a href="#a41776f074959a04c7ae51051792fd376" class="m-dox">GPDSPSquareWaveNode</a>(</span><span class="m-dox-wrap">int rate) <span class="m-label m-flat m-info">explicit</span>  <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>コンストラクタです.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"> <a href="#ac54935e50068f7d8ccff4cf90cf7caef" class="m-dox">~GPDSPSquareWaveNode</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>デストラクタです.</dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-dox">
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_wave_node.html#aab39ca23f007b9bd2be31900c72e664f" class="m-dox">setResolution</a>(</span><span class="m-dox-wrap"><a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> resolution) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>解像度を設定します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> <a href="classir_1_1_g_p_d_s_p_wave_node.html#ace23e522212b8353745589095c5fc6ce" class="m-dox">getResolution</a>(</span><span class="m-dox-wrap">void) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>解像度を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_wave_node.html#a679df49d9120f4519ef45e9302d21749" class="m-dox">fixate</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルを２つと, 出力ターミナルを１つ生成します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_wave_node.html#afce66d8c6fe0fd94ee1a6dc07422bc5d" class="m-dox">invalidate</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入出力の演算結果を無効化し, 再演算を要求します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_wave_node.html#a418bf6271b8a86afca8ad7c9e68073e0" class="m-dox">prepare</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>演算前の準備をします.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_wave_node.html#a20ebdd54c7ee988f6bb5a80e5b311e6d" class="m-dox">process</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>演算を行います.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_wave_node.html#a8c2eb7780f35b68eea78da8ec3b8755b" class="m-dox">rewind</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>波形バッファの位相を先頭に再初期化します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">int <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a52e8b61a0c0250af46115be124a62efd" class="m-dox">getCountI</a>(</span><span class="m-dox-wrap">void) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの個数を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#ad188a170b3d490caac0ff80ca56b5cf7" class="m-dox">setNameI</a>(</span><span class="m-dox-wrap">int index,
+              std::string const&amp; what) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの名前を設定します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a766b3f8c36112336f71ed2f0b4ccea6e" class="m-dox">getNameI</a>(</span><span class="m-dox-wrap">int index,
+              std::string* what) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの名前を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a543bcfea69d6dbffa35a4e1dd4735d2f" class="m-dox">setLinkPositiveI</a>(</span><span class="m-dox-wrap">int index,
+              <a href="classir_1_1_g_p_d_s_p_outputtable_node.html" class="m-dox">GPDSPOutputtableNode</a> const* from,
+              int which) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの非反転入力のノード接続を設定し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce" class="m-dox">GPDSPMODE_POSITIVE</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a867ba6b972e5dac66c301d3d1159d633" class="m-dox">setLinkNegativeI</a>(</span><span class="m-dox-wrap">int index,
+              <a href="classir_1_1_g_p_d_s_p_outputtable_node.html" class="m-dox">GPDSPOutputtableNode</a> const* from,
+              int which) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの反転入力のノード接続を設定し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841" class="m-dox">GPDSPMODE_NEGATIVE</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a69441b64a4950058acb635aecea2aa5d" class="m-dox">setLinkConstantI</a>(</span><span class="m-dox-wrap">int index,
+              <a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> constant) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの定数入力の定数値を設定し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b" class="m-dox">GPDSPMODE_CONSTANT</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#abffa2a3157250db03a3a4c8dc001420f" class="m-dox">getModeI</a>(</span><span class="m-dox-wrap">int index,
+              <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f" class="m-dox">GPDSPMode</a>* mode) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルのモードを取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a6a5e41b1993d923312cbdedbb927a92e" class="m-dox">getLinkI</a>(</span><span class="m-dox-wrap">int index,
+              <a href="classir_1_1_g_p_d_s_p_outputtable_node.html" class="m-dox">GPDSPOutputtableNode</a> const** from,
+              int* which) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルのモードが <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce" class="m-dox">GPDSPMODE_POSITIVE</a> か <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841" class="m-dox">GPDSPMODE_NEGATIVE</a> の場合に, ノード接続を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a29cf91475a183e52e0dba11894a24400" class="m-dox">getLinkI</a>(</span><span class="m-dox-wrap">int index,
+              <a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a>* constant) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルのモードが <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b" class="m-dox">GPDSPMODE_CONSTANT</a> の場合に, 定数値を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#afac2f6d39686c4d848daccf1eb97a2dd" class="m-dox">clearLinkI</a>(</span><span class="m-dox-wrap">int index) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルのノード接続と定数値を解除し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" class="m-dox">GPDSPMODE_NONE</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a0a349deb4301956cd9524336094f1b16" class="m-dox">clearLinkI</a>(</span><span class="m-dox-wrap"><a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f" class="m-dox">GPDSPMode</a> mode) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルのノード接続と定数値を解除し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" class="m-dox">GPDSPMODE_NONE</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#ade72782fb43fd97a04f78ae4b8f89847" class="m-dox">clearLinkI</a>(</span><span class="m-dox-wrap"><a href="classir_1_1_g_p_d_s_p_outputtable_node.html" class="m-dox">GPDSPOutputtableNode</a> const* from,
+              int which) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルのノード接続を解除し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" class="m-dox">GPDSPMODE_NONE</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a822bf2e7cea93b5f5588b50b86795adb" class="m-dox">clearLinkI</a>(</span><span class="m-dox-wrap"><a href="classir_1_1_g_p_d_s_p_outputtable_node.html" class="m-dox">GPDSPOutputtableNode</a> const* from) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルのノード接続を解除し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" class="m-dox">GPDSPMODE_NONE</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#aa6eba8ce7204bdea228fa4340b7b8584" class="m-dox">clearLinkI</a>(</span><span class="m-dox-wrap"><a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> constant) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの定数値を解除し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" class="m-dox">GPDSPMODE_NONE</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a2a3d060fb9d32dd0130c2aec953ff1d8" class="m-dox">clearLinkI</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>すべての入力ターミナルのノード接続と定数値を解除し, モードを <a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" class="m-dox">GPDSPMODE_NONE</a> に変更します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a47201c9d5861064092450bc3f7b3ebf5" class="m-dox">getValueI</a>(</span><span class="m-dox-wrap">int index,
+              <a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a>* value) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの値を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">int <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a217321f550d1a404b16a7d0910ce5275" class="m-dox">findNameI</a>(</span><span class="m-dox-wrap">std::string const&amp; what) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された名前を持つ入力ターミナルを検索します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">int <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#ac1724a6f16b178ed8cd8f7076b052275" class="m-dox">findModeI</a>(</span><span class="m-dox-wrap"><a href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f" class="m-dox">GPDSPMode</a> mode) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定されたモードを持つ入力ターミナルを検索します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">int <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a4b75b63a98139dcc99ec438a4435a806" class="m-dox">findLinkI</a>(</span><span class="m-dox-wrap"><a href="classir_1_1_g_p_d_s_p_outputtable_node.html" class="m-dox">GPDSPOutputtableNode</a> const* from,
+              int which) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定されたノード接続を持つ入力ターミナルを検索します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">int <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a836898fa91c76d5a23113337af2ef2ab" class="m-dox">findLinkI</a>(</span><span class="m-dox-wrap"><a href="classir_1_1_g_p_d_s_p_outputtable_node.html" class="m-dox">GPDSPOutputtableNode</a> const* from) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定されたノード接続を持つ入力ターミナルを検索します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">int <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a865932cc62d6707b7a87da4b5f205b52" class="m-dox">findLinkI</a>(</span><span class="m-dox-wrap"><a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> constant) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された定数値を持つ入力ターミナルを検索します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">int <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#aaf2560a20eac4d0d0b4a8fc2f0196e97" class="m-dox">getCountO</a>(</span><span class="m-dox-wrap">void) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>出力ターミナルの個数を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#ab1f1ce4247a61c614965adf1210181f1" class="m-dox">setNameO</a>(</span><span class="m-dox-wrap">int index,
+              std::string const&amp; what) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>出力ターミナルの名前を設定します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#a04db220b174bd618ee64fa48bf16d22f" class="m-dox">getNameO</a>(</span><span class="m-dox-wrap">int index,
+              std::string* what) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>出力ターミナルの名前を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#a264b8bbb35028c9691cc7d10c39b161b" class="m-dox">getValueO</a>(</span><span class="m-dox-wrap">int index,
+              <a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a>* value) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>出力ターミナルの値を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">int <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#ad8d249f3694df420613dd548426e04b4" class="m-dox">findNameO</a>(</span><span class="m-dox-wrap">std::string const&amp; what) const <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された名前を持つ出力ターミナルを検索します.</dd>
+          </dl>
+        </section>
+        <section id="pub-static-methods">
+          <h2><a href="#pub-static-methods">Public static functions</a></h2>
+          <dl class="m-dox">
+            <dt>
+              <span class="m-dox-wrap-bumper">static <a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> <a href="classir_1_1_g_p_d_s_p_wave_node.html#a0a16d6b53ef340ab89f9ad221c6d8dbb" class="m-dox">defaultResolution</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>デフォルトの解像度を取得します.</dd>
+          </dl>
+        </section>
+        <section id="pro-methods">
+          <h2><a href="#pro-methods">Protected functions</a></h2>
+          <dl class="m-dox">
+            <dt>
+              <span class="m-dox-wrap-bumper">std::string <a href="#a771d4523e745364bd3df75ef508d86b3" class="m-dox">getName</a>(</span><span class="m-dox-wrap">void) const <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>波形バッファの名前を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> <a href="#a55ef77ad9d0b391165db272978b491f4" class="m-dox">getWave</a>(</span><span class="m-dox-wrap"><a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> phase) const <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された位相に対応する, 矩形波の値を取得します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="#a12748efcceaf8e7c2ca5ee0a66c83afc" class="m-dox">fillWave</a>(</span><span class="m-dox-wrap">std::vector&lt;std::pair&lt;<a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a>, <a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a>&gt;&gt;* wave) const <span class="m-label m-flat m-warning">virtual</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された波形バッファに対して, １波長分の矩形波の値を計算して書き込みます.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#aed75773011b34925dfd6dfc0d710ef53" class="m-dox">setCountI</a>(</span><span class="m-dox-wrap">int count,
+              std::string const&amp; what) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルの個数と名前を設定します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#aaf7225893a16607bb67bc4b0cc702696" class="m-dox">appendI</a>(</span><span class="m-dox-wrap">std::string const&amp; what) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された名前を持つ入力ターミナルを追加します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#ad79bebf45934371337ff5c29357759a4" class="m-dox">insertI</a>(</span><span class="m-dox-wrap">int index,
+              std::string const&amp; what) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された名前を持つ入力ターミナルを挿入します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a6545d2410dbb95cb01f986cb87566550" class="m-dox">removeI</a>(</span><span class="m-dox-wrap">int index) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>入力ターミナルを削除します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_inputtable_node.html#a12bf084954c5e1aae7c59f5273b4a9d8" class="m-dox">clearI</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>すべての入力ターミナルを削除します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#a2904aecb51e12f000d446bf094b1111a" class="m-dox">setCountO</a>(</span><span class="m-dox-wrap">int count,
+              std::string const&amp; what) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>出力ターミナルの個数と名前を設定します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#a663ce81bbed5f4261ebd228f470cf282" class="m-dox">setValueO</a>(</span><span class="m-dox-wrap">int index,
+              <a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> value) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>出力ターミナルの値を設定します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#ac24fa1cf3f15d31a46082ebe4e4a81c2" class="m-dox">appendO</a>(</span><span class="m-dox-wrap">std::string const&amp; what) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された名前を持つ出力ターミナルを追加します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#a2a401135124c6cbafc27b700301df89a" class="m-dox">insertO</a>(</span><span class="m-dox-wrap">int index,
+              std::string const&amp; what) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>引数に指定された名前を持つ出力ターミナルを挿入します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6" class="m-dox">GPDSPError</a> <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#a9647e131f619e3ef8d016f1a64ef856f" class="m-dox">removeO</a>(</span><span class="m-dox-wrap">int index) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>出力ターミナルを削除します.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="classir_1_1_g_p_d_s_p_outputtable_node.html#a8404e6d8c5062699f95acf4b756d30f8" class="m-dox">clearO</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>すべての出力ターミナルを削除します.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-dox-details" id="a41776f074959a04c7ae51051792fd376"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper"> ir::<wbr />GPDSPSquareWaveNode::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a41776f074959a04c7ae51051792fd376" class="m-dox-self">GPDSPSquareWaveNode</a>(</span><span class="m-dox-wrap">int rate) <span class="m-label m-info">explicit</span>  <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+            <p>コンストラクタです.</p>
+<p>何もしません.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rate&nbsp;<span class="m-label m-flat m-success">in</span></td>
+                  <td>サンプリングレート &gt; 0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-dox-details" id="ac54935e50068f7d8ccff4cf90cf7caef"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper"> ir::<wbr />GPDSPSquareWaveNode::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#ac54935e50068f7d8ccff4cf90cf7caef" class="m-dox-self">~GPDSPSquareWaveNode</a>(</span><span class="m-dox-wrap">void) <span class="m-label m-warning">virtual</span> <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+            <p>デストラクタです.</p>
+<p>何もしません.</p>
+          </div></section>
+          <section class="m-dox-details" id="a771d4523e745364bd3df75ef508d86b3"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">std::string ir::<wbr />GPDSPSquareWaveNode::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a771d4523e745364bd3df75ef508d86b3" class="m-dox-self">getName</a>(</span><span class="m-dox-wrap">void) const <span class="m-label m-warning">virtual</span> <span class="m-label m-warning">protected</span> <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+            <p>波形バッファの名前を取得します.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>&quot;GPDSPSquareWaveNode&quot;</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-dox-details" id="a55ef77ad9d0b391165db272978b491f4"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper"><a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> ir::<wbr />GPDSPSquareWaveNode::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a55ef77ad9d0b391165db272978b491f4" class="m-dox-self">getWave</a>(</span><span class="m-dox-wrap"><a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a> phase) const <span class="m-label m-warning">virtual</span> <span class="m-label m-warning">protected</span> <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+            <p>引数に指定された位相に対応する, 矩形波の値を取得します.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">phase&nbsp;<span class="m-label m-flat m-success">in</span></td>
+                  <td>位相 [0.0, 1.0)</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>矩形波の値 [-1.0, +1.0]</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-dox-details" id="a12748efcceaf8e7c2ca5ee0a66c83afc"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">void ir::<wbr />GPDSPSquareWaveNode::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a12748efcceaf8e7c2ca5ee0a66c83afc" class="m-dox-self">fillWave</a>(</span><span class="m-dox-wrap">std::vector&lt;std::pair&lt;<a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a>, <a href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b" class="m-dox">GPDSPFloat</a>&gt;&gt;* wave) const <span class="m-label m-warning">virtual</span> <span class="m-label m-warning">protected</span> <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+            <p>引数に指定された波形バッファに対して, １波長分の矩形波の値を計算して書き込みます.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">wave&nbsp;<span class="m-label m-flat m-danger">in/out</span></td>
+                  <td>波形バッファ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-dox-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-dox-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-dox-search-content">
+          <input type="search" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" />
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            Search for symbols, headers, pages or example source files. You can omit any prefix from the symbol or file path.
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('classir_1_1_g_p_d_s_p_square_wave_node.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
-</div>
-
-<div class="header">
-  <div class="summary">
-<a href="#pub-methods">公開メンバ関数</a> &#124;
-<a href="#pub-static-methods">静的公開メンバ関数</a> &#124;
-<a href="#pro-methods">限定公開メンバ関数</a> &#124;
-<a href="classir_1_1_g_p_d_s_p_square_wave_node-members.html">全メンバ一覧</a>  </div>
-  <div class="headertitle">
-<div class="title">ir::GPDSPSquareWaveNode クラス</div>  </div>
-</div><!--header-->
-<div class="contents">
-
-<p>矩形波ノードを表す具象クラス  
- <a href="classir_1_1_g_p_d_s_p_square_wave_node.html#details">[詳解]</a></p>
-<div class="dynheader">
-ir::GPDSPSquareWaveNode の継承関係図</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classir_1_1_g_p_d_s_p_square_wave_node.png" usemap="#ir::GPDSPSquareWaveNode_map" alt=""/>
-  <map id="ir::GPDSPSquareWaveNode_map" name="ir::GPDSPSquareWaveNode_map">
-<area href="classir_1_1_g_p_d_s_p_wave_node.html" title="波形ノードを表す抽象クラス " alt="ir::GPDSPWaveNode" shape="rect" coords="180,112,350,136"/>
-<area href="classir_1_1_g_p_d_s_p_inputtable_node.html" title="入力ターミナルを持つノードを表す抽象クラス " alt="ir::GPDSPInputtableNode" shape="rect" coords="0,56,170,80"/>
-<area href="classir_1_1_g_p_d_s_p_outputtable_node.html" title="出力ターミナルを持つノードを表す抽象クラス " alt="ir::GPDSPOutputtableNode" shape="rect" coords="180,56,350,80"/>
-<area href="classir_1_1_g_p_d_s_p_rewindable_node.html" title="巻き戻し可能なノードを表すインターフェースクラス " alt="ir::GPDSPRewindableNode" shape="rect" coords="360,56,530,80"/>
-<area href="classir_1_1_g_p_d_s_p_node.html" title="ノードを表すインターフェースクラス " alt="ir::GPDSPNode" shape="rect" coords="0,0,170,24"/>
-<area href="classir_1_1_g_p_d_s_p_node.html" title="ノードを表すインターフェースクラス " alt="ir::GPDSPNode" shape="rect" coords="180,0,350,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-公開メンバ関数</h2></td></tr>
-<tr class="memitem:a41776f074959a04c7ae51051792fd376"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html#a41776f074959a04c7ae51051792fd376">GPDSPSquareWaveNode</a> (int rate) noexcept</td></tr>
-<tr class="memdesc:a41776f074959a04c7ae51051792fd376"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンストラクタです.  <a href="#a41776f074959a04c7ae51051792fd376">[詳解]</a><br /></td></tr>
-<tr class="separator:a41776f074959a04c7ae51051792fd376"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac54935e50068f7d8ccff4cf90cf7caef"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html#ac54935e50068f7d8ccff4cf90cf7caef">~GPDSPSquareWaveNode</a> (void) noexcept</td></tr>
-<tr class="memdesc:ac54935e50068f7d8ccff4cf90cf7caef"><td class="mdescLeft">&#160;</td><td class="mdescRight">デストラクタです.  <a href="#ac54935e50068f7d8ccff4cf90cf7caef">[詳解]</a><br /></td></tr>
-<tr class="separator:ac54935e50068f7d8ccff4cf90cf7caef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab39ca23f007b9bd2be31900c72e664f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#aab39ca23f007b9bd2be31900c72e664f">setResolution</a> (<a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> resolution) noexcept</td></tr>
-<tr class="memdesc:aab39ca23f007b9bd2be31900c72e664f"><td class="mdescLeft">&#160;</td><td class="mdescRight">解像度を設定します.  <a href="#aab39ca23f007b9bd2be31900c72e664f">[詳解]</a><br /></td></tr>
-<tr class="separator:aab39ca23f007b9bd2be31900c72e664f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace23e522212b8353745589095c5fc6ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#ace23e522212b8353745589095c5fc6ce">getResolution</a> (void) const noexcept</td></tr>
-<tr class="memdesc:ace23e522212b8353745589095c5fc6ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">解像度を取得します.  <a href="#ace23e522212b8353745589095c5fc6ce">[詳解]</a><br /></td></tr>
-<tr class="separator:ace23e522212b8353745589095c5fc6ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a679df49d9120f4519ef45e9302d21749"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#a679df49d9120f4519ef45e9302d21749">fixate</a> (void) noexcept</td></tr>
-<tr class="memdesc:a679df49d9120f4519ef45e9302d21749"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルを２つと, 出力ターミナルを１つ生成します.  <a href="#a679df49d9120f4519ef45e9302d21749">[詳解]</a><br /></td></tr>
-<tr class="separator:a679df49d9120f4519ef45e9302d21749"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afce66d8c6fe0fd94ee1a6dc07422bc5d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#afce66d8c6fe0fd94ee1a6dc07422bc5d">invalidate</a> (void) noexcept</td></tr>
-<tr class="memdesc:afce66d8c6fe0fd94ee1a6dc07422bc5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">入出力の演算結果を無効化し, 再演算を要求します.  <a href="#afce66d8c6fe0fd94ee1a6dc07422bc5d">[詳解]</a><br /></td></tr>
-<tr class="separator:afce66d8c6fe0fd94ee1a6dc07422bc5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a418bf6271b8a86afca8ad7c9e68073e0"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#a418bf6271b8a86afca8ad7c9e68073e0">prepare</a> (void) noexcept</td></tr>
-<tr class="memdesc:a418bf6271b8a86afca8ad7c9e68073e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">演算前の準備をします.  <a href="#a418bf6271b8a86afca8ad7c9e68073e0">[詳解]</a><br /></td></tr>
-<tr class="separator:a418bf6271b8a86afca8ad7c9e68073e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20ebdd54c7ee988f6bb5a80e5b311e6d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#a20ebdd54c7ee988f6bb5a80e5b311e6d">process</a> (void) noexcept</td></tr>
-<tr class="memdesc:a20ebdd54c7ee988f6bb5a80e5b311e6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">演算を行います.  <a href="#a20ebdd54c7ee988f6bb5a80e5b311e6d">[詳解]</a><br /></td></tr>
-<tr class="separator:a20ebdd54c7ee988f6bb5a80e5b311e6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c2eb7780f35b68eea78da8ec3b8755b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#a8c2eb7780f35b68eea78da8ec3b8755b">rewind</a> (void) noexcept</td></tr>
-<tr class="memdesc:a8c2eb7780f35b68eea78da8ec3b8755b"><td class="mdescLeft">&#160;</td><td class="mdescRight">波形バッファの位相を先頭に再初期化します.  <a href="#a8c2eb7780f35b68eea78da8ec3b8755b">[詳解]</a><br /></td></tr>
-<tr class="separator:a8c2eb7780f35b68eea78da8ec3b8755b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52e8b61a0c0250af46115be124a62efd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a52e8b61a0c0250af46115be124a62efd">getCountI</a> (void) const noexcept</td></tr>
-<tr class="memdesc:a52e8b61a0c0250af46115be124a62efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの個数を取得します.  <a href="#a52e8b61a0c0250af46115be124a62efd">[詳解]</a><br /></td></tr>
-<tr class="separator:a52e8b61a0c0250af46115be124a62efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad188a170b3d490caac0ff80ca56b5cf7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#ad188a170b3d490caac0ff80ca56b5cf7">setNameI</a> (int index, std::string const &amp;what) noexcept</td></tr>
-<tr class="memdesc:ad188a170b3d490caac0ff80ca56b5cf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの名前を設定します.  <a href="#ad188a170b3d490caac0ff80ca56b5cf7">[詳解]</a><br /></td></tr>
-<tr class="separator:ad188a170b3d490caac0ff80ca56b5cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a766b3f8c36112336f71ed2f0b4ccea6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a766b3f8c36112336f71ed2f0b4ccea6e">getNameI</a> (int index, std::string *what) const noexcept</td></tr>
-<tr class="memdesc:a766b3f8c36112336f71ed2f0b4ccea6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの名前を取得します.  <a href="#a766b3f8c36112336f71ed2f0b4ccea6e">[詳解]</a><br /></td></tr>
-<tr class="separator:a766b3f8c36112336f71ed2f0b4ccea6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a543bcfea69d6dbffa35a4e1dd4735d2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a543bcfea69d6dbffa35a4e1dd4735d2f">setLinkPositiveI</a> (int index, <a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *from, int which) noexcept</td></tr>
-<tr class="memdesc:a543bcfea69d6dbffa35a4e1dd4735d2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの非反転入力のノード接続を設定し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce" title="非反転入力 ">GPDSPMODE_POSITIVE</a> に変更します.  <a href="#a543bcfea69d6dbffa35a4e1dd4735d2f">[詳解]</a><br /></td></tr>
-<tr class="separator:a543bcfea69d6dbffa35a4e1dd4735d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a867ba6b972e5dac66c301d3d1159d633"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a867ba6b972e5dac66c301d3d1159d633">setLinkNegativeI</a> (int index, <a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *from, int which) noexcept</td></tr>
-<tr class="memdesc:a867ba6b972e5dac66c301d3d1159d633"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの反転入力のノード接続を設定し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841" title="反転入力 ">GPDSPMODE_NEGATIVE</a> に変更します.  <a href="#a867ba6b972e5dac66c301d3d1159d633">[詳解]</a><br /></td></tr>
-<tr class="separator:a867ba6b972e5dac66c301d3d1159d633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69441b64a4950058acb635aecea2aa5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a69441b64a4950058acb635aecea2aa5d">setLinkConstantI</a> (int index, <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> constant) noexcept</td></tr>
-<tr class="memdesc:a69441b64a4950058acb635aecea2aa5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの定数入力の定数値を設定し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b" title="定数入力 ">GPDSPMODE_CONSTANT</a> に変更します.  <a href="#a69441b64a4950058acb635aecea2aa5d">[詳解]</a><br /></td></tr>
-<tr class="separator:a69441b64a4950058acb635aecea2aa5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abffa2a3157250db03a3a4c8dc001420f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#abffa2a3157250db03a3a4c8dc001420f">getModeI</a> (int index, <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">GPDSPMode</a> *mode) const noexcept</td></tr>
-<tr class="memdesc:abffa2a3157250db03a3a4c8dc001420f"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルのモードを取得します.  <a href="#abffa2a3157250db03a3a4c8dc001420f">[詳解]</a><br /></td></tr>
-<tr class="separator:abffa2a3157250db03a3a4c8dc001420f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a5e41b1993d923312cbdedbb927a92e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a6a5e41b1993d923312cbdedbb927a92e">getLinkI</a> (int index, <a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const **from, int *which) const noexcept</td></tr>
-<tr class="memdesc:a6a5e41b1993d923312cbdedbb927a92e"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルのモードが <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce" title="非反転入力 ">GPDSPMODE_POSITIVE</a> か <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841" title="反転入力 ">GPDSPMODE_NEGATIVE</a> の場合に, ノード接続を取得します.  <a href="#a6a5e41b1993d923312cbdedbb927a92e">[詳解]</a><br /></td></tr>
-<tr class="separator:a6a5e41b1993d923312cbdedbb927a92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29cf91475a183e52e0dba11894a24400"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a29cf91475a183e52e0dba11894a24400">getLinkI</a> (int index, <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> *constant) const noexcept</td></tr>
-<tr class="memdesc:a29cf91475a183e52e0dba11894a24400"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルのモードが <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b" title="定数入力 ">GPDSPMODE_CONSTANT</a> の場合に, 定数値を取得します.  <a href="#a29cf91475a183e52e0dba11894a24400">[詳解]</a><br /></td></tr>
-<tr class="separator:a29cf91475a183e52e0dba11894a24400"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac2f6d39686c4d848daccf1eb97a2dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#afac2f6d39686c4d848daccf1eb97a2dd">clearLinkI</a> (int index) noexcept</td></tr>
-<tr class="memdesc:afac2f6d39686c4d848daccf1eb97a2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルのノード接続と定数値を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します.  <a href="#afac2f6d39686c4d848daccf1eb97a2dd">[詳解]</a><br /></td></tr>
-<tr class="separator:afac2f6d39686c4d848daccf1eb97a2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a349deb4301956cd9524336094f1b16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a0a349deb4301956cd9524336094f1b16">clearLinkI</a> (<a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">GPDSPMode</a> mode) noexcept</td></tr>
-<tr class="memdesc:a0a349deb4301956cd9524336094f1b16"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルのノード接続と定数値を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します.  <a href="#a0a349deb4301956cd9524336094f1b16">[詳解]</a><br /></td></tr>
-<tr class="separator:a0a349deb4301956cd9524336094f1b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade72782fb43fd97a04f78ae4b8f89847"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#ade72782fb43fd97a04f78ae4b8f89847">clearLinkI</a> (<a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *from, int which) noexcept</td></tr>
-<tr class="memdesc:ade72782fb43fd97a04f78ae4b8f89847"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルのノード接続を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します.  <a href="#ade72782fb43fd97a04f78ae4b8f89847">[詳解]</a><br /></td></tr>
-<tr class="separator:ade72782fb43fd97a04f78ae4b8f89847"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a822bf2e7cea93b5f5588b50b86795adb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a822bf2e7cea93b5f5588b50b86795adb">clearLinkI</a> (<a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *from) noexcept</td></tr>
-<tr class="memdesc:a822bf2e7cea93b5f5588b50b86795adb"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルのノード接続を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します.  <a href="#a822bf2e7cea93b5f5588b50b86795adb">[詳解]</a><br /></td></tr>
-<tr class="separator:a822bf2e7cea93b5f5588b50b86795adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6eba8ce7204bdea228fa4340b7b8584"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#aa6eba8ce7204bdea228fa4340b7b8584">clearLinkI</a> (<a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> constant) noexcept</td></tr>
-<tr class="memdesc:aa6eba8ce7204bdea228fa4340b7b8584"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの定数値を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します.  <a href="#aa6eba8ce7204bdea228fa4340b7b8584">[詳解]</a><br /></td></tr>
-<tr class="separator:aa6eba8ce7204bdea228fa4340b7b8584"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a3d060fb9d32dd0130c2aec953ff1d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a2a3d060fb9d32dd0130c2aec953ff1d8">clearLinkI</a> (void) noexcept</td></tr>
-<tr class="memdesc:a2a3d060fb9d32dd0130c2aec953ff1d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">すべての入力ターミナルのノード接続と定数値を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します.  <a href="#a2a3d060fb9d32dd0130c2aec953ff1d8">[詳解]</a><br /></td></tr>
-<tr class="separator:a2a3d060fb9d32dd0130c2aec953ff1d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47201c9d5861064092450bc3f7b3ebf5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a47201c9d5861064092450bc3f7b3ebf5">getValueI</a> (int index, <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> *value) const noexcept</td></tr>
-<tr class="memdesc:a47201c9d5861064092450bc3f7b3ebf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの値を取得します.  <a href="#a47201c9d5861064092450bc3f7b3ebf5">[詳解]</a><br /></td></tr>
-<tr class="separator:a47201c9d5861064092450bc3f7b3ebf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a217321f550d1a404b16a7d0910ce5275"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a217321f550d1a404b16a7d0910ce5275">findNameI</a> (std::string const &amp;what) const noexcept</td></tr>
-<tr class="memdesc:a217321f550d1a404b16a7d0910ce5275"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された名前を持つ入力ターミナルを検索します.  <a href="#a217321f550d1a404b16a7d0910ce5275">[詳解]</a><br /></td></tr>
-<tr class="separator:a217321f550d1a404b16a7d0910ce5275"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1724a6f16b178ed8cd8f7076b052275"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#ac1724a6f16b178ed8cd8f7076b052275">findModeI</a> (<a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">GPDSPMode</a> mode) const noexcept</td></tr>
-<tr class="memdesc:ac1724a6f16b178ed8cd8f7076b052275"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定されたモードを持つ入力ターミナルを検索します.  <a href="#ac1724a6f16b178ed8cd8f7076b052275">[詳解]</a><br /></td></tr>
-<tr class="separator:ac1724a6f16b178ed8cd8f7076b052275"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b75b63a98139dcc99ec438a4435a806"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a4b75b63a98139dcc99ec438a4435a806">findLinkI</a> (<a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *from, int which) const noexcept</td></tr>
-<tr class="memdesc:a4b75b63a98139dcc99ec438a4435a806"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定されたノード接続を持つ入力ターミナルを検索します.  <a href="#a4b75b63a98139dcc99ec438a4435a806">[詳解]</a><br /></td></tr>
-<tr class="separator:a4b75b63a98139dcc99ec438a4435a806"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a836898fa91c76d5a23113337af2ef2ab"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a836898fa91c76d5a23113337af2ef2ab">findLinkI</a> (<a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *from) const noexcept</td></tr>
-<tr class="memdesc:a836898fa91c76d5a23113337af2ef2ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定されたノード接続を持つ入力ターミナルを検索します.  <a href="#a836898fa91c76d5a23113337af2ef2ab">[詳解]</a><br /></td></tr>
-<tr class="separator:a836898fa91c76d5a23113337af2ef2ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a865932cc62d6707b7a87da4b5f205b52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a865932cc62d6707b7a87da4b5f205b52">findLinkI</a> (<a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> constant) const noexcept</td></tr>
-<tr class="memdesc:a865932cc62d6707b7a87da4b5f205b52"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された定数値を持つ入力ターミナルを検索します.  <a href="#a865932cc62d6707b7a87da4b5f205b52">[詳解]</a><br /></td></tr>
-<tr class="separator:a865932cc62d6707b7a87da4b5f205b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf2560a20eac4d0d0b4a8fc2f0196e97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#aaf2560a20eac4d0d0b4a8fc2f0196e97">getCountO</a> (void) const noexcept</td></tr>
-<tr class="memdesc:aaf2560a20eac4d0d0b4a8fc2f0196e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力ターミナルの個数を取得します.  <a href="#aaf2560a20eac4d0d0b4a8fc2f0196e97">[詳解]</a><br /></td></tr>
-<tr class="separator:aaf2560a20eac4d0d0b4a8fc2f0196e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1f1ce4247a61c614965adf1210181f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#ab1f1ce4247a61c614965adf1210181f1">setNameO</a> (int index, std::string const &amp;what) noexcept</td></tr>
-<tr class="memdesc:ab1f1ce4247a61c614965adf1210181f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力ターミナルの名前を設定します.  <a href="#ab1f1ce4247a61c614965adf1210181f1">[詳解]</a><br /></td></tr>
-<tr class="separator:ab1f1ce4247a61c614965adf1210181f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04db220b174bd618ee64fa48bf16d22f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#a04db220b174bd618ee64fa48bf16d22f">getNameO</a> (int index, std::string *what) const noexcept</td></tr>
-<tr class="memdesc:a04db220b174bd618ee64fa48bf16d22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力ターミナルの名前を取得します.  <a href="#a04db220b174bd618ee64fa48bf16d22f">[詳解]</a><br /></td></tr>
-<tr class="separator:a04db220b174bd618ee64fa48bf16d22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a264b8bbb35028c9691cc7d10c39b161b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#a264b8bbb35028c9691cc7d10c39b161b">getValueO</a> (int index, <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> *value) const noexcept</td></tr>
-<tr class="memdesc:a264b8bbb35028c9691cc7d10c39b161b"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力ターミナルの値を取得します.  <a href="#a264b8bbb35028c9691cc7d10c39b161b">[詳解]</a><br /></td></tr>
-<tr class="separator:a264b8bbb35028c9691cc7d10c39b161b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8d249f3694df420613dd548426e04b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#ad8d249f3694df420613dd548426e04b4">findNameO</a> (std::string const &amp;what) const noexcept</td></tr>
-<tr class="memdesc:ad8d249f3694df420613dd548426e04b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された名前を持つ出力ターミナルを検索します.  <a href="#ad8d249f3694df420613dd548426e04b4">[詳解]</a><br /></td></tr>
-<tr class="separator:ad8d249f3694df420613dd548426e04b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-静的公開メンバ関数</h2></td></tr>
-<tr class="memitem:a0a16d6b53ef340ab89f9ad221c6d8dbb"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#a0a16d6b53ef340ab89f9ad221c6d8dbb">defaultResolution</a> (void) noexcept</td></tr>
-<tr class="memdesc:a0a16d6b53ef340ab89f9ad221c6d8dbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">デフォルトの解像度を取得します.  <a href="#a0a16d6b53ef340ab89f9ad221c6d8dbb">[詳解]</a><br /></td></tr>
-<tr class="separator:a0a16d6b53ef340ab89f9ad221c6d8dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-限定公開メンバ関数</h2></td></tr>
-<tr class="memitem:a771d4523e745364bd3df75ef508d86b3"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html#a771d4523e745364bd3df75ef508d86b3">getName</a> (void) const noexcept</td></tr>
-<tr class="memdesc:a771d4523e745364bd3df75ef508d86b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">波形バッファの名前を取得します.  <a href="#a771d4523e745364bd3df75ef508d86b3">[詳解]</a><br /></td></tr>
-<tr class="separator:a771d4523e745364bd3df75ef508d86b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55ef77ad9d0b391165db272978b491f4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html#a55ef77ad9d0b391165db272978b491f4">getWave</a> (<a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> phase) const noexcept</td></tr>
-<tr class="memdesc:a55ef77ad9d0b391165db272978b491f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された位相に対応する, 矩形波の値を取得します.  <a href="#a55ef77ad9d0b391165db272978b491f4">[詳解]</a><br /></td></tr>
-<tr class="separator:a55ef77ad9d0b391165db272978b491f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12748efcceaf8e7c2ca5ee0a66c83afc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html#a12748efcceaf8e7c2ca5ee0a66c83afc">fillWave</a> (std::vector&lt; std::pair&lt; <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>, <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> &gt; &gt; *wave) const noexcept</td></tr>
-<tr class="memdesc:a12748efcceaf8e7c2ca5ee0a66c83afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された波形バッファに対して, １波長分の矩形波の値を計算して書き込みます.  <a href="#a12748efcceaf8e7c2ca5ee0a66c83afc">[詳解]</a><br /></td></tr>
-<tr class="separator:a12748efcceaf8e7c2ca5ee0a66c83afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed75773011b34925dfd6dfc0d710ef53"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#aed75773011b34925dfd6dfc0d710ef53">setCountI</a> (int count, std::string const &amp;what) noexcept</td></tr>
-<tr class="memdesc:aed75773011b34925dfd6dfc0d710ef53"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルの個数と名前を設定します.  <a href="#aed75773011b34925dfd6dfc0d710ef53">[詳解]</a><br /></td></tr>
-<tr class="separator:aed75773011b34925dfd6dfc0d710ef53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf7225893a16607bb67bc4b0cc702696"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#aaf7225893a16607bb67bc4b0cc702696">appendI</a> (std::string const &amp;what) noexcept</td></tr>
-<tr class="memdesc:aaf7225893a16607bb67bc4b0cc702696"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された名前を持つ入力ターミナルを追加します.  <a href="#aaf7225893a16607bb67bc4b0cc702696">[詳解]</a><br /></td></tr>
-<tr class="separator:aaf7225893a16607bb67bc4b0cc702696"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad79bebf45934371337ff5c29357759a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#ad79bebf45934371337ff5c29357759a4">insertI</a> (int index, std::string const &amp;what) noexcept</td></tr>
-<tr class="memdesc:ad79bebf45934371337ff5c29357759a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された名前を持つ入力ターミナルを挿入します.  <a href="#ad79bebf45934371337ff5c29357759a4">[詳解]</a><br /></td></tr>
-<tr class="separator:ad79bebf45934371337ff5c29357759a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6545d2410dbb95cb01f986cb87566550"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a6545d2410dbb95cb01f986cb87566550">removeI</a> (int index) noexcept</td></tr>
-<tr class="memdesc:a6545d2410dbb95cb01f986cb87566550"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力ターミナルを削除します.  <a href="#a6545d2410dbb95cb01f986cb87566550">[詳解]</a><br /></td></tr>
-<tr class="separator:a6545d2410dbb95cb01f986cb87566550"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12bf084954c5e1aae7c59f5273b4a9d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a12bf084954c5e1aae7c59f5273b4a9d8">clearI</a> (void) noexcept</td></tr>
-<tr class="memdesc:a12bf084954c5e1aae7c59f5273b4a9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">すべての入力ターミナルを削除します.  <a href="#a12bf084954c5e1aae7c59f5273b4a9d8">[詳解]</a><br /></td></tr>
-<tr class="separator:a12bf084954c5e1aae7c59f5273b4a9d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2904aecb51e12f000d446bf094b1111a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#a2904aecb51e12f000d446bf094b1111a">setCountO</a> (int count, std::string const &amp;what) noexcept</td></tr>
-<tr class="memdesc:a2904aecb51e12f000d446bf094b1111a"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力ターミナルの個数と名前を設定します.  <a href="#a2904aecb51e12f000d446bf094b1111a">[詳解]</a><br /></td></tr>
-<tr class="separator:a2904aecb51e12f000d446bf094b1111a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a663ce81bbed5f4261ebd228f470cf282"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#a663ce81bbed5f4261ebd228f470cf282">setValueO</a> (int index, <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> value) noexcept</td></tr>
-<tr class="memdesc:a663ce81bbed5f4261ebd228f470cf282"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力ターミナルの値を設定します.  <a href="#a663ce81bbed5f4261ebd228f470cf282">[詳解]</a><br /></td></tr>
-<tr class="separator:a663ce81bbed5f4261ebd228f470cf282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac24fa1cf3f15d31a46082ebe4e4a81c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#ac24fa1cf3f15d31a46082ebe4e4a81c2">appendO</a> (std::string const &amp;what) noexcept</td></tr>
-<tr class="memdesc:ac24fa1cf3f15d31a46082ebe4e4a81c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された名前を持つ出力ターミナルを追加します.  <a href="#ac24fa1cf3f15d31a46082ebe4e4a81c2">[詳解]</a><br /></td></tr>
-<tr class="separator:ac24fa1cf3f15d31a46082ebe4e4a81c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a401135124c6cbafc27b700301df89a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#a2a401135124c6cbafc27b700301df89a">insertO</a> (int index, std::string const &amp;what) noexcept</td></tr>
-<tr class="memdesc:a2a401135124c6cbafc27b700301df89a"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数に指定された名前を持つ出力ターミナルを挿入します.  <a href="#a2a401135124c6cbafc27b700301df89a">[詳解]</a><br /></td></tr>
-<tr class="separator:a2a401135124c6cbafc27b700301df89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9647e131f619e3ef8d016f1a64ef856f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#a9647e131f619e3ef8d016f1a64ef856f">removeO</a> (int index) noexcept</td></tr>
-<tr class="memdesc:a9647e131f619e3ef8d016f1a64ef856f"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力ターミナルを削除します.  <a href="#a9647e131f619e3ef8d016f1a64ef856f">[詳解]</a><br /></td></tr>
-<tr class="separator:a9647e131f619e3ef8d016f1a64ef856f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8404e6d8c5062699f95acf4b756d30f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html#a8404e6d8c5062699f95acf4b756d30f8">clearO</a> (void) noexcept</td></tr>
-<tr class="memdesc:a8404e6d8c5062699f95acf4b756d30f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">すべての出力ターミナルを削除します.  <a href="#a8404e6d8c5062699f95acf4b756d30f8">[詳解]</a><br /></td></tr>
-<tr class="separator:a8404e6d8c5062699f95acf4b756d30f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
-<div class="textblock"><p>矩形波ノードを表す具象クラス </p>
-<p><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html" title="矩形波ノードを表す具象クラス ">GPDSPSquareWaveNode</a> クラスは, 入力された周波数と位相に従って矩形波を生成する矩形波ノードを表す具象クラスです.</p>
-<p>あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.</p>
-<p>２つの入力ターミナル "frequency", "phase" と, １つの出力ターミナル "out" を持ちます.</p>
-<p><b>.gpdsp ファイルでの記述例</b> </p><div class="fragment"><div class="line">&lt;<span class="keywordtype">GPDSPSquareWaveNode</span>&gt;</div><div class="line">    &lt;<span class="keywordtype">name</span>&gt;<span class="keyword">ノード名</span>&lt;/<span class="keywordtype">name</span>&gt;</div><div class="line">    &lt;<span class="keywordtype">param</span>&gt;</div><div class="line">        &lt;<span class="keywordtype">resolution</span>&gt;<span class="keyword">解像度</span>&lt;/<span class="keywordtype">resolution</span>&gt;</div><div class="line">    &lt;/<span class="keywordtype">param</span>&gt;</div><div class="line">    &lt;<span class="keywordtype">input</span>&gt;</div><div class="line">        &lt;::0&gt;</div><div class="line">            &lt;<span class="keywordtype">node</span>&gt;<span class="keyword">frequency</span> <span class="keyword">に対する入力元のノード名</span>&lt;/<span class="keywordtype">node</span>&gt;</div><div class="line">            &lt;<span class="keywordtype">index</span>&gt;<span class="keyword">frequency</span> <span class="keyword">に対する入力元のターミナル番号</span>&lt;/<span class="keywordtype">index</span>&gt;</div><div class="line">        &lt;/::0&gt;</div><div class="line">        &lt;::1&gt;</div><div class="line">            &lt;<span class="keywordtype">node</span>&gt;<span class="keyword">phase</span> <span class="keyword">に対する入力元のノード名</span>&lt;/<span class="keywordtype">node</span>&gt;</div><div class="line">            &lt;<span class="keywordtype">index</span>&gt;<span class="keyword">phase</span> <span class="keyword">に対する入力元のターミナル番号</span>&lt;/<span class="keywordtype">index</span>&gt;</div><div class="line">        &lt;/::1&gt;</div><div class="line">    &lt;/<span class="keywordtype">input</span>&gt;</div><div class="line">&lt;/<span class="keywordtype">GPDSPSquareWaveNode</span>&gt;</div></div><!-- fragment --> </div><h2 class="groupheader">構築子と解体子</h2>
-<a id="a41776f074959a04c7ae51051792fd376"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41776f074959a04c7ae51051792fd376">&#9670;&nbsp;</a></span>GPDSPSquareWaveNode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ir::GPDSPSquareWaveNode::GPDSPSquareWaveNode </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>rate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>コンストラクタです. </p>
-<p>何もしません.</p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">rate</td><td>サンプリングレート &gt; 0 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac54935e50068f7d8ccff4cf90cf7caef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac54935e50068f7d8ccff4cf90cf7caef">&#9670;&nbsp;</a></span>~GPDSPSquareWaveNode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ir::GPDSPSquareWaveNode::~GPDSPSquareWaveNode </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>デストラクタです. </p>
-<p>何もしません. </p>
-
-</div>
-</div>
-<h2 class="groupheader">関数詳解</h2>
-<a id="a771d4523e745364bd3df75ef508d86b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a771d4523e745364bd3df75ef508d86b3">&#9670;&nbsp;</a></span>getName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string ir::GPDSPSquareWaveNode::getName </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>波形バッファの名前を取得します. </p>
-<dl class="section return"><dt>戻り値</dt><dd>"GPDSPSquareWaveNode" </dd></dl>
-
-<p><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#aa82d7346b55b17356b26a941096c3433">ir::GPDSPWaveNode</a>を実装しています。</p>
-
-</div>
-</div>
-<a id="a55ef77ad9d0b391165db272978b491f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55ef77ad9d0b391165db272978b491f4">&#9670;&nbsp;</a></span>getWave()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> ir::GPDSPSquareWaveNode::getWave </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td>
-          <td class="paramname"><em>phase</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された位相に対応する, 矩形波の値を取得します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">phase</td><td>位相 [0.0, 1.0) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>戻り値</dt><dd>矩形波の値 [-1.0, +1.0] </dd></dl>
-
-<p><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#ae246ab9ac3c4920f2667767aa4f6fc0f">ir::GPDSPWaveNode</a>を実装しています。</p>
-
-</div>
-</div>
-<a id="a12748efcceaf8e7c2ca5ee0a66c83afc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12748efcceaf8e7c2ca5ee0a66c83afc">&#9670;&nbsp;</a></span>fillWave()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPSquareWaveNode::fillWave </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; std::pair&lt; <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>, <a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> &gt; &gt; *&#160;</td>
-          <td class="paramname"><em>wave</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された波形バッファに対して, １波長分の矩形波の値を計算して書き込みます. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">wave</td><td>波形バッファ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p><a class="el" href="classir_1_1_g_p_d_s_p_wave_node.html#a7f0482d134ad89d1da5c41ccbeeb78e1">ir::GPDSPWaveNode</a>を実装しています。</p>
-
-</div>
-</div>
-<a id="a0a16d6b53ef340ab89f9ad221c6d8dbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a16d6b53ef340ab89f9ad221c6d8dbb">&#9670;&nbsp;</a></span>defaultResolution()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> ir::GPDSPWaveNode::defaultResolution </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>デフォルトの解像度を取得します. </p>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">+INFINITY</td><td>デフォルトの解像度 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aab39ca23f007b9bd2be31900c72e664f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab39ca23f007b9bd2be31900c72e664f">&#9670;&nbsp;</a></span>setResolution()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPWaveNode::setResolution </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td>
-          <td class="paramname"><em>resolution</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>解像度を設定します. </p>
-<p>resolution 引数に (0.0, +INFINITY) の範囲の値を設定すると, サンプリングレートと解像度に応じた波形バッファがあらかじめ作成され, 演算時には波形バッファを参照し直線補完にて値を求めます.</p>
-<p>resolution 引数に +INFINITY を設定すると波形バッファを作成することなく, 演算時に値を逐次計算して求めます.</p>
-<p>コンストラクタのサンプリングレート引数に 0 以下の値が設定されているとき, この関数は失敗します.</p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">resolution</td><td>設定する解像度 (0.0, +INFINITY] </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" title="メモリが不足している ">GPDSPERROR_NO_MEMORY</a></td><td>メモリが不足している </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a2be43908c5c5593c4c39afd593d31175" title="不正な状態 ">GPDSPERROR_INVALID_STATE</a></td><td>不正な状態 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9d5e6285bf40013fe6acc04b724915b8" title="不正なパラメータ ">GPDSPERROR_INVALID_PARAM</a></td><td>不正なパラメータ </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a7cc240a24104b6bac57104c51a4c698a" title="失敗 ">GPDSPERROR_FAILED</a></td><td>失敗 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ace23e522212b8353745589095c5fc6ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace23e522212b8353745589095c5fc6ce">&#9670;&nbsp;</a></span>getResolution()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> ir::GPDSPWaveNode::getResolution </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>解像度を取得します. </p>
-<dl class="section return"><dt>戻り値</dt><dd>現在の解像度 </dd></dl>
-
-</div>
-</div>
-<a id="a679df49d9120f4519ef45e9302d21749"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a679df49d9120f4519ef45e9302d21749">&#9670;&nbsp;</a></span>fixate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPWaveNode::fixate </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルを２つと, 出力ターミナルを１つ生成します. </p>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" title="メモリが不足している ">GPDSPERROR_NO_MEMORY</a></td><td>メモリが不足している </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p><a class="el" href="classir_1_1_g_p_d_s_p_node.html#a55cc47322ff261e5810f3001c1c8a65a">ir::GPDSPNode</a>を実装しています。</p>
-
-</div>
-</div>
-<a id="afce66d8c6fe0fd94ee1a6dc07422bc5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afce66d8c6fe0fd94ee1a6dc07422bc5d">&#9670;&nbsp;</a></span>invalidate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPWaveNode::invalidate </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入出力の演算結果を無効化し, 再演算を要求します. </p>
-
-<p><a class="el" href="classir_1_1_g_p_d_s_p_inputtable_node.html#a26b4c93d4cdafd3accf462aee3a4b8a2">ir::GPDSPInputtableNode</a>を再実装しています。</p>
-
-</div>
-</div>
-<a id="a418bf6271b8a86afca8ad7c9e68073e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a418bf6271b8a86afca8ad7c9e68073e0">&#9670;&nbsp;</a></span>prepare()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPWaveNode::prepare </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>演算前の準備をします. </p>
-<p>何もしません.</p>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 (準備を完了) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p><a class="el" href="classir_1_1_g_p_d_s_p_node.html#ac2534613f6b7b31c691c7c4daaa94723">ir::GPDSPNode</a>を実装しています。</p>
-
-</div>
-</div>
-<a id="a20ebdd54c7ee988f6bb5a80e5b311e6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20ebdd54c7ee988f6bb5a80e5b311e6d">&#9670;&nbsp;</a></span>process()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPWaveNode::process </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>演算を行います. </p>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 (演算を完了) </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a4b1a2a1904ba79bf8dced4fae712f9dc" title="データフロー入力待ち ">GPDSPERROR_WAIT</a></td><td>データフロー入力待ち </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p><a class="el" href="classir_1_1_g_p_d_s_p_node.html#a3ecdf7fa30c69699ded02928b983043e">ir::GPDSPNode</a>を実装しています。</p>
-
-</div>
-</div>
-<a id="a8c2eb7780f35b68eea78da8ec3b8755b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c2eb7780f35b68eea78da8ec3b8755b">&#9670;&nbsp;</a></span>rewind()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPWaveNode::rewind </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>波形バッファの位相を先頭に再初期化します. </p>
-
-<p><a class="el" href="classir_1_1_g_p_d_s_p_rewindable_node.html#a6961a5fa754a36a7689e642b964f4d5d">ir::GPDSPRewindableNode</a>を実装しています。</p>
-
-</div>
-</div>
-<a id="a52e8b61a0c0250af46115be124a62efd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52e8b61a0c0250af46115be124a62efd">&#9670;&nbsp;</a></span>getCountI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ir::GPDSPInputtableNode::getCountI </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの個数を取得します. </p>
-<dl class="section return"><dt>戻り値</dt><dd>現在の個数 </dd></dl>
-
-</div>
-</div>
-<a id="ad188a170b3d490caac0ff80ca56b5cf7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad188a170b3d490caac0ff80ca56b5cf7">&#9670;&nbsp;</a></span>setNameI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::setNameI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの名前を設定します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>設定する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a766b3f8c36112336f71ed2f0b4ccea6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a766b3f8c36112336f71ed2f0b4ccea6e">&#9670;&nbsp;</a></span>getNameI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::getNameI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string *&#160;</td>
-          <td class="paramname"><em>what</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの名前を取得します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">what</td><td>名前の取得先 (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a543bcfea69d6dbffa35a4e1dd4735d2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a543bcfea69d6dbffa35a4e1dd4735d2f">&#9670;&nbsp;</a></span>setLinkPositiveI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::setLinkPositiveI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>which</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの非反転入力のノード接続を設定し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce" title="非反転入力 ">GPDSPMODE_POSITIVE</a> に変更します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>設定するノード (NULL 可能) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">which</td><td>設定するノードのターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a867ba6b972e5dac66c301d3d1159d633"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a867ba6b972e5dac66c301d3d1159d633">&#9670;&nbsp;</a></span>setLinkNegativeI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::setLinkNegativeI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>which</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの反転入力のノード接続を設定し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841" title="反転入力 ">GPDSPMODE_NEGATIVE</a> に変更します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>設定するノード (NULL 可能) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">which</td><td>設定するノードのターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a69441b64a4950058acb635aecea2aa5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69441b64a4950058acb635aecea2aa5d">&#9670;&nbsp;</a></span>setLinkConstantI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::setLinkConstantI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td>
-          <td class="paramname"><em>constant</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの定数入力の定数値を設定し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b" title="定数入力 ">GPDSPMODE_CONSTANT</a> に変更します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">constant</td><td>設定する定数値 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="abffa2a3157250db03a3a4c8dc001420f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abffa2a3157250db03a3a4c8dc001420f">&#9670;&nbsp;</a></span>getModeI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::getModeI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">GPDSPMode</a> *&#160;</td>
-          <td class="paramname"><em>mode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルのモードを取得します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">mode</td><td>モードの取得先 (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a6a5e41b1993d923312cbdedbb927a92e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a5e41b1993d923312cbdedbb927a92e">&#9670;&nbsp;</a></span>getLinkI() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::getLinkI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const **&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>which</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルのモードが <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2120cbea570007b53936a4e1a553d7ce" title="非反転入力 ">GPDSPMODE_POSITIVE</a> か <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fac82505ac100192cbbebc071adf595841" title="反転入力 ">GPDSPMODE_NEGATIVE</a> の場合に, ノード接続を取得します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">from</td><td>ノードの取得先 (NULL 可能) </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">which</td><td>ノードのターミナル番号の取得先 (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a2be43908c5c5593c4c39afd593d31175" title="不正な状態 ">GPDSPERROR_INVALID_STATE</a></td><td>不正な状態 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a29cf91475a183e52e0dba11894a24400"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29cf91475a183e52e0dba11894a24400">&#9670;&nbsp;</a></span>getLinkI() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::getLinkI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> *&#160;</td>
-          <td class="paramname"><em>constant</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルのモードが <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa75db03ef38ea8a6f838f7da6a901dd0b" title="定数入力 ">GPDSPMODE_CONSTANT</a> の場合に, 定数値を取得します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">constant</td><td>定数値の取得先 (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a2be43908c5c5593c4c39afd593d31175" title="不正な状態 ">GPDSPERROR_INVALID_STATE</a></td><td>不正な状態 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="afac2f6d39686c4d848daccf1eb97a2dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afac2f6d39686c4d848daccf1eb97a2dd">&#9670;&nbsp;</a></span>clearLinkI() <span class="overload">[1/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::clearLinkI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルのノード接続と定数値を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a0a349deb4301956cd9524336094f1b16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a349deb4301956cd9524336094f1b16">&#9670;&nbsp;</a></span>clearLinkI() <span class="overload">[2/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPInputtableNode::clearLinkI </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">GPDSPMode</a>&#160;</td>
-          <td class="paramname"><em>mode</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルのノード接続と定数値を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>解除するモード </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ade72782fb43fd97a04f78ae4b8f89847"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade72782fb43fd97a04f78ae4b8f89847">&#9670;&nbsp;</a></span>clearLinkI() <span class="overload">[3/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPInputtableNode::clearLinkI </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>which</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルのノード接続を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>解除するノード (NULL 可能) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">which</td><td>解除するノードのターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a822bf2e7cea93b5f5588b50b86795adb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a822bf2e7cea93b5f5588b50b86795adb">&#9670;&nbsp;</a></span>clearLinkI() <span class="overload">[4/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPInputtableNode::clearLinkI </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *&#160;</td>
-          <td class="paramname"><em>from</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルのノード接続を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>解除するノード (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa6eba8ce7204bdea228fa4340b7b8584"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6eba8ce7204bdea228fa4340b7b8584">&#9670;&nbsp;</a></span>clearLinkI() <span class="overload">[5/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPInputtableNode::clearLinkI </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td>
-          <td class="paramname"><em>constant</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの定数値を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">constant</td><td>解除する定数値 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2a3d060fb9d32dd0130c2aec953ff1d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a3d060fb9d32dd0130c2aec953ff1d8">&#9670;&nbsp;</a></span>clearLinkI() <span class="overload">[6/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPInputtableNode::clearLinkI </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>すべての入力ターミナルのノード接続と定数値を解除し, モードを <a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645fa2deaf359d9923682abbe633cf57207fc" title="無効 ">GPDSPMODE_NONE</a> に変更します. </p>
-
-</div>
-</div>
-<a id="a47201c9d5861064092450bc3f7b3ebf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47201c9d5861064092450bc3f7b3ebf5">&#9670;&nbsp;</a></span>getValueI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::getValueI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> *&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの値を取得します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">value</td><td>値の取得先 (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a4b1a2a1904ba79bf8dced4fae712f9dc" title="データフロー入力待ち ">GPDSPERROR_WAIT</a></td><td>データフロー入力待ち </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a217321f550d1a404b16a7d0910ce5275"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a217321f550d1a404b16a7d0910ce5275">&#9670;&nbsp;</a></span>findNameI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ir::GPDSPInputtableNode::findNameI </td>
-          <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された名前を持つ入力ターミナルを検索します. </p>
-<p>同じ名前を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.</p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>検索する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">-1</td><td>存在しない </td></tr>
-    <tr><td class="paramname">その他</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac1724a6f16b178ed8cd8f7076b052275"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1724a6f16b178ed8cd8f7076b052275">&#9670;&nbsp;</a></span>findModeI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ir::GPDSPInputtableNode::findModeI </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#ae9f4c6deb4e3279ae0b971c5fb37645f">GPDSPMode</a>&#160;</td>
-          <td class="paramname"><em>mode</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定されたモードを持つ入力ターミナルを検索します. </p>
-<p>同じモードを持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.</p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>検索するモード </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">-1</td><td>存在しない </td></tr>
-    <tr><td class="paramname">その他</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4b75b63a98139dcc99ec438a4435a806"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b75b63a98139dcc99ec438a4435a806">&#9670;&nbsp;</a></span>findLinkI() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ir::GPDSPInputtableNode::findLinkI </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>which</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定されたノード接続を持つ入力ターミナルを検索します. </p>
-<p>同じノード接続を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.</p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>検索するノード (NULL 可能) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">which</td><td>検索するノードのターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">-1</td><td>存在しない </td></tr>
-    <tr><td class="paramname">その他</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a836898fa91c76d5a23113337af2ef2ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a836898fa91c76d5a23113337af2ef2ab">&#9670;&nbsp;</a></span>findLinkI() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ir::GPDSPInputtableNode::findLinkI </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classir_1_1_g_p_d_s_p_outputtable_node.html">GPDSPOutputtableNode</a> const *&#160;</td>
-          <td class="paramname"><em>from</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定されたノード接続を持つ入力ターミナルを検索します. </p>
-<p>同じノード接続を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.</p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>検索するノード (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">-1</td><td>存在しない </td></tr>
-    <tr><td class="paramname">その他</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a865932cc62d6707b7a87da4b5f205b52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a865932cc62d6707b7a87da4b5f205b52">&#9670;&nbsp;</a></span>findLinkI() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ir::GPDSPInputtableNode::findLinkI </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td>
-          <td class="paramname"><em>constant</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された定数値を持つ入力ターミナルを検索します. </p>
-<p>同じ定数値を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.</p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">constant</td><td>検索する定数値 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">-1</td><td>存在しない </td></tr>
-    <tr><td class="paramname">その他</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aed75773011b34925dfd6dfc0d710ef53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed75773011b34925dfd6dfc0d710ef53">&#9670;&nbsp;</a></span>setCountI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::setCountI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>count</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルの個数と名前を設定します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>設定する個数 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>設定する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" title="メモリが不足している ">GPDSPERROR_NO_MEMORY</a></td><td>メモリが不足している </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aaf7225893a16607bb67bc4b0cc702696"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf7225893a16607bb67bc4b0cc702696">&#9670;&nbsp;</a></span>appendI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::appendI </td>
-          <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された名前を持つ入力ターミナルを追加します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>追加する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" title="メモリが不足している ">GPDSPERROR_NO_MEMORY</a></td><td>メモリが不足している </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ad79bebf45934371337ff5c29357759a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad79bebf45934371337ff5c29357759a4">&#9670;&nbsp;</a></span>insertI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::insertI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された名前を持つ入力ターミナルを挿入します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>挿入する位置 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>挿入する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" title="メモリが不足している ">GPDSPERROR_NO_MEMORY</a></td><td>メモリが不足している </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a6545d2410dbb95cb01f986cb87566550"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6545d2410dbb95cb01f986cb87566550">&#9670;&nbsp;</a></span>removeI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPInputtableNode::removeI </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>入力ターミナルを削除します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a12bf084954c5e1aae7c59f5273b4a9d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12bf084954c5e1aae7c59f5273b4a9d8">&#9670;&nbsp;</a></span>clearI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPInputtableNode::clearI </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>すべての入力ターミナルを削除します. </p>
-
-</div>
-</div>
-<a id="aaf2560a20eac4d0d0b4a8fc2f0196e97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf2560a20eac4d0d0b4a8fc2f0196e97">&#9670;&nbsp;</a></span>getCountO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ir::GPDSPOutputtableNode::getCountO </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>出力ターミナルの個数を取得します. </p>
-<dl class="section return"><dt>戻り値</dt><dd>現在の個数 </dd></dl>
-
-</div>
-</div>
-<a id="ab1f1ce4247a61c614965adf1210181f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1f1ce4247a61c614965adf1210181f1">&#9670;&nbsp;</a></span>setNameO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPOutputtableNode::setNameO </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>出力ターミナルの名前を設定します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>設定する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a04db220b174bd618ee64fa48bf16d22f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04db220b174bd618ee64fa48bf16d22f">&#9670;&nbsp;</a></span>getNameO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPOutputtableNode::getNameO </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string *&#160;</td>
-          <td class="paramname"><em>what</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>出力ターミナルの名前を取得します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">what</td><td>名前の取得先 (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a264b8bbb35028c9691cc7d10c39b161b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a264b8bbb35028c9691cc7d10c39b161b">&#9670;&nbsp;</a></span>getValueO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPOutputtableNode::getValueO </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a> *&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>出力ターミナルの値を取得します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">value</td><td>値の取得先 (NULL 可能) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a4b1a2a1904ba79bf8dced4fae712f9dc" title="データフロー入力待ち ">GPDSPERROR_WAIT</a></td><td>データフロー入力待ち </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ad8d249f3694df420613dd548426e04b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8d249f3694df420613dd548426e04b4">&#9670;&nbsp;</a></span>findNameO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ir::GPDSPOutputtableNode::findNameO </td>
-          <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された名前を持つ出力ターミナルを検索します. </p>
-<p>同じ名前を持つ出力ターミナルが複数ある場合には, 最初に見つかった出力ターミナルを返却します.</p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>検索する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">-1</td><td>存在しない </td></tr>
-    <tr><td class="paramname">その他</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2904aecb51e12f000d446bf094b1111a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2904aecb51e12f000d446bf094b1111a">&#9670;&nbsp;</a></span>setCountO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPOutputtableNode::setCountO </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>count</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>出力ターミナルの個数と名前を設定します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>設定する個数 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>設定する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" title="メモリが不足している ">GPDSPERROR_NO_MEMORY</a></td><td>メモリが不足している </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a663ce81bbed5f4261ebd228f470cf282"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a663ce81bbed5f4261ebd228f470cf282">&#9670;&nbsp;</a></span>setValueO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPOutputtableNode::setValueO </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceir.html#aebd4ed76132a8ec88d498b83d237c51b">GPDSPFloat</a>&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>出力ターミナルの値を設定します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>設定する値 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac24fa1cf3f15d31a46082ebe4e4a81c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac24fa1cf3f15d31a46082ebe4e4a81c2">&#9670;&nbsp;</a></span>appendO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPOutputtableNode::appendO </td>
-          <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された名前を持つ出力ターミナルを追加します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>追加する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" title="メモリが不足している ">GPDSPERROR_NO_MEMORY</a></td><td>メモリが不足している </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2a401135124c6cbafc27b700301df89a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a401135124c6cbafc27b700301df89a">&#9670;&nbsp;</a></span>insertO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPOutputtableNode::insertO </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>what</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>引数に指定された名前を持つ出力ターミナルを挿入します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>挿入する位置 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">what</td><td>挿入する名前 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a9be030ee42988edca5cc0d94dc2e5a95" title="メモリが不足している ">GPDSPERROR_NO_MEMORY</a></td><td>メモリが不足している </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9647e131f619e3ef8d016f1a64ef856f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9647e131f619e3ef8d016f1a64ef856f">&#9670;&nbsp;</a></span>removeO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6">GPDSPError</a> ir::GPDSPOutputtableNode::removeO </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>出力ターミナルを削除します. </p>
-<dl class="params"><dt>引数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>ターミナル番号 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>戻り値</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a790bdce590401affc0b7eccb9a9b6be8" title="正常 ">GPDSPERROR_OK</a></td><td>正常 </td></tr>
-    <tr><td class="paramname"><a class="el" href="namespaceir.html#af2c7a8e0cbb14a94727348796b3bcca6a95abb4e9815a35e2f30d18edf16d8e1b" title="範囲外のパラメータ ">GPDSPERROR_INVALID_RANGE</a></td><td>範囲外のパラメータ </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8404e6d8c5062699f95acf4b756d30f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8404e6d8c5062699f95acf4b756d30f8">&#9670;&nbsp;</a></span>clearO()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ir::GPDSPOutputtableNode::clearO </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>すべての出力ターミナルを削除します. </p>
-
-</div>
-</div>
-</div><!-- contents -->
-</div><!-- doc-content -->
-<!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespaceir.html">ir</a></li><li class="navelem"><a class="el" href="classir_1_1_g_p_d_s_p_square_wave_node.html">GPDSPSquareWaveNode</a></li>
-    <li class="footer">構築:
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
-  </ul>
-</div>
+<script src="search.js"></script>
+<script src="searchdata.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>IridiumFrameworks / GPDSP 0.9.1 A real time / non-real time General Purpose DSP library, written in C++.</p>
+        <p>Copyright (C) 2017 - 2018 <a href="http://github.com/toolbits">HORIGUCHI Junshi</a>. All rights reserved.</p>
+        <p>Created by <a href="http://doxygen.org/">Doxygen</a> 1.8.14 and <a href="http://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
 </body>
 </html>

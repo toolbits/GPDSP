@@ -56,6 +56,9 @@ namespace ir {
 class GPDSPNode;
 class GPDSPNodeRenderer;
 
+//! カスタムノードクラスの保存と復元を実装するインターフェースクラス
+/*!
+ */
 class GPDSPSerializable {
     public:
         virtual GPDSPError                  load                        (GPDSPNodeRenderer* renderer, std::string const& type, std::string const& name, int format, tinyxml2::XMLElement const* element) noexcept = 0;
