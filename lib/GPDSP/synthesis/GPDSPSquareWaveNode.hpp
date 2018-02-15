@@ -47,13 +47,18 @@
 #ifndef __GPDSPSQUAREWAVENODE_HPP
 #define __GPDSPSQUAREWAVENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPSquareWaveNode クラス
+ */
+
 #include "GPDSPWaveNode.hpp"
 
 namespace ir {
 
 //! 矩形波ノードを表す具象クラス
 /*!
-    GPDSPSquareWaveNode クラスは, 入力された周波数と位相に従って矩形波を生成する矩形波ノードを表す具象クラスです.
+    GPDSPSquareWaveNode クラスは, 入力された周波数と位相に従って矩形波を合成する矩形波ノードを表す具象クラスです.
  
     あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.
  

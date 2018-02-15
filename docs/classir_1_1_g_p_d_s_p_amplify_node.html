@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ir::GPDSPAmplifyNode class | IridiumFrameworks / GPDSP 0.9.1</title>
+  <title>ir::GPDSPAmplifyNode class | IridiumFrameworks / GPDSP 0.9.2</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark.compiled.css" />
   <link rel="stylesheet" href="m-dark.doxygen.compiled.css" />
@@ -13,7 +13,7 @@
 <header><nav id="navigation">
   <div class="m-container">
     <div class="m-row">
-      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">IridiumFrameworks / GPDSP 0.9.1 <span class="m-thin">A real time / non-real time General Purpose DSP library, written in C++.</span></a>
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">IridiumFrameworks / GPDSP <span class="m-thin">0.9.2</span></a>
       <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
         <a href="#search" class="m-dox-search-icon" title="Search" onclick="return showSearch()"><svg viewBox="0 0 16 16">
           <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
@@ -24,12 +24,28 @@
       <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
         <div class="m-row">
           <ol class="m-col-t-6 m-col-m-none">
-            <li><a href="pages.html">Pages</a></li>
-            <li><a href="namespaces.html">Namespaces</a></li>
+            <li><a href="index.html">Overview</a></li>
+            <li>
+              <a href="pages.html">Pages</a>
+              <ol>
+                <li><a href="page_gpdsp.html">ノード構成の保存と復元</a></li>
+                <li><a href="page_generic.html">汎用ノード</a></li>
+                <li><a href="page_error.html">エラー処理</a></li>
+                <li><a href="page_copyright.html">ライセンスと著作権</a></li>
+              </ol>
+            </li>
           </ol>
           <ol class="m-col-t-6 m-col-m-none" start="3">
             <li><a href="annotated.html">Classes</a></li>
-            <li><a href="files.html">Files</a></li>
+            <li>
+              <a href="files.html">Files</a>
+              <ol>
+                <li><a href="dir_4270bfced15e0e73154b13468c7c9ad9.html">core</a></li>
+                <li><a href="dir_692f640cc74363071c5c0e14282656e9.html">algorithm</a></li>
+                <li><a href="dir_10f258cf4c217ac9c098d7e4f7634949.html">synthesis</a></li>
+                <li><a href="dir_6646d5d5edc224bb18b97caffb429c3d.html">generic</a></li>
+              </ol>
+            </li>
             <li class="m-show-m"><a href="#search" class="m-dox-search-icon" title="Search" onclick="return showSearch()"><svg viewBox="0 0 16 16">
               <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
             </svg></a></li>
@@ -474,9 +490,13 @@
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>IridiumFrameworks / GPDSP 0.9.1 A real time / non-real time General Purpose DSP library, written in C++.</p>
-        <p>Copyright (C) 2017 - 2018 <a href="http://github.com/toolbits">HORIGUCHI Junshi</a>. All rights reserved.</p>
-        <p>Created by <a href="http://doxygen.org/">Doxygen</a> 1.8.14 and <a href="http://mcss.mosra.cz/">m.css</a>.</p>
+        <p>
+          IridiumFrameworks / GPDSP 0.9.2<br />
+ A real time / non-real time General Purpose DSP library, written in C++.        </p>
+        <p>
+          Copyright (C) 2017 - 2018 <a href="http://github.com/toolbits">HORIGUCHI Junshi</a>. All rights reserved.<br />
+          Created by <a href="http://doxygen.org/">Doxygen</a> 1.8.14 and <a href="http://mcss.mosra.cz/">m.css</a>.
+        </p>
       </div>
     </div>
   </div>

@@ -47,6 +47,19 @@
 #ifndef __GPDSP_HPP
 #define __GPDSP_HPP
 
+/*!
+    @file
+    @brief ライブラリのすべての機能を提供するヘッダファイル
+    @dir core
+    @brief 基本設計を提供するインターフェースクラスや抽象クラスを含むディレクトリ
+    @dir algorithm
+    @brief 基本的な演算や入出力などの機能を提供する具象クラスを含むディレクトリ
+    @dir synthesis
+    @brief 波形合成の機能を提供する具象クラスを含むディレクトリ
+    @dir generic
+    @brief 汎用ノードの機能を提供する具象クラスを含むディレクトリ
+ */
+
 #include "core/GPDSPType.hpp"
 #include "core/GPDSPNodeRenderer.hpp"
 #include "core/GPDSPSerializable.hpp"
@@ -81,6 +94,8 @@ namespace ir {
 /*!
     @mainpage GPDSP ライブラリ概要
  
+    @tableofcontents
+ 
     @section sec_overview GPDSP とは
     GPDSP ライブラリは, デジタル信号処理を簡単に行うためのライブラリです.
     増幅や遅延や加算などを表す任意のノードをプログラム上で接続することにより,
@@ -106,7 +121,9 @@ namespace ir {
     <b>GPDSP ライブラリを利用したプログラム例</b>
  
     @code{.cpp}
-    ir::GPDSPNodeRenderer dsp;
+    using namespace ir;
+ 
+    GPDSPNodeRenderer dsp;
     float* in;
     float const* out;
     int i;
@@ -173,28 +190,40 @@ namespace ir {
     | GPDSPTriangleWaveNode | 三角波ノード |
     | GPDSPSawtoothWaveNode | 鋸波ノード |
     | GPDSPSquareWaveNode | 矩形波ノード |
-    | GPDSPGenericNode | 任意ノード |
+    | GPDSPGenericNode | 汎用ノード |
  
-    @section sec_generic 任意ノードと .gpdsp ファイル
+    @section sec_generic 汎用ノードと .gpdsp ファイル
     執筆中
  
     @section sec_feature ライブラリの特徴
     執筆中
  
+ 
+ 
     @page page_gpdsp ノード構成の保存と復元
+ 
+    @tableofcontents
  
     @section sec_gpdsp_gpdsp .gpdsp ファイルとは
     執筆中
  
-    @page page_generic 任意ノード
  
-    @section sec_generic_overview 任意ノードとは
+ 
+    @page page_generic 汎用ノード
+ 
+    @tableofcontents
+ 
+    @section sec_generic_overview 汎用ノードとは
     執筆中
  
     @section sec_generic_gpdsp .gpdsp ファイルの記述
     執筆中
  
+ 
+ 
     @page page_error エラー処理
+ 
+    @tableofcontents
  
     @section sec_error_overview エラー処理の方針
     GPDSP ライブラリは, エラー値を関数の戻り値として返却し, 例外をもちいたエラー処理を行いません.
@@ -210,8 +239,10 @@ namespace ir {
     <b>std::cout 利用の場合</b>
  
     @code{.cpp}
-    ir::GPDSPNodeRenderer dsp;
-    ir::GPDSPError error;
+    using namespace ir;
+ 
+    GPDSPNodeRenderer dsp;
+    GPDSPError error;
  
     error = dsp.load("example.gpdsp");
     std::cout << GPDSPNodeRenderer::stringize(error) << std::endl;
@@ -220,8 +251,10 @@ namespace ir {
     <b>printf() 関数利用の場合</b>
  
     @code{.cpp}
-    ir::GPDSPNodeRenderer dsp;
-    ir::GPDSPError error;
+    using namespace ir;
+ 
+    GPDSPNodeRenderer dsp;
+    GPDSPError error;
  
     error = dsp.load("example.gpdsp");
     printf("%s\n", GPDSPNodeRenderer::stringize(error).c_str());
@@ -236,7 +269,11 @@ namespace ir {
     GPDSP ライブラリでは, ディレイ・フリー・ループを自動的に検出し,
     GPDSPNodeRenderer::render() 関数が #GPDSPERROR_LOOP を返却します.
  
+ 
+ 
     @page page_copyright ライセンスと著作権
+ 
+    @tableofcontents
  
     @section sec_copyright_license ライセンス
     Original Copyright (C) 2017 - 2018 HORIGUCHI Junshi. http://iridium.jp/ zap00365@nifty.com

@@ -47,6 +47,11 @@
 #ifndef __GPDSPBUFFERNODE_HPP
 #define __GPDSPBUFFERNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPBufferNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 #include "../core/GPDSPRefreshableNode.hpp"

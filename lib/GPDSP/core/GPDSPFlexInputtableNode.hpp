@@ -47,6 +47,11 @@
 #ifndef __GPDSPFLEXINPUTTABLENODE_HPP
 #define __GPDSPFLEXINPUTTABLENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPFlexInputtableNode クラス
+ */
+
 #include "GPDSPInputtableNode.hpp"
 
 namespace ir {

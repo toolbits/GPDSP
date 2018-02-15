@@ -47,6 +47,15 @@
 #ifndef __GPDSPCONFIG_HPP
 #define __GPDSPCONFIG_HPP
 
+/*!
+    @file
+    @brief ライブラリの設定を記述するヘッダファイル
+ */
+
+namespace ir {
+
 //#define __GPDSP64
+
+}// end of namespace
 
 #endif

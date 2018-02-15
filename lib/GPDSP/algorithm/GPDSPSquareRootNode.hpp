@@ -47,6 +47,11 @@
 #ifndef __GPDSPSQUAREROOTNODE_HPP
 #define __GPDSPSQUAREROOTNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPSquareRootNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 

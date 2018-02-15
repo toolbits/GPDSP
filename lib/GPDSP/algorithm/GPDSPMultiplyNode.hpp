@@ -47,6 +47,11 @@
 #ifndef __GPDSPMULTIPLYNODE_HPP
 #define __GPDSPMULTIPLYNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPMultiplyNode クラス
+ */
+
 #include "../core/GPDSPFlexInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 

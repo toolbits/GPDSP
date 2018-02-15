@@ -47,6 +47,11 @@
 #ifndef __GPDSPNODERENDERER_HPP
 #define __GPDSPNODERENDERER_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPNodeRenderer クラス
+ */
+
 #include <unordered_map>
 #include "tinyxml2/tinyxml2.h"
 #include "../synthesis/GPDSPSinWaveNode.hpp"

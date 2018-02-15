@@ -47,6 +47,11 @@
 #ifndef __GPDSPNODE_HPP
 #define __GPDSPNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPNode クラス
+ */
+
 #include "GPDSPType.hpp"
 
 namespace ir {

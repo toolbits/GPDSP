@@ -47,6 +47,11 @@
 #ifndef __GPDSPREWINDABLENODE_HPP
 #define __GPDSPREWINDABLENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPRewindableNode クラス
+ */
+
 namespace ir {
 
 //! 巻き戻し可能なノードを表すインターフェースクラス

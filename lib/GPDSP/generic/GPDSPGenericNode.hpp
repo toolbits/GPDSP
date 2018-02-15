@@ -47,6 +47,11 @@
 #ifndef __GPDSPGENERICNODE_HPP
 #define __GPDSPGENERICNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPGenericNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 #include "../core/GPDSPRewindableNode.hpp"
@@ -58,14 +63,14 @@ namespace ir {
 class GPDSPGenericInputNode;
 class GPDSPGenericOutputNode;
 
-//! 任意ノードを表す具象クラス
+//! 汎用ノードを表す具象クラス
 /*!
     GPDSPGenericNode クラスは, .gpdsp 拡張子を持つ外部ファイルから XML 形式で記述されたノードの構成を読み込み,
-    任意の特性を持つフィルタとして振る舞う任意ノードを表す具象クラスです.
+    任意の特性を持つフィルタとして振る舞う汎用ノードを表す具象クラスです.
  
     GPDSPGenericInputNode クラス, GPDSPGenericOutputNode クラスとともに使用します.
  
-    入力ターミナルと出力ターミナルの個数と名前は, 読み込む任意ノードの構成に依存します.
+    入力ターミナルと出力ターミナルの個数と名前は, 読み込むノードの構成に依存します.
  
     <b>.gpdsp ファイルでの記述例</b>
     @code{.xml}

@@ -47,13 +47,18 @@
 #ifndef __GPDSPTRIANGLEWAVENODE_HPP
 #define __GPDSPTRIANGLEWAVENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPTriangleWaveNode クラス
+ */
+
 #include "GPDSPWaveNode.hpp"
 
 namespace ir {
 
 //! 三角波ノードを表す具象クラス
 /*!
-    GPDSPTriangleWaveNode クラスは, 入力された周波数と位相に従って三角波を生成する三角波ノードを表す具象クラスです.
+    GPDSPTriangleWaveNode クラスは, 入力された周波数と位相に従って三角波を合成する三角波ノードを表す具象クラスです.
  
     あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.
  

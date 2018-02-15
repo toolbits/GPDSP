@@ -47,6 +47,11 @@
 #ifndef __GPDSPGATENODE_HPP
 #define __GPDSPGATENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPGateNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 #include <math.h>

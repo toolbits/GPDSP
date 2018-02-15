@@ -3,7 +3,14 @@ GENERATE_HTML           = NO
 GENERATE_XML            = YES
 XML_PROGRAMLISTING      = NO
 
-HTML_EXTRA_STYLESHEET = \
+HTML_EXTRA_STYLESHEET	= \
     https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600 \
     ../css/m-dark.compiled.css \
     ../css/m-dark.doxygen.compiled.css
+
+M_LINKS_NAVBAR1		= \
+    indexpage \
+    "pages page_gpdsp page_generic page_error page_copyright"
+M_LINKS_NAVBAR2		= \
+    annotated \
+    "files dir_4270bfced15e0e73154b13468c7c9ad9 dir_692f640cc74363071c5c0e14282656e9 dir_10f258cf4c217ac9c098d7e4f7634949 dir_6646d5d5edc224bb18b97caffb429c3d"

@@ -47,6 +47,11 @@
 #ifndef __GPDSPSUMNODE_HPP
 #define __GPDSPSUMNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPSumNode クラス
+ */
+
 #include "../core/GPDSPFlexInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 

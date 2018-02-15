@@ -47,6 +47,11 @@
 #ifndef __GPDSPGENERICINPUTNODE_HPP
 #define __GPDSPGENERICINPUTNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPGenericInputNode クラス
+ */
+
 #include "../core/GPDSPOutputtableNode.hpp"
 
 namespace ir {

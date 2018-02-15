@@ -47,6 +47,11 @@
 #ifndef __GPDSPSIGNNODE_HPP
 #define __GPDSPSIGNNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPSignNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 

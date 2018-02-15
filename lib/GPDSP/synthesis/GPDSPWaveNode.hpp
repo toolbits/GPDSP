@@ -47,6 +47,11 @@
 #ifndef __GPDSPWAVENODE_HPP
 #define __GPDSPWAVENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPWaveNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 #include "../core/GPDSPRewindableNode.hpp"
@@ -56,11 +61,11 @@ namespace ir {
 
 //! 波形ノードを表す抽象クラス
 /*!
-    GPDSPWaveNode クラスは, さまざまな波形を生成して出力する波形ノードを表す抽象クラスです.
+    GPDSPWaveNode クラスは, さまざまな波形を合成して出力する波形ノードを表す抽象クラスです.
  
     あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.
  
-    波形を生成して出力する各種ノードを表す具象クラスは, GPDSPWaveNode クラスを継承し, getName(), getWave(), fillWave() 関数を実装します.
+    波形を合成して出力する各種ノードを表す具象クラスは, GPDSPWaveNode クラスを継承し, getName(), getWave(), fillWave() 関数を実装します.
  */
 class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, public virtual GPDSPRewindableNode {
     private:

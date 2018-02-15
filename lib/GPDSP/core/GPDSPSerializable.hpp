@@ -47,6 +47,11 @@
 #ifndef __GPDSPSERIALIZABLE_HPP
 #define __GPDSPSERIALIZABLE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPSerializable クラス
+ */
+
 #include <string>
 #include "tinyxml2/tinyxml2.h"
 #include "GPDSPType.hpp"

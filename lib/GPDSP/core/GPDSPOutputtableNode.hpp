@@ -47,6 +47,11 @@
 #ifndef __GPDSPOUTPUTTABLENODE_HPP
 #define __GPDSPOUTPUTTABLENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPOutputtableNode クラス
+ */
+
 #include "GPDSPNode.hpp"
 #include <string>
 #include <vector>

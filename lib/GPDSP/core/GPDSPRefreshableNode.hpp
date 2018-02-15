@@ -47,6 +47,11 @@
 #ifndef __GPDSPREFRESHABLENODE_HPP
 #define __GPDSPREFRESHABLENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPRefreshableNode クラス
+ */
+
 namespace ir {
 
 //! リフレッシュ可能なノードを表すインターフェースクラス

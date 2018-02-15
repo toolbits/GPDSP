@@ -47,6 +47,11 @@
 #ifndef __GPDSPTYPE_HPP
 #define __GPDSPTYPE_HPP
 
+/*!
+    @file
+    @brief マクロ, 型名, 列挙型などを定義するヘッダファイル
+ */
+
 #include "../GPDSPConfig.hpp"
 
 //! IridiumFrameworks を表す名前空間

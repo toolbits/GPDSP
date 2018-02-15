@@ -47,6 +47,11 @@
 #ifndef __GPDSPINPUTTABLENODE_HPP
 #define __GPDSPINPUTTABLENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPInputtableNode クラス
+ */
+
 #include "GPDSPNode.hpp"
 #include "GPDSPOutputtableNode.hpp"
 

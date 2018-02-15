@@ -47,6 +47,11 @@
 #ifndef __GPDSPDELAYNODE_HPP
 #define __GPDSPDELAYNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPDelayNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 #include "../core/GPDSPRefreshableNode.hpp"

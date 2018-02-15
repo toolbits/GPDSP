@@ -47,13 +47,18 @@
 #ifndef __GPDSPSAWTOOTHWAVENODE_HPP
 #define __GPDSPSAWTOOTHWAVENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPSawtoothWaveNode クラス
+ */
+
 #include "GPDSPWaveNode.hpp"
 
 namespace ir {
 
 //! 鋸波ノードを表す具象クラス
 /*!
-    GPDSPSawtoothWaveNode クラスは, 入力された周波数と位相に従って鋸波を生成する鋸波ノードを表す具象クラスです.
+    GPDSPSawtoothWaveNode クラスは, 入力された周波数と位相に従って鋸波を合成する鋸波ノードを表す具象クラスです.
  
     あらかじめ指定された解像度で波形バッファを計算しておき演算時に参照する方法と, 演算時に波形を逐次計算する方法を選択することができます.
  

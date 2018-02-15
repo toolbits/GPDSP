@@ -47,6 +47,11 @@
 #ifndef __GPDSPFLEXOUTPUTTABLENODE_HPP
 #define __GPDSPFLEXOUTPUTTABLENODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPFlexOutputtableNode クラス
+ */
+
 #include "GPDSPOutputtableNode.hpp"
 
 namespace ir {

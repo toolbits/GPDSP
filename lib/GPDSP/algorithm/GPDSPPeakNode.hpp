@@ -47,6 +47,11 @@
 #ifndef __GPDSPPEAKNODE_HPP
 #define __GPDSPPEAKNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPPeakNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 #include "../core/GPDSPRefreshableNode.hpp"

@@ -47,6 +47,11 @@
 #ifndef __GPDSPAMPLIFYNODE_HPP
 #define __GPDSPAMPLIFYNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPAmplifyNode クラス
+ */
+
 #include "../core/GPDSPInputtableNode.hpp"
 #include "../core/GPDSPOutputtableNode.hpp"
 

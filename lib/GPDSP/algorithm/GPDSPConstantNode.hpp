@@ -47,6 +47,11 @@
 #ifndef __GPDSPCONSTANTNODE_HPP
 #define __GPDSPCONSTANTNODE_HPP
 
+/*!
+    @file
+    @brief ir::GPDSPConstantNode クラス
+ */
+
 #include "../core/GPDSPOutputtableNode.hpp"
 
 namespace ir {
