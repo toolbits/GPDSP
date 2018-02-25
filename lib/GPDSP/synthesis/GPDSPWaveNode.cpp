@@ -49,8 +49,9 @@
 
 namespace ir {
 
-GPDSPWaveNode::GPDSPWaveNode(int rate) noexcept : _rate(rate), _resolution(defaultResolution()), _wave(NULL), _position(GPDSPFV(0.0))
+GPDSPWaveNode::GPDSPWaveNode(int rate) noexcept : _rate(rate), _resolution(defaultResolution()), _wave(NULL)
 {
+    _position = GPDSPFV(0.0);
 }
 
 GPDSPWaveNode::~GPDSPWaveNode(void) noexcept

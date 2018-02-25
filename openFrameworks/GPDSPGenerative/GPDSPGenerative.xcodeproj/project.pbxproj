@@ -42,9 +42,9 @@
 		C3CF7E361FBA7B5200ACB607 /* GPDSPBufferNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E141FBA791400ACB607 /* GPDSPBufferNode.cpp */; };
 		C3CF7E371FBA7B5400ACB607 /* GPDSPSumNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E221FBA791400ACB607 /* GPDSPSumNode.cpp */; };
 		C3CF7E381FBA7B5600ACB607 /* GPDSPMultiplyNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7E1E1FBA791400ACB607 /* GPDSPMultiplyNode.cpp */; };
-		C3CF7E391FBA7B6700ACB607 /* GPDSPGenericNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DF61FBA791400ACB607 /* GPDSPGenericNode.cpp */; };
-		C3CF7E3A1FBA7B6900ACB607 /* GPDSPGenericInputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DF41FBA791400ACB607 /* GPDSPGenericInputNode.cpp */; };
-		C3CF7E3B1FBA7B6C00ACB607 /* GPDSPGenericOutputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DF81FBA791400ACB607 /* GPDSPGenericOutputNode.cpp */; };
+		C3CF7E391FBA7B6700ACB607 /* GPDSPGenerativeNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DF61FBA791400ACB607 /* GPDSPGenerativeNode.cpp */; };
+		C3CF7E3A1FBA7B6900ACB607 /* GPDSPGenerativeInputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DF41FBA791400ACB607 /* GPDSPGenerativeInputNode.cpp */; };
+		C3CF7E3B1FBA7B6C00ACB607 /* GPDSPGenerativeOutputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DF81FBA791400ACB607 /* GPDSPGenerativeOutputNode.cpp */; };
 		C9466C434D1CF8AB968D298D /* ofxDatGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26490D7CC31EF7D6ED5F925A /* ofxDatGui.cpp */; };
 		D3C1C48E59CAA2D68C0DD477 /* ofxDatGuiComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A3E3B8F332A1A3C7EDF4998 /* ofxDatGuiComponent.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -150,12 +150,12 @@
 		C3CE34E81FB9FA1000A3CDCA /* picker-rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "picker-rainbow.png"; path = "bin/data/ofxbraitsch/ofxdatgui/picker-rainbow.png"; sourceTree = "<group>"; };
 		C3CE34E91FB9FA1000A3CDCA /* icon-radio-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-radio-on.png"; path = "bin/data/ofxbraitsch/ofxdatgui/icon-radio-on.png"; sourceTree = "<group>"; };
 		C3CE34EA1FB9FA1000A3CDCA /* icon-radio-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-radio-off.png"; path = "bin/data/ofxbraitsch/ofxdatgui/icon-radio-off.png"; sourceTree = "<group>"; };
-		C3CF7DF41FBA791400ACB607 /* GPDSPGenericInputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericInputNode.cpp; sourceTree = "<group>"; };
-		C3CF7DF51FBA791400ACB607 /* GPDSPGenericInputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericInputNode.hpp; sourceTree = "<group>"; };
-		C3CF7DF61FBA791400ACB607 /* GPDSPGenericNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericNode.cpp; sourceTree = "<group>"; };
-		C3CF7DF71FBA791400ACB607 /* GPDSPGenericNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericNode.hpp; sourceTree = "<group>"; };
-		C3CF7DF81FBA791400ACB607 /* GPDSPGenericOutputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericOutputNode.cpp; sourceTree = "<group>"; };
-		C3CF7DF91FBA791400ACB607 /* GPDSPGenericOutputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericOutputNode.hpp; sourceTree = "<group>"; };
+		C3CF7DF41FBA791400ACB607 /* GPDSPGenerativeInputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenerativeInputNode.cpp; sourceTree = "<group>"; };
+		C3CF7DF51FBA791400ACB607 /* GPDSPGenerativeInputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenerativeInputNode.hpp; sourceTree = "<group>"; };
+		C3CF7DF61FBA791400ACB607 /* GPDSPGenerativeNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenerativeNode.cpp; sourceTree = "<group>"; };
+		C3CF7DF71FBA791400ACB607 /* GPDSPGenerativeNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenerativeNode.hpp; sourceTree = "<group>"; };
+		C3CF7DF81FBA791400ACB607 /* GPDSPGenerativeOutputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenerativeOutputNode.cpp; sourceTree = "<group>"; };
+		C3CF7DF91FBA791400ACB607 /* GPDSPGenerativeOutputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenerativeOutputNode.hpp; sourceTree = "<group>"; };
 		C3CF7DFB1FBA791400ACB607 /* GPDSPFlexInputtableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPFlexInputtableNode.cpp; sourceTree = "<group>"; };
 		C3CF7DFC1FBA791400ACB607 /* GPDSPFlexInputtableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPFlexInputtableNode.hpp; sourceTree = "<group>"; };
 		C3CF7DFD1FBA791400ACB607 /* GPDSPFlexOutputtableNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPFlexOutputtableNode.cpp; sourceTree = "<group>"; };
@@ -324,23 +324,23 @@
 				C3CF7DFA1FBA791400ACB607 /* core */,
 				C3CF7E0F1FBA791400ACB607 /* algorithm */,
 				C33A519A1FC2E8A300E74B00 /* synthesis */,
-				C3CF7DF31FBA791400ACB607 /* generic */,
+				C3CF7DF31FBA791400ACB607 /* generative */,
 			);
 			name = GPDSP;
 			path = ../../../lib/GPDSP;
 			sourceTree = "<group>";
 		};
-		C3CF7DF31FBA791400ACB607 /* generic */ = {
+		C3CF7DF31FBA791400ACB607 /* generative */ = {
 			isa = PBXGroup;
 			children = (
-				C3CF7DF71FBA791400ACB607 /* GPDSPGenericNode.hpp */,
-				C3CF7DF61FBA791400ACB607 /* GPDSPGenericNode.cpp */,
-				C3CF7DF51FBA791400ACB607 /* GPDSPGenericInputNode.hpp */,
-				C3CF7DF41FBA791400ACB607 /* GPDSPGenericInputNode.cpp */,
-				C3CF7DF91FBA791400ACB607 /* GPDSPGenericOutputNode.hpp */,
-				C3CF7DF81FBA791400ACB607 /* GPDSPGenericOutputNode.cpp */,
+				C3CF7DF71FBA791400ACB607 /* GPDSPGenerativeNode.hpp */,
+				C3CF7DF61FBA791400ACB607 /* GPDSPGenerativeNode.cpp */,
+				C3CF7DF51FBA791400ACB607 /* GPDSPGenerativeInputNode.hpp */,
+				C3CF7DF41FBA791400ACB607 /* GPDSPGenerativeInputNode.cpp */,
+				C3CF7DF91FBA791400ACB607 /* GPDSPGenerativeOutputNode.hpp */,
+				C3CF7DF81FBA791400ACB607 /* GPDSPGenerativeOutputNode.cpp */,
 			);
-			path = generic;
+			path = generative;
 			sourceTree = "<group>";
 		};
 		C3CF7DFA1FBA791400ACB607 /* core */ = {
@@ -603,9 +603,9 @@
 				C33A51BD1FC3ECFC00E74B00 /* GPDSPSawtoothWaveNode.cpp in Sources */,
 				C36EAA8F1FCD2F70006856F8 /* GPDSPSerializable.cpp in Sources */,
 				C33A51C21FC3ED0500E74B00 /* GPDSPSquareWaveNode.cpp in Sources */,
-				C3CF7E391FBA7B6700ACB607 /* GPDSPGenericNode.cpp in Sources */,
-				C3CF7E3A1FBA7B6900ACB607 /* GPDSPGenericInputNode.cpp in Sources */,
-				C3CF7E3B1FBA7B6C00ACB607 /* GPDSPGenericOutputNode.cpp in Sources */,
+				C3CF7E391FBA7B6700ACB607 /* GPDSPGenerativeNode.cpp in Sources */,
+				C3CF7E3A1FBA7B6900ACB607 /* GPDSPGenerativeInputNode.cpp in Sources */,
+				C3CF7E3B1FBA7B6C00ACB607 /* GPDSPGenerativeOutputNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

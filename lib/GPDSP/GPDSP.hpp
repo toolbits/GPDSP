@@ -56,8 +56,8 @@
     @brief 基本的な演算や入出力などの機能を提供する具象クラスを含むディレクトリ
     @dir synthesis
     @brief 波形合成の機能を提供する具象クラスを含むディレクトリ
-    @dir generic
-    @brief 汎用ノードの機能を提供する具象クラスを含むディレクトリ
+    @dir generative
+    @brief 生成的ノードの機能を提供する具象クラスを含むディレクトリ
  */
 
 #include "core/GPDSPType.hpp"
@@ -87,7 +87,7 @@
 #include "synthesis/GPDSPTriangleWaveNode.hpp"
 #include "synthesis/GPDSPSawtoothWaveNode.hpp"
 #include "synthesis/GPDSPSquareWaveNode.hpp"
-#include "generic/GPDSPGenericNode.hpp"
+#include "generative/GPDSPGenerativeNode.hpp"
 
 namespace ir {
 
@@ -97,19 +97,72 @@ namespace ir {
     @tableofcontents
  
     @section sec_overview GPDSP とは
-    GPDSP ライブラリは, デジタル信号処理を簡単に行うためのライブラリです.
-    増幅や遅延や加算などを表す任意のノードをプログラム上で接続することにより,
-    デジタル信号処理のアルゴリズムを簡単に構築して実行することができます.
+    GPDSP ライブラリは, 音響演算やセンサデータの信号処理などのデジタル信号処理を手軽に行うための C++ 言語で記述されたライブラリです.
+    [増幅](@ref GPDSPAmplifyNode)や[遅延](@ref GPDSPDelayNode)や[加算](@ref GPDSPSumNode)などを表す任意のノードをソースコード上で接続することにより,
+    デジタル信号処理のアルゴリズムを迅速に構築して実行することができます.
  
     開発者はデジタル信号処理のデータの計算順序やアルゴリズムの詳細を記述する必要はなく,
     GPDSP ライブラリがデータフローを適切に最適化します. 最適化はデジタル信号処理の実行中にも動的に行われるため,
     ノードの構成をダイナミックに変更しても最速となる計算順序を自動的に探索します.
  
-    また, .gpdsp 形式の外部ファイルから XML 形式で記述された任意のノード構成を読み込み,
-    １つのノードとして利用することができます. この機能を利用することにより, あらかじめ用意されたノードの動作以外にも,
+    また, [.gpdsp 形式](@ref sec_serialize_gpdsp)の外部ファイルから XML 形式で記述された任意のノード構成を読み込み,
+    [１つのノード](@ref GPDSPGenerativeNode)として利用することができます.
+    この機能を利用することにより, [あらかじめ用意されたノード](@ref sec_kind)の動作以外にも,
     任意の特性を持つノードを作成して実行することができるようになります.
  
+    @section sec_environment 推奨環境と開発環境
+ 
+    GPDSP ライブラリは POSIX 準拠の C++ 言語で記述され, ソースコードで提供されるため,
+    RTTI (Run-Time Type Information) を有効にした C++ 言語が利用できる環境であれば,
+    ワンチップマイコンなどの少資源な環境でもコンパイルして動作させることができます.
+ 
+    一方で, 多数の複雑なノード構成の演算にはマシンパワーが必要であるため,
+    リアルタイムにデジタル信号処理を行う場合は十分なマシンパワーを持った環境が推奨されます.
+ 
+    <b>推奨環境</b>
+    - C++ 11 (RTTI 有効)
+    - ヒープ割り当て利用可能
+ 
+    <b>開発環境</b>
+    - macOS High Sierra (10.13.3)
+    - Xcode 9.2 (9C40b)
+    - Apple LLVM version 9.0.0 (clang-900.0.39.2)
+    - MacBook Pro (Retina, 13-inch, Late 2013)
+    - 2.8 GHz Intel Core i7
+    - 16 GB 1600 MHz DDR3
+    - Intel Iris 1536 MB
+ 
+    @note
+    RTTI を利用しない設計を行うことも十分に可能ですが,
+    インターフェースクラスや抽象クラスに不必要な仮想関数が多くなり関数の継承関係の見通しが煩雑になります.
+    このため, 現在のバージョンの GPDSP ライブラリでは RTTI を積極的に採用しています.
+ 
+    @section sec_download ダウンロードとインストール
+ 
+    GPDSP ライブラリの最新版は, 以下のサイトからダウンロードすることができます.
+ 
+    http://github.com/toolbits/GPDSP
+ 
+    クローン, もしくは .zip ファイルでダウンロードしたファイルを任意の場所に解凍して配置します.
+    実際の開発で利用するライブラリは [lib/GPDSP ディレクトリ](files.html)に含まれており, ソースコードレベルでリンクして利用します.
+ 
+    <b>ディレクトリの構成</b>
+    - docs -- [doxygen](http://www.doxygen.org) により生成されたドキュメント
+    - lib -- GPDSP ライブラリ本体
+    - mcss-doxygen -- [m.css フレームワーク](http://mcss.mosra.cz)用のドキュメントテンプレート
+    - openFrameworks -- [openFrameworks](http://openframeworks.cc) を利用したサンプルコード
+    - release -- コンパイル済みのサンプルコード
+ 
     @section sec_howtouse 利用方法
+    ダウンロードしたディレクトリに含まれる [lib/GPDSP ディレクトリ](files.html)以下のすべてのヘッダファイルとソースファイルを
+    GPDSP ライブラリを利用したいプロジェクトに追加し, ソースコードから以下のように読み込みます.
+ 
+    <b>ヘッダファイルの読み込み</b>
+ 
+    @code{.cpp}
+    #include "GPDSP.hpp"
+    @endcode
+ 
     GPDSP ライブラリでは, 基本的には GPDSPNodeRenderer クラスを利用して,
     各種ノードを生成したりノードを接続してデータフローを設計します.
  
@@ -121,6 +174,8 @@ namespace ir {
     <b>GPDSP ライブラリを利用したプログラム例</b>
  
     @code{.cpp}
+    #include "GPDSP.hpp"
+ 
     using namespace ir;
  
     GPDSPNodeRenderer dsp;
@@ -166,11 +221,11 @@ namespace ir {
     }
     @endcode
  
-    @section sec_lineup ノードの種類
-    GPDSP ライブラリには, 以下の表に示すような具象ノードがあらかじめ用意されています.
+    @section sec_kind ノードの種類
+    GPDSP ライブラリには, 以下の表に示すような機能を持った具象ノードがあらかじめ用意されています.
  
-    開発者は, GPDSPGenericNode クラスを利用するか,
-    抽象ノードを継承した新しいノードを実装することにより, 独自の機能を持ったノードを追加することもできます.
+    開発者は GPDSPGenerativeNode クラスを利用するか, 抽象ノードを継承した新しいノードを実装することにより,
+    独自の機能を持った[カスタムノード](@ref sec_extension_overview)を追加することもできます.
  
     | クラス名 | 解説 |
     | --------- | --------- |
@@ -190,34 +245,538 @@ namespace ir {
     | GPDSPTriangleWaveNode | 三角波ノード |
     | GPDSPSawtoothWaveNode | 鋸波ノード |
     | GPDSPSquareWaveNode | 矩形波ノード |
-    | GPDSPGenericNode | 汎用ノード |
- 
-    @section sec_generic 汎用ノードと .gpdsp ファイル
-    執筆中
+    | GPDSPGenerativeNode | 生成的ノード |
  
     @section sec_feature ライブラリの特徴
-    執筆中
+    GPDSP ライブラリを利用することで, デジタル信号処理のデータの計算順序やアルゴリズムの詳細を開発者が記述する必要がなくなります.
+    これは GPDSPNodeRenderer::render() 関数が, 内部でデータフローを追跡し,
+    ノード構成に最適な計算順序を自動的に探索することができるからです.
+    一度探索された最適な計算順序は記憶され, 次の演算では負荷のかかる探索を行わずに高速な演算を行います.
+ 
+    一方で GPDSP ライブラリは, 一度接続されたノード構成をデジタル信号処理の途中で動的に再接続することを可能にします.
+    GPDSPNodeRenderer::render() 関数は, 演算のたびに, ノード構成に変更があるかどうかをなるべく負荷のかからない方法で検証します.
+    ノード構成に変更がある場合, 必要最低限の部分について計算順序を再度探索して, 新しい順序を記憶し直します.
+ 
+    また, [ディレイ・フリー・ループ](@ref sec_error_loop)などの離散的に演算ができないノード構成や,
+    入力を待ち続け演算が終了できない条件なども自動的に判別し, 安全にエラーを返却します.
+ 
+    これらの動作は, GPDSPGenerativeNode クラスによりノード構成が再帰的な入れ子構造を持つ場合にも有効であり,
+    ダイナミックに特性の変わる非常に柔軟なデジタル信号処理を実現することを可能にします.
+ 
+    @section sec_detail その他の詳細
+    上記では記述されていない詳細な情報については, [こちら](pages.html)も参照してください.
  
  
  
-    @page page_gpdsp ノード構成の保存と復元
+    @page page_serialize <執筆中> ノード構成の保存と復元
  
     @tableofcontents
  
-    @section sec_gpdsp_gpdsp .gpdsp ファイルとは
+    @section sec_serialize_overview 保存と復元とは
+    執筆中
+ 
+    @section sec_serialize_gpdsp .gpdsp ファイルとは
     執筆中
  
  
  
-    @page page_generic 汎用ノード
+    @page page_generative <執筆中> 生成的ノードの詳細
  
     @tableofcontents
  
-    @section sec_generic_overview 汎用ノードとは
+    @section sec_generative_overview 生成的ノードとは
     執筆中
  
-    @section sec_generic_gpdsp .gpdsp ファイルの記述
+    @section sec_generative_gpdsp .gpdsp ファイルの記述
     執筆中
+ 
+ 
+ 
+    @page page_extension カスタムノードの実装
+ 
+    @tableofcontents
+ 
+    @section sec_extension_overview カスタムノードとは
+    カスタムノードとは, GPDSP ライブラリに[あらかじめ用意されたノード](@ref sec_kind)以外の,
+    開発者が独自に定義した具象ノードを指します.
+    いくつかの規則に従ってカスタムノードを実装することにより,
+    [あらかじめ用意されたノード](@ref sec_kind)と同じ操作性を得ることができます.
+ 
+    @section sec_extension_class 新しいクラスの実装
+    ここでは, 特定の条件が満たされると入力された音声の波形に対してクリック音を付加して出力するカスタムノードの作成方法を示します.
+ 
+    カスタムノードを作成するには, 新しいクラスを定義し, 必要な仮想関数をオーバーライドします.
+    データの入力を受け付けるときは GPDSPInputtableNode クラスを継承し,
+    データの出力を行うときには GPDSPOutputtableNode クラスを継承します.
+ 
+    GPDSPInputtableNode クラスと GPDSPOutputtableNode クラスは, それぞれ,
+    入力ターミナルの個数と出力ターミナルの個数がノードの生成時に決定される場合に利用します.
+    ノードの生成後に開発者が入力ターミナルの個数と出力ターミナルの個数を自由に変更できるようにする場合は,
+    GPDSPFlexInputtableNode クラスと GPDSPFlexOutputtableNode クラスを利用することもできます.
+    これらのクラスは <em>public 継承</em>して利用します.
+ 
+    次に, カスタムノードが何らかの巻き戻しの機能を持つ場合には GPDSPRewindableNode クラスを継承し,
+    カスタムノードが何らかの再初期化の機能を持つ場合には GPDSPRefreshableNode クラスを継承します.
+    これらのクラスは <em>public 仮想継承</em>して利用します.
+ 
+    継承したクラスに応じて, 新しいクラスで実装しなければいけない仮想関数の種類が決定されるため,
+    必要に応じてそれぞれの仮想関数を適切に実装します.
+ 
+    以下にカスタムノードのプログラム例を示します.
+ 
+    <b>新しいクラスのヘッダファイルの例</b>
+ 
+    @code{.cpp}
+    #include "GPDSP.hpp"
+ 
+    using namespace ir;
+ 
+    class myClickerNode : public GPDSPInputtableNode,
+    public GPDSPOutputtableNode, public virtual GPDSPRefreshableNode {
+        private:
+ 
+                    // 左チャンネルと右チャンネルを同期するかどうか
+                    bool            _interlock;
+ 
+                    // オーバーフローとなる限界値
+                    GPDSPFloat      _overflow;
+ 
+                    // 左チャンネルの積算値
+                    GPDSPFloat      _lload;
+ 
+                    // 右チャンネルの積算値
+                    GPDSPFloat      _rload;
+ 
+        public:
+ 
+            // コンストラクタとデストラクタ
+            explicit                myClickerNode       (void) noexcept;
+            virtual                 ~myClickerNode      (void) noexcept;
+ 
+            // デフォルト値を取得するための関数
+            static  bool            defaultInterlock    (void) noexcept;
+            static  GPDSPFloat      defaultOverflow     (void) noexcept;
+ 
+            // 左チャンネルと右チャンネルの同期に関連する関数
+                    void            setInterlock        (bool interlock) noexcept;
+                    bool            getInterlock        (void) const noexcept;
+ 
+            // オーバーフローとなる限界値に関連する関数
+                    void            setOverflow         (GPDSPFloat overflow) noexcept;
+                    GPDSPFloat      getOverflow         (void) const noexcept;
+ 
+            // 実装しなければいけない仮想関数
+            virtual GPDSPError      fixate              (void) noexcept;
+            virtual void            invalidate          (void) noexcept;
+            virtual GPDSPError      prepare             (void) noexcept;
+            virtual GPDSPError      process             (void) noexcept;
+ 
+            // GPDSPRefreshableNode クラスを継承した場合に実装しなければいけない仮想関数
+            virtual void            refresh             (void) noexcept;
+        private:
+ 
+            // インスタンスのコピーと代入を禁止するための関数宣言
+                                    myClickerNode       (myClickerNode const&);
+                    myClickerNode&  operator=           (myClickerNode const&);
+    };
+    @endcode
+ 
+    @note
+    - fixate(), prepare(), process() 関数は GPDSPInputtableNode クラスや
+      GPDSPOutputtableNode クラスを継承した場合に実装が必要になります.
+    - invalidate() 関数は GPDSPInputtableNode クラスと GPDSPOutputtableNode クラスなど,
+      どちらのクラスも invalidate() 関数を持つクラスを同時に継承する場合に, 明示的な実装が必要になります.
+    - refresh() 関数は GPDSPRefreshableNode クラスを継承した場合に実装が必要になります.
+    - 開発者が操作可能なノードに固有の変数が存在する場合は, セッター, ゲッター,
+      デフォルト値のゲッターの３種類の関数をそれぞれの変数について実装します.
+    - ノードのインスタンスのコピーと代入を禁止するために, コピーコンストラクタと代入演算子を private で宣言します.
+ 
+    <b>新しいクラスのソースファイルの例</b>
+ 
+    @code{.cpp}
+    #include "myClickerNode.hpp"
+ 
+    myClickerNode::myClickerNode(void) noexcept :
+ 
+        // 左チャンネルと右チャンネルの同期をデフォルト値に初期化
+        _interlock(defaultInterlock()),
+ 
+        // オーバーフローとなる限界値をデフォルト値に初期化
+        _overflow(defaultOverflow())
+    {
+        // 左チャンネルと右チャンネルの積算値を初期化
+        _lload = GPDSPFV(0.0);
+        _rload = GPDSPFV(0.0);
+    }
+ 
+    myClickerNode::~myClickerNode(void) noexcept
+    {
+        // 何もしない
+    }
+ 
+    bool myClickerNode::defaultInterlock(void) noexcept
+    {
+        return false;
+    }
+ 
+    GPDSPFloat myClickerNode::defaultOverflow(void) noexcept
+    {
+        return GPDSPFV(500.0);
+    }
+ 
+    void myClickerNode::setInterlock(bool interlock) noexcept
+    {
+        // 左チャンネルと右チャンネルの同期の状態が変更される場合,
+        // invalidate() 関数を呼び出して演算結果を無効化し再演算を要求
+        if (interlock != _interlock) {
+            _interlock = interlock;
+            invalidate();
+        }
+        return;
+    }
+ 
+    bool myClickerNode::getInterlock(void) const noexcept
+    {
+        return _interlock;
+    }
+ 
+    void myClickerNode::setOverflow(GPDSPFloat overflow) noexcept
+    {
+        // オーバーフローとなる限界値の状態が変更される場合,
+        // invalidate() 関数を呼び出して演算結果を無効化し再演算を要求
+        if (overflow != _overflow) {
+            _overflow = overflow;
+            invalidate();
+        }
+        return;
+    }
+ 
+    GPDSPFloat myClickerNode::getOverflow(void) const noexcept
+    {
+        return _overflow;
+    }
+ 
+    GPDSPError myClickerNode::fixate(void) noexcept
+    {
+        GPDSPError error(GPDSPERROR_OK);
+ 
+        // 初めに入力ターミナルと出力ターミナルをすべて破棄
+        clearO();
+        clearI();
+ 
+        // 入力ターミナルを作成
+        if ((error = appendI("Lch-in")) == GPDSPERROR_OK) {
+            if ((error = appendI("Rch-in")) == GPDSPERROR_OK) {
+ 
+                // 出力ターミナルを作成
+                if ((error = appendO("Lch-out")) == GPDSPERROR_OK) {
+                    error = appendO("Rch-out");
+                }
+            }
+        }
+ 
+        // エラーが発生した場合は, 入力ターミナルと出力ターミナルをすべて破棄
+        if (error != GPDSPERROR_OK) {
+            clearO();
+            clearI();
+        }
+        return error;
+    }
+ 
+    void myClickerNode::invalidate(void) noexcept
+    {
+        // GPDSPInputtableNode クラスの invalidate() 関数と GPDSPOutputtableNode クラスの
+        // invalidate() 関数は, 暗黙には区別がつかないので明示的に両方の関数を呼び出す
+        GPDSPInputtableNode::invalidate();
+        GPDSPOutputtableNode::invalidate();
+        return;
+    }
+ 
+    GPDSPError myClickerNode::prepare(void) noexcept
+    {
+        // 内部バッファを持たないため何もしない
+        return GPDSPERROR_OK;
+    }
+ 
+    GPDSPError myClickerNode::process(void) noexcept
+    {
+        GPDSPFloat lch;
+        GPDSPFloat rch;
+        bool lov;
+        bool rov;
+        GPDSPError error(GPDSPERROR_OK);
+ 
+        // 入力ターミナルの値を取得
+        if ((error = getValueI(0, &lch)) == GPDSPERROR_OK) {
+            if ((error = getValueI(1, &rch)) == GPDSPERROR_OK) {
+ 
+                // 左チャンネルと右チャンネルのそれぞれの振幅の絶対値を積算値に加算
+                _lload += fabs(lch);
+                _rload += fabs(rch);
+ 
+                // 積算値がオーバーフローとなる限界値を超えたかどうかを検査
+                lov = (_lload >= _overflow);
+                rov = (_rload >= _overflow);
+ 
+                // 左チャンネルと右チャンネルが同期されるとき,
+                // どちらかのチャンネルが限界値を超えた場合にどちらも限界値を超えたことにする
+                if (_interlock) {
+                    lov |= rov;
+                    rov |= lov;
+                }
+ 
+                // 左チャンネルが限界値を超えた場合
+                if (lov) {
+ 
+                    // 左チャンネルの積算値を再初期化
+                    _lload = GPDSPFV(0.0);
+ 
+                    // 左チャンネルのクリック音を演算
+                    if (lch > GPDSPFV(0.0)) {
+                        lch = +sqrt(+lch * GPDSPFV(1000.0)) / GPDSPFV(10.0);
+                        lch = std::min(lch, GPDSPFV(+1.0));
+                    }
+                    else if (lch < GPDSPFV(0.0)) {
+                        lch = -sqrt(-lch * GPDSPFV(1000.0)) / GPDSPFV(10.0);
+                        lch = std::max(lch, GPDSPFV(-1.0));
+                    }
+                }
+ 
+                // 右チャンネルが限界値を超えた場合
+                if (rov) {
+                    _rload = GPDSPFV(0.0);
+                    if (rch > GPDSPFV(0.0)) {
+                        rch = +sqrt(+rch * GPDSPFV(1000.0)) / GPDSPFV(10.0);
+                        rch = std::min(rch, GPDSPFV(+1.0));
+                    }
+                    else if (rch < GPDSPFV(0.0)) {
+                        rch = -sqrt(-rch * GPDSPFV(1000.0)) / GPDSPFV(10.0);
+                        rch = std::max(rch, GPDSPFV(-1.0));
+                    }
+                }
+ 
+                // 出力ターミナルに値を設定
+                if ((error = setValueO(0, lch)) == GPDSPERROR_OK) {
+                    error = setValueO(1, rch);
+                }
+            }
+        }
+        return error;
+    }
+ 
+    void myClickerNode::refresh(void) noexcept
+    {
+        // 左チャンネルと右チャンネルの積算値を再初期化
+        _lload = GPDSPFV(0.0);
+        _rload = GPDSPFV(0.0);
+        return;
+    }
+    @endcode
+ 
+    @note
+    - 開発者が操作可能なノードに固有の変数が更新され, 入力と出力の関係性が変化する場合,
+      invalidate() 関数を呼び出して再演算を要求します.
+    - fixate() 関数は複数回呼び出される可能性があるため,
+      入力ターミナルと出力ターミナルを新しく作成する前に, それぞれのターミナルをすべて破棄します.
+    - invalidate() 関数の明示的な実装が必要なときは, 親クラスの invalidate() 関数を明示的に呼び出します.
+    - 内部バッファを持たないノードは, prepare() 関数で行うべき処理がないため, 常に #GPDSPERROR_OK を返却します.
+    - デジタル信号処理の具体的な演算は, process() 関数で実装します.
+ 
+    内部バッファを持つノードでは, データの入力を待たずに内部バッファから出力を演算することが可能な場合があります.
+    このような場合は, 内部バッファの値から出力を演算して設定するまでの処理を prepare() 関数で実装し,
+    process() 関数では残りの処理を実装します.
+ 
+    以下に内部バッファを持つノードである GPDSPDelayNode クラスの実装の一部を示します.
+ 
+    <b>内部バッファを持つノードの prepare() 関数と process() 関数の実装例</b>
+ 
+    @code{.cpp}
+    GPDSPError GPDSPDelayNode::prepare(void) noexcept
+    {
+        return setValueO(0, _queue);
+    }
+ 
+    GPDSPError GPDSPDelayNode::process(void) noexcept
+    {
+        GPDSPFloat value;
+        GPDSPError error(GPDSPERROR_OK);
+ 
+        if ((error = getValueI(0, &value)) == GPDSPERROR_OK) {
+            _queue = value;
+        }
+        return error;
+    }
+    @endcode
+ 
+    最後に, 上記のようにして作成した新しいクラスは, 次のようにして生成して利用することができます.
+ 
+    <b>カスタムノードの生成と利用</b>
+ 
+    @code{.cpp}
+    using namespace ir;
+ 
+    GPDSPNodeRenderer dsp;
+ 
+    dsp.appendNode("clicker", std::make_shared<myClickerNode>());
+    @endcode
+ 
+    @section sec_extension_serialize 保存と復元への対応
+    新しいクラスを実装することによりカスタムノードを利用することができるようになりますが,
+    [保存と復元](@ref sec_serialize_overview)への対応ができていないために,
+    カスタムノードを含んだノード構成を GPDSPNodeRenderer::load() 関数を利用して復元したり,
+    GPDSPNodeRenderer::save() 関数を利用して保存しようとすると #GPDSPERROR_NO_SUPPORT となり失敗します.
+ 
+    カスタムノードを[保存と復元](@ref sec_serialize_overview)に対応させるには,
+    GPDSPSerializable クラスを継承したクラスを作成し, GPDSPSerializable::load() 関数と
+    GPDSPSerializable::save() 関数をオーバーライドして実装します.
+ 
+    @note
+    通常, アプリケーションを表すクラスで GPDSPSerializable クラスを継承するか,
+    GPDSPSerializable クラスを継承した新しいクラスを作成して,
+    アプリケーションを表すクラスで新しいクラスのインスタンスを保持します.
+ 
+    <b>アプリケーションを表すクラスのヘッダファイルの例</b>
+ 
+    @code{.cpp}
+    #include "GPDSP.hpp"
+ 
+    using namespace ir;
+ 
+    class myApp : public GPDSPSerializable {
+        ...
+        public:
+                                    myApp   (void);
+                                    ~myApp  (void);
+                    void            doCopy  (void);
+            ...
+            virtual GPDSPError      load    (GPDSPNodeRenderer* renderer,
+                                                std::string const& type,
+                                                std::string const& name,
+                                                int format,
+                                                tinyxml2::XMLElement const* element) noexcept;
+            virtual GPDSPError      save    (GPDSPNodeRenderer const& renderer,
+                                                std::shared_ptr<GPDSPNode const> const& node,
+                                                std::string const& name,
+                                                tinyxml2::XMLElement* element) noexcept;
+            ...
+    }
+    @endcode
+ 
+    <b>アプリケーションを表すクラスのソースファイルの例</b>
+ 
+    @code{.cpp}
+    using namespace ir;
+ 
+    GPDSPError myApp::load(GPDSPNodeRenderer* renderer,
+                              std::string const& type,
+                              std::string const& name,
+                              int format,
+                              tinyxml2::XMLElement const* element) noexcept
+    {
+        std::shared_ptr<myClickerNode> clicker;
+        tinyxml2::XMLElement const* param;
+        int interlock;
+        GPDSPFloat overflow;
+        GPDSPError error(GPDSPERROR_OK);
+ 
+        if (type == "myClickerNode") {
+            interlock = myClickerNode::defaultInterlock();
+            overflow = myClickerNode::defaultOverflow();
+            if ((param = element->FirstChildElement("param")) != NULL) {
+                if ((error = GPDSPNodeRenderer::readTag(param, "interlock",
+                                 true, &interlock)) == GPDSPERROR_OK) {
+                    error = GPDSPNodeRenderer::readTag(param, "overflow",
+                                true, format, &overflow);
+                }
+            }
+            if (error == GPDSPERROR_OK) {
+                try {
+                    clicker = std::make_shared<myClickerNode>();
+                }
+                catch (std::bad_alloc const&) {
+                    error = GPDSPERROR_NO_MEMORY;
+                }
+                if (error == GPDSPERROR_OK) {
+                    clicker->setInterlock(interlock);
+                    clicker->setOverflow(overflow);
+                    error = renderer->appendNode(name, clicker);
+                }
+            }
+        }
+        else {
+            error = GPDSPERROR_NO_SUPPORT;
+        }
+        return error;
+    }
+ 
+    GPDSPError myApp::save(GPDSPNodeRenderer const& renderer,
+                              std::shared_ptr<GPDSPNode const> const& node,
+                              std::string const& name,
+                              tinyxml2::XMLElement* element) noexcept
+    {
+        std::shared_ptr<myClickerNode const> clicker;
+        tinyxml2::XMLElement* param;
+        GPDSPError error(GPDSPERROR_OK);
+ 
+        if ((clicker = std::dynamic_pointer_cast<myClickerNode const>(node)) != NULL) {
+            element->SetName("myClickerNode");
+            if ((error = GPDSPNodeRenderer::addTag(element, "param",
+                             &param)) == GPDSPERROR_OK) {
+                if ((error = GPDSPNodeRenderer::writeTag(param, "interlock",
+                                 clicker->getInterlock())) == GPDSPERROR_OK) {
+                    error = GPDSPNodeRenderer::writeTag(param, "overflow",
+                                clicker->getOverflow());
+                }
+            }
+        }
+        else {
+            error = GPDSPERROR_NO_SUPPORT;
+        }
+        return error;
+    }
+    @endcode
+ 
+    最後に GPDSPSerializable クラスを継承したクラスのインスタンスへのポインタを
+    GPDSPNodeRenderer::load() 関数や GPDSPNodeRenderer::save() 関数の第２引数に設定して呼び出します.
+ 
+    <b>GPDSPNodeRenderer::load() 関数と GPDSPNodeRenderer::save() 関数の呼び出し方</b>
+ 
+    @code{.cpp}
+    using namespace ir;
+ 
+    void myApp::doCopy(void)
+    {
+        GPDSPNodeRenderer dsp;
+ 
+        dsp.load("custom.gpdsp", this);
+        dsp.save("custom_copy.gpdsp", this);
+        return;
+    }
+    @endcode
+ 
+    @section sec_extension_gpdsp .gpdsp ファイルの記述
+ 
+    <b>カスタムノードの .gpdsp ファイルでの記述例</b>
+ 
+    @code{.xml}
+    <myClickerNode>
+        <name>ノード名</name>
+        <param>
+            <interlock>左チャンネルと右チャンネルを同期するかどうか</interlock>
+            <overflow>オーバーフローとなる限界値</overflow>
+        </param>
+        <input>
+            <::0>
+                <node>Lch-in に対する入力元のノード名</node>
+                <output>::Lch-in に対する入力元のターミナル番号</output>
+            </::0>
+            <::1>
+                <node>Rch-in に対する入力元のノード名</node>
+                <output>::Rch-in に対する入力元のターミナル番号</output>
+            </::1>
+        </input>
+    </myClickerNode>
+    @endcode
  
  
  
@@ -226,7 +785,7 @@ namespace ir {
     @tableofcontents
  
     @section sec_error_overview エラー処理の方針
-    GPDSP ライブラリは, エラー値を関数の戻り値として返却し, 例外をもちいたエラー処理を行いません.
+    GPDSP ライブラリは, エラー値を関数の戻り値として返却し, 例外を利用したエラー処理を行いません.
     エラー値は #GPDSPError 型で表現され, GPDSPERROR_ プリフィックスで始まるマクロとして定義されています.
  
     各種関数は実行時にエラーが発生した場合, 関数が呼び出される前の状態を保持します.
@@ -257,7 +816,7 @@ namespace ir {
     GPDSPError error;
  
     error = dsp.load("example.gpdsp");
-    printf("%s\n", GPDSPNodeRenderer::stringize(error).c_str());
+    printf("%s\n", GPDSPNodeRenderer::stringize(error));
     @endcode
  
     @section sec_error_loop ディレイ・フリー・ループの扱い
@@ -305,6 +864,115 @@ namespace ir {
  
     @section sec_copyright_copyright 著作権
     Copyright (C) 2017 - 2018 HORIGUCHI Junshi. All rights reserved.
+ 
+    @page page_release リリースノート
+ 
+    @tableofcontents
+ 
+    @section sec_release_version093 バージョン 0.9.3
+    - <em>[バグ修正]</em> .gpdsp ファイルの記述内で GPDSPGenerativeNode クラスの file パラメータに自分自身を指定する場合,
+      無限ループに陥るバグを修正し, #GPDSPERROR_INVALID_STATE を返却するように変更
+    - GPDSPGenericNode -> GPDSPGenerativeNode に名称変更
+    - GPDSPGenericInputNode -> GPDSPGenerativeInputNode に名称変更
+    - GPDSPGenericOutputNode -> GPDSPGenerativeOutputNode に名称変更
+    - generic ディレクトリ -> generative ディレクトリに名称変更
+    - .gpdsp ファイルのフォーマット変更 (index タグ -> output タグ)
+ 
+    @code{.xml}
+    // 旧バージョン
+    <input>
+        <::0>
+            <node>入力元のノード名</node>
+            <index>入力元のターミナル番号</index>
+        </::0>
+    </input>
+ 
+    // 新バージョン
+    <input>
+        <::0>
+            <node>入力元のノード名</node>
+            <output>::入力元のターミナル番号</output>
+        </::0>
+    </input>
+    @endcode
+ 
+    - .gpdsp ファイルのフォーマット変更 (GPDSPGenericInputNode -> GPDSPGenerativeInputNode)
+ 
+    @code{.xml}
+    // 旧バージョン
+    <GPDSPGenericInputNode>
+        <name>公開する入力ターミナル番号.公開する入力ターミナル名</name>
+    </GPDSPGenericInputNode>
+ 
+    // 新バージョン
+    <GPDSPGenerativeInputNode>
+        <name>公開する入力ターミナル名</name>
+        <param>
+            <index>公開する入力ターミナル番号</index>
+        </param>
+    </GPDSPGenerativeInputNode>
+    @endcode
+ 
+    - .gpdsp ファイルのフォーマット変更 (GPDSPGenericOutputNode -> GPDSPGenerativeOutputNode)
+ 
+    @code{.xml}
+    // 旧バージョン
+    <GPDSPGenericOutputNode>
+        <name>公開する出力ターミナル番号.公開する出力ターミナル名</name>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <index>in に対する入力元のターミナル番号</index>
+            </::0>
+        </input>
+    </GPDSPGenericOutputNode>
+ 
+    // 新バージョン
+    <GPDSPGenerativeOutputNode>
+        <name>公開する出力ターミナル名</name>
+        <param>
+            <index>公開する出力ターミナル番号</index>
+        </param>
+        <input>
+            <::0>
+                <node>in に対する入力元のノード名</node>
+                <output>::in に対する入力元のターミナル番号</output>
+            </::0>
+        </input>
+    </GPDSPGenerativeOutputNode>
+    @endcode
+ 
+    - GPDSPNodeRenderer クラスの以下の関数の仕様を変更
+ 
+    @code{.cpp}
+    // 旧バージョン
+    std::string getNextNode(void) const noexcept;
+    std::string findNode(std::shared_ptr<GPDSPNode const> const& node) const noexcept;
+    static std::string stringize(GPDSPError error) noexcept;
+ 
+    // 新バージョン
+    std::string const& getNextNode(void) const noexcept;
+    std::string const& findNode(std::shared_ptr<GPDSPNode const> const& node) const noexcept;
+    static char const* stringize(GPDSPError error) noexcept;
+    @endcode
+ 
+    - GPDSPWaveNode クラスの以下の関数の仕様を変更
+ 
+    @code{.cpp}
+    // 旧バージョン
+    virtual std::string getName(void) const noexcept = 0;
+ 
+    // 新バージョン
+    virtual char const* getName(void) const noexcept = 0;
+    @endcode
+ 
+    - GPDSPWaveNode クラスに以下の関数を追加
+ 
+    @code{.cpp}
+    int getRate(void) const noexcept;
+    @endcode
+ 
+    - doxygen ドキュメント加筆
  */
 
 }// end of namespace

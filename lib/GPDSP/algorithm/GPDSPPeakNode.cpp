@@ -49,8 +49,9 @@
 
 namespace ir {
 
-GPDSPPeakNode::GPDSPPeakNode(void) noexcept : _peak(GPDSPFV(0.0))
+GPDSPPeakNode::GPDSPPeakNode(void) noexcept
 {
+    _peak = GPDSPFV(0.0);
 }
 
 GPDSPPeakNode::~GPDSPPeakNode(void) noexcept

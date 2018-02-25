@@ -43,9 +43,9 @@
 		C3CF7DE61FBA712400ACB607 /* GPDSPBufferNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DBE1FBA6FAD00ACB607 /* GPDSPBufferNode.cpp */; };
 		C3CF7DE71FBA712600ACB607 /* GPDSPSumNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DCC1FBA6FAD00ACB607 /* GPDSPSumNode.cpp */; };
 		C3CF7DE81FBA712900ACB607 /* GPDSPMultiplyNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DC81FBA6FAD00ACB607 /* GPDSPMultiplyNode.cpp */; };
-		C3CF7DE91FBA713B00ACB607 /* GPDSPGenericNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DD11FBA6FB600ACB607 /* GPDSPGenericNode.cpp */; };
-		C3CF7DEA1FBA713E00ACB607 /* GPDSPGenericInputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DCF1FBA6FB600ACB607 /* GPDSPGenericInputNode.cpp */; };
-		C3CF7DEB1FBA714000ACB607 /* GPDSPGenericOutputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DD31FBA6FB600ACB607 /* GPDSPGenericOutputNode.cpp */; };
+		C3CF7DE91FBA713B00ACB607 /* GPDSPGenerativeNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DD11FBA6FB600ACB607 /* GPDSPGenerativeNode.cpp */; };
+		C3CF7DEA1FBA713E00ACB607 /* GPDSPGenerativeInputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DCF1FBA6FB600ACB607 /* GPDSPGenerativeInputNode.cpp */; };
+		C3CF7DEB1FBA714000ACB607 /* GPDSPGenerativeOutputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3CF7DD31FBA6FB600ACB607 /* GPDSPGenerativeOutputNode.cpp */; };
 		C3EB8CEE1F98D5FC001067BF /* Menlo.ttc in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3EB8CED1F98D5FC001067BF /* Menlo.ttc */; };
 		C3EC46FA1FCD41B30028C606 /* GPDSPSerializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EC46F81FCD41B30028C606 /* GPDSPSerializable.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -195,12 +195,12 @@
 		C3CF7DCB1FBA6FAD00ACB607 /* GPDSPPeakNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPPeakNode.hpp; sourceTree = "<group>"; };
 		C3CF7DCC1FBA6FAD00ACB607 /* GPDSPSumNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSumNode.cpp; sourceTree = "<group>"; };
 		C3CF7DCD1FBA6FAD00ACB607 /* GPDSPSumNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSumNode.hpp; sourceTree = "<group>"; };
-		C3CF7DCF1FBA6FB600ACB607 /* GPDSPGenericInputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericInputNode.cpp; sourceTree = "<group>"; };
-		C3CF7DD01FBA6FB600ACB607 /* GPDSPGenericInputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericInputNode.hpp; sourceTree = "<group>"; };
-		C3CF7DD11FBA6FB600ACB607 /* GPDSPGenericNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericNode.cpp; sourceTree = "<group>"; };
-		C3CF7DD21FBA6FB600ACB607 /* GPDSPGenericNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericNode.hpp; sourceTree = "<group>"; };
-		C3CF7DD31FBA6FB600ACB607 /* GPDSPGenericOutputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenericOutputNode.cpp; sourceTree = "<group>"; };
-		C3CF7DD41FBA6FB600ACB607 /* GPDSPGenericOutputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenericOutputNode.hpp; sourceTree = "<group>"; };
+		C3CF7DCF1FBA6FB600ACB607 /* GPDSPGenerativeInputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenerativeInputNode.cpp; sourceTree = "<group>"; };
+		C3CF7DD01FBA6FB600ACB607 /* GPDSPGenerativeInputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenerativeInputNode.hpp; sourceTree = "<group>"; };
+		C3CF7DD11FBA6FB600ACB607 /* GPDSPGenerativeNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenerativeNode.cpp; sourceTree = "<group>"; };
+		C3CF7DD21FBA6FB600ACB607 /* GPDSPGenerativeNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenerativeNode.hpp; sourceTree = "<group>"; };
+		C3CF7DD31FBA6FB600ACB607 /* GPDSPGenerativeOutputNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPGenerativeOutputNode.cpp; sourceTree = "<group>"; };
+		C3CF7DD41FBA6FB600ACB607 /* GPDSPGenerativeOutputNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPGenerativeOutputNode.hpp; sourceTree = "<group>"; };
 		C3EB8CED1F98D5FC001067BF /* Menlo.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = Menlo.ttc; path = bin/data/ofxbraitsch/fonts/Menlo.ttc; sourceTree = "<group>"; };
 		C3EC46F81FCD41B30028C606 /* GPDSPSerializable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPDSPSerializable.cpp; sourceTree = "<group>"; };
 		C3EC46F91FCD41B30028C606 /* GPDSPSerializable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GPDSPSerializable.hpp; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 				C3CF7DA41FBA6FA000ACB607 /* core */,
 				C3CF7DB91FBA6FAD00ACB607 /* algorithm */,
 				C31FF7691FC5DEE6003682B7 /* synthesis */,
-				C3CF7DCE1FBA6FB600ACB607 /* generic */,
+				C3CF7DCE1FBA6FB600ACB607 /* generative */,
 			);
 			name = GPDSP;
 			path = ../../../lib/GPDSP;
@@ -419,17 +419,17 @@
 			path = algorithm;
 			sourceTree = "<group>";
 		};
-		C3CF7DCE1FBA6FB600ACB607 /* generic */ = {
+		C3CF7DCE1FBA6FB600ACB607 /* generative */ = {
 			isa = PBXGroup;
 			children = (
-				C3CF7DD21FBA6FB600ACB607 /* GPDSPGenericNode.hpp */,
-				C3CF7DD11FBA6FB600ACB607 /* GPDSPGenericNode.cpp */,
-				C3CF7DD01FBA6FB600ACB607 /* GPDSPGenericInputNode.hpp */,
-				C3CF7DCF1FBA6FB600ACB607 /* GPDSPGenericInputNode.cpp */,
-				C3CF7DD41FBA6FB600ACB607 /* GPDSPGenericOutputNode.hpp */,
-				C3CF7DD31FBA6FB600ACB607 /* GPDSPGenericOutputNode.cpp */,
+				C3CF7DD21FBA6FB600ACB607 /* GPDSPGenerativeNode.hpp */,
+				C3CF7DD11FBA6FB600ACB607 /* GPDSPGenerativeNode.cpp */,
+				C3CF7DD01FBA6FB600ACB607 /* GPDSPGenerativeInputNode.hpp */,
+				C3CF7DCF1FBA6FB600ACB607 /* GPDSPGenerativeInputNode.cpp */,
+				C3CF7DD41FBA6FB600ACB607 /* GPDSPGenerativeOutputNode.hpp */,
+				C3CF7DD31FBA6FB600ACB607 /* GPDSPGenerativeOutputNode.cpp */,
 			);
-			path = generic;
+			path = generative;
 			sourceTree = "<group>";
 		};
 		E4328144138ABC890047C5CB /* Products */ = {
@@ -602,9 +602,9 @@
 				C31FF7781FC5DF58003682B7 /* GPDSPTriangleWaveNode.cpp in Sources */,
 				C31FF7791FC5DF5B003682B7 /* GPDSPSawtoothWaveNode.cpp in Sources */,
 				C31FF77A1FC5DF5E003682B7 /* GPDSPSquareWaveNode.cpp in Sources */,
-				C3CF7DE91FBA713B00ACB607 /* GPDSPGenericNode.cpp in Sources */,
-				C3CF7DEA1FBA713E00ACB607 /* GPDSPGenericInputNode.cpp in Sources */,
-				C3CF7DEB1FBA714000ACB607 /* GPDSPGenericOutputNode.cpp in Sources */,
+				C3CF7DE91FBA713B00ACB607 /* GPDSPGenerativeNode.cpp in Sources */,
+				C3CF7DEA1FBA713E00ACB607 /* GPDSPGenerativeInputNode.cpp in Sources */,
+				C3CF7DEB1FBA714000ACB607 /* GPDSPGenerativeOutputNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

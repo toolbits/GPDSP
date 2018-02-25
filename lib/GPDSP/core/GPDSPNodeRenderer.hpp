@@ -76,7 +76,7 @@ class GPDSPBufferNode;
 class GPDSPSumNode;
 class GPDSPMultiplyNode;
 class GPDSPSquareRootNode;
-class GPDSPGenericNode;
+class GPDSPGenerativeNode;
 
 //! ノードを管理してデジタル信号処理の演算を行うクラス
 /*!
@@ -259,14 +259,14 @@ class GPDSPNodeRenderer {
          */
                 std::shared_ptr<GPDSPSquareWaveNode>
                                             getNodeSquareWave           (std::string const& name) const noexcept;
-        //! GPDSPGenericNode クラスのノードを取得します.
+        //! GPDSPGenerativeNode クラスのノードを取得します.
         /*!
             @param[in] name ノード名
             @retval NULL ノードが見つからない
             @retval その他 有効なノード
          */
-                std::shared_ptr<GPDSPGenericNode>
-                                            getNodeGeneric              (std::string const& name) const noexcept;
+                std::shared_ptr<GPDSPGenerativeNode>
+                                            getNodeGenerative           (std::string const& name) const noexcept;
         //! ノードを取得します.
         /*!
             @param[in] name ノード名
@@ -487,7 +487,15 @@ class GPDSPNodeRenderer {
             @retval #GPDSPERROR_INVALID_NODE 不正なノード
          */
                 GPDSPError                  clearLinkI                  (std::string const& name) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  clearLinkO                  (std::string const& name, int index) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  clearLinkO                  (std::string const& name) noexcept;
         //! 入力ターミナルの値を取得します.
         /*!
@@ -513,9 +521,21 @@ class GPDSPNodeRenderer {
             @retval #GPDSPERROR_INVALID_NODE 不正なノード
          */
                 GPDSPError                  getValueO                   (std::string const& name, int index, GPDSPFloat* value) const noexcept;
-                std::string                 getNextNode                 (void) const noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
+                std::string const&          getNextNode                 (void) const noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 bool                        hasNextNode                 (void) const noexcept;
-                std::string                 findNode                    (std::shared_ptr<GPDSPNode const> const& node) const noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
+                std::string const&          findNode                    (std::shared_ptr<GPDSPNode const> const& node) const noexcept;
         //! 引数に指定された名前を持つ入力ターミナルを検索します.
         /*!
             同じ名前を持つ入力ターミナルが複数ある場合には, 最初に見つかった入力ターミナルを返却します.
@@ -826,7 +846,7 @@ class GPDSPNodeRenderer {
             @retval #GPDSPERROR_FAILED 失敗
          */
                 GPDSPError                  newNodeSquareWave           (std::string const& name, GPDSPFloat resolution = GPDSPSquareWaveNode::defaultResolution()) noexcept;
-        //! .gpdsp 拡張子を持つ外部ファイルを開いて, XML 形式で記述されたノードの構成を読み込み GPDSPGenericNode クラスのノードを生成します.
+        //! .gpdsp 拡張子を持つ外部ファイルを開いて, XML 形式で記述されたノードの構成を読み込み GPDSPGenerativeNode クラスのノードを生成します.
         /*!
             @param[in] name ノード名
             @param[in] file ファイルのパス
@@ -842,7 +862,7 @@ class GPDSPNodeRenderer {
             @retval #GPDSPERROR_INVALID_FORMAT 不正なフォーマット
             @retval #GPDSPERROR_FAILED 失敗
          */
-                GPDSPError                  newNodeGeneric              (std::string const& name, std::string const& file) noexcept;
+                GPDSPError                  newNodeGenerative           (std::string const& name, std::string const& file) noexcept;
         //! 既存のノードを追加します.
         /*!
             すでに生成された既存のノードを GPDSPNodeRenderer クラスの管理下に登録します.
@@ -904,6 +924,10 @@ class GPDSPNodeRenderer {
             @retval #GPDSPERROR_INVALID_NODE 不正なノード
          */
                 GPDSPError                  insertO                     (std::string const& name, int index, std::string const& what) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  removeNode                  (std::string const& name) noexcept;
         //! 入力ターミナルを削除します.
         /*!
@@ -925,6 +949,10 @@ class GPDSPNodeRenderer {
             @retval #GPDSPERROR_INVALID_NODE 不正なノード
          */
                 GPDSPError                  removeO                     (std::string const& name, int index) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 void                        clearNode                   (void) noexcept;
         //! すべての入力ターミナルを削除します.
         /*!
@@ -942,31 +970,107 @@ class GPDSPNodeRenderer {
             @retval #GPDSPERROR_INVALID_NODE 不正なノード
          */
                 GPDSPError                  clearO                      (std::string const& name) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  renameNode                  (std::string const& name, std::string const& alternate) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 void                        iterateNode                 (void) const noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 void                        invalidate                  (void) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  prepare                     (void) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  process                     (void) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  render                      (int count, int* remain = NULL) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  rewind                      (std::string const& name) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 void                        rewind                      (void) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  refresh                     (std::string const& name) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 void                        refresh                     (void) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  load                        (std::string const& file, GPDSPSerializable* serializable = NULL) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
                 GPDSPError                  save                        (std::string const& file, GPDSPSerializable* serializable = NULL) const noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
         static  GPDSPError                  addTag                      (tinyxml2::XMLElement* parent, std::string const& tag, tinyxml2::XMLElement** child) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
         static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, int value) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
         static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, GPDSPFloat value) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
         static  GPDSPError                  writeTag                    (tinyxml2::XMLElement* parent, std::string const& tag, std::string const& value) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int* value) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, int format, GPDSPFloat* value) noexcept;
+        //! 執筆中.
+        /*!
+            執筆中.
+         */
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, std::string* value) noexcept;
         //! エラー値を解説を含む文字列に変換します.
         /*!
             @param[in] error エラー値
             @return 変換された文字列
          */
-        static  std::string                 stringize                   (GPDSPError error) noexcept;
+        static  char const*                 stringize                   (GPDSPError error) noexcept;
     private:
                 GPDSPError                  getNodeInputtable           (std::string const& name, std::shared_ptr<GPDSPInputtableNode>* node) noexcept;
                 GPDSPError                  getNodeInputtable           (std::string const& name, std::shared_ptr<GPDSPInputtableNode const>* node) const noexcept;
@@ -974,8 +1078,8 @@ class GPDSPNodeRenderer {
                 GPDSPError                  getNodeOutputtable          (std::string const& name, std::shared_ptr<GPDSPOutputtableNode>* node) noexcept;
                 GPDSPError                  getNodeOutputtable          (std::string const& name, std::shared_ptr<GPDSPOutputtableNode const>* node) const noexcept;
                 GPDSPError                  getNodeFlexOutputtable      (std::string const& name, std::shared_ptr<GPDSPFlexOutputtableNode>* node) noexcept;
-                GPDSPError                  newNodeGenericInput         (std::string const& name) noexcept;
-                GPDSPError                  newNodeGenericOutput        (std::string const& name) noexcept;
+                GPDSPError                  newNodeGenerativeInput      (std::string const& name, int index) noexcept;
+                GPDSPError                  newNodeGenerativeOutput     (std::string const& name, int index) noexcept;
                 GPDSPError                  makeWait                    (void) noexcept;
                 GPDSPError                  makeSequence                (void) noexcept;
                 GPDSPError                  optimizeSequence            (void) noexcept;
@@ -990,6 +1094,8 @@ class GPDSPNodeRenderer {
         static  GPDSPError                  writeLinkTag                (tinyxml2::XMLElement* parent, GPDSPFloat constant) noexcept;
         static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, std::string* node, int* index) noexcept;
         static  GPDSPError                  readLinkTag                 (tinyxml2::XMLElement const* parent, int format, GPDSPFloat* constant) noexcept;
+        static  GPDSPError                  comparePath                 (std::string const& from, std::string const& to, bool* result) noexcept;
+        static  GPDSPError                  resolvePath                 (std::string const& param, std::string* result) noexcept;
         static  GPDSPError                  stringize                   (std::string const& prefix, int param, std::string* result) noexcept;
         static  GPDSPError                  stringize                   (std::string const& prefix, GPDSPFloat param, std::string* result) noexcept;
         static  GPDSPError                  numberize                   (std::string const& prefix, std::string const& param, int* result) noexcept;

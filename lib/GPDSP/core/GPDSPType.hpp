@@ -93,8 +93,8 @@ namespace ir {
 
 //! 演算対象のデータ型
 /*!
-    32 ビット浮動小数点をもちいる場合は GPDSPConfig.hpp ファイル内で __GPDSP64 マクロを定義せず,
-    64 ビット浮動小数点をもちいる場合は定義します.
+    32 ビット浮動小数点を利用する場合は GPDSPConfig.hpp ファイル内で __GPDSP64 マクロを定義せず,
+    64 ビット浮動小数点を利用する場合は定義します.
  */
 #ifdef __GPDSP64
 typedef double          GPDSPFloat;

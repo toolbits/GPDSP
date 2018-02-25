@@ -48,8 +48,9 @@
 
 namespace ir {
 
-GPDSPDelayNode::GPDSPDelayNode(void) noexcept : _queue(GPDSPFV(0.0))
+GPDSPDelayNode::GPDSPDelayNode(void) noexcept
 {
+    _queue = GPDSPFV(0.0);
 }
 
 GPDSPDelayNode::~GPDSPDelayNode(void) noexcept

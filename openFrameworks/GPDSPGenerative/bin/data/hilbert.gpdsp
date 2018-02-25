@@ -5,26 +5,35 @@
         <format>64</format>
     </meta>
     <formula>
-        <GPDSPGenericInputNode>
-            <name>0.in</name>
-        </GPDSPGenericInputNode>
+        <GPDSPGenerativeInputNode>
+            <name>in</name>
+            <param>
+                <index>0</index>
+            </param>
+        </GPDSPGenerativeInputNode>
         
-        <GPDSPGenericOutputNode>
-            <name>0.out[Re]</name>
+        <GPDSPGenerativeOutputNode>
+            <name>out[Re]</name>
+            <param>
+                <index>0</index>
+            </param>
             <input>
                 <::0>
                     <node>z[14]</node>
                 </::0>
             </input>
-        </GPDSPGenericOutputNode>
-        <GPDSPGenericOutputNode>
-            <name>1.out[Im]</name>
+        </GPDSPGenerativeOutputNode>
+        <GPDSPGenerativeOutputNode>
+            <name>out[Im]</name>
+            <param>
+                <index>1</index>
+            </param>
             <input>
                 <::0>
                     <node>gain</node>
                 </::0>
             </input>
-        </GPDSPGenericOutputNode>
+        </GPDSPGenerativeOutputNode>
         
         <GPDSPAmplifyNode>
             <name>coeff[0]</name>
@@ -33,7 +42,7 @@
             </param>
             <input>
                 <::0>
-                    <node>0.in</node>
+                    <node>in</node>
                 </::0>
             </input>
         </GPDSPAmplifyNode>
@@ -207,7 +216,7 @@
             <name>z[0]</name>
             <input>
                 <::0>
-                    <node>0.in</node>
+                    <node>in</node>
                 </::0>
             </input>
         </GPDSPDelayNode>

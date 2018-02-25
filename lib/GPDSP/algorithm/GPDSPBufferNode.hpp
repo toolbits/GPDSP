@@ -66,6 +66,10 @@ namespace ir {
  
     １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
  
+    | 番号 | 入力 | 出力 |
+    | :----: | :----: | :----: |
+    | 0 | in | out |
+ 
     <b>.gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPBufferNode>
@@ -76,7 +80,7 @@ namespace ir {
         <input>
             <::0>
                 <node>in に対する入力元のノード名</node>
-                <index>in に対する入力元のターミナル番号</index>
+                <output>::in に対する入力元のターミナル番号</output>
             </::0>
         </input>
     </GPDSPBufferNode>

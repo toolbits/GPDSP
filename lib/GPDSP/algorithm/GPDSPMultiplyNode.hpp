@@ -64,6 +64,12 @@ namespace ir {
  
     任意の数の任意の名前を持つ入力ターミナルと, １つの出力ターミナル "out" を持ちます.
  
+    | 番号 | 入力 | 出力 |
+    | :----: | :----: | :----: |
+    | 0 | in | out |
+    | 1 | in | - |
+    | N-1 | in | - |
+ 
     <b>.gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPMultiplyNode>
@@ -74,16 +80,16 @@ namespace ir {
         <input>
             <::0>
                 <node>in[0] に対する入力元のノード名</node>
-                <index>in[0] に対する入力元のターミナル番号</index>
+                <output>::in[0] に対する入力元のターミナル番号</output>
             </::0>
             <::1>
                 <node>in[1] に対する入力元のノード名</node>
-                <index>in[1] に対する入力元のターミナル番号</index>
+                <output>::in[1] に対する入力元のターミナル番号</output>
             </::1>
             ...
             <::N-1>
                 <node>in[N-1] に対する入力元のノード名</node>
-                <index>in[N-1] に対する入力元のターミナル番号</index>
+                <output>::in[N-1] に対する入力元のターミナル番号</output>
             </::N-1>
         </input>
     </GPDSPMultiplyNode>

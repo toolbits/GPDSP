@@ -56,7 +56,7 @@ GPDSPSinWaveNode::~GPDSPSinWaveNode(void) noexcept
 {
 }
 
-std::string GPDSPSinWaveNode::getName(void) const noexcept
+char const* GPDSPSinWaveNode::getName(void) const noexcept
 {
     return "GPDSPSinWaveNode";
 }

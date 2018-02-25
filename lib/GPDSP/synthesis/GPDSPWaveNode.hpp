@@ -76,6 +76,11 @@ class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
                 GPDSPFloat                  _position;
     
     public:
+        //! サンプリングレートを取得します.
+        /*!
+            @return 現在のサンプリングレート
+         */
+                int                         getRate                     (void) const noexcept;
         //! デフォルトの解像度を取得します.
         /*!
             @retval +INFINITY デフォルトの解像度
@@ -147,7 +152,7 @@ class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
             @retval "" [返却禁止]
             @retval その他 波形バッファの名前
          */
-        virtual std::string                 getName                     (void) const noexcept = 0;
+        virtual char const*                 getName                     (void) const noexcept = 0;
         //! 引数に指定された位相に対応する, 波形の値を取得します.
         /*!
             @param[in] phase 位相 [0.0, 1.0)
@@ -168,6 +173,11 @@ class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
                                             GPDSPWaveNode               (GPDSPWaveNode const&);
                 GPDSPWaveNode&              operator=                   (GPDSPWaveNode const&);
 };
+
+inline int GPDSPWaveNode::getRate(void) const noexcept
+{
+    return _rate;
+}
 
 inline GPDSPFloat GPDSPWaveNode::defaultResolution(void) noexcept
 {

@@ -5,29 +5,41 @@
         <format>32</format>
     </meta>
     <formula>
-        <GPDSPGenericInputNode>
-            <name>0.in[L]</name>
-        </GPDSPGenericInputNode>
-        <GPDSPGenericInputNode>
-            <name>1.in[R]</name>
-        </GPDSPGenericInputNode>
+        <GPDSPGenerativeInputNode>
+            <name>in[L]</name>
+            <param>
+                <index>0</index>
+            </param>
+        </GPDSPGenerativeInputNode>
+        <GPDSPGenerativeInputNode>
+            <name>in[R]</name>
+            <param>
+                <index>1</index>
+            </param>
+        </GPDSPGenerativeInputNode>
         
-        <GPDSPGenericOutputNode>
-            <name>0.out[L]</name>
+        <GPDSPGenerativeOutputNode>
+            <name>out[L]</name>
+            <param>
+                <index>0</index>
+            </param>
             <input>
                 <::0>
                     <node>att[L]</node>
                 </::0>
             </input>
-        </GPDSPGenericOutputNode>
-        <GPDSPGenericOutputNode>
-            <name>1.out[R]</name>
+        </GPDSPGenerativeOutputNode>
+        <GPDSPGenerativeOutputNode>
+            <name>out[R]</name>
+            <param>
+                <index>1</index>
+            </param>
             <input>
                 <::0>
                     <node>att[R]</node>
                 </::0>
             </input>
-        </GPDSPGenericOutputNode>
+        </GPDSPGenerativeOutputNode>
         
         <GPDSPAmplifyNode>
             <name>amp[L]</name>
@@ -36,7 +48,7 @@
             </param>
             <input>
                 <::0>
-                    <node>0.in[L]</node>
+                    <node>in[L]</node>
                 </::0>
             </input>
         </GPDSPAmplifyNode>
@@ -83,7 +95,7 @@
             </param>
             <input>
                 <::0>
-                    <node>1.in[R]</node>
+                    <node>in[R]</node>
                 </::0>
             </input>
         </GPDSPAmplifyNode>

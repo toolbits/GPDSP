@@ -59,7 +59,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.9.2        2017 - 2018 iridium.jp");
+    ofSetWindowTitle("GPDSP (General Purpose DSP) Example 0.9.3        2017 - 2018 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
@@ -121,7 +121,7 @@ void ofApp::setup(void)
     folder->addSlider("* L -> R", -1.0f, 1.0f, 0.0f);
     folder->addSlider("* R -> R", -1.0f, 1.0f, 0.0f);
     folder->addSlider("* R -> L", -1.0f, 1.0f, 0.0f);
-    folder->addButton("* reset gains...");
+    folder->addButton("* reset gains");
     folder->expand();
     _gui->addBreak();
     _gui->addSlider("gate [L] plus", 0.0f, 1.0f, 1.0f);
@@ -129,7 +129,7 @@ void ofApp::setup(void)
     _gui->addSlider("gate [R] plus", 0.0f, 1.0f, 1.0f);
     _gui->addSlider("gate [R] minus", 0.0f, 1.0f, 1.0f);
     _gui->addBreak();
-    _gui->addButton("refresh...");
+    _gui->addButton("refresh");
     _gui->onButtonEvent(this, &ofApp::onButtonEvent);
     _gui->onSliderEvent(this, &ofApp::onSliderEvent);
     _gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
@@ -276,7 +276,7 @@ void ofApp::draw(void)
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
-    if (e.target->is("* reset gains...")) {
+    if (e.target->is("* reset gains")) {
         _gui->getSlider("* L -> L")->setValue(0.0f);
         _gui->getSlider("* L -> R")->setValue(0.0f);
         _gui->getSlider("* R -> R")->setValue(0.0f);
@@ -288,7 +288,7 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
         _dsp.getNodeAmplify("RL-amp")->setGain(0.0f);
         _mutexParam.unlock();
     }
-    else if (e.target->is("refresh...")) {
+    else if (e.target->is("refresh")) {
         _mutexParam.lock();
         _dsp.refresh();
         _mutexParam.unlock();

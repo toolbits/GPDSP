@@ -64,6 +64,11 @@ namespace ir {
  
     ２つの入力ターミナル "frequency", "phase" と, １つの出力ターミナル "out" を持ちます.
  
+    | 番号 | 入力 | 出力 |
+    | :----: | :----: | :----: |
+    | 0 | frequency | out |
+    | 1 | phase | - |
+ 
     <b>.gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPSinWaveNode>
@@ -74,11 +79,11 @@ namespace ir {
         <input>
             <::0>
                 <node>frequency に対する入力元のノード名</node>
-                <index>frequency に対する入力元のターミナル番号</index>
+                <output>::frequency に対する入力元のターミナル番号</output>
             </::0>
             <::1>
                 <node>phase に対する入力元のノード名</node>
-                <index>phase に対する入力元のターミナル番号</index>
+                <output>::phase に対する入力元のターミナル番号</output>
             </::1>
         </input>
     </GPDSPSinWaveNode>
@@ -103,7 +108,7 @@ class GPDSPSinWaveNode : public GPDSPWaveNode {
         /*!
             @return "GPDSPSinWaveNode"
          */
-        virtual std::string                 getName                     (void) const noexcept;
+        virtual char const*                 getName                     (void) const noexcept;
         //! 引数に指定された位相に対応する, サイン波の値を取得します.
         /*!
             @param[in] phase 位相 [0.0, 1.0)

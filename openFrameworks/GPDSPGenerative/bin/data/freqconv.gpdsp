@@ -5,81 +5,99 @@
         <format>64</format>
     </meta>
     <formula>
-        <GPDSPGenericInputNode>
-            <name>0.in[L]</name>
-        </GPDSPGenericInputNode>
-        <GPDSPGenericInputNode>
-            <name>1.in[R]</name>
-        </GPDSPGenericInputNode>
+        <GPDSPGenerativeInputNode>
+            <name>in[L]</name>
+            <param>
+                <index>0</index>
+            </param>
+        </GPDSPGenerativeInputNode>
+        <GPDSPGenerativeInputNode>
+            <name>in[R]</name>
+            <param>
+                <index>1</index>
+            </param>
+        </GPDSPGenerativeInputNode>
         
-        <GPDSPGenericOutputNode>
-            <name>0.out[L]</name>
+        <GPDSPGenerativeOutputNode>
+            <name>out[L]</name>
+            <param>
+                <index>0</index>
+            </param>
             <input>
                 <::0>
                     <node>sum[L]</node>
                 </::0>
             </input>
-        </GPDSPGenericOutputNode>
-        <GPDSPGenericOutputNode>
-            <name>1.out[R]</name>
+        </GPDSPGenerativeOutputNode>
+        <GPDSPGenerativeOutputNode>
+            <name>out[R]</name>
+            <param>
+                <index>1</index>
+            </param>
             <input>
                 <::0>
                     <node>sum[R]</node>
                 </::0>
             </input>
-        </GPDSPGenericOutputNode>
-        <GPDSPGenericOutputNode>
-            <name>2.sin[Re]</name>
+        </GPDSPGenerativeOutputNode>
+        <GPDSPGenerativeOutputNode>
+            <name>sin[Re]</name>
+            <param>
+                <index>2</index>
+            </param>
             <input>
                 <::0>
                     <node>hilbert[C]</node>
-                    <index>0</index>
+                    <output>::0</output>
                 </::0>
             </input>
-        </GPDSPGenericOutputNode>
-        <GPDSPGenericOutputNode>
-            <name>3.sin[Im]</name>
+        </GPDSPGenerativeOutputNode>
+        <GPDSPGenerativeOutputNode>
+            <name>sin[Im]</name>
+            <param>
+                <index>3</index>
+            </param>
             <input>
                 <::0>
                     <node>hilbert[C]</node>
-                    <index>1</index>
+                    <output>::1</output>
                 </::0>
             </input>
-        </GPDSPGenericOutputNode>
+        </GPDSPGenerativeOutputNode>
         
-        <GPDSPGenericNode>
+        <GPDSPGenerativeNode>
             <name>hilbert[L]</name>
             <param>
                 <file>hilbert.gpdsp</file>
             </param>
             <input>
                 <::0>
-                    <node>0.in[L]</node>
+                    <node>in[L]</node>
                 </::0>
             </input>
-        </GPDSPGenericNode>
-        <GPDSPGenericNode>
+        </GPDSPGenerativeNode>
+        <GPDSPGenerativeNode>
             <name>hilbert[R]</name>
             <param>
                 <file>hilbert.gpdsp</file>
             </param>
             <input>
                 <::0>
-                    <node>1.in[R]</node>
+                    <node>in[R]</node>
                 </::0>
             </input>
-        </GPDSPGenericNode>
+        </GPDSPGenerativeNode>
         
         <GPDSPMultiplyNode>
             <name>mul[L-Re]</name>
             <input>
                 <::0>
                     <node>hilbert[L]</node>
-                    <index>0</index>
+                    <output>::0</output>
                 </::0>
                 <::1>
                     <node>hilbert[C]</node>
-                    <index>0</index>
+                    <output>::0</output>
                 </::1>
             </input>
         </GPDSPMultiplyNode>
@@ -88,11 +106,11 @@
             <input>
                 <::0>
                     <node>hilbert[L]</node>
-                    <index>1</index>
+                    <output>::1</output>
                 </::0>
                 <::1>
                     <node>hilbert[C]</node>
-                    <index>1</index>
+                    <output>::1</output>
                 </::1>
             </input>
         </GPDSPMultiplyNode>
@@ -101,11 +119,11 @@
             <input>
                 <::0>
                     <node>hilbert[R]</node>
-                    <index>0</index>
+                    <output>::0</output>
                 </::0>
                 <::1>
                     <node>hilbert[C]</node>
-                    <index>0</index>
+                    <output>::0</output>
                 </::1>
             </input>
         </GPDSPMultiplyNode>
@@ -114,11 +132,11 @@
             <input>
                 <::0>
                     <node>hilbert[R]</node>
-                    <index>1</index>
+                    <output>::1</output>
                 </::0>
                 <::1>
                     <node>hilbert[C]</node>
-                    <index>1</index>
+                    <output>::1</output>
                 </::1>
             </input>
         </GPDSPMultiplyNode>
@@ -156,7 +174,7 @@
                 </::0>
             </input>
         </GPDSPSinWaveNode>
-        <GPDSPGenericNode>
+        <GPDSPGenerativeNode>
             <name>hilbert[C]</name>
             <param>
                 <file>hilbert.gpdsp</file>
@@ -166,6 +184,6 @@
                     <node>sin</node>
                 </::0>
             </input>
-        </GPDSPGenericNode>
+        </GPDSPGenerativeNode>
     </formula>
 </gpdsp>

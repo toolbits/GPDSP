@@ -10,7 +10,7 @@ HTML_EXTRA_STYLESHEET	= \
 
 M_LINKS_NAVBAR1		= \
     indexpage \
-    "pages page_gpdsp page_generic page_error page_copyright"
+    "pages page_serialize page_generative page_extension page_error page_copyright page_release"
 M_LINKS_NAVBAR2		= \
     annotated \
-    "files dir_4270bfced15e0e73154b13468c7c9ad9 dir_692f640cc74363071c5c0e14282656e9 dir_10f258cf4c217ac9c098d7e4f7634949 dir_6646d5d5edc224bb18b97caffb429c3d"
+    "files dir_4270bfced15e0e73154b13468c7c9ad9 dir_692f640cc74363071c5c0e14282656e9 dir_10f258cf4c217ac9c098d7e4f7634949 dir_a40be91d4724b690c162647a1c32cdd9"

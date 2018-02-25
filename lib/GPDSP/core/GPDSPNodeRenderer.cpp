@@ -60,9 +60,9 @@
 #include "../algorithm/GPDSPSumNode.hpp"
 #include "../algorithm/GPDSPMultiplyNode.hpp"
 #include "../algorithm/GPDSPSquareRootNode.hpp"
-#include "../generic/GPDSPGenericNode.hpp"
-#include "../generic/GPDSPGenericInputNode.hpp"
-#include "../generic/GPDSPGenericOutputNode.hpp"
+#include "../generative/GPDSPGenerativeNode.hpp"
+#include "../generative/GPDSPGenerativeInputNode.hpp"
+#include "../generative/GPDSPGenerativeOutputNode.hpp"
 
 namespace ir {
 
@@ -164,9 +164,9 @@ std::shared_ptr<GPDSPSquareWaveNode> GPDSPNodeRenderer::getNodeSquareWave(std::s
     return std::dynamic_pointer_cast<GPDSPSquareWaveNode>(getNode(name));
 }
 
-std::shared_ptr<GPDSPGenericNode> GPDSPNodeRenderer::getNodeGeneric(std::string const& name) const noexcept
+std::shared_ptr<GPDSPGenerativeNode> GPDSPNodeRenderer::getNodeGenerative(std::string const& name) const noexcept
 {
-    return std::dynamic_pointer_cast<GPDSPGenericNode>(getNode(name));
+    return std::dynamic_pointer_cast<GPDSPGenerativeNode>(getNode(name));
 }
 
 std::shared_ptr<GPDSPNode> GPDSPNodeRenderer::getNode(std::string const& name) const noexcept
@@ -520,29 +520,31 @@ GPDSPError GPDSPNodeRenderer::getValueO(std::string const& name, int index, GPDS
     return error;
 }
 
-std::string GPDSPNodeRenderer::getNextNode(void) const noexcept
+std::string const& GPDSPNodeRenderer::getNextNode(void) const noexcept
 {
-    std::string result;
+    static std::string const s_empty;
+    std::string const* result(&s_empty);
     
     if (_nit != _node.end()) {
-        result = _nit->first;
+        result = &_nit->first;
         ++_nit;
     }
-    return result;
+    return *result;
 }
 
-std::string GPDSPNodeRenderer::findNode(std::shared_ptr<GPDSPNode const> const& node) const noexcept
+std::string const& GPDSPNodeRenderer::findNode(std::shared_ptr<GPDSPNode const> const& node) const noexcept
 {
+    static std::string const s_empty;
     std::unordered_map<std::string, std::shared_ptr<GPDSPNode> >::const_iterator it;
-    std::string result;
+    std::string const* result(&s_empty);
     
     for (it = _node.begin(); it != _node.end(); ++it) {
         if (node == it->second) {
-            result = it->first;
+            result = &it->first;
             break;
         }
     }
-    return result;
+    return *result;
 }
 
 GPDSPError GPDSPNodeRenderer::findNameI(std::string const& name, std::string const& what, int* index) const noexcept
@@ -959,13 +961,13 @@ GPDSPError GPDSPNodeRenderer::newNodeSquareWave(std::string const& name, GPDSPFl
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeGeneric(std::string const& name, std::string const& file) noexcept
+GPDSPError GPDSPNodeRenderer::newNodeGenerative(std::string const& name, std::string const& file) noexcept
 {
-    std::shared_ptr<GPDSPGenericNode> node;
+    std::shared_ptr<GPDSPGenerativeNode> node;
     GPDSPError error(GPDSPERROR_OK);
     
     try {
-        node = std::make_shared<GPDSPGenericNode>(_rate);
+        node = std::make_shared<GPDSPGenerativeNode>(_rate);
     }
     catch (std::bad_alloc const&) {
         error = GPDSPERROR_NO_MEMORY;
@@ -1352,8 +1354,10 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* s
         int size;
         int count;
         GPDSPFloat resolution;
+        int index;
     } param;
     int format;
+    bool compare;
     GPDSPError error(GPDSPERROR_OK);
     
     if (_node.size() <= 0) {
@@ -1501,20 +1505,39 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* s
                                                             error = newNodeSquareWave(name, param.resolution);
                                                         }
                                                     }
-                                                    else if (string == "GPDSPGenericNode") {
+                                                    else if (string == "GPDSPGenerativeNode") {
                                                         string = "";
                                                         if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
                                                             error = readTag(xml.param, "file", true, &string);
                                                         }
                                                         if (error == GPDSPERROR_OK) {
-                                                            error = newNodeGeneric(name, string);
+                                                            if ((error = comparePath(string, file, &compare)) == GPDSPERROR_OK) {
+                                                                if (!compare) {
+                                                                    error = newNodeGenerative(name, string);
+                                                                }
+                                                                else {
+                                                                    error = GPDSPERROR_INVALID_STATE;
+                                                                }
+                                                            }
                                                         }
                                                     }
-                                                    else if (string == "GPDSPGenericInputNode") {
-                                                        error = newNodeGenericInput(name);
+                                                    else if (string == "GPDSPGenerativeInputNode") {
+                                                        param.index = 0;
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "index", true, &param.index);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeGenerativeInput(name, param.index);
+                                                        }
                                                     }
-                                                    else if (string == "GPDSPGenericOutputNode") {
-                                                        error = newNodeGenericOutput(name);
+                                                    else if (string == "GPDSPGenerativeOutputNode") {
+                                                        param.index = 0;
+                                                        if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
+                                                            error = readTag(xml.param, "index", true, &param.index);
+                                                        }
+                                                        if (error == GPDSPERROR_OK) {
+                                                            error = newNodeGenerativeOutput(name, param.index);
+                                                        }
                                                     }
                                                     else if (serializable != NULL) {
                                                         error = serializable->load(this, string, name, format, xml.instance);
@@ -1611,15 +1634,16 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
     std::shared_ptr<GPDSPTriangleWaveNode const> triangleWave;
     std::shared_ptr<GPDSPSawtoothWaveNode const> sawtoothWave;
     std::shared_ptr<GPDSPSquareWaveNode const> squareWave;
-    std::shared_ptr<GPDSPGenericNode const> generic;
-    std::shared_ptr<GPDSPGenericInputNode const> genericInput;
-    std::shared_ptr<GPDSPGenericOutputNode const> genericOutput;
+    std::shared_ptr<GPDSPGenerativeNode const> generative;
+    std::shared_ptr<GPDSPGenerativeInputNode const> generativeInput;
+    std::shared_ptr<GPDSPGenerativeOutputNode const> generativeOutput;
     union {
         struct {
             int length;
             int interleave;
         };
     } param;
+    bool compare;
     GPDSPError error(GPDSPERROR_OK);
     
     for (uit = _node.begin(); uit != _node.end(); ++uit) {
@@ -1745,17 +1769,30 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
                                                             error = writeTag(xml.param, "resolution", squareWave->getResolution());
                                                         }
                                                     }
-                                                    else if ((generic = std::dynamic_pointer_cast<GPDSPGenericNode const>(mit->second)) != NULL) {
-                                                        xml.instance->SetName("GPDSPGenericNode");
-                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                            error = writeTag(xml.param, "file", generic->getFile());
+                                                    else if ((generative = std::dynamic_pointer_cast<GPDSPGenerativeNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPGenerativeNode");
+                                                        if ((error = comparePath(generative->getFile(), file, &compare)) == GPDSPERROR_OK) {
+                                                            if (!compare) {
+                                                                if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                                    error = writeTag(xml.param, "file", generative->getFile());
+                                                                }
+                                                            }
+                                                            else {
+                                                                error = GPDSPERROR_INVALID_STATE;
+                                                            }
                                                         }
                                                     }
-                                                    else if ((genericInput = std::dynamic_pointer_cast<GPDSPGenericInputNode const>(mit->second)) != NULL) {
-                                                        xml.instance->SetName("GPDSPGenericInputNode");
+                                                    else if ((generativeInput = std::dynamic_pointer_cast<GPDSPGenerativeInputNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPGenerativeInputNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "index", generativeInput->getIndex());
+                                                        }
                                                     }
-                                                    else if ((genericOutput = std::dynamic_pointer_cast<GPDSPGenericOutputNode const>(mit->second)) != NULL) {
-                                                        xml.instance->SetName("GPDSPGenericOutputNode");
+                                                    else if ((generativeOutput = std::dynamic_pointer_cast<GPDSPGenerativeOutputNode const>(mit->second)) != NULL) {
+                                                        xml.instance->SetName("GPDSPGenerativeOutputNode");
+                                                        if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
+                                                            error = writeTag(xml.param, "index", generativeOutput->getIndex());
+                                                        }
                                                     }
                                                     else if (serializable != NULL) {
                                                         if ((error = serializable->save(*this, mit->second, mit->first, xml.instance)) == GPDSPERROR_OK) {
@@ -2001,64 +2038,64 @@ GPDSPError GPDSPNodeRenderer::readTag(tinyxml2::XMLElement const* parent, std::s
     return error;
 }
 
-std::string GPDSPNodeRenderer::stringize(GPDSPError error) noexcept
+char const* GPDSPNodeRenderer::stringize(GPDSPError error) noexcept
 {
-    char result[256] = "\0";
+    char const* result("");
     
     switch (error) {
         case GPDSPERROR_OK:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_OK)", error);
+            result = "GPDSPERROR_OK";
             break;
         case GPDSPERROR_WAIT:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_WAIT)", error);
+            result = "GPDSPERROR_WAIT";
             break;
         case GPDSPERROR_IGNORE:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_IGNORE)", error);
+            result = "GPDSPERROR_IGNORE";
             break;
         case GPDSPERROR_FRAGMENT:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_FRAGMENT)", error);
+            result = "GPDSPERROR_FRAGMENT";
             break;
         case GPDSPERROR_LOOP:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_LOOP)", error);
+            result = "GPDSPERROR_LOOP";
             break;
         case GPDSPERROR_NO_SUPPORT:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_SUPPORT)", error);
+            result = "GPDSPERROR_NO_SUPPORT";
             break;
         case GPDSPERROR_NO_FILE:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_FILE)", error);
+            result = "GPDSPERROR_NO_FILE";
             break;
         case GPDSPERROR_NO_MEMORY:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_MEMORY)", error);
+            result = "GPDSPERROR_NO_MEMORY";
             break;
         case GPDSPERROR_NO_FOUND:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_FOUND)", error);
+            result = "GPDSPERROR_NO_FOUND";
             break;
         case GPDSPERROR_NO_NODE:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_NO_NODE)", error);
+            result = "GPDSPERROR_NO_NODE";
             break;
         case GPDSPERROR_ALREADY_EXIST:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_ALREADY_EXIST)", error);
+            result = "GPDSPERROR_ALREADY_EXIST";
             break;
         case GPDSPERROR_INVALID_STATE:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_STATE)", error);
+            result = "GPDSPERROR_INVALID_STATE";
             break;
         case GPDSPERROR_INVALID_PARAM:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_PARAM)", error);
+            result = "GPDSPERROR_INVALID_PARAM";
             break;
         case GPDSPERROR_INVALID_RANGE:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_RANGE)", error);
+            result = "GPDSPERROR_INVALID_RANGE";
             break;
         case GPDSPERROR_INVALID_FORMAT:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_FORMAT)", error);
+            result = "GPDSPERROR_INVALID_FORMAT";
             break;
         case GPDSPERROR_INVALID_NODE:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_INVALID_NODE)", error);
+            result = "GPDSPERROR_INVALID_NODE";
             break;
         case GPDSPERROR_FAILED:
-            snprintf(result, sizeof(result), "%d (GPDSPERROR_FAILED)", error);
+            result = "GPDSPERROR_FAILED";
             break;
         default:
-            snprintf(result, sizeof(result), "%d (unknown error)", error);
+            result = "unknown error";
             break;
     }
     return result;
@@ -2184,13 +2221,13 @@ GPDSPError GPDSPNodeRenderer::getNodeFlexOutputtable(std::string const& name, st
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeGenericInput(std::string const& name) noexcept
+GPDSPError GPDSPNodeRenderer::newNodeGenerativeInput(std::string const& name, int index) noexcept
 {
-    std::shared_ptr<GPDSPGenericInputNode> node;
+    std::shared_ptr<GPDSPGenerativeInputNode> node;
     GPDSPError error(GPDSPERROR_OK);
     
     try {
-        node = std::make_shared<GPDSPGenericInputNode>();
+        node = std::make_shared<GPDSPGenerativeInputNode>(index);
     }
     catch (std::bad_alloc const&) {
         error = GPDSPERROR_NO_MEMORY;
@@ -2201,13 +2238,13 @@ GPDSPError GPDSPNodeRenderer::newNodeGenericInput(std::string const& name) noexc
     return error;
 }
 
-GPDSPError GPDSPNodeRenderer::newNodeGenericOutput(std::string const& name) noexcept
+GPDSPError GPDSPNodeRenderer::newNodeGenerativeOutput(std::string const& name, int index) noexcept
 {
-    std::shared_ptr<GPDSPGenericOutputNode> node;
+    std::shared_ptr<GPDSPGenerativeOutputNode> node;
     GPDSPError error(GPDSPERROR_OK);
     
     try {
-        node = std::make_shared<GPDSPGenericOutputNode>();
+        node = std::make_shared<GPDSPGenerativeOutputNode>(index);
     }
     catch (std::bad_alloc const&) {
         error = GPDSPERROR_NO_MEMORY;
@@ -2589,11 +2626,14 @@ GPDSPError GPDSPNodeRenderer::readFormatTag(tinyxml2::XMLElement const* parent, 
 GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, std::string const& node, int index, bool positive) noexcept
 {
     tinyxml2::XMLElement* element;
+    std::string string;
     GPDSPError error(GPDSPERROR_OK);
     
     if ((error = addTag(parent, (positive) ? ("positive") : ("negative"), &element)) == GPDSPERROR_OK) {
         if ((error = writeTag(parent, "node", node)) == GPDSPERROR_OK) {
-            error = writeTag(parent, "index", index);
+            if ((error = stringize("::", index, &string)) == GPDSPERROR_OK) {
+                error = writeTag(parent, "output", string);
+            }
         }
     }
     return error;
@@ -2607,15 +2647,22 @@ GPDSPError GPDSPNodeRenderer::writeLinkTag(tinyxml2::XMLElement* parent, GPDSPFl
 GPDSPError GPDSPNodeRenderer::readLinkTag(tinyxml2::XMLElement const* parent, std::string* node, int* index) noexcept
 {
     std::string string;
+    std::string name;
     int number;
     GPDSPError error(GPDSPERROR_OK);
     
-    string = "";
-    if ((error = readTag(parent, "node", false, &string)) == GPDSPERROR_OK) {
-        number = 0;
-        if ((error = readTag(parent, "index", true, &number)) == GPDSPERROR_OK) {
-            *node = string;
-            *index = number;
+    name = "";
+    if ((error = readTag(parent, "node", false, &name)) == GPDSPERROR_OK) {
+        string = "";
+        if ((error = readTag(parent, "output", true, &string)) == GPDSPERROR_OK) {
+            number = 0;
+            if (string != "") {
+                error = numberize("::", string, &number);
+            }
+            if (error == GPDSPERROR_OK) {
+                *node = name;
+                *index = number;
+            }
         }
     }
     return error;
@@ -2629,6 +2676,35 @@ GPDSPError GPDSPNodeRenderer::readLinkTag(tinyxml2::XMLElement const* parent, in
     value = GPDSPFV(0.0);
     if ((error = readTag(parent, "constant", false, format, &value)) == GPDSPERROR_OK) {
         *constant = value;
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::comparePath(std::string const& from, std::string const& to, bool* result) noexcept
+{
+    std::string fvalue;
+    std::string tvalue;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((error = resolvePath(from, &fvalue)) == GPDSPERROR_OK) {
+        if ((error = resolvePath(to, &tvalue)) == GPDSPERROR_OK) {
+            *result = (fvalue == tvalue);
+        }
+    }
+    return error;
+}
+
+GPDSPError GPDSPNodeRenderer::resolvePath(std::string const& param, std::string* result) noexcept
+{
+    char* string;
+    GPDSPError error(GPDSPERROR_OK);
+    
+    if ((string = realpath(param.c_str(), NULL)) != NULL) {
+        *result = string;
+        free(string);
+    }
+    else {
+        error = GPDSPERROR_FAILED;
     }
     return error;
 }

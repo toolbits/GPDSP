@@ -56,7 +56,7 @@ GPDSPSquareWaveNode::~GPDSPSquareWaveNode(void) noexcept
 {
 }
 
-std::string GPDSPSquareWaveNode::getName(void) const noexcept
+char const* GPDSPSquareWaveNode::getName(void) const noexcept
 {
     return "GPDSPSquareWaveNode";
 }

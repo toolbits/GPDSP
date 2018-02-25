@@ -65,6 +65,10 @@ namespace ir {
  
     入力ターミナルは持たず, １つの出力ターミナル "out" を持ちます.
  
+    | 番号 | 入力 | 出力 |
+    | :----: | :----: | :----: |
+    | 0 | - | out |
+ 
     <b>.gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPBufferInputNode>

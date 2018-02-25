@@ -56,7 +56,7 @@ GPDSPTriangleWaveNode::~GPDSPTriangleWaveNode(void) noexcept
 {
 }
 
-std::string GPDSPTriangleWaveNode::getName(void) const noexcept
+char const* GPDSPTriangleWaveNode::getName(void) const noexcept
 {
     return "GPDSPTriangleWaveNode";
 }

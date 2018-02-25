@@ -56,7 +56,7 @@ GPDSPSawtoothWaveNode::~GPDSPSawtoothWaveNode(void) noexcept
 {
 }
 
-std::string GPDSPSawtoothWaveNode::getName(void) const noexcept
+char const* GPDSPSawtoothWaveNode::getName(void) const noexcept
 {
     return "GPDSPSawtoothWaveNode";
 }

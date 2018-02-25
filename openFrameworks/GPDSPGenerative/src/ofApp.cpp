@@ -57,7 +57,7 @@ void ofApp::setup(void)
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSPGenerative 0.9.2        2017 - 2018 iridium.jp");
+    ofSetWindowTitle("GPDSPGenerative 0.9.3        2017 - 2018 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
     _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
@@ -85,8 +85,8 @@ void ofApp::setup(void)
     makeOut("out[L]", 4, "in[L]", ofColor(63, 255, 127));
     makeOut("out[R]", 4, "in[R]", ofColor(255, 63, 127));
     _gui->addBreak();
-    _gui->addButton("rewind...");
-    _gui->addButton("refresh...");
+    _gui->addButton("rewind");
+    _gui->addButton("refresh");
     _gui->onButtonEvent(this, &ofApp::onButtonEvent);
     _gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
     _image.load("graph.png");
@@ -153,7 +153,7 @@ void ofApp::update(void)
     GPDSPError error;
     
     if ((error = _error) != _save) {
-        _gui->getLabel("Error: N/A")->setLabel("Error: " + _dsp.stringize(error));
+        _gui->getLabel("Error: N/A")->setLabel(string("Error: ") + _dsp.stringize(error));
         _gui->getLabel("Error: N/A")->setLabelColor((error == GPDSPERROR_OK) ? (ofColor(63, 255, 127)) : (ofColor(255, 63, 127)));
         _save = error;
     }
@@ -232,7 +232,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo)
         if (ofFile::doesFileExist(dragInfo.files[0]) && !ofDirectory::doesDirectoryExist(dragInfo.files[0])) {
             if (chdir(ofFilePath::getEnclosingDirectory(dragInfo.files[0]).c_str()) == 0) {
                 _mutexParam.lock();
-                _dsp.removeNode("generic");
+                _dsp.removeNode("generative");
                 syncIn("in[L]", 0);
                 selectIn("in[L]", 0, "out[L]", "in[R]");
                 syncIn("in[R]", 0);
@@ -241,8 +241,8 @@ void ofApp::dragEvent(ofDragInfo dragInfo)
                 selectOut("out[L]", 0, "in[L]", "out[R]");
                 syncOut("out[R]", 0);
                 selectOut("out[R]", 0, "in[R]", "out[L]");
-                if ((error = _dsp.newNodeGeneric("generic", dragInfo.files[0])) == GPDSPERROR_OK) {
-                    if (_dsp.getCountI("generic", &count) == GPDSPERROR_OK) {
+                if ((error = _dsp.newNodeGenerative("generative", dragInfo.files[0])) == GPDSPERROR_OK) {
+                    if (_dsp.getCountI("generative", &count) == GPDSPERROR_OK) {
                         syncIn("in[L]", count);
                         if (count > 0) {
                             selectIn("in[L]", 2, "out[L]", "in[R]");
@@ -252,10 +252,10 @@ void ofApp::dragEvent(ofDragInfo dragInfo)
                             selectIn("in[R]", 3, "out[R]", "in[L]");
                         }
                         if (count <= 0) {
-                            ofSystemAlertDialog("Generic file has no input.\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
+                            ofSystemAlertDialog("Generative file has no input.\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
                         }
                     }
-                    if (_dsp.getCountO("generic", &count) == GPDSPERROR_OK) {
+                    if (_dsp.getCountO("generative", &count) == GPDSPERROR_OK) {
                         syncOut("out[L]", count);
                         if (count > 0) {
                             selectOut("out[L]", 2, "in[L]", "out[R]");
@@ -265,16 +265,16 @@ void ofApp::dragEvent(ofDragInfo dragInfo)
                             selectOut("out[R]", 3, "in[R]", "out[L]");
                         }
                         if (count <= 0) {
-                            ofSystemAlertDialog("Generic file has no output.\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
+                            ofSystemAlertDialog("Generative file has no output.\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
                         }
                     }
                     _gui->getLabel("File: N/A")->setLabel("File: " + ofFilePath::getFileName(dragInfo.files[0]));
                     _gui->getLabel("File: N/A")->setLabelColor(ofColor(63, 255, 127));
                 }
                 else {
-                    _gui->getLabel("File: N/A")->setLabel("File: " + _dsp.stringize(error));
+                    _gui->getLabel("File: N/A")->setLabel(string("File: ") + _dsp.stringize(error));
                     _gui->getLabel("File: N/A")->setLabelColor(ofColor(255, 63, 127));
-                    ofSystemAlertDialog("Generic file open failed : " + _dsp.stringize(error) + "\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
+                    ofSystemAlertDialog(string("Generative file open failed : ") + _dsp.stringize(error) + "\n\n" + ofFilePath::getFileName(dragInfo.files[0]));
                 }
                 _mutexParam.unlock();
             }
@@ -285,12 +285,12 @@ void ofApp::dragEvent(ofDragInfo dragInfo)
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
-    if (e.target->is("rewind...")) {
+    if (e.target->is("rewind")) {
         _mutexParam.lock();
         _dsp.rewind();
         _mutexParam.unlock();
     }
-    else if (e.target->is("refresh...")) {
+    else if (e.target->is("refresh")) {
         _mutexParam.lock();
         _dsp.refresh();
         _mutexParam.unlock();
@@ -374,7 +374,7 @@ void ofApp::syncIn(string const& label, int size)
     dropdown = _gui->getDropdown(label + " -> N/A");
     for (i = 0; i < dropdown->size(); ++i) {
         dropdown->getChildAt(i)->setVisible(i - 2 < size);
-        if (_dsp.getNameI("generic", i - 2, &name) == GPDSPERROR_OK) {
+        if (_dsp.getNameI("generative", i - 2, &name) == GPDSPERROR_OK) {
             dropdown->getChildAt(i)->setLabel(label + " -> " + name);
         }
     }
@@ -390,7 +390,7 @@ void ofApp::syncOut(string const& label, int size)
     dropdown = _gui->getDropdown(label + " <- N/A");
     for (i = 0; i < dropdown->size(); ++i) {
         dropdown->getChildAt(i)->setVisible(i - 2 < size);
-        if (_dsp.getNameO("generic", i - 2, &name) == GPDSPERROR_OK) {
+        if (_dsp.getNameO("generative", i - 2, &name) == GPDSPERROR_OK) {
             dropdown->getChildAt(i)->setLabel(label + " <- " + name);
         }
     }
@@ -405,7 +405,7 @@ void ofApp::selectIn(string const& in, int index, string const& out, string cons
         _select[out + " <- N/A"] = 0;
     }
     if (index >= 2) {
-        _dsp.setLinkPositiveI("generic", index - 2, in, 0);
+        _dsp.setLinkPositiveI("generative", index - 2, in, 0);
         if (_select[other + " -> N/A"] == index) {
             _gui->getDropdown(other + " -> N/A")->select(0);
             _select[other + " -> N/A"] = 0;
@@ -429,8 +429,8 @@ void ofApp::selectOut(string const& out, int index, string const& in, string con
         _select[in + " -> N/A"] = 0;
     }
     if (index >= 2) {
-        _dsp.clearLinkO("generic", index - 2);
-        _dsp.setLinkPositiveI(out, 0, "generic", index - 2);
+        _dsp.clearLinkO("generative", index - 2);
+        _dsp.setLinkPositiveI(out, 0, "generative", index - 2);
         if (_select[other + " <- N/A"] == index) {
             _gui->getDropdown(other + " <- N/A")->select(0);
             _select[other + " <- N/A"] = 0;
