@@ -1376,7 +1376,7 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* s
                                                     string = xml.instance->Name();
                                                     if (string == "GPDSPBufferInputNode") {
                                                         param.length = 0;
-                                                        param.interleave = 0;
+                                                        param.interleave = 1;
                                                         if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
                                                             if ((error = readTag(xml.param, "length", true, &param.length)) == GPDSPERROR_OK) {
                                                                 error = readTag(xml.param, "interleave", true, &param.interleave);
@@ -1388,7 +1388,7 @@ GPDSPError GPDSPNodeRenderer::load(std::string const& file, GPDSPSerializable* s
                                                     }
                                                     else if (string == "GPDSPBufferOutputNode") {
                                                         param.length = 0;
-                                                        param.interleave = 0;
+                                                        param.interleave = 1;
                                                         if ((xml.param = xml.instance->FirstChildElement("param")) != NULL) {
                                                             if ((error = readTag(xml.param, "length", true, &param.length)) == GPDSPERROR_OK) {
                                                                 error = readTag(xml.param, "interleave", true, &param.interleave);
@@ -1673,8 +1673,6 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
                                                         xml.instance->SetName("GPDSPBufferInputNode");
                                                         if (!bufferInput->isDelegate()) {
                                                             if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                                param.length = 0;
-                                                                param.interleave = 0;
                                                                 bufferInput->getBufferReadonly(&param.length, &param.interleave);
                                                                 if ((error = writeTag(xml.param, "length", param.length)) == GPDSPERROR_OK) {
                                                                     error = writeTag(xml.param, "interleave", param.interleave);
@@ -1686,8 +1684,6 @@ GPDSPError GPDSPNodeRenderer::save(std::string const& file, GPDSPSerializable* s
                                                         xml.instance->SetName("GPDSPBufferOutputNode");
                                                         if (!bufferOutput->isDelegate()) {
                                                             if ((error = addTag(xml.instance, "param", &xml.param)) == GPDSPERROR_OK) {
-                                                                param.length = 0;
-                                                                param.interleave = 0;
                                                                 bufferOutput->getBufferReadonly(&param.length, &param.interleave);
                                                                 if ((error = writeTag(xml.param, "length", param.length)) == GPDSPERROR_OK) {
                                                                     error = writeTag(xml.param, "interleave", param.interleave);

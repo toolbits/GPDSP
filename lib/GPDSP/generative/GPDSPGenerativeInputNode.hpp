@@ -69,7 +69,7 @@ namespace ir {
     | :----: | :----: | :----: |
     | 0 | - | out |
  
-    <b>.gpdsp ファイルでの記述例</b>
+    <b>gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPGenerativeInputNode>
         <name>公開する入力ターミナル名</name>

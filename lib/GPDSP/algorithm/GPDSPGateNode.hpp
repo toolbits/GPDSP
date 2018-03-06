@@ -69,7 +69,7 @@ namespace ir {
     | :----: | :----: | :----: |
     | 0 | in | out |
  
-    <b>.gpdsp ファイルでの記述例</b>
+    <b>gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPGateNode>
         <name>ノード名</name>

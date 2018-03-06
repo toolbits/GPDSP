@@ -58,9 +58,9 @@
 
 namespace ir {
 
-//! 極限ノードを表す具象クラス
+//! 極値ノードを表す具象クラス
 /*!
-    GPDSPPeakNode クラスは, 入力の振幅の最大値を出力する極限ノードを表す具象クラスです.
+    GPDSPPeakNode クラスは, 入力の振幅の最大値を出力する極値ノードを表す具象クラスです.
     振幅は入力の絶対値となるため, 出力が負の値になることはありません.
  
     １つの入力ターミナル "in" と, １つの出力ターミナル "out" を持ちます.
@@ -69,7 +69,7 @@ namespace ir {
     | :----: | :----: | :----: |
     | 0 | in | out |
  
-    <b>.gpdsp ファイルでの記述例</b>
+    <b>gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPPeakNode>
         <name>ノード名</name>
@@ -89,7 +89,7 @@ class GPDSPPeakNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
     public:
         //! コンストラクタです.
         /*!
-            極限値を 0.0 に初期化します.
+            極値を 0.0 に初期化します.
          */
         explicit                            GPDSPPeakNode               (void) noexcept;
         //! デストラクタです.
@@ -119,7 +119,7 @@ class GPDSPPeakNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
             @retval #GPDSPERROR_INVALID_RANGE 範囲外のパラメータ
          */
         virtual GPDSPError                  process                     (void) noexcept;
-        //! 極限値を 0.0 に再初期化します.
+        //! 極値を 0.0 に再初期化します.
         virtual void                        refresh                     (void) noexcept;
     private:
                                             GPDSPPeakNode               (GPDSPPeakNode const&);

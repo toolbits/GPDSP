@@ -57,7 +57,7 @@ class ofApp : public ofBaseApp, public GPDSPSerializable {
         struct IORec {
             vector<ofSoundDevice> device;
             ofSoundStream stream;
-            vector<GPDSPFloat> buffer;
+            GPDSPFloat* buffer[2];
             ofMutex mutex;
         };
     
@@ -83,9 +83,14 @@ class ofApp : public ofBaseApp, public GPDSPSerializable {
         void onToggleEvent(ofxDatGuiToggleEvent e);
         void onSliderEvent(ofxDatGuiSliderEvent e);
         void onDropdownEvent(ofxDatGuiDropdownEvent e);
+    
+        // 復元を行うための関数
         GPDSPError load(GPDSPNodeRenderer* renderer, std::string const& type, std::string const& name, int format, tinyxml2::XMLElement const* element) noexcept;
+    
+        // 保存を行うための関数
         GPDSPError save(GPDSPNodeRenderer const& renderer, std::shared_ptr<GPDSPNode const> const& node, std::string const& name, tinyxml2::XMLElement* element) noexcept;
     private:
+        void retouch(void);
         void makeIn(string const& in, int size, string const& out, ofColor const& color);
         void makeOut(string const& out, int size, string const& in, ofColor const& color);
         void syncIn(string const& label, int size);

@@ -69,7 +69,7 @@ namespace ir {
     | :----: | :----: | :----: |
     | 0 | - | out |
  
-    <b>.gpdsp ファイルでの記述例</b>
+    <b>gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPBufferInputNode>
         <name>ノード名</name>
@@ -122,6 +122,8 @@ class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRe
                 GPDSPError                  setBuffer                   (GPDSPFloat const* buffer, int length, int interleave) noexcept;
         //! 読み込み専用の入力バッファを取得します.
         /*!
+            戻り値に NULL が返却される場合でも length 引数と interleave 引数は書き換えられます.
+         
             @param[out] length 入力バッファのサイズ (NULL 可能)
             @param[out] interleave データの間隔 (NULL 可能)
             @retval NULL 入力バッファが設定されていない
@@ -130,6 +132,8 @@ class GPDSPBufferInputNode : public GPDSPOutputtableNode, public virtual GPDSPRe
                 GPDSPFloat const*           getBufferReadonly           (int* length, int* interleave) const noexcept;
         //! 書き込み可能な入力バッファを取得します.
         /*!
+            戻り値に NULL が返却される場合でも length 引数と interleave 引数は書き換えられます.
+         
             @param[out] length 入力バッファのサイズ (NULL 可能)
             @param[out] interleave データの間隔 (NULL 可能)
             @retval NULL 自動的に確保された入力バッファではない

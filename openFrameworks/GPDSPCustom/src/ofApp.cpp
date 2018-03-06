@@ -55,21 +55,18 @@
 
 void ofApp::setup(void)
 {
-    int count;
-    
     ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(31, 31, 31);
-    ofSetWindowTitle("GPDSPCustom 0.9.3        2017 - 2018 iridium.jp");
+    ofSetWindowTitle("GPDSPCustom 0.9.4        2017 - 2018 iridium.jp");
     ofSetDataPathRoot(ofFilePath::join(ofFilePath::getEnclosingDirectory(ofFilePath::removeTrailingSlash(ofFilePath::getCurrentExeDir())), "Resources"));
     
-    _i.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
-    _o.buffer.resize(BUFFER_SIZE * CHANNEL_SIZE, 0.0f);
     _dsp.setRate(SAMPLING_RATE);
-    _dsp.newNodeBufferInput("in[L]", &_i.buffer[0], BUFFER_SIZE, CHANNEL_SIZE);
-    _dsp.newNodeBufferInput("in[R]", &_i.buffer[1], BUFFER_SIZE, CHANNEL_SIZE);
-    _dsp.newNodeBufferOutput("out[L]", &_o.buffer[0], BUFFER_SIZE, CHANNEL_SIZE);
-    _dsp.newNodeBufferOutput("out[R]", &_o.buffer[1], BUFFER_SIZE, CHANNEL_SIZE);
+    _dsp.newNodeBufferInput("in[L]", NULL, BUFFER_SIZE, 1);
+    _dsp.newNodeBufferInput("in[R]", NULL, BUFFER_SIZE, 1);
+    _dsp.newNodeBufferOutput("out[L]", NULL, BUFFER_SIZE, 1);
+    _dsp.newNodeBufferOutput("out[R]", NULL, BUFFER_SIZE, 1);
+    _dsp.appendNode("clicker", std::make_shared<myClickerNode>());
     _error = GPDSPERROR_OK;
     _save = GPDSPERROR_LIMIT;
     
@@ -98,34 +95,7 @@ void ofApp::setup(void)
     _gui->onSliderEvent(this, &ofApp::onSliderEvent);
     _gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
     
-    syncIn("in[L]", 0);
-    selectIn("in[L]", 1, "out[L]", "in[R]");
-    syncIn("in[R]", 0);
-    selectIn("in[R]", 1, "out[R]", "in[L]");
-    syncOut("out[L]", 0);
-    syncOut("out[R]", 0);
-    
-    _dsp.appendNode("clicker", std::make_shared<myClickerNode>());
-    if (_dsp.getCountI("clicker", &count) == GPDSPERROR_OK) {
-        syncIn("in[L]", count);
-        if (count > 0) {
-            selectIn("in[L]", 2, "out[L]", "in[R]");
-        }
-        syncIn("in[R]", count);
-        if (count > 1) {
-            selectIn("in[R]", 3, "out[R]", "in[L]");
-        }
-    }
-    if (_dsp.getCountO("clicker", &count) == GPDSPERROR_OK) {
-        syncOut("out[L]", count);
-        if (count > 0) {
-            selectOut("out[L]", 2, "in[L]", "out[R]");
-        }
-        syncOut("out[R]", count);
-        if (count > 1) {
-            selectOut("out[R]", 3, "in[R]", "out[L]");
-        }
-    }
+    retouch();
     return;
 }
 
@@ -141,14 +111,16 @@ void ofApp::audioIn(float* buffer, int size, int channel)
 {
     _i.mutex.lock();
     _mutexIO.lock();
-#ifdef __GPDSP64
-    size *= channel;
-    for (int i = 0; i < size; ++i) {
-        _i.buffer[i] = buffer[i];
+    if (_i.buffer[0] != NULL) {
+        for (int i = 0; i < size; ++i) {
+            _i.buffer[0][i] = buffer[i * channel + 0];
+        }
     }
-#else
-    memcpy(_i.buffer.data(), buffer, _i.buffer.size() * sizeof(float));
-#endif
+    if (_i.buffer[1] != NULL) {
+        for (int i = 0; i < size; ++i) {
+            _i.buffer[1][i] = buffer[i * channel + 1];
+        }
+    }
     _mutexIO.unlock();
     _i.mutex.unlock();
     return;
@@ -166,14 +138,16 @@ void ofApp::audioOut(float* buffer, int size, int channel)
     _mutexIO.unlock();
     _mutexParam.unlock();
     _o.mutex.unlock();
-#ifdef __GPDSP64
-    size *= channel;
-    for (int i = 0; i < size; ++i) {
-        buffer[i] = _o.buffer[i];
+    if (_o.buffer[0] != NULL) {
+        for (int i = 0; i < size; ++i) {
+            buffer[i * channel + 0] = _o.buffer[0][i];
+        }
     }
-#else
-    memcpy(buffer, _o.buffer.data(), _o.buffer.size() * sizeof(float));
-#endif
+    if (_o.buffer[1] != NULL) {
+        for (int i = 0; i < size; ++i) {
+            buffer[i * channel + 1] = _o.buffer[1][i];
+        }
+    }
     return;
 }
 
@@ -199,47 +173,55 @@ void ofApp::draw(void)
     ofEnableBlendMode(OF_BLENDMODE_ADD);
     ofSetLineWidth(3.0);
     _i.mutex.lock();
-    ofSetColor(63, 255, 127, 63);
-    for (i = 1; i < BUFFER_SIZE; ++i) {
-        ofDrawLine(i - 1, -_i.buffer[(i - 1) * 2 + 0] * DRAWING_GAIN - DRAWING_OFFSET, i, -_i.buffer[i * 2 + 0] * DRAWING_GAIN - DRAWING_OFFSET);
+    if (_i.buffer[0] != NULL) {
+        ofSetColor(63, 255, 127, 63);
+        for (i = 1; i < BUFFER_SIZE; ++i) {
+            ofDrawLine(i - 1, -_i.buffer[0][i - 1] * DRAWING_GAIN - DRAWING_OFFSET, i, -_i.buffer[0][i] * DRAWING_GAIN - DRAWING_OFFSET);
+        }
     }
-    ofSetColor(255, 63, 127, 63);
-    for (i = 1; i < BUFFER_SIZE; ++i) {
-        ofDrawLine(i - 1, -_i.buffer[(i - 1) * 2 + 1] * DRAWING_GAIN + DRAWING_OFFSET, i, -_i.buffer[i * 2 + 1] * DRAWING_GAIN + DRAWING_OFFSET);
+    if (_i.buffer[1] != NULL) {
+        ofSetColor(255, 63, 127, 63);
+        for (i = 1; i < BUFFER_SIZE; ++i) {
+            ofDrawLine(i - 1, -_i.buffer[1][i - 1] * DRAWING_GAIN + DRAWING_OFFSET, i, -_i.buffer[1][i] * DRAWING_GAIN + DRAWING_OFFSET);
+        }
     }
     _i.mutex.unlock();
     _o.mutex.lock();
-    valid = true;
-    for (i = 0; i < BUFFER_SIZE; ++i) {
-        if (isinf(_o.buffer[i * 2 + 0]) || isnan(_o.buffer[i * 2 + 0])) {
-            valid = false;
+    if (_o.buffer[0] != NULL) {
+        valid = true;
+        for (i = 0; i < BUFFER_SIZE; ++i) {
+            if (isinf(_o.buffer[0][i]) || isnan(_o.buffer[0][i])) {
+                valid = false;
+            }
+        }
+        if (valid) {
+            ofSetColor(63, 255, 127);
+            for (i = 1; i < BUFFER_SIZE; ++i) {
+                ofDrawLine(i - 1, -_o.buffer[0][i - 1] * DRAWING_GAIN - DRAWING_OFFSET, i, -_o.buffer[0][i] * DRAWING_GAIN - DRAWING_OFFSET);
+            }
+        }
+        else {
+            ofSetColor(255, 0, 0);
+            ofDrawLine(0, -DRAWING_OFFSET, BUFFER_SIZE, -DRAWING_OFFSET);
         }
     }
-    if (valid) {
-        ofSetColor(63, 255, 127);
-        for (i = 1; i < BUFFER_SIZE; ++i) {
-            ofDrawLine(i - 1, -_o.buffer[(i - 1) * 2 + 0] * DRAWING_GAIN - DRAWING_OFFSET, i, -_o.buffer[i * 2 + 0] * DRAWING_GAIN - DRAWING_OFFSET);
+    if (_o.buffer[1] != NULL) {
+        valid = true;
+        for (i = 0; i < BUFFER_SIZE; ++i) {
+            if (isinf(_o.buffer[1][i]) || isnan(_o.buffer[1][i])) {
+                valid = false;
+            }
         }
-    }
-    else {
-        ofSetColor(255, 0, 0);
-        ofDrawLine(0, -DRAWING_OFFSET, BUFFER_SIZE, -DRAWING_OFFSET);
-    }
-    valid = true;
-    for (i = 0; i < BUFFER_SIZE; ++i) {
-        if (isinf(_o.buffer[i * 2 + 1]) || isnan(_o.buffer[i * 2 + 1])) {
-            valid = false;
+        if (valid) {
+            ofSetColor(255, 63, 127);
+            for (i = 1; i < BUFFER_SIZE; ++i) {
+                ofDrawLine(i - 1, -_o.buffer[1][i - 1] * DRAWING_GAIN + DRAWING_OFFSET, i, -_o.buffer[1][i] * DRAWING_GAIN + DRAWING_OFFSET);
+            }
         }
-    }
-    if (valid) {
-        ofSetColor(255, 63, 127);
-        for (i = 1; i < BUFFER_SIZE; ++i) {
-            ofDrawLine(i - 1, -_o.buffer[(i - 1) * 2 + 1] * DRAWING_GAIN + DRAWING_OFFSET, i, -_o.buffer[i * 2 + 1] * DRAWING_GAIN + DRAWING_OFFSET);
+        else {
+            ofSetColor(255, 0, 0);
+            ofDrawLine(0, +DRAWING_OFFSET, BUFFER_SIZE, +DRAWING_OFFSET);
         }
-    }
-    else {
-        ofSetColor(255, 0, 0);
-        ofDrawLine(0, +DRAWING_OFFSET, BUFFER_SIZE, +DRAWING_OFFSET);
     }
     _o.mutex.unlock();
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
@@ -249,15 +231,25 @@ void ofApp::draw(void)
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
+    ofFileDialogResult result;
+    
     if (e.target->is("load")) {
-        _mutexParam.lock();
-        _error = _dsp.load(ofToDataPath("custom.gpdsp"), this);
-        _mutexParam.unlock();
+        result = ofSystemLoadDialog();
+        if (result.bSuccess) {
+            _mutexParam.lock();
+            _dsp.clearNode();
+            _error = _dsp.load(result.getPath(), this);
+            retouch();
+            _mutexParam.unlock();
+        }
     }
     else if (e.target->is("save")) {
-        _mutexParam.lock();
-        _error = _dsp.save(ofToDataPath("custom.gpdsp"), this);
-        _mutexParam.unlock();
+        result = ofSystemSaveDialog("custom.gpdsp", "");
+        if (result.bSuccess) {
+            _mutexParam.lock();
+            _error = _dsp.save(result.getPath(), this);
+            _mutexParam.unlock();
+        }
     }
     else if (e.target->is("rewind")) {
         _mutexParam.lock();
@@ -323,6 +315,7 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
     return;
 }
 
+// 復元を行うための関数
 GPDSPError ofApp::load(GPDSPNodeRenderer* renderer, std::string const& type, std::string const& name, int format, tinyxml2::XMLElement const* element) noexcept
 {
     std::shared_ptr<myClickerNode> clicker;
@@ -331,42 +324,63 @@ GPDSPError ofApp::load(GPDSPNodeRenderer* renderer, std::string const& type, std
     GPDSPFloat overflow;
     GPDSPError error(GPDSPERROR_OK);
     
+    // ノードの種類が実装したいノードであるかを検証
     if (type == "myClickerNode") {
+        
+        // gpdsp ファイルの記述内で値が指定されていない場合のためにデフォルト値を設定
         interlock = myClickerNode::defaultInterlock();
         overflow = myClickerNode::defaultOverflow();
+        
+        // tinyxml2 を利用してノードに固有の値を gpdsp ファイルから復元
         if ((param = element->FirstChildElement("param")) != NULL) {
             if ((error = GPDSPNodeRenderer::readTag(param, "interlock", true, &interlock)) == GPDSPERROR_OK) {
                 error = GPDSPNodeRenderer::readTag(param, "overflow", true, format, &overflow);
             }
         }
         if (error == GPDSPERROR_OK) {
+            
+            // 例外を利用しない設計なので try ~ catch 構文で例外を捕捉しエラーに変換
             try {
+                
+                // カスタムノードのインスタンスを生成
                 clicker = std::make_shared<myClickerNode>();
             }
             catch (std::bad_alloc const&) {
                 error = GPDSPERROR_NO_MEMORY;
             }
             if (error == GPDSPERROR_OK) {
+                
+                // gpdsp ファイルから復元した値を設定
                 clicker->setInterlock(interlock);
                 clicker->setOverflow(overflow);
+                
+                // カスタムノードのインスタンスを GPDSPNodeRenderer クラスのインスタンスに登録
                 error = renderer->appendNode(name, clicker);
             }
         }
     }
     else {
+        
+        // ノードの種類が一致しないときは GPDSPERROR_NO_SUPPORT を必ず返却
         error = GPDSPERROR_NO_SUPPORT;
     }
     return error;
 }
 
+// 保存を行うための関数
 GPDSPError ofApp::save(GPDSPNodeRenderer const& renderer, std::shared_ptr<GPDSPNode const> const& node, std::string const& name, tinyxml2::XMLElement* element) noexcept
 {
     std::shared_ptr<myClickerNode const> clicker;
     tinyxml2::XMLElement* param;
     GPDSPError error(GPDSPERROR_OK);
     
+    // ノードの種類が実装したいノードであるかを検証
     if ((clicker = std::dynamic_pointer_cast<myClickerNode const>(node)) != NULL) {
+        
+        // tinyxml2 を利用してノードの種類をタグ名として設定
         element->SetName("myClickerNode");
+        
+        // tinyxml2 を利用してノードに固有の値を gpdsp ファイルに保存
         if ((error = GPDSPNodeRenderer::addTag(element, "param", &param)) == GPDSPERROR_OK) {
             if ((error = GPDSPNodeRenderer::writeTag(param, "interlock", clicker->getInterlock())) == GPDSPERROR_OK) {
                 error = GPDSPNodeRenderer::writeTag(param, "overflow", clicker->getOverflow());
@@ -374,9 +388,62 @@ GPDSPError ofApp::save(GPDSPNodeRenderer const& renderer, std::shared_ptr<GPDSPN
         }
     }
     else {
+        
+        // ノードの種類が一致しないときは GPDSPERROR_NO_SUPPORT を必ず返却
         error = GPDSPERROR_NO_SUPPORT;
     }
     return error;
+}
+
+void ofApp::retouch(void)
+{
+    shared_ptr<GPDSPBufferInputNode> bi;
+    shared_ptr<GPDSPBufferOutputNode> bo;
+    int count;
+    
+    syncIn("in[L]", 0);
+    selectIn("in[L]", 1, "out[L]", "in[R]");
+    _i.buffer[0] = NULL;
+    if ((bi = _dsp.getNodeBufferInput("in[L]")) != NULL) {
+        _i.buffer[0] = bi->getBufferWritable(NULL, NULL);
+    }
+    syncIn("in[R]", 0);
+    selectIn("in[R]", 1, "out[R]", "in[L]");
+    _i.buffer[1] = NULL;
+    if ((bi = _dsp.getNodeBufferInput("in[R]")) != NULL) {
+        _i.buffer[1] = bi->getBufferWritable(NULL, NULL);
+    }
+    syncOut("out[L]", 0);
+    _o.buffer[0] = NULL;
+    if ((bo = _dsp.getNodeBufferOutput("out[L]")) != NULL) {
+        _o.buffer[0] = const_cast<GPDSPFloat*>(bo->getBufferReadonly(NULL, NULL));
+    }
+    syncOut("out[R]", 0);
+    _o.buffer[1] = NULL;
+    if ((bo = _dsp.getNodeBufferOutput("out[R]")) != NULL) {
+        _o.buffer[1] = const_cast<GPDSPFloat*>(bo->getBufferReadonly(NULL, NULL));
+    }
+    if (_dsp.getCountI("clicker", &count) == GPDSPERROR_OK) {
+        syncIn("in[L]", count);
+        if (count > 0) {
+            selectIn("in[L]", 2, "out[L]", "in[R]");
+        }
+        syncIn("in[R]", count);
+        if (count > 1) {
+            selectIn("in[R]", 3, "out[R]", "in[L]");
+        }
+    }
+    if (_dsp.getCountO("clicker", &count) == GPDSPERROR_OK) {
+        syncOut("out[L]", count);
+        if (count > 0) {
+            selectOut("out[L]", 2, "in[L]", "out[R]");
+        }
+        syncOut("out[R]", count);
+        if (count > 1) {
+            selectOut("out[R]", 3, "in[R]", "out[L]");
+        }
+    }
+    return;
 }
 
 void ofApp::makeIn(string const& in, int size, string const& out, ofColor const& color)

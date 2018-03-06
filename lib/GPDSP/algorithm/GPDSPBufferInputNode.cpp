@@ -114,6 +114,14 @@ GPDSPFloat const* GPDSPBufferInputNode::getBufferReadonly(int* length, int* inte
             *interleave = _interleave;
         }
     }
+    else {
+        if (length != NULL) {
+            *length = 0;
+        }
+        if (interleave != NULL) {
+            *interleave = 1;
+        }
+    }
     return _delegate;
 }
 
@@ -121,15 +129,21 @@ GPDSPFloat* GPDSPBufferInputNode::getBufferWritable(int* length, int* interleave
 {
     GPDSPFloat* result(NULL);
     
-    if (_delegate != NULL) {
-        if (_buffer.size() > 0) {
-            if (length != NULL) {
-                *length = _length;
-            }
-            if (interleave != NULL) {
-                *interleave = _interleave;
-            }
-            result = _buffer.data();
+    if (_delegate != NULL && _buffer.size() > 0) {
+        if (length != NULL) {
+            *length = _length;
+        }
+        if (interleave != NULL) {
+            *interleave = _interleave;
+        }
+        result = _buffer.data();
+    }
+    else {
+        if (length != NULL) {
+            *length = 0;
+        }
+        if (interleave != NULL) {
+            *interleave = 1;
         }
     }
     return result;

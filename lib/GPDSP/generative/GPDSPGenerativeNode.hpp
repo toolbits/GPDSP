@@ -65,7 +65,7 @@ class GPDSPGenerativeOutputNode;
 
 //! 生成的ノードを表す具象クラス
 /*!
-    GPDSPGenerativeNode クラスは, .gpdsp 拡張子を持つ外部ファイルから XML 形式で記述されたノードの構成を読み込み,
+    GPDSPGenerativeNode クラスは, gpdsp 形式の外部ファイルから XML で記述されたノードの構成を読み込み,
     任意の特性を持つフィルタとして振る舞う生成的ノードを表す具象クラスです.
  
     GPDSPGenerativeInputNode クラス, GPDSPGenerativeOutputNode クラスとともに利用します.
@@ -78,12 +78,12 @@ class GPDSPGenerativeOutputNode;
     | 1 | ? | ? |
     | N-1 | ? | ? |
  
-    <b>.gpdsp ファイルでの記述例</b>
+    <b>gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPGenerativeNode>
         <name>ノード名</name>
         <param>
-            <file>.gpdsp ファイルのパス</file>
+            <file>gpdsp ファイルのパス</file>
         </param>
         <input>
             <::0>
@@ -126,6 +126,11 @@ class GPDSPGenerativeNode : public GPDSPInputtableNode, public GPDSPOutputtableN
             管理しているリソースを解放します.
          */
         virtual                             ~GPDSPGenerativeNode        (void) noexcept;
+        //! サンプリングレートを取得します.
+        /*!
+            @return 現在のサンプリングレート
+         */
+                int                         getRate                     (void) const noexcept;
         //! 内部で利用している GPDSPNodeRenderer クラスのインスタンスを取得します.
         /*!
             @return インスタンスへの参照
@@ -136,7 +141,7 @@ class GPDSPGenerativeNode : public GPDSPInputtableNode, public GPDSPOutputtableN
             @return パスへの参照
          */
                 std::string const&          getFile                     (void) const noexcept;
-        //! .gpdsp 拡張子を持つ外部ファイルを開いて, XML 形式で記述されたノードの構成を読み込みます.
+        //! gpdsp 形式の外部ファイルを開いて, XML で記述されたノードの構成を読み込みます.
         /*!
             @param[in] file ファイルのパス
             @retval #GPDSPERROR_OK 正常
@@ -204,6 +209,11 @@ class GPDSPGenerativeNode : public GPDSPInputtableNode, public GPDSPOutputtableN
                                             GPDSPGenerativeNode         (GPDSPGenerativeNode const&);
                 GPDSPGenerativeNode&        operator=                   (GPDSPGenerativeNode const&);
 };
+
+inline int GPDSPGenerativeNode::getRate(void) const noexcept
+{
+    return _rate;
+}
 
 inline GPDSPNodeRenderer const& GPDSPGenerativeNode::getRenderer(void) const noexcept
 {

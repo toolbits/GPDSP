@@ -68,7 +68,7 @@ namespace ir {
     | :----: | :----: | :----: |
     | 0 | in | - |
  
-    <b>.gpdsp ファイルでの記述例</b>
+    <b>gpdsp ファイルでの記述例</b>
     @code{.xml}
     <GPDSPBufferOutputNode>
         <name>ノード名</name>
@@ -127,6 +127,8 @@ class GPDSPBufferOutputNode : public GPDSPInputtableNode, public virtual GPDSPRe
                 GPDSPError                  setBuffer                   (GPDSPFloat* buffer, int length, int interleave) noexcept;
         //! 読み込み専用の出力バッファを取得します.
         /*!
+            戻り値に NULL が返却される場合でも length 引数と interleave 引数は書き換えられます.
+         
             @param[out] length 出力バッファのサイズ (NULL 可能)
             @param[out] interleave データの間隔 (NULL 可能)
             @retval NULL 出力バッファが設定されていない

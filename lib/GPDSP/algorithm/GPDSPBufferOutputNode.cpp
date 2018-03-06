@@ -114,6 +114,14 @@ GPDSPFloat const* GPDSPBufferOutputNode::getBufferReadonly(int* length, int* int
             *interleave = _interleave;
         }
     }
+    else {
+        if (length != NULL) {
+            *length = 0;
+        }
+        if (interleave != NULL) {
+            *interleave = 1;
+        }
+    }
     return _delegate;
 }
 

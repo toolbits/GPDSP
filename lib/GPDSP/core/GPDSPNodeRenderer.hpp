@@ -109,15 +109,15 @@ class GPDSPNodeRenderer {
         //! サンプリングレートを設定します.
         /*!
             サンプリングレートは, ノードが１つも登録されていないときに設定します.
-            すでにノードが存在する場合, この関数は失敗します.
+            すでにノードが存在するとき, この関数は失敗します.
          
             0 を設定すると, 明示的なサンプリングレートの考慮を行いません.
             このとき, 明示的なサンプリングレートの指定を必要とするいくつかの種類のノードは生成に失敗することがあります.
-            また, load() 関数において .gpdsp ファイルで記述されているサンプリングレートとの比較を行いません.
+            また, load() 関数において gpdsp ファイルで記述されているサンプリングレートとの比較を行いません.
          
             0 よりも大きな値を設定すると, サンプリングレートが明示的に処理されます.
             いくつかの種類のノードは, 設定されたサンプリングレートを参照して生成されます.
-            また, load() 関数において .gpdsp ファイルで記述されているサンプリングレートとの比較を行い,
+            また, load() 関数において gpdsp ファイルで記述されているサンプリングレートとの比較を行い,
             一致する項目のノード構成を読み込みます.
          
             @param[in] rate サンプリングレート >= 0
@@ -846,7 +846,7 @@ class GPDSPNodeRenderer {
             @retval #GPDSPERROR_FAILED 失敗
          */
                 GPDSPError                  newNodeSquareWave           (std::string const& name, GPDSPFloat resolution = GPDSPSquareWaveNode::defaultResolution()) noexcept;
-        //! .gpdsp 拡張子を持つ外部ファイルを開いて, XML 形式で記述されたノードの構成を読み込み GPDSPGenerativeNode クラスのノードを生成します.
+        //! gpdsp 形式の外部ファイルを開いて, XML で記述されたノードの構成を読み込み GPDSPGenerativeNode クラスのノードを生成します.
         /*!
             @param[in] name ノード名
             @param[in] file ファイルのパス
@@ -1065,9 +1065,9 @@ class GPDSPNodeRenderer {
             執筆中.
          */
         static  GPDSPError                  readTag                     (tinyxml2::XMLElement const* parent, std::string const& tag, bool implicit, std::string* value) noexcept;
-        //! エラー値を解説を含む文字列に変換します.
+        //! エラーから解説を含む文字列に変換します.
         /*!
-            @param[in] error エラー値
+            @param[in] error エラー
             @return 変換された文字列
          */
         static  char const*                 stringize                   (GPDSPError error) noexcept;

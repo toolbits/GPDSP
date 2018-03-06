@@ -76,7 +76,7 @@ GPDSPFloat myClickerNode::defaultOverflow(void) noexcept
 
 void myClickerNode::setInterlock(bool interlock) noexcept
 {
-    // 左チャンネルと右チャンネルの同期の状態が変更される場合,
+    // 左チャンネルと右チャンネルの同期の状態が変更される場合は,
     // invalidate() 関数を呼び出して演算結果を無効化し再演算を要求
     if (interlock != _interlock) {
         _interlock = interlock;
@@ -92,7 +92,7 @@ bool myClickerNode::getInterlock(void) const noexcept
 
 void myClickerNode::setOverflow(GPDSPFloat overflow) noexcept
 {
-    // オーバーフローとなる限界値の状態が変更される場合,
+    // オーバーフローとなる限界値の状態が変更される場合は,
     // invalidate() 関数を呼び出して演算結果を無効化し再演算を要求
     if (overflow != _overflow) {
         _overflow = overflow;
@@ -136,7 +136,7 @@ GPDSPError myClickerNode::fixate(void) noexcept
 void myClickerNode::invalidate(void) noexcept
 {
     // GPDSPInputtableNode クラスの invalidate() 関数と GPDSPOutputtableNode クラスの
-    // invalidate() 関数は, 暗黙には区別がつかないので明示的に両方の関数を呼び出す
+    // invalidate() 関数は暗黙には区別がつかないので, 明示的に両方の関数を呼び出す
     GPDSPInputtableNode::invalidate();
     GPDSPOutputtableNode::invalidate();
     return;
@@ -194,7 +194,11 @@ GPDSPError myClickerNode::process(void) noexcept
             
             // 右チャンネルが限界値を超えた場合
             if (rov) {
+                
+                // 右チャンネルの積算値を再初期化
                 _rload = GPDSPFV(0.0);
+                
+                // 右チャンネルのクリック音を演算
                 if (rch > GPDSPFV(0.0)) {
                     rch = +sqrt(+rch * GPDSPFV(1000.0)) / GPDSPFV(10.0);
                     rch = std::min(rch, GPDSPFV(+1.0));

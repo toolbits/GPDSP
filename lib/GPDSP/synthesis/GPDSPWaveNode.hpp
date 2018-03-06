@@ -149,6 +149,7 @@ class GPDSPWaveNode : public GPDSPInputtableNode, public GPDSPOutputtableNode, p
         virtual                             ~GPDSPWaveNode              (void) noexcept = 0;
         //! 波形バッファの名前を取得します.
         /*!
+            @retval NULL [返却禁止]
             @retval "" [返却禁止]
             @retval その他 波形バッファの名前
          */

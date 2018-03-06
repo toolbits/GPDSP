@@ -61,12 +61,41 @@ namespace ir {
 class GPDSPNode;
 class GPDSPNodeRenderer;
 
-//! カスタムノードクラスの保存と復元を実装するインターフェースクラス
+//! カスタムノードの[保存と復元](@ref sec_extension_serialize)を実装するインターフェースクラス
 /*!
+    カスタムノードを[保存と復元](@ref sec_extension_serialize)に対応させるには,
+    GPDSPSerializable クラスを継承し, load(), save() 関数を実装します.
  */
 class GPDSPSerializable {
     public:
+        //! gpdsp ファイルからカスタムノードを復元します.
+        /*!
+            @param[in,out] renderer GPDSPNodeRenderer クラスのインスタンスへのポインタ
+            @param[in] type ノードの種類
+            @param[in] name ノード名
+            @param[in] format 浮動小数点のビット数
+            @param[in] element tinyxml2 の XML エレメント
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_WAIT [返却禁止]
+            @retval #GPDSPERROR_IGNORE [返却禁止]
+            @retval #GPDSPERROR_FRAGMENT [返却禁止]
+            @retval #GPDSPERROR_LOOP [返却禁止]
+            @retval その他のエラー
+         */
         virtual GPDSPError                  load                        (GPDSPNodeRenderer* renderer, std::string const& type, std::string const& name, int format, tinyxml2::XMLElement const* element) noexcept = 0;
+        //! gpdsp ファイルにカスタムノードを保存します.
+        /*!
+            @param[in] renderer GPDSPNodeRenderer クラスのインスタンス
+            @param[in] node ノードのインスタンス
+            @param[in] name ノード名
+            @param[in,out] element tinyxml2 の XML エレメント
+            @retval #GPDSPERROR_OK 正常
+            @retval #GPDSPERROR_WAIT [返却禁止]
+            @retval #GPDSPERROR_IGNORE [返却禁止]
+            @retval #GPDSPERROR_FRAGMENT [返却禁止]
+            @retval #GPDSPERROR_LOOP [返却禁止]
+            @retval その他のエラー
+         */
         virtual GPDSPError                  save                        (GPDSPNodeRenderer const& renderer, std::shared_ptr<GPDSPNode const> const& node, std::string const& name, tinyxml2::XMLElement* element) noexcept = 0;
     protected:
         //! コンストラクタです.
